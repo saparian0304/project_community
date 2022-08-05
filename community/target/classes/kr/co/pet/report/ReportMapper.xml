@@ -25,6 +25,15 @@
 		ORDER BY report_no DESC
 	</select>
 	
+	<select id="getCount" parameterType="kr.co.pet.report.ReportVO" resultType="int">
+		SELECT COUNT(*)
+		FROM report 
+		<if test='stat != null'>
+			WHERE stat = #{stat}
+ 		</if>
+		ORDER BY report_no DESC
+	</select>
+	
 	<select id="getReportView" parameterType="kr.co.pet.report.ReportVO" resultType="kr.co.pet.report.ReportVO">
 		SELECT *,
 			(SELECT count(*) 
@@ -39,7 +48,7 @@
  		</if>
 	</select>
 	
-	<select id="getReportList" parameterType="kr.co.pet.report.ReportVO" resultType="kr.co.pet.report.ReportVO">
+	<select id="getMemberList" parameterType="kr.co.pet.report.ReportVO" resultType="kr.co.pet.report.ReportVO">
 		SELECT *,
 			(SELECT count(*) 
 			FROM report sub 

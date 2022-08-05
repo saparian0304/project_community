@@ -23,21 +23,18 @@ public class ReportMapperTests {
 	
 //	@Test
 	public void testInsert() {
-		RecommendVO vo = new RecommendVO();
-		vo.setMember_no(1);
-		vo.setReply_no(3);
-		vo.setBoard_no(1);
-//		mapper.insertRec(vo);
-		
+		ReportVO vo = new ReportVO();
+		vo.setI_no(3);
+		vo.setYou_no(1);
+		vo.setReason(1);
+		vo.setContent("욕설");
+		vo.setBoard_no(3);
+		vo.setReply_no(2);
+		mapper.report(vo);
 		
 	}
 //	@Test
 	public void testcancle() {
-		RecommendVO vo = new RecommendVO();
-		vo.setRec_no(12);
-		int r = mapper.cancleRec(vo);
-		log.info(r);
-		
 	}
 	
 }

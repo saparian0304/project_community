@@ -29,6 +29,13 @@ public interface ReportMapper {
 	List<ReportVO> getReportList(ReportVO vo); // -> select
 	
 	/**
+	 * 신고 게시글/댓글 수
+	 * @param vo ReportVO - [stat] (stat에 따라서 목록을 가져올 수있음)
+	 * @return
+	 */
+	int getCount(ReportVO vo); // -> select
+	
+	/**
 	 * 신고내용 상세페이지 
 	 * @param vo ReportVO - report_no, [stat]
 	 * @return
