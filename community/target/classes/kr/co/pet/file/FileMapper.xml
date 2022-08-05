@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.pet.file.FileMapper">
+	
+	<insert id="insert" parameterType="kr.co.pet.file.FileVO">
+		INSERT INTO file (
+			 filename_org, filename_real, board_no
+		) VALUES (
+			 #{filename_org}, #{filename_real}, (SELECT board_no FROM board WHERE board_no = #{board_no})
+		)
+	</insert>
+	
+	
+	<delete id="delete" parameterType="kr.co.pet.file.FileVO">
+		DELETE FROM file where file_no = #{file_no}
+	</delete>
+	
+	
+	<select id="findByBoard_no" parameterType="kr.co.pet.file.FileVO" resultType="kr.co.pet.file.FileVO">
+		SELECT * FROM file WHERE board_no = #{board_no}
+	</select>
+	
+	<select id="view" parameterType="int" resultType="kr.co.pet.file.FileVO">
+		SELECT * FROM file WHERE board_no = #{board_no}
+	</select>
+	
+	<update id="update" parameterType="kr.co.pet.file.FileVO">
+		UPDATE file SET
+			<!-- board_no = (SELECT board_no FROM board WHERE board_no = #{board_no}), -->
+			filename_org = #{filename_org},
+			filename_real = #{filename_real}
+			WHERE file_no = #{file_no}
+	</update>
+</mapper>

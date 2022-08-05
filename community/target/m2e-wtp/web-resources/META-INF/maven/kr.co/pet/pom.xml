@@ -196,6 +196,23 @@
 		    <artifactId>gson</artifactId>
 		    <version>2.9.0</version>
 		</dependency>
+		
+				<!-- 스마트 에디터 -박- -->
+		<dependency>
+		    <groupId>servlets.com</groupId>
+		    <artifactId>cos</artifactId>
+		    <version>05Nov2002</version>
+		</dependency>
+		
+		<!-- json api사용하려고 -박- -->
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+		
+		
+		
 	</dependencies>
     <build>
         <plugins>

@@ -39,21 +39,6 @@
  		</if>
 	</select>
 	
-	<select id="getReportList" parameterType="kr.co.pet.report.ReportVO" resultType="kr.co.pet.report.ReportVO">
-		SELECT *,
-			(SELECT count(*) 
-			FROM report sub 
-			WHERE sub.board_no = report.board_no 
-				AND sub.reply_no = report.reply_no 
-				AND sub.stat != 'reject') sumCnt
-		FROM report 
-		WHERE you_no = #{you_no} 
-		<if test='stat != null'>
-			AND stat = #{stat}
- 		</if>
-		ORDER BY report_no DESC;
-	</select>
-	
 	<select id="getMemberReportCnt" parameterType="kr.co.pet.report.ReportVO" resultType="kr.co.pet.report.ReportVO">
 		SELECT count(*) sumCnt
 		FROM report sub 
