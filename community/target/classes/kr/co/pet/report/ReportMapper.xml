@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.pet.report.ReportMapper">
+	
+	<insert id="report" parameterType="kr.co.pet.report.ReportVO">
+		INSERT INTO report (i_no, you_no, reason, content, report_date, reply_no, board_no)
+		VALUES ( #{i_no}, #{you_no}, #{reason}, #{content}, now(), #{reply_no}, #{board_no})
+	</insert>
+	
+	<update id="handleReport" parameterType="kr.co.pet.report.ReportVO">
+		UPDATE report SET stat = #{stat}, resdate = now() WHERE report_no = #{report_no}
+	</update>
+	
+	<select id="getReportList" parameterType="kr.co.pet.report.ReportVO" resultType="kr.co.pet.report.ReportVO">
+		SELECT *,
+			(SELECT count(*) 
+			FROM report sub 
+			WHERE sub.board_no = report.board_no 
+				AND sub.reply_no = report.reply_no 
+				AND sub.stat != 'reject') sumCnt
+		FROM report 
+		<if test='stat != null'>
+			WHERE stat = #{stat}
+ 		</if>
+		ORDER BY report_no DESC
+	</select>
+	
+	<select id="getReportView" parameterType="kr.co.pet.report.ReportVO" resultType="kr.co.pet.report.ReportVO">
+		SELECT *,
+			(SELECT count(*) 
+			FROM report sub 
+			WHERE sub.board_no = report.board_no 
+				AND sub.reply_no = report.reply_no 
+				AND sub.stat != 'reject') sumCnt
+		FROM report 
+		WHERE report_no = #{report_no}
+		<if test='stat != null'>
+			AND stat = #{stat}
+ 		</if>
+	</select>
+	
+	<select id="getReportList" parameterType="kr.co.pet.report.ReportVO" resultType="kr.co.pet.report.ReportVO">
+		SELECT *,
+			(SELECT count(*) 
+			FROM report sub 
+			WHERE sub.board_no = report.board_no 
+				AND sub.reply_no = report.reply_no 
+				AND sub.stat != 'reject') sumCnt
+		FROM report 
+		WHERE you_no = #{you_no} 
+		<if test='stat != null'>
+			AND stat = #{stat}
+ 		</if>
+		ORDER BY report_no DESC;
+	</select>
+	
+	<select id="getMemberReportCnt" parameterType="kr.co.pet.report.ReportVO" resultType="kr.co.pet.report.ReportVO">
+		SELECT count(*) sumCnt
+		FROM report sub 
+		WHERE you_no = #{you_no}  
+		<if test='stat != null'>
+			AND stat = #{stat}
+ 		</if>
+	</select>
+	
+</mapper>
