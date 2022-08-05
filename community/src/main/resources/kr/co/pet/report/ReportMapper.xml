@@ -48,7 +48,6 @@
  		</if>
 	</select>
 	
-<<<<<<< HEAD
 	<select id="getMemberList" parameterType="kr.co.pet.report.ReportVO" resultType="kr.co.pet.report.ReportVO">
 		SELECT *,
 			(SELECT count(*) 
@@ -64,8 +63,6 @@
 		ORDER BY report_no DESC;
 	</select>
 	
-=======
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 	<select id="getMemberReportCnt" parameterType="kr.co.pet.report.ReportVO" resultType="kr.co.pet.report.ReportVO">
 		SELECT count(*) sumCnt
 		FROM report sub 
