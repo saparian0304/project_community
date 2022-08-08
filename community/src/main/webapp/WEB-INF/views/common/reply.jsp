@@ -27,7 +27,7 @@
             <tr style="height:70px;">
                 <td>${(status.index)+1}</td>
                 <td class="txt_l">
-                    ${vo.content}<c:if test="${loginInfo.no == vo.member_no}"><a href="javascript:commentDel(${vo.ono});"> &nbsp;&nbsp;[삭제]</a></c:if>
+                    ${vo.content}<c:if test="${loginInfo.member_no == vo.member_no}"><a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a></c:if>
                 </td>                                            
                 <td class="writer">
                      ${vo.member_email}

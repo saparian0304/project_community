@@ -113,14 +113,20 @@ function replyForm(gno){
  
 
 
-function commentDel(no) {
+function commentDel(reply_no) {
+	/* var rcount= ${replyCount};
+	if(rcount > 0) {
+		alert('댓글잇음');
+	} */
 	if(confirm("댓글을 삭제하시겠습니까?")) {
 		$.ajax({
-			url : '/pet/reply/update.do?no='+no,
+			url : '/pet/reply/update.do?reply_no='+reply_no,
 			success : function(res)	{
 				if(res.trim() == '1') {
 					alert('댓글이 정상적으로 삭제되었습니다.');
 					getComment(1);
+					
+				
 				}
 			}	
 		})
@@ -138,7 +144,7 @@ function report(member_no, board_no, reply_no) {
 	} else {
 		isReply = 1
 	}
-	
+
 	var form = document.createElement('form');
 	form.setAttribute('method', 'post');
 	form.setAttribute('action', '/pet/report/write.do');
@@ -158,6 +164,7 @@ function report(member_no, board_no, reply_no) {
 	document.body.appendChild(form);
 	form.submit();
 }
+
 </script>
 
 </head>

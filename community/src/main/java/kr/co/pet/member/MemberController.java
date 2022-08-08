@@ -3,12 +3,11 @@ package kr.co.pet.member;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.print.attribute.standard.Media;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,13 +24,13 @@ public class MemberController {
 	@Autowired
 	MemberService service;
 	
-	@GetMapping("/board/join.do")
+	@GetMapping("/member/join.do")
 	public String join() {
 		System.out.println("############");
 		System.out.println("나옴???");
-		return "join"; 
+		return "member/join"; 
 	}
-	@PostMapping("/board/join.do")
+	@PostMapping("/member/join.do")
 	public String join(MemberVO vo, Model model) {
 //		System.out.println("##############");
 //		System.out.println(vo.getEmail());
@@ -47,11 +46,11 @@ public class MemberController {
 		}
 	}
 	
-	@GetMapping("/board/login.do")
+	@GetMapping("/member/login.do")
 	public String login() {
-		return "login";
+		return "member/login";
 	}
-	@PostMapping("/board/login.do")
+	@PostMapping("/member/login.do")
 	public String login(MemberVO vo, HttpSession sess, Model model) {
 		if(service.loginCheck(vo, sess)) {
 			return "redirect:notice.do"; //notice라는 메서드로 매핑돼있는 곳으로 감. notice라는 이름의 파일을 여는게 아님.
@@ -61,7 +60,17 @@ public class MemberController {
 			return "common/alert";
 		}
 	}
-	@GetMapping("/board/notice.do")
+	
+	@GetMapping("/member/logout.do")
+	public String logout(HttpServletRequest req, Model model) throws IOException{
+		HttpSession sess = req.getSession();
+		sess.invalidate();
+		model.addAttribute("msg", "로그아웃됨");
+		model.addAttribute("url", "/pet/member/login.do");
+		return "common/alert";
+	}
+	
+	@GetMapping("/member/notice.do")
 	public String notice() {
 		return "notice";
 	}
@@ -72,20 +81,20 @@ public class MemberController {
 //		return "notice";
 //	}
 	
-	@PostMapping("/board/idCheck")
+	@PostMapping("/member/idCheck")
 	@ResponseBody
 	public String idCheck(@RequestParam("member_id") String member_id) {
 		int cnt = service.idCheck(member_id);
 		return cnt+"";
 	}
 	
-	@PostMapping("/board/nickname")
+	@PostMapping("/member/nickname")
 	@ResponseBody
 	public String nicknameCheck(@RequestParam("nickname") String nickname) {
 		int cnt = service.nicknameCheck(nickname);
 		return cnt + "";
 	}
-	@GetMapping("/board/emailCheck.do")
+	@GetMapping("/member/emailCheck.do")
 	public void emailCheck(@RequestParam String email, HttpServletResponse res ) throws IOException {
 		int cnt = service.emailCheck(email);
 		boolean r = false;
@@ -95,8 +104,18 @@ public class MemberController {
 		//out.flush();
 	}
 	
-//	@PostMapping("/board/login.do")
-//	public String loginCheck() {
-//		
-//	}
+	@GetMapping("/member/findId.do")
+	public String findId() {
+		return "member/findId";
+	}
+	
+	@PostMapping("/member/findId.do")
+	public String findId(Model model, MemberVO param) {
+		MemberVO vo = service.findId(param);
+		if(vo != null) {
+			model.addAttribute("result", vo.getMember_id());
+		}
+		return "common/result";
+	}
+
 }

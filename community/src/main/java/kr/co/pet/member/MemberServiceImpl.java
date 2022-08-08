@@ -13,8 +13,6 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	MemberMapper mapper;
 	
-
-
 	@Override
 	public boolean update(MemberVO vo) {
 		// TODO Auto-generated method stub
@@ -49,17 +47,6 @@ public class MemberServiceImpl implements MemberService {
 		return l; 
 	}
 
-	@Override
-	public MemberVO findEmail(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MemberVO findPwd(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public int idCheck(String id) {
@@ -75,4 +62,15 @@ public class MemberServiceImpl implements MemberService {
 		return cnt;
 	}
 
+	@Override
+	public MemberVO findId(MemberVO vo) {
+		System.out.println("findId : "+ vo);
+		return mapper.findId(vo);
+	}
+	
+	@Override
+	public MemberVO findPwd(MemberVO vo) {
+		System.out.println("findPwd : "+ vo);
+		return mapper.findPwd(vo);
+	}
 }

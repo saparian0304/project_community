@@ -5,17 +5,11 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=yes">
-    <meta name="format-detection" content="telephone=no, address=no, email=no">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <title>게시판목록</title>
-    <link rel="stylesheet" href="/pet/css/reset.css"/>
-    <link rel="stylesheet" href="/pet/css/contents.css"/>
+    <meta charset="UTF-8">
+    <title>notice</title>
+    <link rel="stylesheet" href="/pet/css/common.css"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <style>
+	<style>
     .reqbtn {
 		  border: 2px solid black;
 		  cursor: pointer;
@@ -41,7 +35,7 @@
 		  background: #f44336;
 		  color: white;
 	}
-    </style>
+    </style> 
     <script>
     /* 체크박스 전체체크 */
     function selectAll(selectAll)  {
@@ -55,7 +49,7 @@
     	$.ajax({
     		url : "frireq.do",
     		data : {
-    			tablename : 'friend',
+    			table_name : 'friend',
     			member_no : member_no,
     			page : page
     		},
@@ -69,7 +63,7 @@
     	$.ajax({
     		url : "frilist.do",
     		data : {
-    			tablename : 'friend',
+    			table_name : 'friend',
     			member_no : member_no,
     			page : page
     		},
@@ -89,7 +83,7 @@
 				type : 'get',
 				data : {
 					select_no : select_no,
-					tablename : 'friend'
+					table_name : 'friend'
 				},
 				success : function(res){
 					alert("성공");
@@ -107,7 +101,7 @@
 				type : 'get',
 				data : {
 					select_no : select_no,
-					tablename : 'friend'
+					table_name : 'friend'
 				},
 				success : function(res){
 					alert("성공");
@@ -118,25 +112,146 @@
 	    
 	    console.log(select_no);
     }
-    </script>
+	/* 다중 선택 삭제 */
+	function delMulti(){
+	    $("input[name=select_no]:checked").each(function(){
+	    	select_no = parseInt($(this).val());
+			$.ajax({
+				url : "fridel.do",
+				type : 'get',
+				data : {
+					select_no : select_no,
+					table_name : 'friend'
+				},
+				success : function(res){
+					alert("성공");
+				    getFriReq(1, ${member_no});
+				}
+			})    	
+	    });
+	    console.log(select_no);
+    }
+	/* 단일 선택 삭제 */
+	function del(a){
+    	select_no = parseInt(a);
+		$.ajax({
+			url : "fridel.do",
+			type : 'get',
+			data : {
+				select_no : select_no,
+				table_name : 'friend'
+			},
+			success : function(res){
+				alert("성공");
+				getFriReq(1, ${member_no});
+				
+			}
+		})    	
+    
+    	console.log(select_no);
+	}
+    </script> 
 </head>
 <body>
-    
-        <div class="sub">
-            <div class="size">
-                
-    
-                <div class="bbs">
-                	<div><button style="width : 200px; height : 50px;" class="reqbtn success" onclick="javascript:getFriReq(1,${member_no});">친구요청목록</button>
-                		<button style="width : 200px; height : 50px;" class="reqbtn success" onclick="javascript:getFriList(1,${member_no});">친구목록</button></div>
-                    <div id="hi"><h1>hi~</h1></div>
-                    
-                
-                    <!-- 페이지처리 -->
-                    
+    <ul class="skipnavi">
+        <li><a href="#container">본문내용</a></li>
+    </ul>
+    <div id="wrap">
+        <header id="header">
+            <!-- 로고 네비 로그인 그룹 -->
+            <div class="header_area box_inner clear">
+                <!-- 로고 -->
+                <h1><a href="#">Help!</a></h1>
+                <!-- 네비 로그인 -->
+                <div class="header_cont">
+                    <!-- 로그인 회원가입 -->
+                    <ul class="util clear">
+                    <c:if test="${!empty loginInfo} }">
+                        <li><a href="#">로그아웃</a></li>
+					</c:if>
+					<c:if test="${empty loginInfo }">
+                        <li><a href="/pet/board/login.do">로그인</a></li>
+                        <li><a href="#">회원가입</a></li>
+					</c:if>
+                    </ul>
+                    <!-- 네비 -->
+                    <nav>
+                        <ul class="gnb clear">
+                            <li><a href="#">여행정보</a>
+                                <div class="gnb_depth gnb_depth_2_1">
+                                    <ul class="submenu_list">
+                                        <li><a href="#">국내</a></li>
+                                        <li><a href="#">해외</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">고객센터</a>
+                                <div class="gnb_depth gnb_depth_2_2">
+                                    <ul class="submenu_list">
+                                        <li><a href="#">공지사항</a></li>
+                                        <li><a href="#">문의하기</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">상품투어</a>
+                                <div class="gnb_depth gnb_depth_2_3">
+                                    <ul class="submenu_list">
+                                        <li><a href="#">프로그램 소개</a></li>
+                                        <li><a href="#">여행자료</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="/pet/mypage/index.do?member_no=${loginInfo.member_no }">마이페이지</a>
+                                <div class="gnb_depth gnb_depth_2_4">
+                                    <ul class="submenu_list">
+                                        <li><a href="#">항공</a></li>
+                                        <li><a href="#">호텔</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <p class="closePop">
+                        <a href="#">닫기</a>
+                    </p>
                 </div>
+            </div>
+        </header>
+        <!-- 컨텐츠 영역 -->
+        <div id="container">
+            <!-- 위치(페이지 제목)영역 -->
+            <div class="location_area customer">
+                <div class="box_inner">
+                    <h2 class="tit_page">
+                        <span>MYPAGE</span>
+                    </h2>
+                </div>
+            </div> 
+            <!-- 공지사항 목록영역 -->
+            <div class="bodytext_area box_inner">
+                <form action="#" method="post" class="minisrch_form">
+                    <fieldset>
+                        <legend>
+                            검색
+                        </legend>
+                        <input type="text" class="tbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name="">
+                        <a href="#" class="btn_srch">검색</a>
+                    </fieldset>
+                </form>
+                <!-- **** -->
+                <button style="width : 200px; height : 50px;" class="reqbtn success" onclick="javascript:getFriReq(1,${member_no});">친구요청목록</button>
+                <h1 id="hi">hi~</h1>
+
+                <!-- pagenation -->
+                
             </div>
         </div>
         
+        <footer>
+            
+        </footer>
+    </div> <!-- div id="wrap" -->
+
+
 </body>
 </html>

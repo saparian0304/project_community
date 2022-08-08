@@ -33,8 +33,7 @@
                 <div class="header_cont">
                     <!-- 로그인 회원가입 -->
                     <ul class="util clear">
-                        <li><a href="#">로그인</a></li>
-                        <li><a href="#">회원가입</a></li>
+						<li><a href="/pet/member/logout.do">로그아웃</a></li>
                     </ul>
                     <!-- 네비 -->
                     <nav>
@@ -63,7 +62,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li><a href="#">티켓/가이드</a>
+                            <li><a href="/pet/mypage/index.do?member_no=${loginInfo.member_no }">마이페이지</a>
                                 <div class="gnb_depth gnb_depth_2_4">
                                     <ul class="submenu_list">
                                         <li><a href="#">항공</a></li>
