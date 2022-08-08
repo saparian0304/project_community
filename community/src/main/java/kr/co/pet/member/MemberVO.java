@@ -2,19 +2,28 @@ package kr.co.pet.member;
 
 import java.sql.Timestamp;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class MemberVO {
-	 private int no;
-	 private String email;
-	 private String pwd;
-	 private String name;
-	 private int gender;
-	 private String birthday;
-	 private String hp;
-	 private String zipcode;
-	 private String addr1;
-	 private String addr2;
-	 private Timestamp regdate; 
+	
+	private int member_no;
+	private String name;
+	private String member_id;
+	private String pwd;
+	private String email; 
+	private String nickname;
+	private String birthday;
+	private String addr;
+	private int level;
+	private Timestamp regdate;
+	private Timestamp leavedate;
+	private int out;
+	private Timestamp curr_login;
+	private int gender;
+	private boolean online;
+
+	
 }
