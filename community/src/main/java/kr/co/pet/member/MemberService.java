@@ -8,9 +8,9 @@ public interface MemberService {
 	boolean delete(int no);
 	int insert(MemberVO vo);
 	boolean loginCheck(MemberVO vo, HttpSession sess);
-	MemberVO findEmail(MemberVO vo);
-	MemberVO findPwd(MemberVO vo);
 	int idCheck(String id); 
 	int nicknameCheck(String nickname);
 	int emailCheck(String email);
+	MemberVO findId(MemberVO vo);
+	MemberVO findPwd(MemberVO vo);
 }

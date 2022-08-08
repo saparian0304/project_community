@@ -16,5 +16,7 @@ public interface MemberMapper {
 	int nicknameCheck(String nickname);
 	int emailCheck(String email);
 	MemberVO loginCheck(MemberVO vo);
-	
+	MemberVO findId(MemberVO vo);
+	MemberVO findPwd(MemberVO vo);
+	int updateTempPwd(MemberVO vo);
 }

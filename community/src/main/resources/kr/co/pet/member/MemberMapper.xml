@@ -22,6 +22,18 @@
 		select * from member where member_id = '${member_id}' and pwd = md5('${pwd}')
 	</select>
 	
+	<select id="findId" parameterType="kr.co.pet.member.MemberVO" resultType="kr.co.pet.member.MemberVO">
+		select * from member where name = '${name}' and email = '${email}' 
+	</select>
+	
+	<select id="findPwd" parameterType="kr.co.pet.member.MemberVO" resultType="kr.co.pet.member.MemberVO">
+		select count(*) from member where member_id = '${member_id}' and hp = '${hp}' and email = '${email}' 
+	</select>
+	
+	<update id="updateTempPwd" parameterType="kr.co.pet.member.MemberVO" >
+		update member SET pwd = md5(#{pwd}) where member_id = '${member_id}' and hp = '${hp}' and email = '${email}'
+	</update>
+	
 	
 	
 </mapper>
