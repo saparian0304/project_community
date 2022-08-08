@@ -90,5 +90,10 @@ public class MypageServiceimpl implements MypageService {
 		return mapper.friendAccept(vo) > 0? true : false;
 	}
 
+	@Override
+	public boolean friDel(MypageVO vo) {
+		return mapper.memberActDel(vo) > 0? true : false;
+	}
+
 
 }

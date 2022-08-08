@@ -1,4 +1,4 @@
-@charset="UTF-8";
+@charset "UTF-8";
 @import url('layout_base.css');
 
 /*/*초기화*태크이름이 우선순위/*/
@@ -76,14 +76,14 @@ a:focus{color:#444;}
 
 /*checkbox radio*/
 
-input[type=checkbox].css-checkbox{
+/* input[type=checkbox].css-checkbox{
 		position: absolute;left: -1000px;
 		width: 1px;height: 1px;
 
 		overflow: hidden;
 	}
-
-input[type=checkbox].css-checkbox+ label{
+ */
+input[type=checkbox].css-checkbox + label{
 	display: inline-block; 
 	height: 20px; padding-left: 30px !important;
 	line-height: 20px !important;
@@ -246,7 +246,7 @@ input, select, textarea{
 	letter-spacing: -1px;
 	color: #444;
 	/*****직접입력 이미지 겹칠때 기본디자인 없앰******/
-	appearance: none;
+	/* appearance: none; */
 }
 
 textarea{
@@ -2110,3 +2110,4 @@ h1.loginTit a img{
 /*~320px*/
 @media screen and (max-width: 320px){
 	body{background: orange;}
+}

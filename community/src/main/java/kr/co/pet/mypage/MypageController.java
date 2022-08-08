@@ -37,4 +37,11 @@ public class MypageController {
 		service.friAccept(vo);
 		return "mypage/index";
 	}
+	
+	@GetMapping("/mypage/fridel.do")
+	public String friDelete(MypageVO vo) {
+		service.friDel(vo);
+		return "mypage/index";
+	}
+	
 }

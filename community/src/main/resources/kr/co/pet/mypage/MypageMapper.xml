@@ -74,16 +74,10 @@
 	<delete id="memberActDel" parameterType="kr.co.pet.mypage.MypageVO">
 		DELETE FROM ${table_name}
 		<if test="table_name == 'bookmark'">
-	 		WHERE book_no IN
-			<foreach collection="select_no" item="select_no" separator="," open="(" close=")">
-	 		#{select_no}
-	 		</foreach>
+	 		WHERE book_no = #{select_no}
 		</if>
 		<if test="table_name == 'friend'">
-			WHERE fri_no IN
-			<foreach collection="select_no" item="select_no" separator="," open="(" close=")">
-	 		#{select_no}
-	 		</foreach>
+			WHERE fri_no = #{select_no}
 		</if>
 	</delete>
 	
