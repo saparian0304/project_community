@@ -50,7 +50,7 @@ function goSave(){
 			data : {
 				board_no : ${data.board_no},
 				content : $("#content").val(),
-				member_no : ${loginInfo.no}
+				member_no : ${loginInfo.member_no}
 			},
 			success : function(res) {
 				if (res.trim() == "1") {
@@ -76,7 +76,7 @@ function replySave(gno){
 				board_no: ${data.board_no},
 				gno : gno,				
 				content : $("#contents").val(),
-				member_no : ${loginInfo.no}
+				member_no : ${loginInfo.member_no}
 			},
 			success : function(res) {
 				if (res.trim() == "1") {
@@ -126,7 +126,38 @@ function commentDel(no) {
 		})
 	}
 }
+
+function report(member_no, board_no, reply_no) {
+	<c:if test="${empty loginInfo}">
+		alert('로그인후 댓글작성해주세요');
+	 	return;
+	</c:if>
+	var isReply;
+	if (reply_no == '' || reply_no == null) {
+		isReply = 0;
+	} else {
+		isReply = 1
+	}
 	
+	var form = document.createElement('form');
+	form.setAttribute('method', 'post');
+	form.setAttribute('action', '/pet/report/write.do');
+	document.charset = "uft-8";
+	var list = { 
+			'you_no' : member_no, 
+			'board_no' : board_no, 
+			'reply_no' : reply_no,
+			'isReply' : isReply}
+	for ( var key in list) {
+		var field = document.createElement('input');
+		field.setAttribute('type', 'hidden');
+		field.setAttribute('name', key);
+		field.setAttribute('value', list[key]);
+		form.appendChild(field);
+	}
+	document.body.appendChild(form);
+	form.submit();
+}
 </script>
 
 </head>
@@ -169,11 +200,15 @@ function commentDel(no) {
             <div class="size">
                 <h3 class="sub_title">게시판</h3>
                 <div class="bbs">
+                	<div style="text-align: right">
+                    	작성자 : ${data.member_no } <a href="javascript:report(${data.member_no}, ${data.board_no }, 0)">[게시글 신고버튼 예]</a><br>  
+						<a href="javascript:report(${data.member_no}, ${data.board_no }, 1)">[댓글 신고버튼 예]</a>
+                	</div>
                     <div class="view">
                         <div class="title">
                             <dl>
                                 <dt>${data.title } </dt>
-                                <dd class="date">작성일 : ${data.regdate } </dd>
+                                <dd class="date">작성일 : ${data.regdate } </dd> 
                             </dl>
                         </div>
                         <div class="cont"><p>${data.content }</p> </div>

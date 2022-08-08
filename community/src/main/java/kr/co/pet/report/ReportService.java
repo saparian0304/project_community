@@ -5,6 +5,9 @@ import java.util.Map;
 
 public interface ReportService {
 
+	
+	public Map getInfo(ReportVO vo);
+	
 	/**
 	 * 신고 등록
 	 * @param vo ReportVO - i_no, you_no, reason, content, reply_no, board_no

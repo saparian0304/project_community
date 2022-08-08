@@ -34,7 +34,7 @@ public class BoardController {
 	@GetMapping("/board/index.do")
 	public String index(Model model, BoardVO vo) throws IOException, ParseException {
 		model.addAttribute("data", service.index(vo));
-		model.addAttribute("api", api.apiInsert2());
+//		model.addAttribute("api", api.apiInsert2());
 		return "/board/index";
 	}
 	
