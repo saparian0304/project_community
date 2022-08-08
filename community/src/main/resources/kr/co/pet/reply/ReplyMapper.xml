@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.pet.reply.ReplyMapper">
+	
+	<insert id = "insert" parameterType="kr.co.pet.reply.ReplyVO">
+		INSERT INTO ycomment (
+			board_no, content, member_no,  regdate, update_date, isdelete, ono
+			) VALUES (
+				#{board_no}, #{content}, #{member_no}, NOW(), NOW(), 0 , 0
+			)
+			
+			<selectKey keyProperty="no" resultType="int" order="AFTER">
+				SELECT LAST_INSERT_ID() 
+			</selectKey>		
+	</insert>
+	
+	<update id="gnoUpdate">
+		UPDATE ycomment SET gno = #{gno} WHERE no=#{gno} 
+	</update>
+	
+
+	
+	<insert id = "reply" parameterType="kr.co.pet.reply.ReplyVO">
+		INSERT INTO ycomment (
+			board_no, content, member_no,  regdate, update_date, isdelete, gno, ono
+			) VALUES (
+				#{board_no}, #{content}, #{member_no}, NOW(), NOW(), 0, #{gno}, #{ono}
+			)		
+	</insert>
+	
+	<select id="rcount" parameterType="kr.co.pet.reply.ReplyVO" resultType="java.lang.Integer">
+		SELECT COUNT(gno) FROM ycomment
+		WHERE gno = #{gno} AND ono !=0 AND isdelete = 0
+		
+	</select>
+	
+	<select id="replyList" parameterType="kr.co.pet.reply.ReplyVO" resultType="kr.co.pet.reply.ReplyVO">
+		SELECT *,				
+			(SELECT email FROM member WHERE no=ycomment.member_no) AS member_email,
+			(SELECT COUNT(*) FROM ycomment WHERE no = #{gno} AND gno = #{gno} ) AS reply_count
+		FROM ycomment
+		WHERE gno = #{gno}  AND isdelete = 0 AND ono != 0
+		ORDER BY regdate ASC
+		LIMIT ${startIdx}, ${pageRow}		
+	</select>
+	
+	
+	
+	<select id="count" parameterType="kr.co.pet.reply.ReplyVO" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM ycomment
+		WHERE isdelete = 0 AND board_no = #{board_no} AND ono = 0
+	</select>
+	
+	<select id="list" parameterType="kr.co.pet.reply.ReplyVO" resultType="kr.co.pet.reply.ReplyVO">
+		SELECT *,
+			(SELECT no  FROM yboard WHERE no=ycomment.board_no) AS list_no,
+			(SELECT email FROM member WHERE no=ycomment.member_no) AS member_email			
+			FROM ycomment		
+		WHERE board_no = #{board_no} AND isdelete = 0 AND ono = 0
+		
+		ORDER BY regdate ASC
+		LIMIT ${startIdx}, ${pageRow}		
+	</select>
+	
+	
+	<update id="update">
+		UPDATE ycomment SET isdelete = 1 WHERE no = #{no}
+	</update>
+	
+</mapper>
