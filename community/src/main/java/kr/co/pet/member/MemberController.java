@@ -72,7 +72,7 @@ public class MemberController {
 	
 	@GetMapping("/member/notice.do")
 	public String notice() {
-		return "member/notice";
+		return "notice";
 	}
 	
 //	@GetMapping("/board/.do") //간편로그인

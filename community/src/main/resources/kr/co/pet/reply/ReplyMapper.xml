@@ -56,7 +56,7 @@
 			(SELECT board_no  FROM board WHERE board_no=reply.board_no) AS list_no,
 			(SELECT email FROM member WHERE member_no=reply.member_no) AS member_email			
 			FROM reply		
-		WHERE board_no = #{board_no} AND isdelete = 0 AND ono = 0
+		WHERE board_no = #{board_no} AND ono = 0
 		
 		ORDER BY regdate ASC
 		LIMIT ${startIdx}, ${pageRow}		

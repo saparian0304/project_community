@@ -18,9 +18,9 @@ public interface MypageMapper {
 	List memberAct(MypageVO vo);
 	int memberActCnt(MypageVO vo);
 	
-	// 선택 다중 업데이트 isdelete 
+	// 선택 업데이트 isdelete 
 	int memberActIsdel(MypageVO vo);
-	// 선택 다중 삭제 delete 
+	// 선택 삭제 delete 
 	int memberActDel(MypageVO vo);
 	
 	// 친구요청
