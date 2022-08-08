@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>공지사항 | 고객센터 | 투어리스트인투어</title>
-      <link rel="stylesheet" href="css/common.css"> 
+      <link rel="stylesheet" href="/pet/css/common.css"> 
 </head>
 <body>
     <ul class="skipnavi">
@@ -205,10 +205,10 @@
                 <!-- pagenation -->
                 <div class="pagenation">
                     <a href="#" class="firstpage pbtn">
-                        <img src="img/img1/btn_firstpage.png" alt="첫 페이지로 이동">
+                        <img src="../img/btn_firstpage.png" alt="첫 페이지로 이동">
                     </a>
                     <a href="#" class="prevpage pbtn">
-                        <img src="img/img1/btn_prevpage.png" alt="이전 페이지로 이동">
+                        <img src="../img/btn_prevpage.png" alt="이전 페이지로 이동">
                     </a>
                     <a href="#">
                         <span class="pagenum currentpage">1</span>
@@ -226,10 +226,10 @@
                         <span class="pagenum">5</span>
                     </a>
                     <a href="#" class="nextpage pbtn">
-                        <img src="img/img1/btn_nextpage.png" alt="다음 페이지로 이동">
+                        <img src="../img/btn_nextpage.png" alt="다음 페이지로 이동">
                     </a>
                     <a href="#" class="lastpage pbtn">
-                        <img src="img/img1/btn_lastpage.png" alt="마지막 페이지 이동">
+                        <img src="../img/btn_lastpage.png" alt="마지막 페이지 이동">
                     </a>
                 </div>
             </div>

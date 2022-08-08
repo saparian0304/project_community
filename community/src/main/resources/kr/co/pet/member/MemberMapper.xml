@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="loginCheck" parameterType="kr.co.pet.member.MemberVO" resultType="kr.co.pet.member.MemberVO">
-		select count(*) from member where member_id = '${member_id}' and pwd = md5('${pwd}')
+		select * from member where member_id = '${member_id}' and pwd = md5('${pwd}')
 	</select>
 	
 	

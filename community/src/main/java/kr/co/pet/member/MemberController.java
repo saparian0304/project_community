@@ -54,14 +54,19 @@ public class MemberController {
 	@PostMapping("/board/login.do")
 	public String login(MemberVO vo, HttpSession sess, Model model) {
 		if(service.loginCheck(vo, sess)) {
-			return "redirect:/notice.do";
+			return "redirect:notice.do"; //notice라는 메서드로 매핑돼있는 곳으로 감. notice라는 이름의 파일을 여는게 아님.
 		}else {
 			model.addAttribute("msg", "아이디/비번을 확인해주세요.");
 			System.out.println("왜 오류남");
 			return "common/alert";
 		}
 	}
-//	@PostMapping("/board/login.do")
+	@GetMapping("/board/notice.do")
+	public String notice() {
+		return "notice";
+	}
+	
+//	@GetMapping("/board/.do") //간편로그인
 //	public String kakaoLogin(HttpSession sess) {
 //		
 //		return "notice";
