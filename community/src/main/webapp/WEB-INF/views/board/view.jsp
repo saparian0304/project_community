@@ -50,7 +50,7 @@ function goSave(){
 			data : {
 				board_no : ${data.board_no},
 				content : $("#content").val(),
-				member_no : ${loginInfo.no}
+				member_no : ${loginInfo.member_no}
 			},
 			success : function(res) {
 				if (res.trim() == "1") {
@@ -76,7 +76,7 @@ function replySave(gno){
 				board_no: ${data.board_no},
 				gno : gno,				
 				content : $("#contents").val(),
-				member_no : ${loginInfo.no}
+				member_no : ${loginInfo.member_no}
 			},
 			success : function(res) {
 				if (res.trim() == "1") {
@@ -113,20 +113,30 @@ function replyForm(gno){
  
 
 
-function commentDel(no) {
+function commentDel(reply_no) {
+	/* var rcount= ${replyCount};
+	if(rcount > 0) {
+		alert('댓글잇음');
+	} */
 	if(confirm("댓글을 삭제하시겠습니까?")) {
 		$.ajax({
-			url : '/pet/reply/update.do?no='+no,
+			url : '/pet/reply/update.do?reply_no='+reply_no,
 			success : function(res)	{
 				if(res.trim() == '1') {
 					alert('댓글이 정상적으로 삭제되었습니다.');
 					getComment(1);
+					
+				
 				}
 			}	
 		})
 	}
-}
+
 	
+}
+
+
+
 </script>
 
 </head>

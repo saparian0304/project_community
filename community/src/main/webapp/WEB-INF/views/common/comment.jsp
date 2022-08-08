@@ -21,13 +21,25 @@
                 <td class="first" colspan="8" style="height:70px;">등록된 댓글이 없습니다.</td>                
             </tr>
 		</c:if>
+		
         <c:forEach var="vo" items="${comment.list}" varStatus="status">
-        <c:if test="${vo.isdelete == false}">          	         
+                               	         
             <tr style="height:70px;"  class="rbox">
                 <td>${(status.index)+1}</td>
-                <td class="txt_l">
-                    ${vo.content}<c:if test="${loginInfo.no == vo.member_no}"><a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a></c:if>
-                	<a href="javascript:replyForm(${vo.gno});">&nbsp;&nbsp;[답글작성]</a>
+                <td class="txt_l">               
+                   <a href="javascript:replyForm(${vo.gno});">
+                   <c:if test="${vo.isdelete == true }">
+                       삭제된 댓글입니다.
+                   </c:if>
+                   <c:if test="${vo.isdelete == false }">
+                    ${vo.content}</a>                   
+                   <c:if test="${loginInfo.member_no == vo.member_no }">
+                    	<a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
+                    	<a href="view.do?board_no=${vo.board_no}"> &nbsp;&nbsp;[수정]</a>
+                    </c:if>	
+                    </c:if>                   
+                	<!-- &nbsp;&nbsp;[답글작성] -->
+                	
                 </td>                                            
                 <td class="writer">
                      ${vo.member_email}
@@ -35,7 +47,7 @@
                 <td class="date"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${vo.regdate}"/></td>
             </tr>
            <div id="rbox"></div>                                                                    
-         </c:if>                                    
+                                             
         </c:forEach>
         </tbody>
     </table>   
@@ -58,3 +70,4 @@
 	     </c:if>
     </div>
 
+                
