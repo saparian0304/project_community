@@ -17,7 +17,7 @@
                             <tr>
                                 <th><input type="checkbox" name="allChk" onclick="selectAll(this)"></th>
                                 <th style="text-align: left;">선택 <button class="reqbtn success" onclick="javascript: acceptMulti();">수락</button>&nbsp;
-		                    			<button class="reqbtn danger">거절</button>
+		                    			<button class="reqbtn danger" onclick="javascript: delMulti();">거절</button>
 		                    	</th>
                                 <th>요청자 닉네임</th>
                                 <th>요청 일자</th>
@@ -42,7 +42,7 @@
 	                    		</td>
 	                    		<td>
 		                    		<button class="reqbtn success" onclick="javascript: accept(${list.fri_no});">수락</button>&nbsp;
-		                    		<button class="reqbtn danger">거절</button>
+		                    		<button class="reqbtn danger" onclick="javascript: del(${list.fri_no});">거절</button>
 		                    	</td>
 	                    	</tr>
 	                    	</c:forEach>                    

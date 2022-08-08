@@ -55,7 +55,7 @@
     	$.ajax({
     		url : "frireq.do",
     		data : {
-    			tablename : 'friend',
+    			table_name : 'friend',
     			member_no : member_no,
     			page : page
     		},
@@ -69,7 +69,7 @@
     	$.ajax({
     		url : "frilist.do",
     		data : {
-    			tablename : 'friend',
+    			table_name : 'friend',
     			member_no : member_no,
     			page : page
     		},
@@ -89,7 +89,7 @@
 				type : 'get',
 				data : {
 					select_no : select_no,
-					tablename : 'friend'
+					table_name : 'friend'
 				},
 				success : function(res){
 					alert("성공");
@@ -107,7 +107,7 @@
 				type : 'get',
 				data : {
 					select_no : select_no,
-					tablename : 'friend'
+					table_name : 'friend'
 				},
 				success : function(res){
 					alert("성공");
@@ -118,6 +118,44 @@
 	    
 	    console.log(select_no);
     }
+	/* 다중 선택 삭제 */
+	function delMulti(){
+	    $("input[name=select_no]:checked").each(function(){
+	    	select_no = parseInt($(this).val());
+			$.ajax({
+				url : "fridel.do",
+				type : 'get',
+				data : {
+					select_no : select_no,
+					table_name : 'friend'
+				},
+				success : function(res){
+					alert("성공");
+				    getFriReq(1, ${member_no});
+				}
+			})    	
+	    });
+	    console.log(select_no);
+    }
+	/* 단일 선택 삭제 */
+	function del(a){
+    	select_no = parseInt(a);
+		$.ajax({
+			url : "fridel.do",
+			type : 'get',
+			data : {
+				select_no : select_no,
+				table_name : 'friend'
+			},
+			success : function(res){
+				alert("성공");
+				getFriReq(1, ${member_no});
+				
+			}
+		})    	
+    
+    console.log(select_no);
+}
     </script>
 </head>
 <body>

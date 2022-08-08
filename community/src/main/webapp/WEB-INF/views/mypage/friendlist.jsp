@@ -11,12 +11,14 @@
                             <col width="80px" />
                             <col width="*" />
                             <col width="100px" />
+                            <col width="150px" />
                         </colgroup>
                         <thead>
                             <tr>
                                 <th>번호</th>
                                 <th>닉네임</th>
                                 <th>수락 일자</th>
+                                <th>친구 삭제</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -32,6 +34,9 @@
 	                    		<td class="txt_l" style="text-align : center;">${list.nickname }</td>
 	                    		<td class="date">
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.res_date }"/>
+	                    		</td>
+	                    		<td>
+	                    			<button class="reqbtn danger" onclick="javascript: del(${list.fri_no});">삭제</button>
 	                    		</td>
 	                    	</tr>
 	                    	</c:forEach>                    
