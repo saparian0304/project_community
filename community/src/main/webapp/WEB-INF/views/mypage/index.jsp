@@ -93,11 +93,11 @@
 				},
 				success : function(res){
 					alert("성공");
+				    getFriReq(1, ${member_no});
 				}
 			})    	
 	    });
 	    console.log(select_no);
-	    getFriReq(1, ${member_no});
     }
 	/* 단일선택수락 */
     function accept(a){
@@ -111,12 +111,12 @@
 				},
 				success : function(res){
 					alert("성공");
+					getFriReq(1, ${member_no});
 					
 				}
 			})    	
 	    
 	    console.log(select_no);
-		getFriReq(1, ${member_no});
     }
     </script>
 </head>
