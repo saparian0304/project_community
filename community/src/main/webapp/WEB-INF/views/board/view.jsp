@@ -3,6 +3,7 @@
 <%@ page import="java.net.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%-- <%@ include file= "/WEB-INF/views/includes/header.jsp"%> --%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,6 +13,122 @@
       <link rel="stylesheet" href="/pet/css/reset.css"/>
       <link rel="stylesheet" href="/pet/css/contents.css"/> 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	  
+<script>
+
+/* 댓글 스크립트  */
+ 
+
+function getComment(page){
+	$.ajax({    			
+		url : "/pet/reply/list.do",
+			data : {
+				board_no : ${data.board_no},
+				page: page				
+			},			
+			success : function(res) {
+				$("#commentArea").html(res);				
+			}
+	});
+}
+
+
+ 
+$(function(){
+	getComment(1);
+});
+
+
+function goSave(){
+	<c:if test="${empty loginInfo}">
+		 alert('로그인후 댓글작성해주세요');
+	</c:if>
+	<c:if test="${!empty loginInfo}"> 
+	if (confirm('댓글을 저장하시겠습니까?')){
+		$.ajax({			
+			url : "/pet/reply/insert.do",
+			data : {
+				board_no : ${data.board_no},
+				content : $("#content").val(),
+				member_no : ${loginInfo.no}
+			},
+			success : function(res) {
+				if (res.trim() == "1") {
+					alert('정상적으로 댓글이 등록되었습니다.');
+					$("#content").val('');
+					getComment(1);
+				}
+			}
+		});
+	}
+	</c:if>
+}
+
+function replySave(gno){
+	<c:if test="${empty loginInfo}">
+		 alert('로그인후 댓글작성해주세요');
+	</c:if>
+	<c:if test="${!empty loginInfo}">
+	if (confirm('댓글을 저장하시겠습니까?')){
+		$.ajax({			
+			url : "/pet/reply/reply.do",
+			data : {
+				board_no: ${data.board_no},
+				gno : gno,				
+				content : $("#contents").val(),
+				member_no : ${loginInfo.no}
+			},
+			success : function(res) {
+				if (res.trim() == "1") {
+					alert('정상적으로 댓글이 등록되었습니다.');
+					$("#contents").val('');
+					getComment(1);
+				}
+			}
+		});
+	}
+	</c:if>
+} 
+
+
+function replyForm(gno){
+	$.ajax({    			
+		url : "/pet/reply/replylist.do",
+			data : {
+				board_no : ${data.board_no},
+				gno : gno,
+				page: 1				
+			},			
+			success : function(res) { 	
+			
+				$("#rbox").html(res);	
+			 
+		}
+	});
+}   
+
+/* function replyForm (gno){
+	$(".rbox").after('<tr><td colspan="4"><textarea name="content" id="content" style="width:900px;height: 70px;" placeholder="로그인 후 작성해주세요"></textarea></td></tr>')
+} */
+ 
+
+
+function commentDel(no) {
+	if(confirm("댓글을 삭제하시겠습니까?")) {
+		$.ajax({
+			url : '/pet/reply/update.do?no='+no,
+			success : function(res)	{
+				if(res.trim() == '1') {
+					alert('댓글이 정상적으로 삭제되었습니다.');
+					getComment(1);
+				}
+			}	
+		})
+	}
+}
+	
+</script>
+
 </head>
 <body>
     <ul class="skipnavi">
@@ -78,9 +195,34 @@
                    </div>
                   </div>
         </div>
-        <!-- id contner -->
-        
+        <!-- id contner -->        
     </div> <!-- div id="wrap" -->
+  
+ <!-- 댓글 폼 -->   
+    <div style="width: 980px; margin: 0 auto;">
+	<form method="post" name="frm" id="frm" action="" enctype="multipart/form-data" >
+		<table class="board_write" style="width:100%;">
+			<colgroup>
+				<col width="*" />
+				<col width="100px" />
+			</colgroup>
+			<tbody>
+				<tr>
+					<td>
+						<textarea name="content" id="content" style="width:900px;height: 70px;" placeholder="로그인 후 작성해주세요"></textarea>
+					</td>
+					<td>
+						<div class="btnSet">
+							<a href="javascript:goSave();"  style="  text-align: center;">저장</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>	
+	<div id="commentArea"></div>
+</div>
+    
 
     <!-- 퀵메뉴 -->
     <h2 class="hdd">빠른 링크 : 전화문의, 카카오톡, 오시는 길, 꼭대기로 가기</h2>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.pet.mypage.MypageMapper">
+	
+	<select id="memberSelect" parameterType="int" resultType="kr.co.pet.mypage.MypageVO">
+		SELECT *,
+			(SELECT COUNT(*) FROM board WHERE member_no = #{member_no} AND isdelete = 0) AS board_count,
+			(SELECT COUNT(*) FROM reply WHERE member_no = #{member_no} AND isdelete = 0) AS reply_count
+		FROM member
+		WHERE member_no = #{member_no} <!-- 로그인 회원 정보 받아오기 (아마 session?) -->
+	</select>
+	
+	<select id="pwdCheck" parameterType="kr.co.pet.mypage.MypageVO" resultType="int">
+		SELECT COUNT(*) FROM member
+		WHERE member_id = #{member_id} <!-- 로그인 회원 정보 받아오기 (아마 session?) -->
+		AND pwd = #{pwd}
+	</select>
+	
+	<update id="memberUpdate" parameterType="kr.co.pet.mypage.MypageVO">
+		UPDATE member
+		SET
+			nickname = #{nickname},
+			pwd = #{pwd},
+			addr = #{addr}
+		WHERE member_no = #{member_no}
+	</update>
+	
+	<select id="memberAct" parameterType="kr.co.pet.mypage.MypageVO" resultType="map">
+		SELECT * FROM ${table_name}
+		<if test="table_name == 'message'">
+			WHERE read_member = #{member_no}
+			OR send_member = #{member_no}
+			AND isdelete = 0
+		</if>
+		<if test="table_name != 'message'">
+			WHERE member_no = #{member_no}
+			AND isdelete = 0
+		</if>
+		ORDER BY regdate DESC
+		LIMIT #{startIdx}, ${pageRow} <!-- 페이징처리 -->
+	</select>
+	
+	<select id="memberActCnt" parameterType="kr.co.pet.mypage.MypageVO" resultType="int">
+		SELECT COUNT(*) FROM ${table_name}
+		WHERE member_no = #{member_no}
+		AND isdelete = 0
+	</select>
+	
+	<update id="memberActIsdel" parameterType="kr.co.pet.mypage.MypageVO">
+		UPDATE ${table_name}
+		SET 
+			isdelete = 1
+		WHERE	
+		<if test="table_name == 'board'">
+	 		board_no IN 
+	 		<foreach collection="select_no" item="select_no" separator="," open="(" close=")">
+	 		#{select_no}
+	 		</foreach> 
+		</if>
+		<if test="table_name == 'reply'">
+	 		reply_no IN 
+			<foreach collection="select_no" item="select_no" separator="," open="(" close=")">
+	 		#{select_no}
+	 		</foreach>
+		</if>
+		<if test="table_name == 'message'">
+	 		mess_no IN
+	 		<foreach collection="select_no" item="select_no" separator="," open="(" close=")">
+	 		#{select_no}
+	 		</foreach>
+		</if>
+	</update>
+	
+	<delete id="memberActDel" parameterType="kr.co.pet.mypage.MypageVO">
+		DELETE FROM ${table_name}
+		<if test="table_name == 'bookmark'">
+	 		WHERE book_no IN
+			<foreach collection="select_no" item="select_no" separator="," open="(" close=")">
+	 		#{select_no}
+	 		</foreach>
+		</if>
+		<if test="table_name == 'friend'">
+			WHERE fri_no IN
+			<foreach collection="select_no" item="select_no" separator="," open="(" close=")">
+	 		#{select_no}
+	 		</foreach>
+		</if>
+	</delete>
+	
+	<!-- 친구 -->
+	<update id="friendAccept" parameterType="kr.co.pet.mypage.MypageVO">
+		UPDATE friend SET res_date = now()
+		WHERE fri_no = #{select_no}
+	</update>
+	
+	<select id="friendList" parameterType="kr.co.pet.mypage.MypageVO" resultType="kr.co.pet.mypage.MypageVO">
+		SELECT nickname, a.res_date FROM member, 
+			(SELECT you_no AS fri, res_date FROM friend WHERE i_no = #{member_no} AND res_date IS NOT NULL
+				UNION
+			SELECT i_no AS fri, res_date FROM friend WHERE you_no = #{member_no} and res_date IS NOT NULL) AS a  
+		WHERE member_no = a.fri 
+		ORDER BY nickname ASC
+		LIMIT #{startIdx}, ${pageRow}
+	</select>
+	
+	<select id="friendCount" parameterType="kr.co.pet.mypage.MypageVO" resultType="int">
+		SELECT COUNT(*) FROM (
+			SELECT you_no AS fri FROM friend WHERE i_no = #{member_no} AND res_date IS NOT NULL
+				UNION
+			SELECT i_no AS fri FROM friend WHERE you_no = #{member_no} and res_date IS NOT NULL
+		) AS a
+	</select>
+	
+	<select id="reqList" parameterType="kr.co.pet.mypage.MypageVO" resultType="kr.co.pet.mypage.MypageVO">
+		SELECT * FROM member,
+			(SELECT i_no, req_date, fri_no FROM friend WHERE you_no = #{member_no} AND res_date IS NULL) AS a
+		WHERE member_no = a.i_no
+		ORDER BY a.req_date DESC
+		LIMIT #{startIdx}, ${pageRow}
+	</select>
+
+	<select id="reqCount" parameterType="kr.co.pet.mypage.MypageVO" resultType="int">
+		SELECT COUNT(*) FROM friend WHERE you_no = #{member_no} AND res_date IS NULL
+	</select> 
+	
+	<insert id="friendReq" parameterType="kr.co.pet.mypage.MypageVO">
+		INSERT INTO friend ( 
+			i_no, you_no, req_date
+		) VALUE (
+			#{i_no}, #{you_no}, now()
+		)
+	</insert>
+
+
+
+</mapper>
