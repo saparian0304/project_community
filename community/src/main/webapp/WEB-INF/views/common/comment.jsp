@@ -26,7 +26,7 @@
             <tr style="height:70px;"  class="rbox">
                 <td>${(status.index)+1}</td>
                 <td class="txt_l">
-                    ${vo.content}<c:if test="${loginInfo.no == vo.member_no}"><a href="javascript:commentDel(${vo.no});"> &nbsp;&nbsp;[삭제]</a></c:if>
+                    ${vo.content}<c:if test="${loginInfo.no == vo.member_no}"><a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a></c:if>
                 	<a href="javascript:replyForm(${vo.gno});">&nbsp;&nbsp;[답글작성]</a>
                 </td>                                            
                 <td class="writer">

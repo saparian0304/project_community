@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class ReplyVO {
 	
-	private int no;
+	private int reply_no;
 	private String content;
 	private int board_no;
 	private int member_no;

@@ -60,7 +60,7 @@ public class ReplyServiceImpl implements ReplyService {
 	public int insert(ReplyVO vo) {
 		int i = mapper.insert(vo) > 0 ? 1 : 0;	
 		
-		if (i == 1) mapper.gnoUpdate(vo.getNo());		
+		if (i == 1) mapper.gnoUpdate(vo.getReply_no());		
 		
 		return  i;
 		
@@ -69,7 +69,7 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public int update(ReplyVO vo) {
-		return mapper.update(vo.getNo());
+		return mapper.update(vo.getReply_no());
 		
 	}
 	

@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>공지사항 | 고객센터 | 투어리스트인투어</title>
-      <link rel="stylesheet" href="/project/css/common.css">
-      <link rel="stylesheet" href="/project/css/layout_base.css">
+      <link rel="stylesheet" href="/pet/css/common.css">
+      <link rel="stylesheet" href="/pet/css/layout_base.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
 </head>
 <body>
