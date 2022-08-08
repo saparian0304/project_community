@@ -2,8 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-				<h3 class="sub_title">친구 요청 목록</h3>
-				<table class="list">	
+                  <table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
                     <p><span><strong>총 ${data.totalCount }명</strong>  |  ${data.page}  / ${data.totalPage }페이지</span></p>
                         <caption>게시판 목록</caption>
                         <colgroup>
@@ -15,7 +14,7 @@
                         </colgroup>
                         <thead>
                             <tr>
-                                <th><input type="checkbox" name="allChk" onclick="selectAll(this)"></th>
+                                <th><label><input type="checkbox" name="allChk" onclick="selectAll(this)" ></label></th>
                                 <th style="text-align: left;">선택 <button class="reqbtn success" onclick="javascript: acceptMulti();">수락</button>&nbsp;
 		                    			<button class="reqbtn danger" onclick="javascript: delMulti();">거절</button>
 		                    	</th>
@@ -34,13 +33,13 @@
 	                    <c:if test="${!empty data.list }">
 	                    	<c:forEach var="list" items="${data.list }">
 	                    	<tr>
-	                    		<td><input type="checkbox" name="select_no" value="${list.fri_no}"></td>
+	                    		<td class="tit_notice" style="text-align: center;"><input type="checkbox" name="select_no" value="${list.fri_no}"></td>
 	                    		<td></td>
 	                    		<td class="tit_notice" style="text-align : center;">${list.nickname }</td>
 	                    		<td>
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.req_date }"/>
 	                    		</td>
-	                    		<td>
+	                    		<td class="tit_notice">
 		                    		<button class="reqbtn success" onclick="javascript: accept(${list.fri_no});">수락</button>&nbsp;
 		                    		<button class="reqbtn danger" onclick="javascript: del(${list.fri_no});">거절</button>
 		                    	</td>
@@ -48,12 +47,12 @@
 	                    	</c:forEach>                    
 	                    </c:if>
 	                    </tbody>
-                    </table>
+                  </table>
                     
-                    <div class="pagenate clear">
+                    <%-- <div class="pagenation">
                         <ul class='paging'>
                         <c:if test="${data.prev == true }">
-                        	<li><a href="friendlist.do?member_no=${mypageVO.member_no }&page=${data.startPage -1 }&stype=${param.stype}&sword=${param.sword}"><</a>
+                        	<li><a href="friendreq.do?member_no=${mypageVO.member_no }&page=${data.startPage -1 }&stype=${param.stype}&sword=${param.sword}"><</a>
                         </c:if>
                         <c:forEach var="p" begin="${data.startPage }" end="${data.endPage }">
                         	<li><a href='friendlist.do?member_no=${mypageVO.member_no }&page=${p}&stype=${param.stype}&sword=${param.sword}' <c:if test="${mypageVO.page == p}"> class='current'</c:if>>${p }</a></li>
@@ -62,4 +61,27 @@
                         	<li><a href="friendlist.do?member_no=${mypageVO.member_no }&page=${data.endPage +1 }&stype=${param.stype}&sword=${param.sword}">></a>
                         </c:if>
                         </ul> 
-                    </div>
+                    </div> --%>
+				<div class="pagenation">
+                	<a href="#" class="firstpage pbtn">
+                        <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
+                    </a>
+                    
+                	<c:if test="${data.prev == true }">
+                        <a class="prevpage pbtn" href="friendlist.do?member_no=${mypageVO.member_no }&page=${data.startPage -1 }&stype=${param.stype}&sword=${param.sword}">
+                        	<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
+                        </a>
+					</c:if>
+					
+                    <c:forEach var="p" begin="${data.startPage }" end="${data.endPage }">
+                       	<a class="pagenum <c:if test="${mypageVO.page == p}"> currentpage </c:if>" href='friendlist.do?member_no=${mypageVO.member_no }&page=${p}&stype=${param.stype}&sword=${param.sword}' >${p }</a>
+					</c:forEach>
+					<c:if test="${data.next == true }">
+						<a class="nextpage pbtn" href="friendlist.do?member_no=${mypageVO.member_no }&page=${data.endPage +1 }&stype=${param.stype}&sword=${param.sword}">
+							<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
+						</a>
+					</c:if>
+                    <a href="#" class="lastpage pbtn">
+                        <img src="/pet/img/btn_lastpage.png" alt="마지막 페이지 이동">
+                    </a>
+                </div>
