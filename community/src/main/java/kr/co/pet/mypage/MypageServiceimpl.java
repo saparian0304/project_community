@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.pet.member.MemberVO;
+
 @Service
 public class MypageServiceimpl implements MypageService {
 	
@@ -93,6 +95,11 @@ public class MypageServiceimpl implements MypageService {
 	@Override
 	public boolean friDel(MypageVO vo) {
 		return mapper.memberActDel(vo) > 0? true : false;
+	}
+
+	@Override
+	public MemberVO memberSelect(int member_no) {
+		return mapper.memberSelect(member_no);
 	}
 
 

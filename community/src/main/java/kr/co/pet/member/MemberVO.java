@@ -26,4 +26,8 @@ public class MemberVO {
 	private boolean online;
 
 	
+	// 마이페이지용
+	private int board_count;
+	private int reply_count;
+	
 }

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import kr.co.pet.member.MemberVO;
+
 @Controller
 public class MypageController {
 
@@ -15,8 +17,10 @@ public class MypageController {
 	
 	
 	@GetMapping("/mypage/index.do")
-	public String mypageList(Model model, MypageVO vo, HttpSession sess) {
-		sess.setAttribute("member_no", vo.getMember_no());
+	public String mypageList(Model model, HttpSession sess) {
+		MemberVO mv = (MemberVO)sess.getAttribute("loginInfo");
+//		vo.setMember_no(mv.getMember_no());
+		model.addAttribute("mydata", service.memberSelect(mv.getMember_no()));
 		return "mypage/index";
 	}
 	
