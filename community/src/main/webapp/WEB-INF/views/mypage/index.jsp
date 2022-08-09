@@ -166,13 +166,15 @@
                 <div class="header_cont">
                     <!-- 로그인 회원가입 -->
                     <ul class="util clear">
-                    <c:if test="${!empty loginInfo} }">
-                        <li><a href="#">로그아웃</a></li>
-					</c:if>
-					<c:if test="${empty loginInfo }">
-                        <li><a href="/pet/board/login.do">로그인</a></li>
-                        <li><a href="#">회원가입</a></li>
-					</c:if>
+                    <c:choose>
+						<c:when test="${empty loginInfo.member_no }">
+	                        <li><a href="/pet/member/login.do">로그인</a></li>
+	                        <li><a href="/pet/member/login.do">회원가입</a></li>
+						</c:when>
+	                    <c:otherwise>
+	                        <li><a href="/pet/member/logout.do">로그아웃</a></li>
+						</c:otherwise>
+					</c:choose>
                     </ul>
                     <!-- 네비 -->
                     <nav>
@@ -229,18 +231,50 @@
             </div> 
             <!-- 공지사항 목록영역 -->
             <div class="bodytext_area box_inner">
-                <form action="#" method="post" class="minisrch_form">
-                    <fieldset>
-                        <legend>
-                            검색
-                        </legend>
-                        <input type="text" class="tbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name="">
-                        <a href="#" class="btn_srch">검색</a>
-                    </fieldset>
-                </form>
+                
                 <!-- **** -->
-                <button style="width : 200px; height : 50px;" class="reqbtn success" onclick="javascript:getFriReq(1,${member_no});">친구요청목록</button>
-                <h1 id="hi">hi~</h1>
+                <button style="width : 100px; height : 30px;" class="reqbtn success" onclick="javascript:getFriReq(1,${loginInfo.member_no});">친구요청목록</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn success" onclick="javascript:getFriList(1,${loginInfo.member_no});">친구목록</button>
+                <div id="hi">
+	                <table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
+	                	 <colgroup>
+	                	 	<col width="200px"/>
+	                	 	<col width="269.73px"/>
+	                	 	<col width="200px"/>
+	                	 	<col width="*"/>
+	                	 	<col width="100px"/>
+	                	 </colgroup>
+	                	 <tr>
+                             <th colspan="5" style="text-align: center">${mydata.name } 님의 마이페이지 </th>
+                         </tr>
+	                	 <tr>
+                             <th>아이디</th>
+                             <td>${mydata.member_id }</td>
+                             <th>닉네임</th>
+                             <td>${mydata.nickname }</td>
+                             <td><button onclick="location:href='#'">내정보수정</button></td>
+                         </tr>
+                         <tr>
+                         	<th><fmt:formatDate pattern="yyyy" value="<%=new java.util.Date()%>"/>년 현재 등급</th>
+                         	<td >${mydata.level }</td>
+                         	<td colspan = "3"></td>
+                         </tr>
+                         <tr>
+                         	<th>가입일</th>
+                         	<td><fmt:formatDate pattern="yyyy-MM-dd" value="${mydata.regdate }"/> </td>
+                         	<th >최종방문일</th>
+                         	<td><fmt:formatDate pattern="yyyy-MM-dd" value="${mydata.curr_login }"/> </td>
+                         	<td></td>
+                         </tr>
+                         <tr>
+                         	<th>내가쓴글수</th>
+                         	<td>${mydata.board_count }</td>
+                         	<th >내가쓴댓글수</th>
+                         	<td>${mydata.reply_count }</td>
+                         	<td></td>
+                         </tr>
+	                </table>
+                </div>
 
                 <!-- pagenation -->
                 
