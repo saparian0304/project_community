@@ -67,4 +67,10 @@
 		UPDATE reply SET isdelete = 1 WHERE reply_no = #{reply_no}
 	</update>
 	
+	<update id="replyEdit">
+		UPDATE reply SET 
+		content = #{content},
+		update_date = NOW()
+		WHERE reply_no = #{reply_no} AND member_no = #{member_no}
+	</update>	
 </mapper>

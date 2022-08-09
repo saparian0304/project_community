@@ -23,4 +23,6 @@ public interface ReplyMapper {
 	
 	int reply(ReplyVO vo);
 	
+	int replyEdit(ReplyVO vo);
+	
 }

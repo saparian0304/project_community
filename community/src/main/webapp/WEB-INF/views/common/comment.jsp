@@ -23,7 +23,7 @@
 		</c:if>
 		
         <c:forEach var="vo" items="${comment.list}" varStatus="status">
-                               	         
+            <div id="redit"></div>                    	         
             <tr style="height:70px;"  class="rbox">
                 <td>${(status.index)+1}</td>
                 <td class="txt_l">               
@@ -35,7 +35,7 @@
                     ${vo.content}</a>                   
                    <c:if test="${loginInfo.member_no == vo.member_no }">
                     	<a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
-                    	<a href="view.do?board_no=${vo.board_no}"> &nbsp;&nbsp;[수정]</a>
+                    	<a href="javascript:replyEdit(${vo.reply_no})"> &nbsp;&nbsp;[수정]</a>
                     </c:if>	
                     </c:if>                   
                 	<!-- &nbsp;&nbsp;[답글작성] -->
