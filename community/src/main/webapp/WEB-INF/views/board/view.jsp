@@ -64,6 +64,44 @@ function goSave(){
 	</c:if>
 }
 
+// 댓글수정
+function replyEdit(reply_no){
+	$.ajax({    			
+		url : "/pet/reply/list.do",
+		data : {
+			board_no : ${data.board_no},
+			reply_no : reply_no				
+		},			
+		success : function(res) {
+			$("#redit").html('<tr><td><textarea name="content" id="recon" style="width:900px;"></textarea></td><td><div class="btnSet"><a href="javascript:replyEditgo(' + reply_no + ');"  style="  text-align: center;">수정</a></div></td></tr>');				
+		}
+	});
+}
+
+function replyEditgo(reply_no){
+<c:if test="${!empty loginInfo}">
+	if (confirm('댓글을 수정하시겠습니까?')){
+		$.ajax({			
+			url : "/pet/reply/replyEdit.do",
+			data : {
+				board_no: ${data.board_no},
+				reply_no : reply_no,
+				content : $("#recon").val(),
+				member_no : ${loginInfo.member_no}
+			},
+			success : function(res) {
+				if (res.trim() == "1") {
+					alert('정상적으로 댓글이 수정되었습니다.');
+					$("#recon").val('');
+					getComment(1);
+				}
+			}
+		});
+	}
+</c:if>
+}
+
+// 대댓글작성
 function replySave(gno){
 	<c:if test="${empty loginInfo}">
 		 alert('로그인후 댓글작성해주세요');
@@ -90,7 +128,7 @@ function replySave(gno){
 	</c:if>
 } 
 
-
+// 대댓글 리스트
 function replyForm(gno){
 	$.ajax({    			
 		url : "/pet/reply/replylist.do",
@@ -107,25 +145,16 @@ function replyForm(gno){
 	});
 }   
 
-/* function replyForm (gno){
-	$(".rbox").after('<tr><td colspan="4"><textarea name="content" id="content" style="width:900px;height: 70px;" placeholder="로그인 후 작성해주세요"></textarea></td></tr>')
-} */
- 
-
-
+// 댓글삭제
 function commentDel(reply_no) {
-	/* var rcount= ${replyCount};
-	if(rcount > 0) {
-		alert('댓글잇음');
-	} */
+	
 	if(confirm("댓글을 삭제하시겠습니까?")) {
 		$.ajax({
 			url : '/pet/reply/update.do?reply_no='+reply_no,
 			success : function(res)	{
 				if(res.trim() == '1') {
 					alert('댓글이 정상적으로 삭제되었습니다.');
-					getComment(1);
-					
+					getComment(1);		
 				
 				}
 			}	
