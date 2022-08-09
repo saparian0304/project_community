@@ -267,9 +267,9 @@
                          	<td></td>
                          </tr>
                          <tr>
-                         	<th>내가쓴댓글수</th>
+                         	<th>내가쓴글수</th>
                          	<td>${mydata.board_count }</td>
-                         	<th >내가쓴글수</th>
+                         	<th >내가쓴댓글수</th>
                          	<td>${mydata.reply_count }</td>
                          	<td></td>
                          </tr>
