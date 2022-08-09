@@ -87,7 +87,7 @@
 				},
 				success : function(res){
 					alert("성공");
-				    getFriReq(1, ${member_no});
+				    getFriReq(1, ${loginInfo.member_no });
 				}
 			})    	
 	    });
@@ -105,7 +105,7 @@
 				},
 				success : function(res){
 					alert("성공");
-					getFriReq(1, ${member_no});
+					getFriReq(1, ${loginInfo.member_no });
 					
 				}
 			})    	
@@ -125,7 +125,7 @@
 				},
 				success : function(res){
 					alert("성공");
-				    getFriReq(1, ${member_no});
+				    getFriReq(1, ${loginInfo.member_no });
 				}
 			})    	
 	    });
@@ -143,7 +143,7 @@
 			},
 			success : function(res){
 				alert("성공");
-				getFriReq(1, ${member_no});
+				getFriReq(1, ${loginInfo.member_no });
 				
 			}
 		})    	
