@@ -318,12 +318,6 @@
 							<td><input type="text" name="birthday" id="birthday" style="float: left;" autocomplete="off"></td>
 						</tr>
 						<tr>
-							<th>휴대폰 번호</th>
-							<td><input type="text" name="hp" id="hp" value="" maxlength="15" style="float: left;"></td>
-						</tr>
-
-
-						<tr>
 							<th rowspan="3">주소</th>
 							<td>
 								<input type="text" name="zipcode" id="zipcode" class="inNextBtn" style="float: left;" readonly> 

@@ -15,17 +15,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"/></script>
 		    <script>
 		    	function findEmail(){
+		    		//var member_id = $("#member_id").val()
 		    		if ($("#member_id").val()== ''){
 		    			alert('아이디를 입력해 주세요.');
 		    			$("#member_id").focus();
 		    			return false;
 		    			
 		    		}
-		    		if ($("#hp").val()== ''){
-		    			alert('전화번호를 입력해 주세요.');
-		    			$("#hp").focus();
-		    			return false;
-		    		}
+		    	
 		    		if ($("#email").val()== ''){
 		    			alert('이메일을 입력해 주세요.');
 		    			$("#email").focus();
@@ -36,8 +33,7 @@
 		    			url : 'findPwd.do',
 		    			method : 'post',
 		    			data : {
-		    				name : $("#member_id").val(),
-		    				hp : $("#hp").val(),
+		    				member_id : $("#member_id").val(),
 		    				email : $("#email").val()
 		    			},
 		    			success : function(res){
@@ -48,6 +44,7 @@
 		    				}
 		    			}
 		    		})
+		    		console.log("member_id : "+$("#member_id").val()); //위에처럼 var로 선언해주거나..
 		    		 return false;
 		    	}
 		    	
@@ -65,16 +62,16 @@
                             <fieldset class="login_form">
                                 <ul>
                                     <li><input type="text" id="member_id" name="member_id" placeholder="아이디"></li>
-                                    <li><input type="text" id="hp" name="hp" placeholder="전화번호"></li>
                                     <li><input type="text" id="email" name="email" placeholder="이메일"></li>
-                                    
                                 </ul>
-                                <div class="login_btn"><input type="submit" value="비번찾기" alt="비번찾기" /></div>
+                                <div class="login_btn">
+                                	<input type="submit" value="비번찾기" alt="비번찾기"/>
+                                </div>
+								
                             </fieldset>
                             <div class="btnSet clear">
                                 <div>
                                     <a href="join.do" class="btn">회원가입</a> 
-                                    <a href="findEmail.do" class="btn">이메일 찾기</a>
                                 </div>
                             </div>
                         </div>

@@ -117,5 +117,19 @@ public class MemberController {
 		}
 		return "common/result";
 	}
-
+	
+	@GetMapping("/member/findPwd.do")
+	public String findPwd(MemberVO vo){
+		return "member/findPwd";
+	}
+	
+	@PostMapping("/member/findPwd.do")
+	@ResponseBody
+	public String findPwd(MemberVO param, Model model) {
+		MemberVO vo = service.findPwd(param);
+		if(vo != null) {
+			model.addAttribute("result", vo.getPwd());
+		}
+		return "common/result";
+		}
 }
