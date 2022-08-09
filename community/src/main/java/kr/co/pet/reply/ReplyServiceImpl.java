@@ -31,6 +31,7 @@ public class ReplyServiceImpl implements ReplyService {
 		
 		List<ReplyVO> list = mapper.list(vo); //list 호출
 		List<ReplyVO> replyList = mapper.replyList(vo);
+		
 		// 페이징처리										// 번호가 최대나오는거
 		int endPage = (int)(Math.ceil(vo.getPage()/10.0) * 10);
 		int startPage = endPage-9; 
@@ -51,6 +52,7 @@ public class ReplyServiceImpl implements ReplyService {
 		map.put("list", list);
 		map.put("replyList", replyList);
 		map.put("replyCount", replyCount);
+	
 		
 		
 		return map;
@@ -81,12 +83,14 @@ public class ReplyServiceImpl implements ReplyService {
 		
 	}
 
-	
+	@Override
+	public int replyEdit(ReplyVO vo) {
+		
+		return mapper.replyEdit(vo);
+	}
 
 	
-
-
-
 	
+
 
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.pet.mypage.MypageMapper">
 	
-	<select id="memberSelect" parameterType="int" resultType="kr.co.pet.mypage.MypageVO">
+	<select id="memberSelect" parameterType="int" resultType="kr.co.pet.member.MemberVO">
 		SELECT *,
 			(SELECT COUNT(*) FROM board WHERE member_no = #{member_no} AND isdelete = 0) AS board_count,
 			(SELECT COUNT(*) FROM reply WHERE member_no = #{member_no} AND isdelete = 0) AS reply_count

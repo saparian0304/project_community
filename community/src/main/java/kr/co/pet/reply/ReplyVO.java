@@ -19,7 +19,7 @@ public class ReplyVO {
 	private int gno;
 	private int ono;
 	
-	private String member_email;	
+	private String member_nickname;	
 	
 	
 	private int page; // 파라미터로 보낼때 같은 이름이면 원하는 화면이 안날올수있음
