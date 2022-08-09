@@ -27,10 +27,13 @@
             <tr style="height:70px;">
                 <td>${(status.index)+1}</td>
                 <td class="txt_l">
-                    ${vo.content}<c:if test="${loginInfo.member_no == vo.member_no}"><a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a></c:if>
+                    ${vo.content}<c:if test="${loginInfo.member_no == vo.member_no}">
+                    <a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
+                    <a href="javascript:replyEdit(${vo.reply_no})"> &nbsp;&nbsp;[수정]</a>
+                    </c:if>
                 </td>                                            
                 <td class="writer">
-                     ${vo.member_email}
+                     ${vo.member_nickname}
                 </td>
                 <td class="date"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${vo.regdate}"/></td>
             </tr>                                                                        

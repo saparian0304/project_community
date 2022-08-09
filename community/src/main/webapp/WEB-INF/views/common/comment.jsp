@@ -42,7 +42,7 @@
                 	
                 </td>                                            
                 <td class="writer">
-                     ${vo.member_email}
+                     ${vo.member_nickname}
                 </td>
                 <td class="date"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${vo.regdate}"/></td>
             </tr>

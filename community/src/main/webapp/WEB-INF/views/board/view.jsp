@@ -79,7 +79,8 @@ function replyEdit(reply_no){
 }
 
 function replyEditgo(reply_no){
-	if (confirm('댓글을 저장하시겠습니까?')){
+<c:if test="${!empty loginInfo}">
+	if (confirm('댓글을 수정하시겠습니까?')){
 		$.ajax({			
 			url : "/pet/reply/replyEdit.do",
 			data : {
@@ -90,13 +91,14 @@ function replyEditgo(reply_no){
 			},
 			success : function(res) {
 				if (res.trim() == "1") {
-					alert('정상적으로 댓글이 등록되었습니다.');
+					alert('정상적으로 댓글이 수정되었습니다.');
 					$("#recon").val('');
 					getComment(1);
 				}
 			}
 		});
 	}
+</c:if>
 }
 
 // 대댓글작성

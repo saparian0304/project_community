@@ -36,7 +36,7 @@
 	
 	<select id="replyList" parameterType="kr.co.pet.reply.ReplyVO" resultType="kr.co.pet.reply.ReplyVO">
 		SELECT *,				
-			(SELECT email FROM member WHERE member_no=reply.member_no) AS member_email,
+			(SELECT nickname FROM member WHERE member_no=reply.member_no) AS member_nickname,
 			(SELECT COUNT(*) FROM reply WHERE reply_no = #{gno} AND gno = #{gno} ) AS reply_count
 		FROM reply
 		WHERE gno = #{gno}  AND isdelete = 0 AND ono != 0
@@ -54,7 +54,7 @@
 	<select id="list" parameterType="kr.co.pet.reply.ReplyVO" resultType="kr.co.pet.reply.ReplyVO">
 		SELECT *,
 			(SELECT board_no  FROM board WHERE board_no=reply.board_no) AS list_no,
-			(SELECT email FROM member WHERE member_no=reply.member_no) AS member_email			
+			(SELECT nickname FROM member WHERE member_no=reply.member_no) AS member_nickname			
 			FROM reply		
 		WHERE board_no = #{board_no} AND ono = 0
 		
