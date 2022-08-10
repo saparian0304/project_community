@@ -4,10 +4,11 @@ import java.sql.Timestamp;
 
 import lombok.Getter;
 import lombok.Setter;
+import util.Criteria;
 
 @Getter
 @Setter
-public class MypageVO {
+public class MypageVO extends Criteria{
 
 	// 테이블명
 	private String table_name;
