@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import kr.co.pet.member.MemberVO;
+import util.Criteria;
 
 @Controller
 public class MypageController {
@@ -25,8 +26,8 @@ public class MypageController {
 	}
 	
 	@GetMapping("/mypage/frilist.do")
-	public String friendList(Model model, MypageVO vo) {
-		model.addAttribute("data", service.friendList(vo));
+	public String friendList(Model model, MypageVO vo, Criteria cri) {
+		model.addAttribute("data", service.friendList(vo, cri));
 		return "mypage/friendlist";
 	}
 

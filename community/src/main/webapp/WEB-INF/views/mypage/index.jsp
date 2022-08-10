@@ -276,7 +276,7 @@
 	                </table>
                 </div>
 
-                <!-- pagenation -->
+                <!-- paging -->
                 
             </div>
         </div>

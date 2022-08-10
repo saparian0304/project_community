@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.pet.member.MemberVO;
+import util.Criteria;
+import util.Paging;
 
 @Service
 public class MypageServiceimpl implements MypageService {
@@ -16,40 +18,17 @@ public class MypageServiceimpl implements MypageService {
 	MypageMapper mapper;
 	
 	@Override
-	public Map friendList(MypageVO vo) {
+	public Map friendList(MypageVO vo, Criteria cri) {
 		Map map = new HashMap();
 		
 		// 총 친구수
 		int totalCount = mapper.friendCount(vo); 
-		// 총 페이지
-		int totalPage = totalCount / vo.getPageRow();
-		if (totalCount % vo.getPageRow() > 0) totalPage++;
-		if (totalPage == 0) totalPage = 1;
-		
-		// 시작인덱스
-		int startIdx = (vo.getPage() - 1) * vo.getPageRow();
-		vo.setStartIdx(startIdx);
-		
-		// 페이징
-		int temp = vo.getPage() / vo.getPageRow();
-		if (vo.getPage() % vo.getPageRow() > 0) temp++;
-		int endPage = temp * vo.getPageRow();
-		int startPage = endPage - (vo.getBlockSize() - 1);
-		if (endPage > totalPage) endPage = totalPage;
-		boolean prev = startPage > 1 ? true : false;
-		boolean next = endPage > totalPage ? true : false;
-		
 		// 친구 리스트
 		List list = mapper.friendList(vo); 
-		
+		Paging pMaker = new Paging(cri, totalCount);
 		map.put("totalCount", totalCount);
-		map.put("totalPage", totalPage);
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("prev", prev);
-		map.put("next", next);
-		map.put("page", vo.getPage());
 		map.put("list", list);
+		map.put("pageMaker", pMaker);
 		return map;
 	}
 
@@ -58,31 +37,10 @@ public class MypageServiceimpl implements MypageService {
 		Map map = new HashMap();
 		int totalCount = mapper.reqCount(vo);
 		// 총 페이지
-		int totalPage = totalCount / vo.getPageRow();
-		if (totalCount % vo.getPageRow() > 0) totalPage++;
-		if (totalPage == 0) totalPage = 1;
-		// 시작인덱스
-		int startIdx = (vo.getPage() - 1) * vo.getPageRow();
-		vo.setStartIdx(startIdx);
-		
-		// 페이징
-		int temp = vo.getPage() / vo.getPageRow();
-		if (vo.getPage() % vo.getPageRow() > 0) temp++;
-		int endPage = temp * vo.getPageRow();
-		int startPage = endPage - (vo.getBlockSize() - 1);
-		if (endPage > totalPage) endPage = totalPage;
-		boolean prev = startPage > 1 ? true : false;
-		boolean next = endPage > totalPage ? true : false;
 		
 		List list  = mapper.reqList(vo);
 		
 		map.put("totalCount", totalCount);
-		map.put("totalPage", totalPage);
-		map.put("startPage", startPage);
-		map.put("endPage", endPage);
-		map.put("prev", prev);
-		map.put("next", next);
-		map.put("page", vo.getPage());
 		map.put("list", list);
 		return map;
 	}
