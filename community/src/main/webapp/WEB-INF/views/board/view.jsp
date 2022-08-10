@@ -24,6 +24,7 @@ function getComment(page){
 		url : "/pet/reply/list.do",
 			data : {
 				board_no : ${data.board_no},
+				member_no : ${data.member_no},
 				page: page				
 			},			
 			success : function(res) {
@@ -72,8 +73,8 @@ function replyEdit(reply_no){
 			board_no : ${data.board_no},
 			reply_no : reply_no				
 		},			
-		success : function(res) {
-			$("#redit").html('<tr><td><textarea name="content" id="recon" style="width:900px;"></textarea></td><td><div class="btnSet"><a href="javascript:replyEditgo(' + reply_no + ');"  style="  text-align: center;">수정</a></div></td></tr>');				
+		success : function() {
+			$("#redit"+reply_no).html('<tr><td><textarea name="content" id="recon" style="width:900px; height="70px;"></textarea></td><td><div class="btnSet"><a href="javascript:replyEditgo(' + reply_no + ');"  style="  text-align: center;">수정</a></div></td></tr>');				
 		}
 	});
 }
@@ -137,9 +138,8 @@ function replyForm(gno){
 				gno : gno,
 				page: 1				
 			},			
-			success : function(res) { 	
-			
-				$("#rbox").html(res);	
+			success : function(res) {			
+				$("#rbox"+gno).html(res);	
 			 
 		}
 	});
@@ -265,6 +265,7 @@ function report(member_no, board_no, reply_no) {
                     </div>
                    </div>
                   </div>
+              </div>
         </div>
         <!-- id contner -->        
     </div> <!-- div id="wrap" -->
