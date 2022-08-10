@@ -12,8 +12,9 @@ public class Criteria {
 	private int startIdx;
 	
 	public Criteria() {
-		this.pageRow = 10;
 		this.page = 1;
+		this.pageRow = 10;
 		this.blockSize = 10;
+		this.startIdx = (this.page-1)* this.pageRow;
 	}
 }

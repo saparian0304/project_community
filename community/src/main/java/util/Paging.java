@@ -26,9 +26,8 @@ public class Paging {
 		this.totalPage = totalPage;
 		
 		// 시작인덱스
-		int startIdx = (cri.getPage() - 1) * cri.getPageRow();
-		cri.setStartIdx(startIdx);
-		
+//		int startIdx = (cri.getPage()-1)* cri.getPageRow();
+//		cri.setStartIdx(startIdx);
 		// 페이징
 		int temp = cri.getPage() / cri.getPageRow();
 		if (cri.getPage() % cri.getPageRow() > 0) temp++;
@@ -36,13 +35,11 @@ public class Paging {
 		int startPage = endPage - (cri.getBlockSize() - 1);
 		if (endPage > totalPage) endPage = totalPage;
 		
-		boolean prev = startPage > 1 ? true : false;
-		boolean next = endPage > totalPage ? true : false;
+		this.prev = this.startPage > 1;
+		this.next = this.endPage > totalPage;
 
 		this.endPage = endPage;
 		this.startPage = startPage;
-		this.prev = prev;
-		this.next = next;
 		
 	}
 }
