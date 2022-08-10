@@ -14,7 +14,7 @@
                 
                   <table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
                   <h3 class="sub_title">친구 요청 목록</h3>
-                    <p><span><strong>총 ${data.totalCount }명</strong>  |  ${data.page}  / ${data.totalPage }페이지</span></p>
+                    <p><span><strong>총 ${data.totalCount }명</strong>  |  ${data.page}  / ${pageMaker.totalPage }페이지</span></p>
                         <caption>게시판 목록</caption>
                         <colgroup>
                             <col width="80px" />
@@ -78,21 +78,25 @@
                         <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
                     </a>
                     
-                	<c:if test="${data.prev == true }">
-                        <a class="prevpage pbtn" style="cursor: pointer" onclick='javascript: getFriReq(${data.startPage -1 }, ${loginInfo.member_no});' >
+                	<c:if test="${pageMaker.prev == true }">
+                        <a class="prevpage pbtn" style="cursor: pointer" 
+                        	onclick='javascript: getFriReq(${pageMaker.startPage -1 }, ${loginInfo.member_no});' >
                         	<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
                         </a>
 					</c:if>
 					
-                    <c:forEach var="p" begin="${data.startPage }" end="${data.endPage }">
-                       	<a style="cursor: pointer" class="pagenum <c:if test="${mypageVO.page == p}"> currentpage </c:if>" onclick='javascript: getFriReq(${p }, ${loginInfo.member_no});' >${p }</a>
+                    <c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+                       	<a style="cursor: pointer" class="pagenum <c:if test="${mypageVO.page == p}"> currentpage </c:if>" 
+                       		onclick='javascript: getFriReq(${p }, ${loginInfo.member_no});' >${p }</a>
 					</c:forEach>
-					<c:if test="${data.next == true }">
-						<a class="nextpage pbtn" style="cursor: pointer" onclick='javascript: getFriReq(${data.endPage +1 }, ${loginInfo.member_no});'>
+					<c:if test="${pageMaker.next == true }">
+						<a class="nextpage pbtn" style="cursor: pointer" 
+							onclick='javascript: getFriReq(${pageMaker.endPage +1 }, ${loginInfo.member_no});'>
 							<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
 						</a>
 					</c:if>
-                    <a style="cursor: pointer" onclick='javascript: getFriReq(${data.totalPage }, ${loginInfo.member_no});' class="lastpage pbtn">
+                    <a style="cursor: pointer" onclick='javascript: getFriReq(${pageMaker.totalPage }, ${loginInfo.member_no});' 
+                    	class="lastpage pbtn">
                         <img src="/pet/img/btn_lastpage.png" alt="마지막 페이지 이동">
                     </a>
                 </div>
