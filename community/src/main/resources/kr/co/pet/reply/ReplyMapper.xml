@@ -48,7 +48,7 @@
 	
 	<select id="count" parameterType="kr.co.pet.reply.ReplyVO" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM reply
-		WHERE isdelete = 0 AND board_no = #{board_no} AND ono = 0
+		WHERE board_no = #{board_no} AND ono = 0
 	</select>
 	
 	<select id="list" parameterType="kr.co.pet.reply.ReplyVO" resultType="kr.co.pet.reply.ReplyVO">

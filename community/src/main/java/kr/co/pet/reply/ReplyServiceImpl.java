@@ -18,42 +18,42 @@ public class ReplyServiceImpl implements ReplyService {
 	public Map index(ReplyVO vo) {
 		
 		int replyCount = mapper.rcount(vo);
-		int totalCount = mapper.count(vo); // 총게시물수
-		// 총페이지수
-		int totalPage = totalCount / vo.getPageRow(); //->기본 10;		
-		if(totalCount % vo.getPageRow() > 0) totalPage++; 
-	 
-	
+		// 총게시물수 // 총페이지수 int totalPage =
+	/*
+		* totalCount / vo.getPageRow(); //->기본 10; if(totalCount % vo.getPageRow() > 0)
+		 * totalPage++;
+		 * 
+		 */
 		// 시작인덱스
 		
-		int startIdx = (vo.getPage()-1) * vo.getPageRow();
-		vo.setStartIdx(startIdx); // vo 주입
-		
+		/*
+		 * int startIdx = (vo.getPage()-1) * vo.getPageRow(); vo.setStartIdx(startIdx);
+		 * // vo 주입
+		 */		
 		List<ReplyVO> list = mapper.list(vo); //list 호출
 		List<ReplyVO> replyList = mapper.replyList(vo);
 		
 		// 페이징처리										// 번호가 최대나오는거
-		int endPage = (int)(Math.ceil(vo.getPage()/10.0) * 10);
-		int startPage = endPage-9; 
-							// 뺀다음 대입
-		if(endPage > totalPage) endPage = totalPage;
-		boolean prev = startPage > 1 ? true : false; // 1보다 크면 true, 아님 false
-		boolean next = endPage < totalPage ? true : false; 	
-		
-		
+		/*
+		 * int endPage = (int)(Math.ceil(vo.getPage()/10.0) * 10); int startPage =
+		 * endPage-9; // 뺀다음 대입 if(endPage > totalPage) endPage = totalPage; boolean
+		 * prev = startPage > 1 ? true : false; // 1보다 크면 true, 아님 false boolean next =
+		 * endPage < totalPage ? true : false;
+		 * 
+		 */
 		
 		Map map = new HashMap();
+	/*
 		map.put("totalCount", totalCount);
 		map.put("totalPage", totalPage);
 		map.put("startPage", startPage);
 		map.put("endPage", endPage);
 		map.put("prev", prev);
 		map.put("next", next);
+	*/		
 		map.put("list", list);
 		map.put("replyList", replyList);
-		map.put("replyCount", replyCount);
-	
-		
+		map.put("replyCount", replyCount);	
 		
 		return map;
 	}
@@ -87,6 +87,11 @@ public class ReplyServiceImpl implements ReplyService {
 	public int replyEdit(ReplyVO vo) {
 		
 		return mapper.replyEdit(vo);
+	}
+
+	@Override
+	public int totalCount(ReplyVO vo) {
+		return mapper.count(vo);
 	}
 
 	

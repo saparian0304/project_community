@@ -13,4 +13,6 @@ public interface ReplyService {
 	int reply(ReplyVO vo);
 
 	int replyEdit(ReplyVO vo);
+	
+	int totalCount(ReplyVO vo);
 }

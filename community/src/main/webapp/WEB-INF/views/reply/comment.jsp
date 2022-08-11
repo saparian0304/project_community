@@ -7,7 +7,7 @@
 
 </script>
 
-<p style="margin-top:5px;"><span><strong>총 ${comment.totalCount}개</strong> ${commentVO.page}/ ${comment.totalPage} 페이지</span></p>
+<p style="margin-top:5px;"><span><strong>총 ${pageMaker.totalCount}개</strong> ${replyVO.page}/ ${pageMaker.totalPage} 페이지</span></p>
     <table class="list" style="width:920px;">
         <colgroup>
             <col width="80px" />
@@ -66,21 +66,27 @@
     </table>   
     
     <div class="pagenation">
-	    <c:if test="${comment.prev == true}">
-	        <a href="javascript:getComment(${comment.startPage});" class="firstpage pbtn">
-	            <img src="/project/img/btn_firstpage.png" alt="첫 페이지로 이동">
+    	<a style="cursor:pointer" class="firstpage pbth" href="javascript:getComment(${pageMaker.startPage});">
+    		<img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
+    	</a>
+	    <c:if test="${pageMaker.prev == true}">
+	        <a href="javascript:getComment(${pageMaker.startPage-1});" class="firstpage pbtn">
+	            <img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
 	        </a>
 	    </c:if>
-	     <c:forEach var="p" begin="${comment.startPage}" end="${comment.endPage}">    
-	        <a href="javascript:getComment(${p});"<c:if test="${commentVO.page == p}"/>>
+	     <c:forEach var="p" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">    
+	        <a href="javascript:getComment(${p});"<c:if test="${replyVO.page == p}"/>>
 	            <span class="pagenum currentpage">${p}</span>
 	        </a>
 	     </c:forEach>  
 	     <c:if test="${data.next == true}">   
-	        <a href="ijavascript:getComment(${comment.endPage+1});" class="lastpage pbtn">
-	            <img src="/project/img/btn_lastpage.png" alt="마지막 페이지 이동">
+	        <a href="ijavascript:getComment(${pageMaker.endPage+1});" class="lastpage pbtn">
+	            <img src="/pet/img/btn_nextpage.png" alt="다음 페이지 이동">
 	        </a>
 	     </c:if>
+	     <a style="cursor:poiner"  href="javascript:getComment(${pageMaker.totalPage});" class="lastpage pbtn">
+	     		<img src="/pet/img/btn_lastpage.png" alt="마지막 페이지 이동">
+	     </a>
     </div>
 
                 
