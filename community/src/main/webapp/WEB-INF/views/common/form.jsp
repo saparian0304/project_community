@@ -6,27 +6,7 @@
  
 
 <script>
-function goSave(){
-<c:if test="${!empty loginInfo}"> 
-	if (confirm('댓글을 수정하시겠습니까?')){
-	$.ajax({			
-			url : "/pet/reply/replyEdit.do",
-			data : {
-				board_no : ${data.board_no},
-				content : $("#content").val(),
-				member_no : ${loginInfo.member_no}
-			},
-			success : function(res) {
-				if (res.trim() == "1") {
-					alert('정상적으로 댓글이 수정되었습니다.');
-					$("#content").val('');
-					getComment(1);
-				}
-			}
-		});
-	}
-</c:if>
-}
+
 </script>
    
     
