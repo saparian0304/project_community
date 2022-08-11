@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
  
+
 <script>
 function goSave(){
 <c:if test="${!empty loginInfo}"> 
@@ -38,7 +39,7 @@ function goSave(){
 	        <tbody>
 	        <tr>
 	            <td>
-	                <textarea name="content" id="content" style="width:900px;"> ${vo.content}</textarea>
+	                <textarea name="content" id="content" style="width:900px;">${param.content}11</textarea>
 	            </td>
 	            <td>
 	                <div class="btnSet">
@@ -49,6 +50,7 @@ function goSave(){
 	        </tbody>
 	    </table>
 	</form>	
-    
+ 
+	
 
 

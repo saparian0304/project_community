@@ -44,9 +44,7 @@ public class ReplyController {
 	public String replylist(ReplyVO vo, Model model) {
 		model.addAttribute("reply", service.index(vo));
 		return "common/reply";
-	}
-	
-	
+	}	
 	
 	
 	@GetMapping("/reply/replyEdit.do")
@@ -54,5 +52,7 @@ public class ReplyController {
 		model.addAttribute("result", service.replyEdit(vo));
 		return "common/result";
 	}
+	
+	
 	
 }

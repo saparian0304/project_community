@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import kr.co.pet.member.MemberVO;
+import util.Criteria;
+import util.Paging;
 
 @Controller
 public class MypageController {
@@ -25,14 +27,18 @@ public class MypageController {
 	}
 	
 	@GetMapping("/mypage/frilist.do")
-	public String friendList(Model model, MypageVO vo) {
+	public String friendList(Model model, MypageVO vo, Criteria cri) {
 		model.addAttribute("data", service.friendList(vo));
+		model.addAttribute("pageMaker", new Paging(vo, service.friTotal(vo)));
 		return "mypage/friendlist";
 	}
 
 	@GetMapping("/mypage/frireq.do")
-	public String friReqList(Model model, MypageVO vo) {
+	public String friReqList(Model model, MypageVO vo, Criteria cri) {
 		model.addAttribute("data", service.friReqList(vo));
+		System.out.println("=============================vo" + vo.getStartIdx());
+		model.addAttribute("pageMaker", new Paging(cri, service.frireqTotal(vo)));
+		System.out.println("=============================cri" + cri.getStartIdx());
 		return "mypage/frireq";
 	}
 	

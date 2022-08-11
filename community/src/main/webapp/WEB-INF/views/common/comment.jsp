@@ -15,7 +15,7 @@
             <col width="150px" />
             <col width="200px" />
         </colgroup>
-        <tbody >
+        <tbody>
 		<c:if test="${empty comment.list}">
             <tr style="height:70px;">
                 <td class="first" colspan="8" style="height:70px;">등록된 댓글이 없습니다.</td>                
@@ -23,11 +23,11 @@
 		</c:if>
 		
         <c:forEach var="vo" items="${comment.list}" varStatus="status">
-            <div id="redit"></div>                    	         
+                            	         
             <tr style="height:70px;"  class="rbox">
                 <td>${(status.index)+1}</td>
                 <td class="txt_l">               
-                   <a href="javascript:replyForm(${vo.gno});">
+                   <a href="javascript:replyForm(${vo.gno});" id="remove"> &nbsp;&nbsp;[댓글수]                   
                    <c:if test="${vo.isdelete == true }">
                        삭제된 댓글입니다.
                    </c:if>
@@ -37,17 +37,30 @@
                     	<a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
                     	<a href="javascript:replyEdit(${vo.reply_no})"> &nbsp;&nbsp;[수정]</a>
                     </c:if>	
-                    </c:if>                   
-                	<!-- &nbsp;&nbsp;[답글작성] -->
-                	
-                </td>                                            
+                    </c:if>                	
+                </td>
+    		<c:if test="${param.member_no == vo.member_no}">                                            
+                <td class="writer" style="color:blue; font-weight:bold;">
+                     ${vo.member_nickname}
+                </td>
+         	</c:if> 
+            <c:if test="${param.member_no != vo.member_no}">                                                 
                 <td class="writer">
                      ${vo.member_nickname}
                 </td>
+            </c:if>                       
                 <td class="date"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${vo.regdate}"/></td>
+            </tr>           
+           	<tr>
+            	<td colspan="5">
+            		<div id="redit${vo.reply_no}"></div>
+            	</td>
             </tr>
-           <div id="rbox"></div>                                                                    
-                                             
+            <tr>
+            	<td colspan="5">
+           			<div id="rbox${vo.gno}"></div>
+           		</td>
+           	</tr>                                                                                       
         </c:forEach>
         </tbody>
     </table>   

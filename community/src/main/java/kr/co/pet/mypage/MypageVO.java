@@ -4,10 +4,11 @@ import java.sql.Timestamp;
 
 import lombok.Getter;
 import lombok.Setter;
+import util.Criteria;
 
 @Getter
 @Setter
-public class MypageVO {
+public class MypageVO extends Criteria{
 
 	// 테이블명
 	private String table_name;
@@ -25,17 +26,5 @@ public class MypageVO {
 	private int you_no;
 	private Timestamp req_date;
 	private Timestamp res_date;
-	
-	// 페이징
-	private int pageRow;
-	private int blockSize;
-	private int page;
-	private int startIdx;
-	
-	public MypageVO() {
-		this.pageRow = 10;
-		this.page = 1;
-		this.blockSize = 10;
-	}
 
 }
