@@ -4,9 +4,33 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.pet.board.BoardVO;
+import kr.co.pet.member.MemberVO;
+import kr.co.pet.reply.ReplyVO;
+
 @Mapper
 public interface ReportMapper {
 
+	/**
+	 * 회원 정보 불러오기
+	 * @param vo ReportVO - you_no
+	 * @return
+	 */
+	MemberVO selectMember(ReportVO vo);
+	/**
+	 * 게시글 정보 불러오기
+	 * @param vo ReportVO - board_no, reply_no
+	 * @return
+	 */
+	BoardVO selectBoard(ReportVO vo);
+	
+	/**
+	 * 댓글 정보 불러오기
+	 * @param vo ReportVO - board_no, reply_no
+	 * @return
+	 */
+	ReplyVO selectReply(ReportVO vo);
+	
 	/**
 	 * 신고 등록
 	 * @param vo ReportVO - i_no, you_no, reason, content, reply_no, board_no

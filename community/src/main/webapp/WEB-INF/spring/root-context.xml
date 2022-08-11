@@ -2,7 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
@@ -10,7 +12,7 @@
 		<!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> 
 			<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/project"></property> -->
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://15.164.103.67:3306/community_prac"></property><!-- 포트/스키마명 -->
+		<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://3.39.57.179:3306/community_prac"></property><!-- 포트/스키마명 -->
 		<property name="username" value="root"></property>
 		<property name="password" value="root1234"></property>
 	</bean>
@@ -23,4 +25,11 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>	
 	<mybatis-spring:scan base-package="kr.co.pet" annotation="org.apache.ibatis.annotations.Mapper"/>
+	
+	<!-- 웹소켓 관련 설정 -->
+	<websocket:handlers allowed-origins="*" >
+        <websocket:mapping handler="handlerChat" path="/chat" />
+        <websocket:sockjs websocket-enabled="true" />
+    </websocket:handlers>
+    <bean id="handlerChat" class="kr.co.pet.chat.HandlerChat" />
 </beans>

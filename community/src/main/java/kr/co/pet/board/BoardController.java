@@ -34,6 +34,10 @@ public class BoardController {
 	@GetMapping("/board/index.do")
 	public String index(Model model, BoardVO vo) throws IOException, ParseException {
 		model.addAttribute("data", service.index(vo));
+<<<<<<< HEAD
+=======
+//		model.addAttribute("api", api.apiInsert2());
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 		return "/board/index";
 	}
 	

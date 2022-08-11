@@ -5,6 +5,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import util.SendMail;
+
 @Service
 public class MemberServiceImpl implements MemberService {
 
@@ -12,59 +14,87 @@ public class MemberServiceImpl implements MemberService {
 	MemberMapper mapper;
 	
 	@Override
+	public boolean update(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(int no) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public int insert(MemberVO vo) {
 		return mapper.insert(vo);
 	}
 
 	@Override
-	public int emailDupCheck(String email) {
-		return mapper.emailDupCheck(email);
+	public int emailCheck(String email) {
+		return mapper.emailCheck(email);
 	}
 
 	@Override
 	public boolean loginCheck(MemberVO vo, HttpSession sess) {
-		//세션객체를 로그인할 때 넘겨줘야 함
-		boolean r = false;
-		MemberVO loginInfo = mapper.loginCheck(vo); 
-		if(mapper.loginCheck(vo) != null) {
-			r = true;
-			//로그인 성공시 세션에 저장
+		boolean l = false;
+		MemberVO loginInfo = mapper.loginCheck(vo);
+		if(loginInfo != null) {
+			l = true;
+			//로그인 성공하면 세션에 저장
 			sess.setAttribute("loginInfo", loginInfo);
 		}
-		return r;
+		return l; 
+	}
+
+
+	@Override
+	public int idCheck(String id) {
+		int cnt = mapper.idCheck(id);
+		System.out.println("cnt : "+ cnt);
+		return cnt;
 	}
 
 	@Override
-	public MemberVO findEmail(MemberVO vo) {
-		return mapper.findEmail(vo);
+	public int nicknameCheck(String nickname) {
+		int cnt = mapper.nicknameCheck(nickname);
+		System.out.println("nickname: "+cnt);
+		return cnt;
+	}
+
+	@Override
+	public MemberVO findId(MemberVO vo) {
+		System.out.println("findId : "+ vo);
+		
+		return mapper.findId(vo);
 	}
 	
 	@Override
 	public MemberVO findPwd(MemberVO vo) {
 		//update
-		MemberVO mv = mapper.findEmail(vo);
-		if(mv != null) {
-			//임시 비밀번호 생성
-			//영문 두자리, 숫자 두자리
-			String temp = "";
-			for(int i=0; i<2; i++) {
-				temp += (char)(Math.random()*26+65);
-			}
-			for(int i=0; i<2; i++) {
-				temp += (int)(Math.random()*9);
-			}
-			//임시비밀번호 update
-			vo.setPwd(temp);
-			mapper.updateTempPwd(vo);
-			
-			//email발송
-			//SendMail.sendMail("zkdl1201@naver.com", vo.getEmail(), "[더조은]임시비밀번호", "임시비밀번호 : "+temp);
-			
-			return mv;
-		} else {
-			return null;
-		}
-		
-	}
+		MemberVO mv = mapper.findPwd(vo);
 
+		
+		if(mv !=null) {
+		//임시비번생성
+		//영문3자리,숫자3자리
+		String temp = "";
+		for (int i=0; i<3; i++) {
+			temp += (char)(Math.random()*26+97);
+		}
+		for (int i=0; i<3; i++) {
+			temp += (int)(Math.random()*9);
+		}
+		//임시비번 update
+		vo.setPwd(temp);
+		mapper.updateTempPwd(vo);
+		
+		System.out.println("보내는대상 : "+ vo.getMember_id());
+		//email발송
+		SendMail.sendMail("a_jin0609@naver.com", vo.getEmail(), "[pet_community]비번test", "임시비번: "+temp+"입니다.");
+		return mv;
+	    }else {
+		    return null;
+	    }
+	}
 }

@@ -12,6 +12,20 @@ public class ReportServiceImpl implements ReportService {
 	@Autowired
 	ReportMapper mapper;
 
+	@Override
+	public Map getInfo(ReportVO vo) {
+		Map<String, Object> map = new HashMap();
+		map.put("member", mapper.selectMember(vo));
+		if(vo.getIsReply() == 0 ) {
+			map.put("board", mapper.selectBoard(vo));
+			map.put("isReply", false);
+		} else {
+			map.put("reply", mapper.selectReply(vo));
+			map.put("isReply", true);
+		}
+		return map;
+	}
+	
 	/**
 	 * 신고 등록
 	 * @param vo ReportVO - i_no, you_no, reason, content, reply_no, board_no

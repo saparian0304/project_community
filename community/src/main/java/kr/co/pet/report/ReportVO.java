@@ -20,4 +20,5 @@ public class ReportVO {
 	private String status;	// wait | accept | reject
 	
 	private int sumCnt;
+	private int isReply;
 }
