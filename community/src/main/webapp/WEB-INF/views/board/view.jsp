@@ -24,6 +24,7 @@ function getComment(page){
 		url : "/pet/reply/list.do",
 			data : {
 				board_no : ${data.board_no},
+				member_no : ${data.member_no},
 				page: page				
 			},			
 			success : function(res) {
@@ -72,10 +73,11 @@ function replyEdit(reply_no){
 			board_no : ${data.board_no},
 			reply_no : reply_no				
 		},			
-		success : function(res) {
-			$("#redit").html('<tr><td><textarea name="content" id="recon" style="width:900px;"></textarea></td><td><div class="btnSet"><a href="javascript:replyEditgo(' + reply_no + ');"  style="  text-align: center;">수정</a></div></td></tr>');				
+		success : function() {
+			$("#redit"+reply_no).html('<tr><td colspan="5"><textarea name="content" id="recon" style="width:800px; height:70px;" placeholder=""></textarea></td><td><div class="btnSet"><a href="javascript:replyEditgo(' + reply_no + ');"  style="  text-align: center;" >수정</a></div></td></tr>');				
 		}
 	});
+	$("#redit"+reply_no).toggle();
 }
 
 function replyEditgo(reply_no){
@@ -129,20 +131,22 @@ function replySave(gno){
 } 
 
 // 대댓글 리스트
-function replyForm(gno){
+function replyForm(gno){	
 	$.ajax({    			
 		url : "/pet/reply/replylist.do",
 			data : {
 				board_no : ${data.board_no},
+				member_no : ${data.member_no},
 				gno : gno,
 				page: 1				
 			},			
-			success : function(res) { 	
-			
-				$("#rbox").html(res);	
-			 
+			success : function(res) {
+				$("#rbox"+gno).html(res);
+				
 		}
 	});
+		$("#rbox"+gno).toggle();
+	
 }   
 
 // 댓글삭제
@@ -265,6 +269,7 @@ function report(member_no, board_no, reply_no) {
                     </div>
                    </div>
                   </div>
+              </div>
         </div>
         <!-- id contner -->        
     </div> <!-- div id="wrap" -->
@@ -278,7 +283,7 @@ function report(member_no, board_no, reply_no) {
 				<col width="100px" />
 			</colgroup>
 			<tbody>
-				<tr>
+				<tr id="test">
 					<td>
 						<textarea name="content" id="content" style="width:900px;height: 70px;" placeholder="로그인 후 작성해주세요"></textarea>
 					</td>
