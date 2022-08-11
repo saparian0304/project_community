@@ -78,7 +78,7 @@
                         <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
                     </a>
                     
-                	<c:if test="${pageMaker.prev == true }">
+                	<c:if test="${pageMaker.prev }">
                         <a class="prevpage pbtn" style="cursor: pointer" 
                         	onclick='javascript: getFriReq(${pageMaker.startPage -1 }, ${loginInfo.member_no});' >
                         	<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
@@ -86,10 +86,10 @@
 					</c:if>
 					
                     <c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-                       	<a style="cursor: pointer" class="pagenum <c:if test="${mypageVO.page == p}"> currentpage </c:if>" 
+                       	<a style="cursor: pointer" class="pagenum<c:if test="${mypageVO.page == p}"> currentpage </c:if>" 
                        		onclick='javascript: getFriReq(${p }, ${loginInfo.member_no});' >${p }</a>
 					</c:forEach>
-					<c:if test="${pageMaker.next == true }">
+					<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
 						<a class="nextpage pbtn" style="cursor: pointer" 
 							onclick='javascript: getFriReq(${pageMaker.endPage +1 }, ${loginInfo.member_no});'>
 							<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">

@@ -937,21 +937,22 @@ v h3 em{
 }
 .pagenation a{
 	display: inline-block;
+	text-align: center;
 }
 .pagenation a.pbtn{
 	padding: 7px;
 	text-align: center;
 }
-.pagenation a .pagenum{
+.pagenation a.pagenum{
 	width: 25px; height: 25px; line-height: 25px;
 	display: inline-block;
 	text-align: center;
 }
-.pagenation a .currentpage{
+.pagenation a.currentpage{
 	border-radius: 3px ;
 	background: #384d75; color: #fff;
 }
-.pagenation a:hover .pagenum{
+.pagenation a:hover.pagenum{
 	border-radius: 3px ;
 	background: #ddd;
 }

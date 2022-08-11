@@ -8,8 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import kr.co.pet.member.MemberVO;
-import util.Criteria;
-import util.Paging;
+import util.PageMaker;
 
 @Controller
 public class MypageController {
@@ -27,18 +26,22 @@ public class MypageController {
 	}
 	
 	@GetMapping("/mypage/frilist.do")
-	public String friendList(Model model, MypageVO vo, Criteria cri) {
+	public String friendList(Model model, MypageVO vo) {
 		model.addAttribute("data", service.friendList(vo));
-		model.addAttribute("pageMaker", new Paging(vo, service.friTotal(vo)));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.friTotal(vo));
+		model.addAttribute("pageMaker", pageMaker);
 		return "mypage/friendlist";
 	}
 
 	@GetMapping("/mypage/frireq.do")
-	public String friReqList(Model model, MypageVO vo, Criteria cri) {
+	public String friReqList(Model model, MypageVO vo) {
 		model.addAttribute("data", service.friReqList(vo));
-		System.out.println("=============================vo" + vo.getStartIdx());
-		model.addAttribute("pageMaker", new Paging(cri, service.frireqTotal(vo)));
-		System.out.println("=============================cri" + cri.getStartIdx());
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.frireqTotal(vo));
+		model.addAttribute("pageMaker", pageMaker);
 		return "mypage/frireq";
 	}
 	
