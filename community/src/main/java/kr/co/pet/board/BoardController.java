@@ -34,7 +34,6 @@ public class BoardController {
 	@GetMapping("/board/index.do")
 	public String index(Model model, BoardVO vo) throws IOException, ParseException {
 		model.addAttribute("data", service.index(vo));
-		model.addAttribute("api", api.apiInsert2());
 		return "/board/index";
 	}
 	
@@ -76,7 +75,7 @@ public class BoardController {
 			fvo.setBoard_no(vo.getBoard_no());
 			if(fservice.insert(fvo)){
 				model.addAttribute("msg", "정상적으로 저장되었습니다.");
-				model.addAttribute("url", "/board/index.do");
+				model.addAttribute("url", "/pet/board/index.do");
 				return "common/alert";
 			} else {
 				service.delete(vo.getBoard_no());
