@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+               <button style="width : 100px; height : 30px;" class="reqbtn success" onclick="javascript:getFriReq(1,${loginInfo.member_no});">친구요청목록</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn success" onclick="javascript:getFriList(1,${loginInfo.member_no});">친구목록</button>
 				<form action="#" method="post" class="minisrch_form">
                     <fieldset>
                         <legend>
@@ -11,6 +13,7 @@
                         <a href="#" class="btn_srch">검색</a>
                     </fieldset>
                 </form>
+                
 				<table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
                 <h3 class="sub_title">친구목록</h3>
                     <p><span><strong>총 ${data.totalCount }명</strong>  |  ${data.page}  / ${pageMaker.totalPage }페이지</span></p>
@@ -32,7 +35,7 @@
                         <tbody>
 						<c:if test="${empty data.list }">
                     	<tr>
-                    		<td class="tit_notice" colspan="3" style="text-align : center;">등록된 친구가 없습니다.</td>
+                    		<td class="tit_notice" colspan="4" style="text-align : center;">등록된 친구가 없습니다.</td>
                     	</tr>
                     	</c:if>
                     	<c:if test="${!empty data.list }">
@@ -54,6 +57,7 @@
                     </table>
                     
                     <div class="pagenation">
+                    <c:if test="${!empty data.list }">
 	                	<a style="cursor: pointer" onclick='javascript: getFriList(1, ${loginInfo.member_no});' 
 	                		class="firstpage pbtn">
 	                        <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
@@ -80,6 +84,7 @@
 	                    	class="lastpage pbtn">
 	                        <img src="/pet/img/btn_lastpage.png" alt="마지막 페이지 이동">
 	                    </a>
+	                </c:if>
                 	</div>
                 
                     <!-- 페이지처리 -->

@@ -17,8 +17,16 @@ public class MypageController {
 	MypageService service;
 	
 	
-	@GetMapping("/mypage/index.do")
+	@GetMapping("/mypage/info.do")
 	public String mypageList(Model model, HttpSession sess) {
+		MemberVO mv = (MemberVO)sess.getAttribute("loginInfo");
+//		vo.setMember_no(mv.getMember_no());
+		model.addAttribute("mydata", service.memberSelect(mv.getMember_no()));
+		return "mypage/myinfo";
+	}
+	
+	@GetMapping("/mypage/index.do")
+	public String myIndex(Model model, HttpSession sess) {
 		MemberVO mv = (MemberVO)sess.getAttribute("loginInfo");
 //		vo.setMember_no(mv.getMember_no());
 		model.addAttribute("mydata", service.memberSelect(mv.getMember_no()));
@@ -55,6 +63,16 @@ public class MypageController {
 	public String friDelete(MypageVO vo) {
 		service.friDel(vo);
 		return "mypage/index";
+	}
+	
+	@GetMapping("/mypage/actlist.do")
+	public String myActList(Model model, MypageVO vo) {
+		model.addAttribute("data", service.myActList(vo));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.actTotal(vo));
+		model.addAttribute("pageMaker", pageMaker);
+		return "mypage/actlist";
 	}
 	
 }

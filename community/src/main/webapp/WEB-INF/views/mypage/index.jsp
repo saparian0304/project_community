@@ -9,33 +9,6 @@
     <title>notice</title>
     <link rel="stylesheet" href="/pet/css/common.css"> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<style>
-    .reqbtn {
-		  border: 2px solid black;
-		  cursor: pointer;
-		  border-radius: 5px;
-	}
-		
-	.success {
-		  border-color: #04AA6D;
-		  color: green;
-	}
-		
-	.success:hover {
-		  background-color: #04AA6D;
-		  color: white;
-	}
-	
-	.danger {
-		  border-color: #f44336;
-		  color: red
-	}
-
-	.danger:hover {
-		  background: #f44336;
-		  color: white;
-	}
-    </style> 
     <script>
     /* 체크박스 전체체크 */
     function selectAll(selectAll)  {
@@ -43,6 +16,21 @@
 	    checkboxes.forEach((checkbox) => {
 	       checkbox.checked = selectAll.checked
 	    })
+    }
+    /* ajax로 마이페이지 메인(?)으로 */
+    $(function(){
+    	getIndex(${loginInfo.member_no });
+    })
+    function getIndex(member_no){
+    	$.ajax({
+    		url : "info.do",
+    		data : {
+    			member_no : member_no
+    		},
+    		success : function(res){
+    			$("#hi").html(res);
+    		}
+    	})
     }
     /* ajax로 친구요청목록 불러오기 */
     function getFriReq(page, member_no){
@@ -64,6 +52,20 @@
     		url : "frilist.do",
     		data : {
     			table_name : 'friend',
+    			member_no : member_no,
+    			page : page
+    		},
+    		success : function(res){
+    			$("#hi").html(res);
+    		}
+    	})
+    }
+    /* ajax로 내활동목록 불러오기 */
+    function getActList(page, member_no){
+    	$.ajax({
+    		url : "actlist.do",
+    		data : {
+    			table_name : 'board',
     			member_no : member_no,
     			page : page
     		},
@@ -233,47 +235,13 @@
             <div class="bodytext_area box_inner">
                 
                 <!-- **** -->
-                <button style="width : 100px; height : 30px;" class="reqbtn success" onclick="javascript:getFriReq(1,${loginInfo.member_no});">친구요청목록</button>
-                <button style="width : 100px; height : 30px;" class="reqbtn success" onclick="javascript:getFriList(1,${loginInfo.member_no});">친구목록</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:getIndex(${loginInfo.member_no});">내정보</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:getFriReq(1,${loginInfo.member_no});">친구페이지</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:getActList(1,${loginInfo.member_no});">내 활동내역</button>
+                <br/>
+                <br/>
                 <div id="hi">
-	                <table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
-	                	 <colgroup>
-	                	 	<col width="200px"/>
-	                	 	<col width="269.73px"/>
-	                	 	<col width="200px"/>
-	                	 	<col width="*"/>
-	                	 	<col width="100px"/>
-	                	 </colgroup>
-	                	 <tr>
-                             <th colspan="5" style="text-align: center">${mydata.name } 님의 마이페이지 </th>
-                         </tr>
-	                	 <tr>
-                             <th>아이디</th>
-                             <td>${mydata.member_id }</td>
-                             <th>닉네임</th>
-                             <td>${mydata.nickname }</td>
-                             <td><button onclick="location:href='#'">내정보수정</button></td>
-                         </tr>
-                         <tr>
-                         	<th><fmt:formatDate pattern="yyyy" value="<%=new java.util.Date()%>"/>년 현재 등급</th>
-                         	<td >${mydata.level }</td>
-                         	<td colspan = "3"></td>
-                         </tr>
-                         <tr>
-                         	<th>가입일</th>
-                         	<td><fmt:formatDate pattern="yyyy-MM-dd" value="${mydata.regdate }"/> </td>
-                         	<th >최종방문일</th>
-                         	<td><fmt:formatDate pattern="yyyy-MM-dd" value="${mydata.curr_login }"/> </td>
-                         	<td></td>
-                         </tr>
-                         <tr>
-                         	<th>내가쓴글수</th>
-                         	<td>${mydata.board_count }</td>
-                         	<th >내가쓴댓글수</th>
-                         	<td>${mydata.reply_count }</td>
-                         	<td></td>
-                         </tr>
-	                </table>
+	                
                 </div>
 
                 <!-- paging -->

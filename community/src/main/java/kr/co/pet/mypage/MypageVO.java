@@ -13,6 +13,10 @@ public class MypageVO extends Criteria{
 	// 테이블명
 	private String table_name;
 	
+	// 활동 내역
+	private String title;
+	private Timestamp regdate;
+	
 	// 체크 넘버
 	private int select_no;
 	
