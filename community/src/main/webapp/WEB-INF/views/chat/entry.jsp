@@ -76,13 +76,13 @@
 </script>
 </head>
 <body>
-	<div style='width: 800px; height: 700px; padding:10px; border:solid 1px #e1e3e9;'>
-		<div id="divChatData"></div>
-	</div>
-	<c:url value="/chat"/>
-	<div style="width:100%; height:10%; padding: 10px;">
-		<input type="text" id="message" size="110" onkeypress="if(event.keyCode == 13) {webSocket.sendChat();}">
-		<input type="button" id="btnSend" value="채팅 전송" onclick="webSocket.sendChat()">
-	</div>
+	<c:forEach var="list" items="${list }">
+	친구 닉네임 : ${list.nickname }<br>
+	친구 회원번호 : ${list.member_no }<br>
+	친구 채팅방 번호 : ${list.channel_no }<br>
+	==========================================
+	<br>
+	</c:forEach>
+	
 </body>
 </html>

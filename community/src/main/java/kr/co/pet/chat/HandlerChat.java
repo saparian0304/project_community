@@ -21,6 +21,13 @@ public class HandlerChat extends TextWebSocketHandler {
 //	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 	private List<Map<String, Object>> sessionList = new ArrayList<Map<String, Object>>();
 	
+	@Override
+	public void afterConnectionEstablished(WebSocketSession session) {
+		int count = 0;
+		System.out.println("새로 들어왔습니다." + session.getId() +", 카운트 : " + ++count);
+	}
+	
+	
 	// 클라이언트가 서버로 메세지 전송처리
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
