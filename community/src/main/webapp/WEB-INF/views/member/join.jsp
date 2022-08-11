@@ -51,11 +51,11 @@
 			
 			return;
 		}
-		//var regExp = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-		//if (!regExp.test($("#email").val())) {
-		//	alert("이메일 형식이 아닙니다.");
-		//	return;
-		//}
+		var regExp = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+		if (!regExp.test($("#email").val())) {
+			alert("이메일 형식이 아닙니다.");
+			return;
+		} 
 		if ($("#name").val().trim() == ''){
 			   alert('이름을 입력해주세요.');
 			   $("#name").focus();
@@ -74,7 +74,8 @@
 		console.log("email : "+ email);
 		
 		$.ajax({
-			url : 'emailCheck.do',
+			url : 'sendCertification.do',
+			type : 'get',
 			data : {"email" : email}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
 			success : function(cnt) {
 				if ($("#email").val().trim() == '') {
@@ -89,21 +90,22 @@
 						
 					}else{
 						alert('사용가능한 이메일입니다.');
+						
 					}	
 				}
 			}
 		})
 	}
 	
-	/* function checkPwd(){
+	 function checkPwd(){
 		var reg_pwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 		if( reg_pwd.test($("#pwd").val())) {
 		    $('.ptxt').css("display","none");
-		    //$("#pwd").focus();
 		    return;
-		} */
+		} 
 	}
     function checkId(){
+    	var member_id = $('#member_id').val();
     	if ($("#member_id").val().trim() == ''){
     		//alert('아이디 입력하셈.');
     		$('.id_ok').css("display","none"); 
@@ -112,7 +114,7 @@
 			return;
     	}
     	
-        var member_id = $('#member_id').val(); //id값이 "id"인 값을 받아와서 저장
+         //id값이 "id"인 값을 받아와서 저장
         $.ajax({
             url:'idCheck.do', //Controller에서 요청 받을 주소
             type:'post', //POST 방식으로 전달
@@ -144,7 +146,7 @@
         var nickname = $('#nickname').val(); //id값이 "id"인 입력란의 값을 저장
         $.ajax({
             url:'nickname.do', //Controller에서 요청 받을 주소
-            type:'post', //POST 방식으로 전달
+            method:'post', //POST 방식으로 전달
             data:{"nickname": nickname},
             success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
                  if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 닉네임 
@@ -166,20 +168,24 @@
 		console.log("e_certification : "+ certi);
 		
 		$.ajax({
-			url : 'certification.do',
-			data : {"e_certi" : certi}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
-			success : function(cnt) {
+			url : 'sendCertification.do',
+			method : 'post',
+			data : {"certi" : certi}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
+			success : function() {
 				if ($("#e_certification").val().trim() == '') {
 					alert('인증번호를 입력해주세요.');
 					$("#e_certification").focus();
 				}else{
-					if (cnt == 'true') {
+					if ({
 						alert('인증완료');
 						$("#e_certification").val('');
 						$("#e_certification").focus();
 						emailCheck = false;
 					}	
 				}
+			},
+			error:function(){
+                alert("에러");
 			}
 		})
     }
@@ -318,12 +324,12 @@
 						<tr>
 							<th>*이메일</th>
 							<td><input type="text" name="email" id="email" class="inNextBtn" style="float: left;"> 
-								<span class="emailCheck"><a href="javascript: checkemail();" class="btn bgGray" style="float: left; width: auto; clear: none;">인증번호받기</a>	</span>
+								<span class="emailCheck"><a href="javascript: checkemail();" class="btn bgGray" style="float: left; width: auto; clear: none;">인증번호발송</a>	</span>
 							</td>
 						</tr>
 						<tr>
 							<th>*이메일인증번호</th>
-							<td><input type="text" name="e_certification" id="e_certification" class="inNextBtn" disabled="disabled" style="float: left;"> 
+							<td><input type="text" name="e_certification" id="e_certification" class="inNextBtn" style="float: left;"> 
 								<span class="e_certification"><a href="javascript: certification();" class="btn bgGray" style="float: left; width: auto; clear: none;">확인</a></span>
 							</td>
 						</tr>
