@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-                <button style="width : 100px; height : 30px;" class="reqbtn success" onclick="javascript:getFriReq(1,${loginInfo.member_no});">친구요청목록</button>
-                <button style="width : 100px; height : 30px;" class="reqbtn success" onclick="javascript:getFriList(1,${loginInfo.member_no});">친구목록</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn friend" onclick="javascript:getFriReq(1,${loginInfo.member_no});">친구요청목록</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn friend" onclick="javascript:getFriList(1,${loginInfo.member_no});">친구목록</button>
                 
                   <form action="#" method="post" class="minisrch_form">
                     <fieldset>
@@ -30,7 +30,7 @@
                             <tr>
                                 <th><label><input type="checkbox" name="allChk" onclick="selectAll(this)" ></label></th>
                                 <th style="text-align: left;">선택 <button class="reqbtn success" onclick="javascript: acceptMulti();">수락</button>&nbsp;
-		                    			<button class="reqbtn danger" onclick="javascript: delMulti();">거절</button>
+		                    			<button class="reqbtn danger" onclick="javascript: delMulti(0);">거절</button>
 		                    	</th>
                                 <th>요청자 닉네임</th>
                                 <th>요청 일자</th>
@@ -54,8 +54,8 @@
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.req_date }"/>
 	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
-		                    		<button class="reqbtn success" onclick="javascript: accept(${list.fri_no});">수락</button>&nbsp;
-		                    		<button class="reqbtn danger" onclick="javascript: del(${list.fri_no});">거절</button>
+		                    		<button class="reqbtn success" onclick="javascript: acceptSingle(${list.fri_no});">수락</button>&nbsp;
+		                    		<button class="reqbtn danger" onclick="javascript: delSingle(${list.fri_no}, 0);">거절</button>
 		                    	</td>
 	                    	</tr>
 	                    	</c:forEach>                    

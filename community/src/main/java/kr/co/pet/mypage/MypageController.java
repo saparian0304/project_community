@@ -75,4 +75,9 @@ public class MypageController {
 		return "mypage/actlist";
 	}
 	
+	@GetMapping("/mypage/actisdel.do")
+	public String actIsdel(MypageVO vo) {
+		service.actIsdel(vo);
+		return "mypage/index";
+	}
 }

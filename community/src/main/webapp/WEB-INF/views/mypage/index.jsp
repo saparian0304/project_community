@@ -32,6 +32,7 @@
     		}
     	})
     }
+    
     /* ajax로 친구요청목록 불러오기 */
     function getFriReq(page, member_no){
     	$.ajax({
@@ -61,11 +62,11 @@
     	})
     }
     /* ajax로 내활동목록 불러오기 */
-    function getActList(page, member_no){
+    function getActList(page, member_no, table_name){
     	$.ajax({
     		url : "actlist.do",
     		data : {
-    			table_name : 'board',
+    			table_name : table_name,
     			member_no : member_no,
     			page : page
     		},
@@ -76,66 +77,62 @@
     }
     /* 선택대상 */
     var select_no;
+    /* isdel */
+    function isdel(select_no,table_name){
+    	$.ajax({
+    		url: "actisdel.do",
+    		type: 'get',
+    		data: {
+    			select_no : select_no,
+    			table_name : table_name
+    		},
+    		success : function(res){
+    			alert('isdel 성공');
+    			getActList(1, ${loginInfo.member_no},table_name);
+    		}
+    	});
+    }
+    /* isdel게시글 */
+    function isdelBoardMulti(){
+    	$("input[name=select_no]:checked").each(function(){
+    		select_no = parseInt($(this).val());
+    		isdel(select_no,"board");
+    	})
+    }    
+    function isdelBoard(a){
+    		select_no = parseInt(a);
+    		isdel(select_no,"board");
+    }    
+    /* 친구 수락 */
+    function accept(select_no){
+    	$.ajax({
+			url : "friaccept.do",
+			type : 'get',
+			data : {
+				select_no : select_no,
+				table_name : 'friend'
+			},
+			success : function(res){
+				alert("성공");
+			    getFriReq(1, ${loginInfo.member_no });
+			}
+		}) 
+    }
+    
     /* 다중 선택 수락 */
     function acceptMulti(){
 	    $("input[name=select_no]:checked").each(function(){
 	    	select_no = parseInt($(this).val());
-			$.ajax({
-				url : "friaccept.do",
-				type : 'get',
-				data : {
-					select_no : select_no,
-					table_name : 'friend'
-				},
-				success : function(res){
-					alert("성공");
-				    getFriReq(1, ${loginInfo.member_no });
-				}
-			})    	
+			accept(select_no);    	
 	    });
-	    console.log(select_no);
     }
 	/* 단일선택수락 */
-    function accept(a){
+    function acceptSingle(a){
 	    	select_no = parseInt(a);
-			$.ajax({
-				url : "friaccept.do",
-				type : 'get',
-				data : {
-					select_no : select_no,
-					table_name : 'friend'
-				},
-				success : function(res){
-					alert("성공");
-					getFriReq(1, ${loginInfo.member_no });
-					
-				}
-			})    	
-	    
-	    console.log(select_no);
+	    	accept(select_no);
     }
-	/* 다중 선택 삭제 */
-	function delMulti(){
-	    $("input[name=select_no]:checked").each(function(){
-	    	select_no = parseInt($(this).val());
-			$.ajax({
-				url : "fridel.do",
-				type : 'get',
-				data : {
-					select_no : select_no,
-					table_name : 'friend'
-				},
-				success : function(res){
-					alert("성공");
-				    getFriReq(1, ${loginInfo.member_no });
-				}
-			})    	
-	    });
-	    console.log(select_no);
-    }
-	/* 단일 선택 삭제 */
-	function del(a){
-    	select_no = parseInt(a);
+	/* 삭제 */
+	function del(select_no, rere){
 		$.ajax({
 			url : "fridel.do",
 			type : 'get',
@@ -145,12 +142,25 @@
 			},
 			success : function(res){
 				alert("성공");
-				getFriReq(1, ${loginInfo.member_no });
-				
+				if (rere == 0){
+		    		getFriReq(1, ${loginInfo.member_no });
+				} else if (rere == 1){
+					getFriList(1, ${loginInfo.member_no });
+				}
 			}
-		})    	
-    
-    	console.log(select_no);
+		})  
+	}
+	/* 다중 선택 삭제 */
+	function delMulti(rere){
+	    $("input[name=select_no]:checked").each(function(){
+	    	select_no = parseInt($(this).val());
+	    	del(select_no, rere);	
+	    });
+    }
+	/* 단일 선택 삭제 */
+	function delSingle(a, rere){
+    	select_no = parseInt(a);
+    	del(select_no, rere);	
 	}
     </script> 
 </head>
@@ -237,7 +247,7 @@
                 <!-- **** -->
                 <button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:getIndex(${loginInfo.member_no});">내정보</button>
                 <button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:getFriReq(1,${loginInfo.member_no});">친구페이지</button>
-                <button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:getActList(1,${loginInfo.member_no});">내 활동내역</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:getActList(1,${loginInfo.member_no},'board');">내 활동내역</button>
                 <br/>
                 <br/>
                 <div id="hi">

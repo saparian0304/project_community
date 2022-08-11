@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-                <button style="width : 100px; height : 30px;" class="reqbtn success" onclick="javascript:getActList(1,${loginInfo.member_no});">내가 쓴 글</button>
-                <button style="width : 100px; height : 30px;" class="reqbtn success" onclick="javascript:getFriList(1,${loginInfo.member_no});">내가 쓴 댓글</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn myact" onclick="javascript:getActList(1,${loginInfo.member_no}, board);">내가 쓴 글</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn myact" onclick="javascript:getFriList(1,${loginInfo.member_no}, reply);">내가 쓴 댓글</button>
                 
                   <form action="#" method="post" class="minisrch_form">
                     <fieldset>
@@ -29,7 +29,7 @@
                         <thead>
                             <tr>
                                 <th><label><input type="checkbox" name="allChk" onclick="selectAll(this)" ></label></th>
-                                <th style="text-align: left;">선택 <button class="reqbtn danger" onclick="javascript: ;">삭제</button>
+                                <th style="text-align: left;">선택 <button class="reqbtn danger" onclick="javascript:isdelBoardMulti();">삭제</button>
 		                    	</th>
                                 <th>제목</th>
                                 <th>작성 일자</th>
@@ -46,14 +46,15 @@
 	                    <c:if test="${!empty data.list }">
 	                    	<c:forEach var="list" items="${data.list }">
 	                    	<tr>
-	                    		<td class="tit_notice" style="text-align: center;"><input type="checkbox" name="select_no" value="${list.fri_no}"></td>
+	                    		<td class="tit_notice" style="text-align: center;"><input type="checkbox" name="select_no" value="${list.board_no}"></td>
 	                    		<td></td>
-	                    		<td class="tit_notice" style="text-align : center;">${list.title }</td>
+	                    		<td class="tit_notice" style="text-align : center;">
+	                    		<a href="/pet/board/view.do?board_no=${list.board_no }">${list.title }</a></td>
 	                    		<td>
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.regdate }"/>
 	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
-		                    		<button class="reqbtn danger" onclick="javascript:;">삭제</button>
+		                    		<button class="reqbtn danger" onclick="javascript:isdelBoard(${list.board_no});">삭제</button>
 		                    	</td>
 	                    	</tr>
 	                    	</c:forEach>                    

@@ -84,5 +84,10 @@ public class MypageServiceimpl implements MypageService {
 		return mapper.memberActCnt(vo);
 	}
 
+	@Override
+	public boolean actIsdel(MypageVO vo) {
+		return mapper.memberActIsdel(vo) > 0? true: false;
+	}
+
 
 }

@@ -16,6 +16,7 @@ public class MypageVO extends Criteria{
 	// 활동 내역
 	private String title;
 	private Timestamp regdate;
+	private int board_no;
 	
 	// 체크 넘버
 	private int select_no;

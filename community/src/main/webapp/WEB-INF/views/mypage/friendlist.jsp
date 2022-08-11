@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-               <button style="width : 100px; height : 30px;" class="reqbtn success" onclick="javascript:getFriReq(1,${loginInfo.member_no});">친구요청목록</button>
-                <button style="width : 100px; height : 30px;" class="reqbtn success" onclick="javascript:getFriList(1,${loginInfo.member_no});">친구목록</button>
+               <button style="width : 100px; height : 30px;" class="reqbtn friend" onclick="javascript:getFriReq(1,${loginInfo.member_no});">친구요청목록</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn friend" onclick="javascript:getFriList(1,${loginInfo.member_no});">친구목록</button>
 				<form action="#" method="post" class="minisrch_form">
                     <fieldset>
                         <legend>
@@ -47,7 +47,7 @@
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.res_date }"/>
 	                    		</td>
 	                    		<td>
-	                    			<button class="reqbtn danger" onclick="javascript: del(${list.fri_no});">삭제</button>
+	                    			<button class="reqbtn danger" onclick="javascript: delSingle(${list.fri_no}, 1);">삭제</button>
 	                    		</td>
 	                    	</tr>
 	                    	</c:forEach>                    

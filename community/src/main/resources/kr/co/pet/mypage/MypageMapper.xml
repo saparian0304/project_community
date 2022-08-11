@@ -52,22 +52,13 @@
 			isdelete = 1
 		WHERE	
 		<if test="table_name == 'board'">
-	 		board_no IN 
-	 		<foreach collection="select_no" item="select_no" separator="," open="(" close=")">
-	 		#{select_no}
-	 		</foreach> 
+	 		board_no = #{select_no}
 		</if>
 		<if test="table_name == 'reply'">
-	 		reply_no IN 
-			<foreach collection="select_no" item="select_no" separator="," open="(" close=")">
-	 		#{select_no}
-	 		</foreach>
+	 		reply_no = #{select_no}
 		</if>
 		<if test="table_name == 'message'">
-	 		mess_no IN
-	 		<foreach collection="select_no" item="select_no" separator="," open="(" close=")">
-	 		#{select_no}
-	 		</foreach>
+	 		mess_no IN = #{select_no}
 		</if>
 	</update>
 	
@@ -88,11 +79,11 @@
 	</update>
 	
 	<select id="friendList" parameterType="kr.co.pet.mypage.MypageVO" resultType="kr.co.pet.mypage.MypageVO">
-		SELECT nickname, a.res_date FROM member, 
-			(SELECT you_no AS fri, res_date FROM friend WHERE i_no = #{member_no} AND res_date IS NOT NULL
+		SELECT nickname, a.res_date, a.fri_no FROM member, 
+			(SELECT you_no AS fri_no, res_date FROM friend WHERE i_no = #{member_no} AND res_date IS NOT NULL
 				UNION
-			SELECT i_no AS fri, res_date FROM friend WHERE you_no = #{member_no} and res_date IS NOT NULL) AS a  
-		WHERE member_no = a.fri 
+			SELECT i_no AS fri_no, res_date FROM friend WHERE you_no = #{member_no} and res_date IS NOT NULL) AS a  
+		WHERE member_no = a.fri_no
 		ORDER BY nickname ASC
 		LIMIT #{startIdx}, ${pageRow}
 	</select>

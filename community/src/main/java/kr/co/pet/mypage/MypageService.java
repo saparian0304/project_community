@@ -24,4 +24,6 @@ public interface MypageService {
 	// 내 활동 내역
 	Map myActList(MypageVO vo);
 	int actTotal(MypageVO vo);
+	// 활동내역 삭제(isdelete)
+	boolean actIsdel(MypageVO vo);
 }
