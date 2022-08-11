@@ -13,42 +13,43 @@
     <link rel="stylesheet" href="/pet/css/reset.css"/>
     <link rel="stylesheet" href="/pet/css/contents.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"/></script>
-		    <script>
-		    	function findEmail(){
-		    		//var member_id = $("#member_id").val()
-		    		if ($("#member_id").val()== ''){
-		    			alert('아이디를 입력해 주세요.');
-		    			$("#member_id").focus();
-		    			return false;
-		    			
-		    		}
-		    	
-		    		if ($("#email").val()== ''){
-		    			alert('이메일을 입력해 주세요.');
-		    			$("#email").focus();
-		    			return false;
-		    		}
-		    		//ajax조회
-		    		$.ajax({
-		    			url : 'findPwd.do',
-		    			method : 'post',
-		    			data : {
-		    				member_id : $("#member_id").val(),
-		    				email : $("#email").val()
-		    			},
-		    			success : function(res){
-		    				if(res.trim()==''){
-		    					alert('회원이 존재하지 않습니다.');
-		    				}else{
-		    					alert('임시비번이 이메일로 발송되었습니다.');
-		    				}
-		    			}
-		    		})
-		    		console.log("member_id : "+$("#member_id").val()); //위에처럼 var로 선언해주거나..
-		    		 return false;
-		    	}
-		    	
-		    </script>
+	    <script>
+	    	function findEmail(){
+	    		//var member_id = $("#member_id").val()
+	    		if ($("#member_id").val()== ''){
+	    			alert('아이디를 입력해 주세요.');
+	    			$("#member_id").focus();
+	    			return false;
+	    			
+	    		}
+	    	
+	    		if ($("#email").val()== ''){
+	    			alert('이메일을 입력해 주세요.');
+	    			$("#email").focus();
+	    			return false;
+	    		}
+	    		//ajax조회
+	    		$.ajax({
+	    			url : 'findPwd.do',
+	    			method : 'post',
+	    			data : {
+	    				member_id : $("#member_id").val(),
+	    				email : $("#email").val()
+	    			},
+	    			success : function(res){
+	    				if(res.trim()==''){
+	    					alert('회원이 존재하지 않습니다.');
+	    				}else{
+	    					alert('임시비번이 이메일로 발송되었습니다.');
+	    					location.href="login.do"
+	    				}
+	    			}
+	    		})
+	    		console.log("member_id : "+$("#member_id").val()); //위에처럼 var로 선언해주거나..
+	    		 return false;
+	    	}
+	    </script>
+		    
 </head>
 <body>
     
@@ -80,6 +81,5 @@
                 </div>
             </div>
         </form>
-        
 </body>
 </html>

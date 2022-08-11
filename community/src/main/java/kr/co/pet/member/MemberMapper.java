@@ -15,6 +15,7 @@ public interface MemberMapper {
 	int idCheck(String id);
 	int nicknameCheck(String nickname);
 	int emailCheck(String email);
+	int certification(String certi_num);
 	MemberVO loginCheck(MemberVO vo);
 	MemberVO findId(MemberVO vo);
 	MemberVO findPwd(MemberVO vo);

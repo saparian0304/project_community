@@ -1,5 +1,6 @@
 package kr.co.pet.member;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class MemberServiceImpl implements MemberService {
 	public int emailCheck(String email) {
 		return mapper.emailCheck(email);
 	}
+	
+
 
 	@Override
 	public boolean loginCheck(MemberVO vo, HttpSession sess) {
@@ -97,4 +100,5 @@ public class MemberServiceImpl implements MemberService {
 		    return null;
 	    }
 	}
+
 }
