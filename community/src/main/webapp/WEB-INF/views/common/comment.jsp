@@ -58,7 +58,7 @@
             </tr>
             <tr>
             	<td colspan="5">
-           			<div id="rbox${vo.gno}"></div>
+           			<div id="rbox${vo.gno}" ></div>
            		</td>
            	</tr>                                                                                       
         </c:forEach>
