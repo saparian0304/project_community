@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-                <button style="width : 100px; height : 30px;" class="reqbtn myact" onclick="javascript:getActList(1,${loginInfo.member_no}, board);">내가 쓴 글</button>
-                <button style="width : 100px; height : 30px;" class="reqbtn myact" onclick="javascript:getFriList(1,${loginInfo.member_no}, reply);">내가 쓴 댓글</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn myact" onclick="javascript:getActList(1,${loginInfo.member_no}, 'board');">내가 쓴 글</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn myact" onclick="javascript:getActList(1,${loginInfo.member_no}, 'reply');">내가 쓴 댓글</button>
                 
                   <form action="#" method="post" class="minisrch_form">
                     <fieldset>
@@ -29,9 +29,12 @@
                         <thead>
                             <tr>
                                 <th><label><input type="checkbox" name="allChk" onclick="selectAll(this)" ></label></th>
-                                <th style="text-align: left;">선택 <button class="reqbtn danger" onclick="javascript:isdelBoardMulti();">삭제</button>
+                                <th style="text-align: left;">선택 <button class="reqbtn danger" onclick="javascript:isdelMulti('${mypageVO.table_name }');">삭제</button>
 		                    	</th>
-                                <th>제목</th>
+                                <th>
+                                	<c:if test="${ mypageVO.table_name == 'board'}">제목</c:if>
+	                    			<c:if test="${ mypageVO.table_name == 'reply'}">댓글 내용</c:if>
+	                    		</th>
                                 <th>작성 일자</th>
                                 <th>삭제</th>
                             </tr>
@@ -46,15 +49,30 @@
 	                    <c:if test="${!empty data.list }">
 	                    	<c:forEach var="list" items="${data.list }">
 	                    	<tr>
-	                    		<td class="tit_notice" style="text-align: center;"><input type="checkbox" name="select_no" value="${list.board_no}"></td>
+	                    		<td class="tit_notice" style="text-align: center;">
+	                    		<c:if test="${ mypageVO.table_name == 'board'}">
+	                    			<input type="checkbox" name="select_no" value="${list.board_no}">
+	                    		</c:if>
+	                    		<c:if test="${ mypageVO.table_name == 'reply'}">
+	                    			<input type="checkbox" name="select_no" value="${list.reply_no}">
+	                    		</c:if>
+	                    		</td>
 	                    		<td></td>
 	                    		<td class="tit_notice" style="text-align : center;">
-	                    		<a href="/pet/board/view.do?board_no=${list.board_no }">${list.title }</a></td>
+	                    			<a href="/pet/board/view.do?board_no=${list.board_no }">
+	                    				<c:if test="${ mypageVO.table_name == 'board'}">${list.title }</c:if>
+	                    				<c:if test="${ mypageVO.table_name == 'reply'}">${list.content }</c:if>
+	                    			</a></td>
 	                    		<td>
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.regdate }"/>
 	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
-		                    		<button class="reqbtn danger" onclick="javascript:isdelBoard(${list.board_no});">삭제</button>
+		                    		<c:if test="${ mypageVO.table_name == 'board'}">
+			                    		<button class="reqbtn danger" onclick="javascript:isdelSingle(${list.board_no}, 'board');">삭제</button>
+		                    		</c:if>
+		                    		<c:if test="${ mypageVO.table_name == 'reply'}">
+			                    		<button class="reqbtn danger" onclick="javascript:isdelSingle(${list.reply_no}, 'reply');">삭제</button>
+		                    		</c:if>
 		                    	</td>
 	                    	</tr>
 	                    	</c:forEach>                    

@@ -93,15 +93,15 @@
     	});
     }
     /* isdel게시글 */
-    function isdelBoardMulti(){
+    function isdelMulti(table_name){
     	$("input[name=select_no]:checked").each(function(){
     		select_no = parseInt($(this).val());
-    		isdel(select_no,"board");
+    		isdel(select_no,table_name);
     	})
     }    
-    function isdelBoard(a){
+    function isdelSingle(a, table_name){
     		select_no = parseInt(a);
-    		isdel(select_no,"board");
+    		isdel(select_no,table_name);
     }    
     /* 친구 수락 */
     function accept(select_no){
