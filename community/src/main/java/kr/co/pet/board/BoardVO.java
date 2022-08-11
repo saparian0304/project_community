@@ -36,4 +36,5 @@ public class BoardVO {
 		this.page = page;
 		this.pageRow = pageRow;
 	}
+	
 }

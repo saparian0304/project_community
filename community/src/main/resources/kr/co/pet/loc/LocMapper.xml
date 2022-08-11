@@ -2,17 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.pet.loc.LocMapper">
 	
-	<insert id="insertSelectKey" >
-		<selectKey keyProperty="board_no" order="AFTER" resultType="int">
-			SELECT last_insert_id()
-		</selectKey>
-		INSERT INTO board (
-			board_no, board_name, title, content
-		) VALUES (
-			#{board_no}, #{board_name}, #{title}, #{content} 
-		)
-	</insert>
-	
 	<insert id="insert" parameterType="kr.co.pet.loc.LocVO">
 		INSERT INTO location (
 			addr, addr2, gps_x, gps_y, board_no
@@ -21,24 +10,8 @@
 		)
 	</insert>
 	
-	
-	<select id="count" parameterType="kr.co.pet.loc.LocVO" resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM board
-		<where>
-			<if test="stype != null and stype != ''">
-				<if test="stype != 'all'">
-		 			${stype} LIKE '%${sword}%'
-				</if>
-				<if test="stype == 'all'">
-					title LIKE '%${sword}%' OR content LIKE '%${sword}%' 
-				</if>
-			</if>
-		</where>
-	</select>
-	
-	
 	<select id="list" parameterType="kr.co.pet.loc.LocVO" resultType="kr.co.pet.loc.LocVO">
-		SELECT * FROM board
+		SELECT * FROM location
 		order by board_no desc
 	</select>
 	
@@ -47,25 +20,23 @@
 	</update>
 	
 	<select id="view" parameterType="int" resultType="kr.co.pet.loc.LocVO">
-		SELECT * FROM board WHERE board_no = #{board_no}
+		SELECT * FROM location WHERE board_no = #{board_no}
 	</select>
 	
 	<delete id="delete" parameterType="int">
 		DELETE FROM board WHERE board_no = #{board_no} 
 	</delete>
 	
+	<select id="findByBoard_no" parameterType="kr.co.pet.loc.LocVO" resultType="kr.co.pet.loc.LocVO">
+		SELECT * FROM location WHERE board_no = #{board_no}
+	</select>
+	
 	<update id="update" parameterType="kr.co.pet.loc.LocVO" >
-		UPDATE board SET
-		title = #{title},
-		content = #{content}
+		UPDATE location SET
+		gps_x = #{gps_x},
+		gps_y = #{gps_y},
+		addr = #{addr},
+		addr2 = #{addr2}
 		WHERE board_no = #{board_no}
 	</update>
-	<!-- <if test="filename_org != null">
-			, filename_org = #{filename_org}
-			, filename_real = #{filename_real}
-			</if> -->
-			
-			
-			
-	
 </mapper>

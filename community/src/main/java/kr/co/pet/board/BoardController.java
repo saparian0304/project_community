@@ -49,22 +49,25 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/view.do")
-	public String view(BoardVO vo, FileVO fvo, ApiVO avo, Model model) {
+	public String view(BoardVO vo, FileVO fvo, ApiVO avo,LocVO lvo, Model model) {
 		BoardVO data = service.view(vo.getBoard_no());
 		model.addAttribute("data", data);
 		FileVO fdata = fservice.view(fvo.getBoard_no());
 		model.addAttribute("fdata", fdata);
+		LocVO ldata = lservice.view(lvo.getBoard_no());
+		model.addAttribute("ldata", ldata);
 
 		//model.addAttribute("file", file);
 		return "board/view";
 	}
 	
 	@PostMapping(value = "/board/insert.do", consumes = "multipart/form-data")
-	public String insert(BoardVO vo, FileVO fvo, Model model, @RequestParam MultipartFile filename,
+	public String insert(BoardVO vo, FileVO fvo, LocVO lvo, Model model, @RequestParam MultipartFile filename,
 			HttpServletRequest req) {
 		//게시글 저장 board테이블
+		//LocVO lvo = new LocVO();
 		boolean in = service.insert(vo);
-		LocVO lvo = new LocVO();
+		lvo.setBoard_no(vo.getBoard_no());
 		lservice.insert(lvo);
 		//첨부파일 처리file테이블
 		if(!filename.isEmpty()) {
@@ -108,12 +111,15 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/edit.do")
-	public String edit(BoardVO vo, FileVO fvo, Model model) {
+	public String edit(BoardVO vo, FileVO fvo, LocVO lvo, Model model) {
 		BoardVO data = service.edit(vo.getBoard_no());
 		model.addAttribute("data", data);
 		
 		FileVO fdata = fservice.edit(fvo.getBoard_no());
 		model.addAttribute("fdata", fdata);
+		
+		LocVO ldata = lservice.edit(lvo.getBoard_no());
+		model.addAttribute("ldata", ldata);
 		return "board/edit";
 	}
 	
@@ -140,15 +146,4 @@ public class BoardController {
 			return "common/alert";
 		}
 	}
-	
-	@GetMapping("/board/local.do")
-	public String local() {
-		return "board/local";
-	}
-	
-	
-	
-	
-	
-	
 }

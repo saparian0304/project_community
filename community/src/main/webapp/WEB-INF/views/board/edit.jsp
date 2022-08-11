@@ -18,6 +18,7 @@
     <script src="/pet/js/function.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
+    
     function goSave() {
 		editor.getById['content'].exec('UPDATE_CONTENTS_FIELD',[]);
 		frm.submit();
@@ -48,6 +49,15 @@
 									<input type="radio" class="radio_value" name="horse_hair" value="2">관광지
 									<input type="radio" class="radio_value" name="horse_hair" value="3">병원
                             	<!-- </form> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>주소</th>
+                            <td>
+						        주소1 : <input type = "text" name = "addr" value="${ldata.addr }"/>
+						        주소2 : <input type = "text" name = "addr2" value="${ldata.addr2 }"/> 
+						        위도 : <input type = "text" name = "gps_x" value="${ldata.gps_x }"/>
+						        경도 : <input type = "text" name = "gps_y" value="${ldata.gps_y }"/> 
                             </td>
                         </tr>
                         <tr>
