@@ -5,19 +5,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 
-public class ApiExplorer {
+public class ApiController {
 	
 	public static void main(String[] args) throws IOException, ParseException {
 		String serviceKey = "mxwsziEgD6Ebt98RV0iyVKhOPQ28stVgXeB2UCacKa1H6hwmv%2BHo3Gev9OJ%2FNLV2F2vQdHejsYuw2phxF6Ed3Q%3D%3D";
@@ -29,8 +28,6 @@ public class ApiExplorer {
 		urlBuilder.append("&" + URLEncoder.encode("page", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));// 페이지 번호
 		urlBuilder.append("&" + URLEncoder.encode("pageBlock", "UTF-8") + "=" + URLEncoder.encode("10", "UTF-8"));// 한페이지 결과 수
 		urlBuilder.append("&" + URLEncoder.encode("areaCode", "UTF-8") + "=" + URLEncoder.encode("AC01", "UTF-8"));// 지역번호
-		
-		Map<String, Object> map = new HashMap<String, Object>();
 		
 		//URL 객체 생성
 		URL url = new URL(urlBuilder.toString());
@@ -47,73 +44,54 @@ public class ApiExplorer {
 		//통신 응답 코드 확인
 		System.out.println("Response code : " + conn.getResponseCode());
 		
-		
-		
 		//전달받은 데이터를 BufferedReader객체로 저장
-		BufferedReader bf;
+		BufferedReader rd;
 		if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-			bf = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		} else {
-			bf = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+			rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
 		}
-		
-		//추가
-		bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
-		String result = bf.readLine();
 		
 		//저장된 데이터를 라인별로 읽어 StringBuilder 객체로 저장
 		StringBuilder sb = new StringBuilder();
 		String line;
-		while ((line = bf.readLine()) != null) {
+		while ((line = rd.readLine()) != null) {
 			sb.append(line);
 		}
 		
 		//객체 해제
-		bf.close();
+		rd.close();
 		conn.disconnect();
-		
-		
+
 		//전달받은 데이터 확인
 		System.out.println("전달받은 데이터 : " +sb.toString());
 		
 		
-		// 문자열 형태의 JSON을 파싱하기 위한 JSONParser 객체 생성
-		JsonParser jsonParser = new JsonParser();
 		
-		//추가
-		JsonArray jsonObject = (JsonArray)(jsonParser.parse(result));
-		JsonObject rcp = (JsonObject)jsonObject.get(0);
-		JsonArray row1 = (JsonArray)rcp.get("resultList");
+		// 문자열 형태의 JSON을 파싱하기 위한 JSONParser 객체 생성
+		JSONParser parser = new JSONParser();
 		
 		//문자열을 JSON 형태로 JSONObject 객체에 저장
-		//JsonObject obj = (JsonObject)jsonParser.parse(sb.toString());
-//		System.out.println("팟싱한 데이터 : " +obj);
-		System.out.println("팟싱한 데이터 : " + row1);
+		JSONObject obj = (JSONObject)parser.parse(sb.toString());
 		
-		
+		JsonObject obj1 = (JsonObject) obj.get("title");
+		System.out.println(obj1);
 		
 		//필요한 리스트 데이터 부분만 가져와 JSONArray로 저장
-//		JsonArray dataArr = (JsonArray)obj.get("data");
-//		System.out.println(dataArr);
+		JSONArray dataArr = (JSONArray)obj.get("data");
+		System.out.println(dataArr);
 		
-		
-		
-	////model에 담아준다
-	////JSP에서 data를 참조할 수 있고, jstl의 c:if태그를 사용해 리스트의 각 요소들을 참조하여 사용할 수 있게 된다. 
-	//Model model;
-	//model.addAttribute("data", dataArr);
-		
-			
-		}
-	
 	}
-	
-	
-	
-	
-	
 		
 		
+}
+
+////model에 담아준다
+////JSP에서 data를 참조할 수 있고, jstl의 c:if태그를 사용해 리스트의 각 요소들을 참조하여 사용할 수 있게 된다. 
+//Model model;
+//model.addAttribute("data", dataArr);
+
+
 
 
 

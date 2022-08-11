@@ -11,21 +11,25 @@
     <meta name="format-detection" content="telephone=no, address=no, email=no">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <title>게시판 등록</title>
+    <title>자유게시판 등록</title>
     <link rel="stylesheet" href="/pet/css/reset.css"/>
     <link rel="stylesheet" href="/pet/css/contents.css"/>
     <script src="/pet/smarteditor/js/HuskyEZCreator.js"></script>
     <script src="/pet/js/function.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-    function goSave() {
-		editor.getById['content'].exec('UPDATE_CONTENTS_FIELD',[]);
-		frm.submit();
-	}
-	var editor;//전역변수로 다른 곳에도 쓰려고
-	$(function() {
-		editor = setEditor('content');
-	})
+    	function goSave() {
+    		editor.getById['content'].exec('UPDATE_CONTENTS_FIELD',[]);
+    		frm.submit();
+		};
+		
+    	var editor;//전역변수로 다른 곳에도 쓰려고
+    	$(function() {
+			editor = setEditor('content');
+		});
+
+    	
+    	
     </script>
 </head>
 <body>
@@ -35,8 +39,7 @@
                 <h3 class="sub_title">게시판</h3>
     
                 <div class="bbs">
-                <form method="post" name="frm" id="frm" action="update.do">
-                <input type="hidden" name="board_no" value="${data.board_no }">
+                <form method="post" name="frm" id="frm" action="insert.do" enctype="multipart/form-data">
                     <table class="board_write">
                         <tbody>
                         <tr>
@@ -51,28 +54,40 @@
                             </td>
                         </tr>
                         <tr>
+                            <th>주소</th>
+                            <td>
+                                <%-- 주소1, 주소2, 위도, 경도 --%>
+						        주소1 : <input type = "text" name = "addr" />
+						        주소2 : <input type = "text" name = "addr2" /> 
+						        위도 : <input type = "text" name = "gps_x" />
+						        경도 : <input type = "text" name = "gps_y" /> 
+                            </td>
+                        </tr>
+                        
+                        <tr>
                             <th>제목</th>
                             <td>
-                                <input type="text" name="title" id="title" class="wid100" value="${data.title }"/>
+                                <input type="text" name="title" id="title" class="wid100" value=""/>
                             </td>
                         </tr>
                         <tr>
                             <th>내용</th>
                             <td>
-                                <textarea name="content" id="content">${data.content }</textarea>
+                                <textarea style="width: 90%" name="content" id="content"></textarea>
                             </td>
                         </tr>
                         <tr>
-                            <th>첨부파일</th>
-                            <td>
-                                <input type="file" name="filename_real" value="${fdata.filename_real}"/><!-- 데이터는 남아있는데 글자로는 안뜸 -->
-                            </td>
+                        	<th>첨부파일</th>
+                        	<td>
+                        		<input type="file" name="filename">
+                        	</td>
                         </tr>
+                        
                         </tbody>
                     </table>
-                    <div class="btnSet"  style="text-align:right;">
-                        <a class="btn" href="javascript:goSave();">저장 </a>
-                    </div>
+	                    <div class="btnSet"  style="text-align:right;">
+	                        <a class="btn" href="javascript:goSave();">저장 </a>
+	                    </div>
                     </form>
                 </div>
             </div>

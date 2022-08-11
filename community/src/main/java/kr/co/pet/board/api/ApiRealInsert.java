@@ -9,25 +9,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import kr.co.pet.board.BoardMapper;
+import lombok.extern.slf4j.Slf4j;
 
-@Service
-public class ApiServiceImpl implements ApiService {
+@Slf4j
+public class ApiRealInsert {
 	@Autowired
-	ApiMapper mapper;
-	//
-	@Override
-	public boolean insert(ApiVO vo) {
-		return mapper.insert(vo) > 0 ? true : false;
-	}
-	
-	@Override
-	public Map apiInsert(ApiVO vo) throws IOException{
+	BoardMapper mapper;
+	public void ApiInsert() throws IOException{
 		String key = "mxwsziEgD6Ebt98RV0iyVKhOPQ28stVgXeB2UCacKa1H6hwmv%2BHo3Gev9OJ%2FNLV2F2vQdHejsYuw2phxF6Ed3Q%3D%3D";
 		int startNo, endNo;
 		startNo = 1;
@@ -59,9 +53,11 @@ public class ApiServiceImpl implements ApiService {
 		
 		JsonObject rcp = (JsonObject)jsonObject.get(0);
 		JsonArray row1 = (JsonArray)rcp.get("resultList");
+		//이미지리스트를 array에 담고 object로 또 담아서 받아와야 함
+
 		
-		Map map = new HashMap();
 		for(int i = 0; i < row1.size(); i++) {
+			Map map = new HashMap();
 			
 			map.put("areaName", ((JsonObject)row1.get(i)).get("areaName").getAsString());
 			map.put("partName", ((JsonObject)row1.get(i)).get("partName").getAsString());
@@ -70,8 +66,7 @@ public class ApiServiceImpl implements ApiService {
 			map.put("latitude", ((JsonObject)row1.get(i)).get("latitude").getAsString());//위도
 			map.put("longitude", ((JsonObject)row1.get(i)).get("longitude").getAsString());//경도
 			map.put("tel", ((JsonObject)row1.get(i)).get("tel").getAsString());
+			//이미지 추가해야 함
+		}
 	}
-		return map;
-
-}
 }

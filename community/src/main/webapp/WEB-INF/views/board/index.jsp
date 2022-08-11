@@ -14,10 +14,9 @@
       <link rel="stylesheet" href="/pet/css/common.css">
       <link rel="stylesheet" href="/pet/css/reset.css"/>
       <link rel="stylesheet" href="/pet/css/contents.css"/> 
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script type="text/javascript" src="/pet/js/location.js"></script>
 </head>
-<script>
-	
-</script>
 <body>
     <ul class="skipnavi">
         <li><a href="#container">본문내용</a></li>
@@ -38,15 +37,6 @@
                         <span class="path">/</span> 
                         공지사항
                     </p>
-                    <!-- 모바일 -->
-                    <ul class="page_menu clear">
-                        <li>
-                            <a href="#" class="on">공지사항<a>
-                        </li>
-                        <li>
-                            <a href="#">문의하기</a>
-                        </li>
-                    </ul>
                 </div>
             </div> 
             <!-- 공지사항 목록영역 -->
@@ -60,16 +50,15 @@
                         <a href="#" class="btn_srch">검색</a>
                     </fieldset>
                 </form>
-                
-                   
-                   
                     <p><span><strong>총 ${data.totalCount }개</strong>  |  ${boardVO.page }/${data.totalPage }페이지</span></p>
-                
-                
+                <div>
+                	<select name="sido1" id="sido1"></select>
+					<select name="gugun1" id="gugun1"></select>
+                </div>
                 
                 <div class="btnSet"  style="text-align:right;">
-               		<a class="btn" href="write.do">글작성 </a>
-                    </div>
+               		<a class="btn" href="livewrite.do">글작성 </a>
+                </div>
                 <!-- **** -->
                 <table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
                     <caption class="hdd">공지사항 목록</caption>
@@ -100,9 +89,6 @@
                         </tr>
 						</c:forEach>
                     </tbody>
-                    <td>
-                    ${api }
-                    </td>
                 </table>
 
                     <div class="pagenate clear">
@@ -136,10 +122,6 @@
                         </form>
                     </div>
                 </div>
-                
-                
-                
-                
             </div>
         </div>
 </body>
