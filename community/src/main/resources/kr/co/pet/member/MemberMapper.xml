@@ -18,6 +18,10 @@
 		select count(*) from member where email = #{email}
 	</select>
 	
+	<select id="certification" parameterType="String" resultType="int">
+		select * from member where email = #{email}
+	</select>
+	
 	<select id="loginCheck" parameterType="kr.co.pet.member.MemberVO" resultType="kr.co.pet.member.MemberVO">
 		select * from member where member_id = '${member_id}' and pwd = md5('${pwd}')
 	</select>
