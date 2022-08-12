@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.pet.board.api.ApiVO;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @Service
 public class BoardServiceImpl implements BoardService{
 	@Autowired
@@ -20,7 +21,7 @@ public class BoardServiceImpl implements BoardService{
 		int totalCount = mapper.count(vo); // 총게시물수
 		// 총페이지수
 		int totalPage = totalCount / vo.getPageRow();
-		if (totalCount % vo.getPageRow() > 0) totalPage++;
+		if (totalCount % 10 > 0) totalPage++;
 		
 		// 시작인덱스
 		int startIdx = (vo.getPage()-1) * vo.getPageRow();

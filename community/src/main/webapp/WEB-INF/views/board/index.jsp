@@ -21,9 +21,78 @@
     <ul class="skipnavi">
         <li><a href="#container">본문내용</a></li>
     </ul>
-
-
     <div id="wrap">
+        <header id="header">
+            <!-- 로고 네비 로그인 그룹 -->
+            <div class="header_area box_inner clear">
+                <!-- 로고 -->
+                <h1><a href="#">Help!</a></h1>
+                <!-- 네비 로그인 -->
+                <div class="header_cont">
+                    <!-- 로그인 회원가입 -->
+                    <ul class="util clear">
+                    <c:choose>
+						<c:when test="${empty loginInfo.member_no }">
+	                        <li><a href="/pet/member/login.do">로그인</a></li>
+	                        <li><a href="/pet/member/join.do">회원가입</a></li>
+						</c:when>
+	                    <c:otherwise>
+	                        <li><a href="/pet/member/logout.do">로그아웃</a></li>
+						</c:otherwise>
+					</c:choose>
+                    </ul>
+                    <!-- 네비 -->
+                    <nav>
+                    <c:choose>
+						<c:when test="${empty loginInfo.member_no }">
+                        <ul class="gnb clear">
+                            <li><a href="/pet/board/index.do">생활게시판</a>
+                                <div class="gnb_depth gnb_depth_2_1">
+                                    <ul class="submenu_list">
+                                        <li><a href="#">국내</a></li>
+                                        <li><a href="#">해외</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">유기견관련</a>
+                                <div class="gnb_depth gnb_depth_2_2">
+                                    <ul class="submenu_list">
+                                        <li><a href="#">공지사항</a></li>
+                                        <li><a href="#">문의하기</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">자유게시판</a>
+                                <div class="gnb_depth gnb_depth_2_3">
+                                    <ul class="submenu_list">
+                                        <li><a href="#">프로그램 소개</a></li>
+                                        <li><a href="#">여행자료</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+	                     
+						</c:when>
+	                    <c:otherwise>
+                            <li><a href="/pet/mypage/index.do?member_no=${loginInfo.member_no }">마이페이지</a>
+                                <div class="gnb_depth gnb_depth_2_4">
+                                    <ul class="submenu_list">
+                                        <li><a href="#">항공</a></li>
+                                        <li><a href="#">호텔</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+	                       
+						</c:otherwise>
+					</c:choose>
+                        </ul>
+                    </nav>
+                    <p class="closePop">
+                        <a href="#">닫기</a>
+                    </p>
+                </div>
+            </div>
+        </header>
+    
         <!-- 컨텐츠 영역 -->
         <div id="container">
             <!-- 위치(페이지 제목)영역 -->
@@ -32,11 +101,6 @@
                     <h2 class="tit_page">
                         <span>자유게시판</span>
                     </h2>
-                    <p class="location">
-                        고객센터
-                        <span class="path">/</span> 
-                        공지사항
-                    </p>
                 </div>
             </div> 
             <!-- 공지사항 목록영역 -->
@@ -67,6 +131,7 @@
                             <th scope="col">번호</th>
                             <th scope="col">제목</th>
                             <th scope="col">조회수</th>
+                            <th scope="col">작성자</th>
                             <th scope="col">작성일</th>
                         </tr>
                     </thead>
@@ -80,11 +145,15 @@
                         <tr>
                             <td>${data.totalCount-status.index-(boardVO.page-1)*boardVO.pageRow }<!-- 총개수 - 인덱스-(현재페이지번호-1)*페이지당개수 --></td>
                             <td class="txt_l">
-                                <a href="view.do?board_no=${vo.board_no }">${vo.title} ["댓글 수"]</a><%-- ${ vo.comment_count} --%>
+                                <a href="view.do?board_no=${vo.board_no }">${vo.title} ["댓글 수"]</a>${ vo.reply_count}
                             </td>
                             <td>
                             	${vo.viewcount }
                             </td>
+                            <td class="writer">
+                            	${vo.memb_nickname }
+                            </td>
+                            
                             <td class="date"><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                         </tr>
 						</c:forEach>
@@ -106,23 +175,9 @@
                     </div>
                 
                     <!-- 페이지처리 -->
-                    <div class="bbsSearch">
-                        <form method="get" name="searchForm" id="searchForm" action="">
-                            <span class="srchSelect">
-                                <select id="stype" name="stype" class="dSelect" title="검색분류 선택">
-                                    <option value="all">전체</option>
-                                    <option value="title">제목</option>
-                                    <option value="content">내용</option>
-                                </select>
-                            </span>
-                            <span class="searchWord">
-                                <input type="text" id="sval" name="sword" value="${param.sword }"  title="검색어 입력">
-                                <input type="button" id="" value="검색" title="검색">
-                            </span>
-                        </form>
-                    </div>
+                 
                 </div>
             </div>
-        </div>
+        </div> 
 </body>
 </html>

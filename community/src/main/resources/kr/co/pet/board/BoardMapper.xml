@@ -3,15 +3,19 @@
 <mapper namespace="kr.co.pet.board.BoardMapper">
 	
 	<insert id="insertSelectKey" >
+		
 		<selectKey keyProperty="board_no" order="AFTER" resultType="int">
 			SELECT last_insert_id()
 		</selectKey>
 		INSERT INTO board (
-			board_no, board_name, title, content, horse_hair, regdate
+			board_no, board_name, title, content, horse_hair, regdate, nickname
 		) VALUES (
-			#{board_no}, #{board_name}, #{title}, #{content}, #{horse_hair}, NOW()
+			#{board_no}, #{board_name}, #{title}, #{content}, #{horse_hair}, NOW(), #{nickname}}
 		)
 	</insert>
+	<select id="nickname" parameterType="String" resultType="String">
+		select nickname from member right join board on member.member_no = board.member_no;
+	</select>
 	
 	<select id="count" parameterType="kr.co.pet.board.BoardVO" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM board
@@ -29,8 +33,22 @@
 	
 	
 	<select id="list" parameterType="kr.co.pet.board.BoardVO" resultType="kr.co.pet.board.BoardVO">
-		SELECT * FROM board
-		order by board_no desc
+		SELECT * ,
+			(select nickname from member where member_no=board.member_no)as memb_nickname,
+			(select count(*) from reply where board_no=reply.board_no)as reply_count
+			FROM board
+		<where>
+			<if test="stype != null and stype != ''">
+				<if test="stype != 'all'">
+					${stype} Like '${sword}'
+				</if>
+				<if test="stype == 'all">
+				 title Like '%${sword}%' or content Like '%${sword}%'
+				</if>
+			</if>
+		</where>
+		order by regdate desc
+		Limit ${startIdx},${pageRow};
 	</select>
 	
 	<update id="updateViewCount" parameterType="int">
