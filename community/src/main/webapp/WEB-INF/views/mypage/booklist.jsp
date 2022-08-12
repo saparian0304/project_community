@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-                <button style="width : 100px; height : 30px;" class="reqbtn myact" onclick="javascript:getActList(1,${loginInfo.member_no}, 'board');">내가 쓴 글</button>
-                <button style="width : 100px; height : 30px;" class="reqbtn myact" onclick="javascript:getActList(1,${loginInfo.member_no}, 'reply');">내가 쓴 댓글</button>
                 
                   <form action="#" method="post" class="minisrch_form">
                     <fieldset>
@@ -15,15 +13,13 @@
                     </fieldset>
                 </form>
                   <table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
-                  <h3 class="sub_title">
-                 	 <c:if test="${ mypageVO.table_name == 'board'}">내 글 목록</c:if>
-	                 <c:if test="${ mypageVO.table_name == 'reply'}">내 댓글 목록</c:if>
-                  </h3>
+                  <h3 class="sub_title">북마크 목록</h3>
                     <p><span><strong>총 ${data.totalCount }개</strong>  |  ${data.page}  / ${pageMaker.totalPage }페이지</span></p>
-                        <caption>게시판 목록</caption>
+                        <caption>북마크 목록</caption>
                         <colgroup>
                             <col width="80px" />
                             <col width="150px" />
+                            <col width="90px" />
                             <col width="*" />
                             <col width="100px" />
                             <col width="150px" />
@@ -31,12 +27,10 @@
                         <thead>
                             <tr>
                                 <th><label><input type="checkbox" name="allChk" onclick="selectAll(this)" ></label></th>
-                                <th style="text-align: left;">선택 <button class="reqbtn danger" onclick="javascript:isdelMulti('${mypageVO.table_name }');">삭제</button>
+                                <th style="text-align: left;">선택 <button class="reqbtn danger" onclick="javascript:delMulti('${mypageVO.table_name }');">삭제</button>
 		                    	</th>
-                                <th>
-                                	<c:if test="${ mypageVO.table_name == 'board'}">제목</c:if>
-	                    			<c:if test="${ mypageVO.table_name == 'reply'}">댓글 내용</c:if>
-	                    		</th>
+                                <th>카테고리</th>
+                                <th>제목</th>
                                 <th>작성 일자</th>
                                 <th>삭제</th>
                             </tr>
@@ -52,27 +46,19 @@
 	                    	<c:forEach var="list" items="${data.list }">
 	                    	<tr>
 	                    		<td class="tit_notice" style="text-align: center;">
-	                    			<input type="checkbox" name="select_no" 
-	                    				value=<c:if test="${ mypageVO.table_name == 'board'}">"${list.board_no}"</c:if>
-					                    	<c:if test="${ mypageVO.table_name == 'reply'}">"${list.reply_no}"</c:if>
-					                >
+	                    			<input type="checkbox" name="select_no" value="${list.book_no }">
 	                    		</td>
 	                    		<td></td>
+	                    		<td class="tit_notice" style="text-align : center;">${list.horse_hair }</td>
 	                    		<td class="tit_notice" style="text-align : center;">
 	                    			<a href="/pet/board/view.do?board_no=${list.board_no }">
-	                    				<c:if test="${ mypageVO.table_name == 'board'}">${list.title }</c:if>
-	                    				<c:if test="${ mypageVO.table_name == 'reply'}">${list.content }</c:if>
+	                    				${list.title }
 	                    			</a></td>
 	                    		<td>
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.regdate }"/>
 	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
-		                    		<c:if test="${ mypageVO.table_name == 'board'}">
-			                    		<button class="reqbtn danger" onclick="javascript:isdelSingle(${list.board_no}, 'board');">삭제</button>
-		                    		</c:if>
-		                    		<c:if test="${ mypageVO.table_name == 'reply'}">
-			                    		<button class="reqbtn danger" onclick="javascript:isdelSingle(${list.reply_no}, 'reply');">삭제</button>
-		                    		</c:if>
+			                    		<button class="reqbtn danger" onclick="javascript:delSingle(${list.board_no}, 'bookmark');">삭제</button>
 		                    	</td>
 	                    	</tr>
 	                    	</c:forEach>                    
@@ -95,28 +81,28 @@
                     </div> --%>
 				<div class="pagenation">
 				<c:if test="${!empty data.list }">
-                	<a style="cursor: pointer" onclick='javascript: getActList(1, ${loginInfo.member_no}, "${mypageVO.table_name }");' class="firstpage pbtn">
+                	<a style="cursor: pointer" onclick='javascript: getBookList(1, ${loginInfo.member_no}, "${mypageVO.table_name }");' class="firstpage pbtn">
                         <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
                     </a>
                     
                 	<c:if test="${pageMaker.prev }">
                         <a class="prevpage pbtn" style="cursor: pointer" 
-                        	onclick='javascript: getActList(${pageMaker.startPage -1 }, ${loginInfo.member_no}, "${mypageVO.table_name }");' >
+                        	onclick='javascript: getBookList(${pageMaker.startPage -1 }, ${loginInfo.member_no}, "${mypageVO.table_name }");' >
                         	<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
                         </a>
 					</c:if>
 					
                     <c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
                        	<a style="cursor: pointer" class="pagenum<c:if test="${mypageVO.page == p}"> currentpage </c:if>" 
-                       		onclick='javascript: getActList(${p }, ${loginInfo.member_no}, "${mypageVO.table_name }");' >${p }</a>
+                       		onclick='javascript: getBookList(${p }, ${loginInfo.member_no}, "${mypageVO.table_name }");' >${p }</a>
 					</c:forEach>
 					<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
 						<a class="nextpage pbtn" style="cursor: pointer" 
-							onclick='javascript: getActList(${pageMaker.endPage +1 }, ${loginInfo.member_no}, "${mypageVO.table_name }");'>
+							onclick='javascript: getBookList(${pageMaker.endPage +1 }, ${loginInfo.member_no}, "${mypageVO.table_name }");'>
 							<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
 						</a>
 					</c:if>
-                    <a style="cursor: pointer" onclick='javascript: getActList(${pageMaker.totalPage }, ${loginInfo.member_no}, "${mypageVO.table_name }");' 
+                    <a style="cursor: pointer" onclick='javascript: getBookList(${pageMaker.totalPage }, ${loginInfo.member_no}, "${mypageVO.table_name }");' 
                     	class="lastpage pbtn">
                         <img src="/pet/img/btn_lastpage.png" alt="마지막 페이지 이동">
                     </a>

@@ -2110,7 +2110,7 @@ h1.loginTit a img{
 }
 .friend {
 	border-color : #ff99c4;
-	color: #ff99c4;
+	color: #b26b89;
 	background-color: #fff4f9; 
 }
 .friend:hover {
@@ -2119,11 +2119,20 @@ h1.loginTit a img{
 }
 .myact {
 	border-color : #b6c3fd;
-	color: #a3afe3;
+	color: #727a9e;
 	background-color: #f0f3fe; 
 }
 .myact:hover {
 	background-color : #b6c3fd;
+	color: white;
+}
+.mymess {
+	border-color : #81f6c9;
+	color: #407b64;
+	background-color: #e5fdf4; 
+}
+.mymess:hover {
+	background-color : #81f6c9;
 	color: white;
 }
 .success {
