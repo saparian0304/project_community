@@ -6,17 +6,9 @@
 		INSERT INTO message (
 			content, send_member, read_member,  senddate, readdate, isdelete
 			) VALUES (
-				#{content}, #{send_no}, #{read_no}, NOW(), NOW(), 0
+				#{content}, #{send_member}, #{read_member}, NOW(), NOW(), 0
 			)			
-	</insert>
-	
-	<update id="readUpdate">
-		UPDATE message SET readdate = NOW() WHERE mess_no = #{mess_no}
-	</update>
-	
-	<update id="delUpdate">
-		UPDATE message SET isdelete = 1 WHERE mess_no = #{mess_no}
-	</update>
+	</insert>	
 	
 	<select id="sendList" parameterType="kr.co.pet.message.MessageVO" resultType="kr.co.pet.message.MessageVO">
 		SELECT *,		
@@ -29,7 +21,18 @@
 			(SELECT nickname FROM member WHERE member_no=message.read_member) AS member_nickname			
 		FROM message;		
 	</select>
+
+	<select id= "search" parameterType="kr.co.pet.message.MessageVO" resultType="kr.co.pet.message.MessageVO">
+		SELECT member_no FROM member where nickname= #{searchNick}
+	</select>
 	
+	<update id="readUpdate">
+		UPDATE message SET readdate = NOW() WHERE mess_no = #{mess_no}
+	</update>
+	
+	<update id="delUpdate">
+		UPDATE message SET isdelete = 1 WHERE mess_no = #{mess_no}
+	</update>
 	
 	
 </mapper>

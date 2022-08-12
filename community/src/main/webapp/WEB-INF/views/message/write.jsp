@@ -11,59 +11,49 @@
     <meta name="format-detection" content="telephone=no, address=no, email=no">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <title>게시판 등록</title>
+    <title>쪽지보내기</title>
     <link rel="stylesheet" href="/pet/css/reset.css"/>
     <link rel="stylesheet" href="/pet/css/contents.css"/>
     <script src="/pet/smarteditor/js/HuskyEZCreator.js"></script>
     <script src="/pet/js/function.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-    	
+    	function seachNick(){
+    		$.ajax({
+    			url : "/pet/message/search.do",
+    			data : {
+    				
+    				
+    				searchNick : $("#read_member").val()
+    				
+    			},			
+    			success : function(res) {
+    					console.log(res);		
+    			}
+    		});
+    	} 
     </script>
 </head>
 <body>
-    
-        <div class="sub">
-            <div class="size">
-                <h3 class="sub_title">쪽지</h3>
-    
-                <div class="bbs">
-                <form method="post" name="frm" id="frm" action="insert.do" enctype="multipart/form-data">
-                    <table class="board_write">
-                        <tbody>
-                        <tr>
-                            <th>번호</th>
-                            <td>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>받는사람</th>
-                            <td>
-                                <input type="text" name="title" id="title" class="wid100" value=""/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>내용</th>
-                            <td>
-                                <textarea style="width: 90%" name="content" id="content"></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<th>보낸사람</th>
-                        	<td>
-                        	</td>
-                        </tr>
-                        
-                        </tbody>
-                    </table>
-                    <div class="btnSet"  style="text-align:right;">
-                        <a class="btn" href="javascript:goSave();">저장 </a>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        
+	<form method="post" name="frm" id="frm" action="insert.do" style="width:800px; margin:0 auto;">
+		<table>	
+			<tr>
+				<td>받는사람</td>
+				<td><input type="search" name="read_member" id="read_member"><button type="button" onclick="seachNick();">찾기</button></td>
+			</tr>			
+			<tr>
+				<td>보내는사람</td>
+				<td><input type="hidden" name="send_member" value="${loginInfo.member_no}">${loginInfo.nickname}</td>		
+			<tr>
+				<td>보내실 말씀</td>
+				<td><textarea cols="40" rows="10" name="content" placeholder="메세지를 입력해주세요"  style="width: 320px; height: 150px;"></textarea></td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" name="" value="전송">
+				</td>
+			</tr>
+		</table>
+	</form>
 </body>
 </html>
