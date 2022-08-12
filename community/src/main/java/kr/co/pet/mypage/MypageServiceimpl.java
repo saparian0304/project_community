@@ -89,5 +89,53 @@ public class MypageServiceimpl implements MypageService {
 		return mapper.memberActIsdel(vo) > 0? true: false;
 	}
 
+	@Override
+	public Map messReadList(MypageVO vo) {
+		Map map = new HashMap();
+		int totalCount = mapper.messReadCnt(vo);
+		List list  = mapper.messRead(vo);
+		map.put("totalCount", totalCount);
+		map.put("list", list);
+		map.put("page", vo.getPage());
+		return map;
+	}
+
+	@Override
+	public int messReadTotal(MypageVO vo) {
+		return mapper.messReadCnt(vo);
+	}
+
+	@Override
+	public Map messSendList(MypageVO vo) {
+		Map map = new HashMap();
+		int totalCount = mapper.messSendCnt(vo);
+		List list  = mapper.messSend(vo);
+		map.put("totalCount", totalCount);
+		map.put("list", list);
+		map.put("page", vo.getPage());
+		return map;
+	}
+
+	@Override
+	public int messSendTotal(MypageVO vo) {
+		return mapper.messSendCnt(vo);
+	}
+
+	@Override
+	public Map bookList(MypageVO vo) {
+		Map map = new HashMap();
+		int totalCount = mapper.bookCnt(vo);
+		List list  = mapper.bookList(vo);
+		map.put("totalCount", totalCount);
+		map.put("list", list);
+		map.put("page", vo.getPage());
+		return map;
+	}
+
+	@Override
+	public int bookCnt(MypageVO vo) {
+		return mapper.bookCnt(vo);
+	}
+
 
 }
