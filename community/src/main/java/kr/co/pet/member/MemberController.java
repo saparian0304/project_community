@@ -113,7 +113,7 @@ public class MemberController {
 		service.certification(param, sess);
 		return;
 	}
-	
+	//보낸 인증번호 브라우저에서 확인
 	@GetMapping("/member/Certification.do")
 	public String checkCerti(@RequestParam String certi, HttpSession sess, Model model) throws IOException{
 		//view로부터 넘어온 데이터 확인

@@ -141,13 +141,5 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
-	@Override
-	public void checkCerti(String certi_num) {
-		
-		
-	}
-
-	
-
 }
 

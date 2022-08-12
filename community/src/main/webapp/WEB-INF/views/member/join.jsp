@@ -165,22 +165,24 @@
     function certification(){
     	var certi = $('#e_certification').val();
 		console.log("e_certification : "+ certi);
-		
+		if ($("#e_certification").val().trim() == '') {
+			alert('인증번호를 입력해주세요.');
+			$("#e_certification").focus();
+			return;
+		}
 		$.ajax({
 			url : 'Certification.do',
 			method : 'get',
 			data : {"certi" : certi}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
-			success : function() {
-				if ($("#e_certification").val().trim() == '') {
-					alert('인증번호를 입력해주세요.');
-					$("#e_certification").focus();
-				}else{
-					if ({
+			success : function(res) {
+				if(res.trim() != ''){
 						$("#e_certification").val('');
 						$("#e_certification").focus();
 						alert('인증완료');
 						emailCheck = false;
-					})	
+				
+				}else{
+					alert('인증번호를 다시 확인해주세요');
 				}
 			},
 			error:function(){

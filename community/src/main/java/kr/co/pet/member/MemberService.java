@@ -16,5 +16,4 @@ public interface MemberService {
 	MemberVO findId(MemberVO vo);
 	MemberVO findPwd(MemberVO vo);
 	void certification(CertificationVO c_vo, HttpSession sess);
-	void checkCerti(String certi_num);
 }
