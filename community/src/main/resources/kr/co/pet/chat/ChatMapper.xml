@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.pet.chat.ChatMapper">
+	
+	<select id="friendList" parameterType="int" resultType="java.util.LinkedHashMap">
+		SELECT * FROM member, 
+			(SELECT you_no AS fri, res_date FROM friend WHERE i_no = #{member_no} AND res_date IS NOT NULL
+				UNION
+			SELECT i_no AS fri, res_date FROM friend WHERE you_no = #{member_no} and res_date IS NOT NULL) AS a  
+		WHERE member_no = a.fri 
+		ORDER BY nickname ASC
+	</select>
+
+	<select id="listInfo" parameterType="java.util.LinkedHashMap" resultType="int">
+		SELECT channel_no from chat_channel
+		where title = '${i_no}_${member_no}' OR title = '${member_no}_${i_no}'
+	</select>
+	
+	<select id="list" parameterType="int" resultType="java.util.LinkedHashMap">
+	SELECT * 
+	FROM chat_history cc, (
+		SELECT max(regdate) mdate FROM (
+			SELECT chat_history.channel_no, chat_history.member_no, content, chat_history.regdate, isread, type, y.limit 
+			FROM chat_history,
+				((SELECT *
+				FROM chat_channel, (
+					SELECT 
+						 member_no, name, member_id, `nickname`, concat(fri,'_' ,${i_no}) as fri_a
+					FROM member, 
+						(SELECT you_no AS fri, res_date FROM friend WHERE i_no = ${i_no} AND res_date IS NOT NULL
+							UNION
+						SELECT i_no AS fri, res_date FROM friend WHERE you_no = ${i_no} and res_date IS NOT NULL) AS a  
+					WHERE member_no = a.fri ) b
+				WHERE title = fri_a)
+				union
+				(SELECT *
+				FROM chat_channel, (
+					SELECT 
+						member_no, name, member_id, `nickname`, concat(${i_no}, '_', fri) as fri_b
+						FROM member,(
+					SELECT you_no AS fri, res_date FROM friend WHERE i_no = ${i_no} AND res_date IS NOT NULL
+						UNION
+					SELECT i_no AS fri, res_date FROM friend WHERE you_no = ${i_no} and res_date IS NOT NULL) AS a  
+					WHERE member_no = a.fri ) z 
+				WHERE title = fri_b) ) y
+			WHERE chat_history.channel_no =y.channel_no 
+			ORDER BY chat_history.regdate DESC
+			
+		) aa
+		GROUP BY channel_no  ) bb
+	WHERE cc.regdate = mdate
+	</select>
+	
+</mapper>

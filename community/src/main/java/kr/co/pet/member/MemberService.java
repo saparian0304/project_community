@@ -13,4 +13,6 @@ public interface MemberService {
 	int emailCheck(String email);
 	MemberVO findId(MemberVO vo);
 	MemberVO findPwd(MemberVO vo);
+	int certification(String email);
+
 }

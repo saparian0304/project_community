@@ -39,13 +39,23 @@
 		       alert("비번조합 틀렸음여!!");
 		       return;
 		   }
-		   
+		  
 		if($("#pwd").val().trim() != $("#pwd_check").val()){
    			alert('비밀번호를 확인 해 주세요');
    			$("#pwd_check").focus();
    			return;
    		}
-		
+		if ($("#email").val().trim() == '') {
+			alert('이메일을 입력 해 주세요.');
+			$("#email").focus();
+			
+			return;
+		}
+		//var regExp = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+		//if (!regExp.test($("#email").val())) {
+		//	alert("이메일 형식이 아닙니다.");
+		//	return;
+		//}
 		if ($("#name").val().trim() == ''){
 			   alert('이름을 입력해주세요.');
 			   $("#name").focus();
@@ -53,16 +63,6 @@
 	   	
 	   	}
 
-		if ($("#email").val().trim() == '') {
-			alert('이메일을 입력 해 주세요.');
-			$("#email").focus();
-			return;
-		}
-		var regExp = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-		if (!regExp.test($("#email").val())) {
-			alert("이메일 형식이 아닙니다.");
-			return;
-		}
 		console.log("member_id : "+ member_id);
 		console.log("email : "+ email);
 		console.log("name : "+ name);
@@ -71,30 +71,37 @@
 	}
 	function checkemail(){
 		var email = $('#email').val();
-		//console.log("email: "+email);
+		console.log("email : "+ email);
+		
 		$.ajax({
 			url : 'emailCheck.do',
 			data : {"email" : email}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
 			success : function(cnt) {
-				if (cnt == 'true') {
-					alert('입력한 이멜이 중복임. 다시 try');
-					$("#email").val('');
+				if ($("#email").val().trim() == '') {
+					alert('이메일을 입력 해 주세요.');
 					$("#email").focus();
-					emailCheck = false;
 				}else{
-					alert('사용가능한 이메일입니다.');
-				} 	
+					if (cnt == 'true') {
+						alert('입력한 이멜이 중복임. 다시 try');
+						$("#email").val('');
+						$("#email").focus();
+						emailCheck = false;
+						
+					}else{
+						alert('사용가능한 이메일입니다.');
+					}	
+				}
 			}
 		})
 	}
 	
-	function checkPwd(){
+	/* function checkPwd(){
 		var reg_pwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
 		if( reg_pwd.test($("#pwd").val())) {
 		    $('.ptxt').css("display","none");
 		    //$("#pwd").focus();
 		    return;
-		}
+		} */
 	}
     function checkId(){
     	if ($("#member_id").val().trim() == ''){
@@ -153,9 +160,31 @@
                 alert("에러입니다");
             }
         })
-        
     }
-  
+    function certification(){
+    	var certi = $('#e_certification').val();
+		console.log("e_certification : "+ certi);
+		
+		$.ajax({
+			url : 'certification.do',
+			data : {"e_certi" : certi}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
+			success : function(cnt) {
+				if ($("#e_certification").val().trim() == '') {
+					alert('인증번호를 입력해주세요.');
+					$("#e_certification").focus();
+				}else{
+					if (cnt == 'true') {
+						alert('인증완료');
+						$("#e_certification").val('');
+						$("#e_certification").focus();
+						emailCheck = false;
+					}	
+				}
+			}
+		})
+    }
+    
+
 </script>
 
 <script>
@@ -289,8 +318,13 @@
 						<tr>
 							<th>*이메일</th>
 							<td><input type="text" name="email" id="email" class="inNextBtn" style="float: left;"> 
-								<span class="emailCheck"><a href="javascript: checkemail();" class="btn bgGray" style="float: left; width: auto; clear: none;">중복확인</a>
-								</span>
+								<span class="emailCheck"><a href="javascript: checkemail();" class="btn bgGray" style="float: left; width: auto; clear: none;">인증번호받기</a>	</span>
+							</td>
+						</tr>
+						<tr>
+							<th>*이메일인증번호</th>
+							<td><input type="text" name="e_certification" id="e_certification" class="inNextBtn" disabled="disabled" style="float: left;"> 
+								<span class="e_certification"><a href="javascript: certification();" class="btn bgGray" style="float: left; width: auto; clear: none;">확인</a></span>
 							</td>
 						</tr>
 
@@ -332,8 +366,8 @@
 						</tr>
 					</tbody>
 				</table>
-				<input type="hidden" name="cmd" value="write.do" /> <input
-					type="hidden" name="checkEmail" id="checkEmail" value="0" />
+				<input type="hidden" name="cmd" value="write.do" /> 
+				<input type="hidden" name="checkEmail" id="checkEmail" value="0" />
 			</form>
 			<!-- //write--->
 			<div class="btnSet clear">

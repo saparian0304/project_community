@@ -27,7 +27,7 @@ public class MemberController {
 	@GetMapping("/member/join.do")
 	public String join() {
 		System.out.println("############");
-		System.out.println("나옴???");
+		System.out.println("가입하세요 어서");
 		return "member/join"; 
 	}
 	@PostMapping("/member/join.do")
@@ -103,6 +103,12 @@ public class MemberController {
 		out.print(r);
 		//out.flush();
 	}
+	
+	@PostMapping("/member/emailCheck.do")
+	public void certification(@RequestParam String certi_num, HttpServletResponse res) throws IOException{
+	
+	}
+	
 	
 	@GetMapping("/member/findId.do")
 	public String findId() {

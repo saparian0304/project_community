@@ -4,10 +4,11 @@ import java.sql.Timestamp;
 
 import lombok.Getter;
 import lombok.Setter;
+import util.Criteria;
 
 @Getter
 @Setter
-public class ReplyVO {
+public class ReplyVO extends Criteria {
 	
 	private int reply_no;
 	private String content;
@@ -22,13 +23,5 @@ public class ReplyVO {
 	private String member_nickname;	
 	
 	
-	private int page; // 파라미터로 보낼때 같은 이름이면 원하는 화면이 안날올수있음
-	private int startIdx;
-	private int pageRow; // 
 	
-			// 생성자
-	public ReplyVO() {
-		this.page = 1;
-		this.pageRow = 10; // 10으로 초기화 		
-	}
 }
