@@ -30,7 +30,6 @@
 		FROM message;		
 	</select>
 	
-	SELECT COUNT(*) FROM member where nickname=${nickname};
-	(SELECT nickname FROM member WHERE member_no=reply.member_no) AS member_nickname
+	
 	
 </mapper>
