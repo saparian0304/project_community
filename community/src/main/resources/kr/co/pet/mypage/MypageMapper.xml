@@ -27,17 +27,44 @@
 	
 	<select id="memberAct"  resultType="map">
 		SELECT * FROM ${table_name}
-		<if test="table_name == 'message'">
-			WHERE read_member = #{member_no}
-			OR send_member = #{member_no}
-			AND isdelete = 0
-		</if>
-		<if test="table_name != 'message'">
-			WHERE member_no = #{member_no}
-			AND isdelete = 0
-		</if>
+		WHERE member_no = #{member_no}
+		AND isdelete = 0
 		ORDER BY regdate DESC
 		LIMIT #{startIdx}, ${pageRow} <!-- 페이징처리 -->
+	</select>
+	
+	<select id="messRead" resultType="map">
+		SELECT * , 
+			(SELECT nickname FROM member WHERE member_no = message.send_member) AS send_nick
+		FROM message
+		WHERE read_member = #{member_no}
+		AND isdelete = 0
+		ORDER BY senddate DESC
+		LIMIT #{startIdx}, ${pageRow}
+	</select>
+	
+	<select id="messReadCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM message
+		WHERE read_member = #{member_no}
+		AND isdelete = 0
+	</select>
+	
+	<select id="messSend" resultType="map">
+		SELECT * , 
+			(SELECT nickname FROM member WHERE member_no = message.read_member) AS read_nick
+		FROM message
+		WHERE send_member = #{member_no}
+		AND isdelete = 0
+		ORDER BY senddate DESC
+		LIMIT #{startIdx}, ${pageRow}
+	</select>
+	
+	<select id="messSendCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM message
+		WHERE send_member = #{member_no}
+		AND isdelete = 0
 	</select>
 	
 	<select id="memberActCnt" parameterType="kr.co.pet.mypage.MypageVO" resultType="int">
@@ -58,7 +85,7 @@
 	 		reply_no = #{select_no}
 		</if>
 		<if test="table_name == 'message'">
-	 		mess_no IN = #{select_no}
+	 		mess_no = #{select_no}
 		</if>
 	</update>
 	
@@ -80,10 +107,10 @@
 	
 	<select id="friendList" parameterType="kr.co.pet.mypage.MypageVO" resultType="kr.co.pet.mypage.MypageVO">
 		SELECT nickname, a.res_date, a.fri_no FROM member, 
-			(SELECT you_no AS fri_no, res_date FROM friend WHERE i_no = #{member_no} AND res_date IS NOT NULL
+			(SELECT fri_no AS fri_no,you_no AS fri, res_date FROM friend WHERE i_no = #{member_no} AND res_date IS NOT NULL
 				UNION
-			SELECT i_no AS fri_no, res_date FROM friend WHERE you_no = #{member_no} and res_date IS NOT NULL) AS a  
-		WHERE member_no = a.fri_no
+			SELECT fri_no AS fri_no, i_no AS fri, res_date FROM friend WHERE you_no = #{member_no} and res_date IS NOT NULL) AS a  
+		WHERE member_no = a.fri
 		ORDER BY nickname ASC
 		LIMIT #{startIdx}, ${pageRow}
 	</select>

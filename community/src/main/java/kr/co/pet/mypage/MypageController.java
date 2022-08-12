@@ -80,4 +80,25 @@ public class MypageController {
 		service.actIsdel(vo);
 		return "mypage/index";
 	}
+	
+	@GetMapping("/mypage/messreadlist.do")
+	public String messReadList(Model model, MypageVO vo) {
+		model.addAttribute("data", service.messReadList(vo));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.messReadTotal(vo));
+		model.addAttribute("pageMaker", pageMaker);
+		return "mypage/messreadlist";
+	}
+
+	@GetMapping("/mypage/messsendlist.do")
+	public String messSendList(Model model, MypageVO vo) {
+		model.addAttribute("data", service.messSendList(vo));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.messSendTotal(vo));
+		model.addAttribute("pageMaker", pageMaker);
+		return "mypage/messsendlist";
+	}
+	
 }

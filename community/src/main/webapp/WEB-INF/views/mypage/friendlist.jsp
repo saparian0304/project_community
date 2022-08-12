@@ -41,7 +41,7 @@
                     	<c:if test="${!empty data.list }">
                     		<c:forEach var="list" items="${data.list }" varStatus="st">
 	                    	<tr>
-	                    		<td >${data.totalCount - ((mypageVO.page -1) * mypageVO.pageRow + st.index) }</td>
+	                    		<td >${(mypageVO.page -1) * mypageVO.pageRow + st.index +1 }</td>
 	                    		<td class="tit_notice" style="text-align : center;">${list.nickname }</td>
 	                    		<td class="tit_notice">
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.res_date }"/>
