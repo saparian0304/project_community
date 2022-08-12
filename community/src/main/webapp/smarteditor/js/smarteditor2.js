@@ -6871,9 +6871,9 @@ nhn.husky.SE_EditingArea_WYSIWYG = jindo.$Class({
 
 		// 편집내용이 없는 경우
 		if((this.iframe.contentWindow.document.body.innerHTML).replace(/[\r\n\t\s]*/,"") === ""){
-			if(this.oApp.sLineBreaker !== "BR"){
-				sCursorHolder = "<p>" + sCursorHolder + "</p>";
-			}
+//			if(this.oApp.sLineBreaker !== "BR"){
+//				sCursorHolder = "<p>" + sCursorHolder + "</p>";
+//			}
 			this.iframe.contentWindow.document.body.innerHTML = sCursorHolder;
 		}
 		// [COM-1142] IE의 경우 <p>&nbsp;</p> 를 <p></p> 로 변환
@@ -8584,7 +8584,7 @@ nhn.husky.SE_WYSIWYGEnterKey = jindo.$Class({
 		if(sLineBreaker == "BR"){
 			this.sLineBreaker = "BR";
 		}else{
-			this.sLineBreaker = "P";
+			this.sLineBreaker = "BR";
 		}
 		
 		this.htBrowser = jindo.$Agent().navigator();

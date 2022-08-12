@@ -16,6 +16,8 @@ public class BoardVO {
 	private Timestamp regdate;
 	private int viewcount;
 	private String content;
+	private String tel;
+	private String link;
 	private int horse_hair;
 	private Timestamp update_date;
 	
@@ -37,4 +39,5 @@ public class BoardVO {
 		this.pageRow = pageRow;
 	}
 	
+	private String filename_real;
 }
