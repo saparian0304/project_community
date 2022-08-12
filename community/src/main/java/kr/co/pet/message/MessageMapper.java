@@ -9,5 +9,14 @@ public interface MessageMapper {
 	
 	int insert(MessageVO vo);
 	
+	List<MessageVO> sendList(MessageVO vo);
+	
+	List<MessageVO> readList(MessageVO vo);
+	
+	MessageVO search(MessageVO vo);
+	
+	int readUpdate(int no);
+	
+	int delUpdate(int no);
 	
 }

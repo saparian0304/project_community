@@ -12,9 +12,15 @@ public class MessageServiceImpl implements MessageService {
 	MessageMapper mapper;
 	
 	@Override
-	public int insert(MessageVO vo) {
+	public boolean insert(MessageVO vo) {
 		
-		return mapper.insert(vo);
+		return mapper.insert(vo) > 0 ? true : false;
+	}
+
+	@Override
+	public int search(MessageVO vo) {
+		
+		return mapper.search(vo).getMember_no();
 	}
 
 }

@@ -30,20 +30,20 @@ public class ReplyController {
 	@GetMapping("/reply/insert.do")
 	public String insert(ReplyVO vo, Model model) {
 		model.addAttribute("result", service.insert(vo));
-		return "reply/result";
+		return "common/result";
 	}
 	
 	
 	@GetMapping("/reply/update.do")
 	public String update(ReplyVO vo, Model model) {
 		model.addAttribute("result", service.update(vo));
-		return "reply/result";
+		return "common/result";
 	}
 	
 	@GetMapping("/reply/reply.do")
 	public String reply(ReplyVO vo, Model model) {		
 		model.addAttribute("result", service.reply(vo));		
-		return "reply/result";
+		return "common/result";
 	}
 	
 	@GetMapping("/reply/replylist.do")
@@ -56,7 +56,7 @@ public class ReplyController {
 	@GetMapping("/reply/replyEdit.do")
 	public String replyEdit(ReplyVO vo, Model model) {
 		model.addAttribute("result", service.replyEdit(vo));
-		return "reply/result";
+		return "common/result";
 	}
 	
 	

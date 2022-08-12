@@ -2,5 +2,7 @@ package kr.co.pet.message;
 
 public interface MessageService {
 
-	int insert(MessageVO vo);
+	boolean insert(MessageVO vo);
+	
+	int search(MessageVO vo);
 }

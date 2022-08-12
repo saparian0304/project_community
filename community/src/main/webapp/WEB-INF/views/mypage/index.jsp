@@ -75,10 +75,48 @@
     		}
     	})
     }
+    /* ajax로 내쪽지목록 불러오기 */
+    function getMessReadList(page, member_no){
+    	$.ajax({
+    		url : "messreadlist.do",
+    		data : {
+    			member_no : member_no,
+    			page : page
+    		},
+    		success : function(res){
+    			$("#hi").html(res);
+    		}
+    	})
+    }
+    function getMessSendList(page, member_no){
+    	$.ajax({
+    		url : "messsendlist.do",
+    		data : {
+    			member_no : member_no,
+    			page : page
+    		},
+    		success : function(res){
+    			$("#hi").html(res);
+    		}
+    	})
+    }
+    /* ajax로 내북마크목록 불러오기 */
+    function getBookList(page, member_no){
+    	$.ajax({
+    		url : "booklist.do",
+    		data : {
+    			member_no : member_no,
+    			page : page
+    		},
+    		success : function(res){
+    			$("#hi").html(res);
+    		}
+    	})
+    }
     /* 선택대상 */
     var select_no;
     /* isdel */
-    function isdel(select_no,table_name){
+    function isdel(select_no,table_name,rere){
     	$.ajax({
     		url: "actisdel.do",
     		type: 'get',
@@ -88,15 +126,23 @@
     		},
     		success : function(res){
     			alert('isdel 성공');
-    			getActList(1, ${loginInfo.member_no},table_name);
+    			if (table_name == 'message') {
+    				if (rere == 1){
+	    				getMessReadList(1, ${loginInfo.member_no});
+    				} else {
+	    				getMessSendList(1, ${loginInfo.member_no});
+    				}
+    			} else {
+    				getActList(1, ${loginInfo.member_no}, table_name);
+    			}
     		}
     	});
     }
     /* isdel게시글 */
-    function isdelMulti(table_name){
+    function isdelMulti(table_name,rere){
     	$("input[name=select_no]:checked").each(function(){
     		select_no = parseInt($(this).val());
-    		isdel(select_no,table_name);
+    		isdel(select_no,table_name,rere);
     	})
     }    
     function isdelSingle(a, table_name){
@@ -132,13 +178,13 @@
 	    	accept(select_no);
     }
 	/* 삭제 */
-	function del(select_no, rere){
+	function del(select_no, table_name, rere){
 		$.ajax({
 			url : "fridel.do",
 			type : 'get',
 			data : {
 				select_no : select_no,
-				table_name : 'friend'
+				table_name : table_name
 			},
 			success : function(res){
 				alert("성공");
@@ -151,17 +197,18 @@
 		})  
 	}
 	/* 다중 선택 삭제 */
-	function delMulti(rere){
+	function delMulti(table_name,rere){
 	    $("input[name=select_no]:checked").each(function(){
 	    	select_no = parseInt($(this).val());
-	    	del(select_no, rere);	
+	    	del(select_no, table_name, rere);	
 	    });
     }
 	/* 단일 선택 삭제 */
-	function delSingle(a, rere){
+	function delSingle(a, table_name, rere){
     	select_no = parseInt(a);
-    	del(select_no, rere);	
+    	del(select_no, table_name, rere);	
 	}
+	
     </script> 
 </head>
 <body>
@@ -246,8 +293,10 @@
                 
                 <!-- **** -->
                 <button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:getIndex(${loginInfo.member_no});">내정보</button>
-                <button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:getFriReq(1,${loginInfo.member_no});">친구페이지</button>
                 <button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:getActList(1,${loginInfo.member_no},'board');">내 활동내역</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:getMessReadList(1, ${loginInfo.member_no});">쪽지 내역</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:getBookList(1, ${loginInfo.member_no});">북마크 내역</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:getFriReq(1,${loginInfo.member_no});">친구페이지</button>
                 <br/>
                 <br/>
                 <div id="hi">
