@@ -1,12 +1,14 @@
 package kr.co.pet.chat;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.pet.member.MemberVO;
@@ -18,8 +20,25 @@ public class ControllerView {
 	ChatService service;
 	
 	// 채팅방 입장
-	@RequestMapping("/chat/chat.do")
-	public String view_chat(HttpServletRequest req, HttpServletResponse res, Model model) {
+	@RequestMapping(value = {"/chat/f/{member_no}/{friend_no}"})
+	public String view_chat(Model model,
+							@PathVariable int member_no, 
+							@PathVariable int friend_no) {
+		Integer channel_no = service.getChannel(member_no, friend_no);
+		if (channel_no == null) {
+			Map<String, Object> map = new HashMap();
+			map.put("member_no", member_no);
+			map.put("friend_no", friend_no);
+			channel_no = service.creatChannel(map);
+			service.joinChannel(channel_no, member_no);
+			service.joinChannel(channel_no, friend_no);
+		}
+		
+		model.addAttribute("data",service.chatHistory(channel_no, member_no));
+		model.addAttribute("channel_no", channel_no);
+		model.addAttribute("member_no", member_no);
+		model.addAttribute("friend_no", friend_no);
+		
 		return "chat/view_chat";
 	}
 	// 채팅목록 

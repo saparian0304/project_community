@@ -17,38 +17,63 @@
 	</select>
 	
 	<select id="list" parameterType="int" resultType="java.util.LinkedHashMap">
-	SELECT * 
-	FROM chat_history cc, (
-		SELECT max(regdate) mdate FROM (
-			SELECT chat_history.channel_no, chat_history.member_no, content, chat_history.regdate, isread, type, y.limit 
-			FROM chat_history,
-				((SELECT *
-				FROM chat_channel, (
-					SELECT 
-						 member_no, name, member_id, `nickname`, concat(fri,'_' ,${i_no}) as fri_a
-					FROM member, 
-						(SELECT you_no AS fri, res_date FROM friend WHERE i_no = ${i_no} AND res_date IS NOT NULL
-							UNION
-						SELECT i_no AS fri, res_date FROM friend WHERE you_no = ${i_no} and res_date IS NOT NULL) AS a  
-					WHERE member_no = a.fri ) b
-				WHERE title = fri_a)
-				union
-				(SELECT *
-				FROM chat_channel, (
-					SELECT 
-						member_no, name, member_id, `nickname`, concat(${i_no}, '_', fri) as fri_b
-						FROM member,(
-					SELECT you_no AS fri, res_date FROM friend WHERE i_no = ${i_no} AND res_date IS NOT NULL
-						UNION
-					SELECT i_no AS fri, res_date FROM friend WHERE you_no = ${i_no} and res_date IS NOT NULL) AS a  
-					WHERE member_no = a.fri ) z 
-				WHERE title = fri_b) ) y
-			WHERE chat_history.channel_no =y.channel_no 
-			ORDER BY chat_history.regdate DESC
-			
-		) aa
-		GROUP BY channel_no  ) bb
-	WHERE cc.regdate = mdate
+	SELECT 
+		friend_no,channel_no, type, title, ch.limit,
+	    (SELECT nickname FROM member WHERE friend_no = member_no) nickname,
+	    (SELECT content FROM chat_history his WHERE his.channel_no = ch.channel_no ORDER BY his.regdate DESC limit 1) msg,
+	    (SELECT regdate FROM chat_history his WHERE his.channel_no = ch.channel_no ORDER BY his.regdate DESC limit 1) msg_regdate
+	FROM chat_channel ch RIGHT OUTER JOIN (
+			SELECT
+				*,
+				(case when i_no = ${i_no} then you_no
+					when you_no = ${i_no} then i_no
+					END) friend_no
+			FROM friend
+			WHERE ${i_no} = I_no AND res_date is not null OR ${i_no} = you_no AND res_date is not null ) AS a
+	ON title = concat(${i_no},'_',friend_no) 
+		or title = concat(friend_no,'_',${i_no})
+	ORDER BY msg_regdate DESC
 	</select>
+	
+	<insert id="insertChat" parameterType="java.util.Map">
+		INSERT INTO chat_history (channel_no, member_no, content, regdate, isread) 
+		VALUES (#{channel_no}, #{member_no}, #{content}, now(), #{isread})
+	</insert>
+	
+	<insert id="creatChannel" parameterType="map">
+		INSERT INTO chat_channel (type, title, chat_channel.limit, regdate)
+		VALUES (0, concat('${member_no}','_', '${friend_no}'),  2, now())
+		
+		<selectKey order="AFTER" keyProperty="channel_no" resultType="int">
+			SELECT channel_no FROM chat_channel WHERE title = concat('${member_no}','_', '${friend_no}')
+		</selectKey>
+	</insert>
+	
+	<select id="getChannel" parameterType="map" resultType="java.lang.Integer">
+		SELECT channel_no FROM chat_channel
+		WHERE title = concat('${member_no}','_','${friend_no}') 
+			or title = concat('${friend_no}', '_' ,'${member_no}')
+	</select>
+	
+	
+	<insert id="joinChannel">
+		insert INTO chat_member (channel_no, member_no, joindate)
+		VALUES (#{channel_no}, #{member_no}, now())
+	</insert>
+	
+	
+	<select id="chatHistory" parameterType="map" resultType="java.util.LinkedHashMap">
+		SELECT *, 
+			(SELECT nickname FROM member m WHERE m.member_no = ch.member_no) nickname
+		FROM chat_history ch
+		WHERE channel_no = #{channel_no}
+			AND regdate BETWEEN (
+				SELECT joindate 
+				FROM chat_member 
+		        WHERE member_no = #{member_no} and channel_no = #{channel_no}
+		        ) AND now()
+		ORDER BY regdate
+	</select>
+	
 	
 </mapper>

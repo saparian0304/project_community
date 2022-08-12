@@ -33,6 +33,7 @@
                 <div class="header_cont">
                     <!-- 로그인 회원가입 -->
                     <ul class="util clear">
+                    	<li><a href="/pet/chat/index.do">채팅목록</a></li>
 						<li><a href="/pet/member/logout.do">로그아웃</a></li>
                     </ul>
                     <!-- 네비 -->
