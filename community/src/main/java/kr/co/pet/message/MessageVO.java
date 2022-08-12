@@ -12,4 +12,6 @@ public class MessageVO {
 	private Timestamp readdate;
 	private boolean isdelete;	
 	
+	private String member_nickname;
+	
 }
