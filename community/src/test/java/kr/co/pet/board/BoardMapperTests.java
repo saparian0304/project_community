@@ -26,7 +26,7 @@ public class BoardMapperTests {
 	@Autowired
 	private LocMapper lmapper;
 
-	@Test
+	//@Test
 	public void testInsert() {
 		BoardVO board = new BoardVO();
 		board.setBoard_name("aaa");
@@ -60,7 +60,7 @@ public class BoardMapperTests {
 		BoardVO vo = new BoardVO();
 	}
 	
-	//@Test
+	@Test
 	public void testObj2() {
 		BoardVO vo = new BoardVO();
 		vo.setTitle("안녕하세여");

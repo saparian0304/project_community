@@ -1,12 +1,10 @@
 package kr.co.pet.member;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.pet.certification.CertificationVO;
 import util.SendMail;
 
 @Service
@@ -34,11 +32,28 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int emailCheck(String email) {
-		return mapper.emailCheck(email);
-	}
-	
+	public int emailCheck(String email, HttpSession sess) {
+		//이메일 중복 확인
+		int cnt = mapper.emailCheck(email);
+		if (cnt == 0) {
+			//인증번호발송
+			//영문3자리,숫자3자리
+			String temp = "";
+			for (int i=0; i<3; i++) {
+				temp += (char)(Math.random()*26+97);
+			}
+			for (int i=0; i<3; i++) {
+				temp += (int)(Math.random()*9);
+			}
+			sess.setAttribute("certification", temp);
+			
+			//email발송
+			SendMail.sendMail("a_jin0609@naver.com", email , "[pet_community]비번test", "인증번호: "+temp+"입니다.");
+		}
 
+		
+		return cnt;
+	}
 
 	@Override
 	public boolean loginCheck(MemberVO vo, HttpSession sess) {
@@ -103,43 +118,24 @@ public class MemberServiceImpl implements MemberService {
 	    }
 	}
 
-//	@Override
-//	public boolean certification(CertificationVO vo, HttpSession sess) {
-//		boolean flag = false;
-//		//인증번호생성
-//		//영문3자리,숫자3자리
-//		String temp = "";
-//		for (int i=0; i<3; i++) {
-//			temp += (char)(Math.random()*26+97);
-//		}
-//		for (int i=0; i<3; i++) {
-//			temp += (int)(Math.random()*9);
-//		}
-//		sess.setAttribute("certification", temp);
-//		
-//		//email발송
-//		SendMail.sendMail("a_jin0609@naver.com", vo.getEmail() , "[pet_community]비번test", "인증번호: "+temp+"입니다.");
-//		flag = true;
-//		return flag;
-//	}
 
-	@Override
-	public void certification(CertificationVO c_vo, HttpSession sess) {
-		//인증번호생성
-				//영문3자리,숫자3자리
-				String temp = "";
-				for (int i=0; i<3; i++) {
-					temp += (char)(Math.random()*26+97);
-				}
-				for (int i=0; i<3; i++) {
-					temp += (int)(Math.random()*9);
-				}
-				sess.setAttribute("certification", temp);
-				
-				//email발송
-				SendMail.sendMail("a_jin0609@naver.com", c_vo.getEmail() , "[pet_community]비번test", "인증번호: "+temp+"입니다.");
-		
-	}
+//	@Override
+//	public void certification(CertificationVO c_vo, HttpSession sess) {
+//		//인증번호생성
+//				//영문3자리,숫자3자리
+//				String temp = "";
+//				for (int i=0; i<3; i++) {
+//					temp += (char)(Math.random()*26+97);
+//				}
+//				for (int i=0; i<3; i++) {
+//					temp += (int)(Math.random()*9);
+//				}
+//				sess.setAttribute("certification", temp);
+//				
+//				//email발송
+//				SendMail.sendMail("a_jin0609@naver.com", c_vo.getEmail() , "[pet_community]비번test", "인증번호: "+temp+"입니다.");
+//		
+//	}
 
 }
 

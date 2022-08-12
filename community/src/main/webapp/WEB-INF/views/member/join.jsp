@@ -74,7 +74,7 @@
 		console.log("email : "+ email);
 		
 		$.ajax({
-			url : 'sendCertification.do',
+			url : 'emailCheck.do',
 			type : 'get',
 			data : {"email" : email}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
 			success : function(cnt) {
@@ -89,8 +89,8 @@
 						emailCheck = false;
 						
 					}else{
-						alert('사용가능한 이메일입니다.');
-						
+						alert('인증번호발송되었습니다');
+					
 					}	
 				}
 			}
@@ -176,19 +176,22 @@
 			data : {"certi" : certi}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
 			success : function(res) {
 				if(res.trim() != ''){
-						$("#e_certification").val('');
-						$("#e_certification").focus();
+						//$("#e_certification").val('');
+						//$("#e_certification").focus();
 						alert('인증완료');
-						emailCheck = false;
 				
 				}else{
 					alert('인증번호를 다시 확인해주세요');
+					$("#e_certification").val('');
+					$("#e_certification").focus();
+					console.log("###"+res+"###")
 				}
 			},
 			error:function(){
                 alert("에러");
 			}
-		}
+		})
+    
     }
     
 

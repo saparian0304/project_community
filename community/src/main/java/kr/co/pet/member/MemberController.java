@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.pet.certification.CertificationVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -61,7 +60,7 @@ public class MemberController {
 			return "common/alert";
 		}
 	}
-	
+	//로그아웃
 	@GetMapping("/member/logout.do")
 	public String logout(HttpServletRequest req, Model model) throws IOException{
 		HttpSession sess = req.getSession();
@@ -95,10 +94,12 @@ public class MemberController {
 		int cnt = service.nicknameCheck(nickname);
 		return cnt + "";
 	}
-	//이메일 중복체크
+	//이메일 중복체크 & 인증번호 보내기
 	@GetMapping("/member/emailCheck.do")
-	public void emailCheck(@RequestParam String email, HttpServletResponse res ) throws IOException {
-		int cnt = service.emailCheck(email);
+	public void emailCheck(@RequestParam String email, HttpSession sess, HttpServletResponse res ) throws IOException {
+		
+		int cnt = service.emailCheck(email, sess);
+		System.out.println("cnt: "+cnt);
 		boolean r = false;
 		if (cnt > 0) r = true;
 		PrintWriter out = res.getWriter();
@@ -106,21 +107,26 @@ public class MemberController {
 		//out.flush();
 	}
 	
-	//이메일에 인증번호 보내기
-	@GetMapping("/member/sendCertification.do")
-	@ResponseBody
-	public void Certification(CertificationVO param, HttpSession sess) {
-		service.certification(param, sess);
-		return;
-	}
+//	//이메일에 인증번호 보내기
+//	@GetMapping("/member/sendCertification.do")
+//	@ResponseBody
+//	public void Certification(CertificationVO param, HttpSession sess) {
+//		service.certification(param, sess);
+//		return;
+//	}
+	
 	//보낸 인증번호 브라우저에서 확인
 	@GetMapping("/member/Certification.do")
 	public String checkCerti(@RequestParam String certi, HttpSession sess, Model model) throws IOException{
 		//view로부터 넘어온 데이터 확인
-		String certi_num = (String)sess.getAttribute("c_num");
-		if ( certi_num.equals(certi))
-			
-		model.addAttribute("msg", "인증확인되었습니다.");
+		
+		String certi_num = (String)sess.getAttribute("certification");
+		System.out.println("certi_num : "+ certi_num);
+		
+		if ( certi_num.equals(certi)) {
+		System.out.println("certi_num : "+ certi_num + "certi: "+certi);
+		model.addAttribute("result", "인증확인되었습니다.");
+		}
 //		PrintWriter out = res.getWriter(); => httpservletresponse가 있으면 printwriter사용 가능.
 //		out.print(certi_num);
 		return "common/result";
