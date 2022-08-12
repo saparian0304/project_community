@@ -99,6 +99,20 @@
 		</if>
 	</delete>
 	
+	<!-- 북마크 -->
+	<select id="bookList" resultType="map">
+		SELECT * FROM board, bookmark
+		WHERE board.board_no = bookmark.board_no
+		AND bookmark.member_no = #{member_no}
+		ORDER BY book_no DESC
+		LIMIT #{startIdx}, ${pageRow}
+	</select>
+	<select id="bookCnt" resultType="int">
+		SELECT COUNT(*) FROM board, bookmark
+		WHERE board.board_no = bookmark.board_no
+		AND bookmark.member_no = #{member_no}
+	</select>
+	
 	<!-- 친구 -->
 	<update id="friendAccept" parameterType="kr.co.pet.mypage.MypageVO">
 		UPDATE friend SET res_date = now()

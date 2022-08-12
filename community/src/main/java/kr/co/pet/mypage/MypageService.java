@@ -31,6 +31,10 @@ public interface MypageService {
 	Map messSendList(MypageVO vo);
 	int messSendTotal(MypageVO vo);
 	
+	// 북마크
+	Map bookList(MypageVO vo);
+	int bookCnt(MypageVO vo);
+	
 	// 활동내역 삭제(isdelete)
 	boolean actIsdel(MypageVO vo);
 }

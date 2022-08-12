@@ -26,6 +26,10 @@ public interface MypageMapper {
 	List messSend(MypageVO vo);
 	int messSendCnt(MypageVO vo);
 	
+	// 북마크
+	List bookList(MypageVO vo);
+	int bookCnt(MypageVO vo);
+	
 	// 선택 업데이트 isdelete 
 	int memberActIsdel(MypageVO vo);
 	// 선택 삭제 delete 

@@ -101,4 +101,14 @@ public class MypageController {
 		return "mypage/messsendlist";
 	}
 	
+	@GetMapping("/mypage/booklist.do")
+	public String bookList(Model model, MypageVO vo) {
+		model.addAttribute("data", service.bookList(vo));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.bookCnt(vo));
+		model.addAttribute("pageMaker", pageMaker);
+		return "mypage/booklist";
+	}
+	
 }

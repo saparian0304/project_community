@@ -47,7 +47,7 @@
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.res_date }"/>
 	                    		</td>
 	                    		<td>
-	                    			<button class="reqbtn danger" onclick="javascript: delSingle(${list.fri_no}, 1);">삭제</button>
+	                    			<button class="reqbtn danger" onclick="javascript: delSingle(${list.fri_no}, 'friend', 1);">삭제</button>
 	                    		</td>
 	                    	</tr>
 	                    	</c:forEach>                    

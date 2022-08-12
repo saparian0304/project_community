@@ -121,5 +121,21 @@ public class MypageServiceimpl implements MypageService {
 		return mapper.messSendCnt(vo);
 	}
 
+	@Override
+	public Map bookList(MypageVO vo) {
+		Map map = new HashMap();
+		int totalCount = mapper.bookCnt(vo);
+		List list  = mapper.bookList(vo);
+		map.put("totalCount", totalCount);
+		map.put("list", list);
+		map.put("page", vo.getPage());
+		return map;
+	}
+
+	@Override
+	public int bookCnt(MypageVO vo) {
+		return mapper.bookCnt(vo);
+	}
+
 
 }
