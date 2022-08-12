@@ -1,12 +1,10 @@
 package kr.co.pet.board;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.co.pet.board.api.ApiInsert;
+import kr.co.pet.board.api.ApiService;
+import kr.co.pet.board.api.ApiVO;
 import kr.co.pet.file.FileService;
 import kr.co.pet.file.FileVO;
-import lombok.extern.slf4j.Slf4j;
-@Slf4j
+import kr.co.pet.hos.HosService;
+import kr.co.pet.loc.LocService;
+import kr.co.pet.loc.LocVO;
 @Controller
 public class BoardController {
 	@Autowired
@@ -29,36 +29,46 @@ public class BoardController {
 	FileService fservice;
 	
 	@Autowired
-	ApiInsert api;
+	LocService lservice;
 	
+	@Autowired
+	HosService hservice;
+	
+	@Autowired
+	ApiService aservice;
+
 	@GetMapping("/board/index.do")
-	public String index(Model model, BoardVO vo) throws IOException, ParseException {
+	public String index(Model model, BoardVO vo) {
 		model.addAttribute("data", service.index(vo));
-//		model.addAttribute("api", api.apiInsert2());
-		return "/board/index";
+		return "board/index";
 	}
 	
-	@GetMapping("/board/write.do")
+	@GetMapping("/board/livewrite.do")
 	public String write() {
-		return "/board/write";
+		return "board/livewrite";
 	}
 	
 	@GetMapping("/board/view.do")
-	public String view(BoardVO vo, FileVO fvo, Model model) {
+	public String view(BoardVO vo, FileVO fvo, ApiVO avo,LocVO lvo, Model model) {
 		BoardVO data = service.view(vo.getBoard_no());
 		model.addAttribute("data", data);
 		FileVO fdata = fservice.view(fvo.getBoard_no());
 		model.addAttribute("fdata", fdata);
+		LocVO ldata = lservice.view(lvo.getBoard_no());
+		model.addAttribute("ldata", ldata);
 
 		//model.addAttribute("file", file);
-		return "/board/view";
+		return "board/view";
 	}
 	
 	@PostMapping(value = "/board/insert.do", consumes = "multipart/form-data")
-	public String insert(BoardVO vo, FileVO fvo, Model model, @RequestParam MultipartFile filename,
+	public String insert(BoardVO vo, FileVO fvo, LocVO lvo, Model model, @RequestParam MultipartFile filename,
 			HttpServletRequest req) {
 		//게시글 저장 board테이블
+		//LocVO lvo = new LocVO();
 		boolean in = service.insert(vo);
+		lvo.setBoard_no(vo.getBoard_no());
+		lservice.insert(lvo);
 		//첨부파일 처리file테이블
 		if(!filename.isEmpty()) {
 			//파일명 구하기
@@ -76,7 +86,7 @@ public class BoardController {
 			fvo.setBoard_no(vo.getBoard_no());
 			if(fservice.insert(fvo)){
 				model.addAttribute("msg", "정상적으로 저장되었습니다.");
-				model.addAttribute("url", "/board/index.do");
+				model.addAttribute("url", "index.do");
 				return "common/alert";
 			} else {
 				service.delete(vo.getBoard_no());
@@ -85,14 +95,14 @@ public class BoardController {
 			}
 		}
 	
-		//member_no 저장
+		//member_no 저장 로그인
 //		HttpSession sess = req.getSession();
 //		MemberVO mv = (MemberVO)sess.getAttribute("loginInfo");
 //		vo.setMember_no(mv.getNo());
 		
 		if(in) {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
-			model.addAttribute("url", "/board/index.do");
+			model.addAttribute("url", "index.do");
 			return "common/alert";
 		}  else {
 			model.addAttribute("msg", "저장이 실패했습니다.");
@@ -101,10 +111,16 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/edit.do")
-	public String edit(BoardVO vo, Model model) {
+	public String edit(BoardVO vo, FileVO fvo, LocVO lvo, Model model) {
 		BoardVO data = service.edit(vo.getBoard_no());
 		model.addAttribute("data", data);
-		return "/board/edit";
+		
+		FileVO fdata = fservice.edit(fvo.getBoard_no());
+		model.addAttribute("fdata", fdata);
+		
+		LocVO ldata = lservice.edit(lvo.getBoard_no());
+		model.addAttribute("ldata", ldata);
+		return "board/edit";
 	}
 	
 	@PostMapping("/board/update.do")
@@ -119,14 +135,15 @@ public class BoardController {
 		}
 	}
 	
-	@GetMapping("/board/local.do")
-	public String local() {
-		return "/board/local";
+	@GetMapping("/board/delete.do")
+	public String delete(BoardVO vo, Model model) {
+		if(service.delete(vo.getBoard_no())) {
+			model.addAttribute("msg", "정상적으로 삭제되었습니다.");
+			model.addAttribute("url", "index.do");
+			return "common/alert";
+		}else {
+			model.addAttribute("msg", "삭제실패");
+			return "common/alert";
+		}
 	}
-	
-	
-	
-	
-	
-	
 }

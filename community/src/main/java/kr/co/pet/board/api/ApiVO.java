@@ -8,4 +8,8 @@ public class ApiVO {
 	private String areaName;
 	private String partName;
 	private String title;
+	private String adress;
+	private String latitude;
+	private String longitude;
+	private String tel;
 }

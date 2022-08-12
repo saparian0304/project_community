@@ -7,9 +7,9 @@
 			SELECT last_insert_id()
 		</selectKey>
 		INSERT INTO board (
-			board_no, board_name, title, content
+			board_no, board_name, title, content, horse_hair, regdate
 		) VALUES (
-			#{board_no}, #{board_name}, #{title}, #{content}
+			#{board_no}, #{board_name}, #{title}, #{content}, #{horse_hair}, NOW()
 		)
 	</insert>
 	

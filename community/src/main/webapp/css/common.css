@@ -937,21 +937,22 @@ v h3 em{
 }
 .pagenation a{
 	display: inline-block;
+	text-align: center;
 }
 .pagenation a.pbtn{
 	padding: 7px;
 	text-align: center;
 }
-.pagenation a .pagenum{
+.pagenation a.pagenum{
 	width: 25px; height: 25px; line-height: 25px;
 	display: inline-block;
 	text-align: center;
 }
-.pagenation a .currentpage{
+.pagenation a.currentpage{
 	border-radius: 3px ;
 	background: #384d75; color: #fff;
 }
-.pagenation a:hover .pagenum{
+.pagenation a:hover.pagenum{
 	border-radius: 3px ;
 	background: #ddd;
 }
@@ -2101,9 +2102,55 @@ h1.loginTit a img{
 
 
 }
+/* mypage서 사용중 */
+.reqbtn {
+	  border: 2px solid black;
+	  cursor: pointer;
+	  border-radius: 5px;
+}
+.friend {
+	border-color : #ff99c4;
+	color: #ff99c4;
+	background-color: #fff4f9; 
+}
+.friend:hover {
+	background-color : #ff99c4;
+	color: white;
+}
+.myact {
+	border-color : #b6c3fd;
+	color: #a3afe3;
+	background-color: #f0f3fe; 
+}
+.myact:hover {
+	background-color : #b6c3fd;
+	color: white;
+}
+.success {
+	  border-color: #04AA6D;
+	  color: green;
+}
+.success:hover {
+	  background-color: #04AA6D;
+	  color: white;
+}
+.danger {
+	  border-color: #f44336;
+	  color: red
+}
+.danger:hover {
+	  background: #f44336;
+	  color: white;
+}
 
+.default {
+  border-color: #e7e7e7;
+  color: black;
+}
 
-
+.default:hover {
+  background: #e7e7e7;
+}
 
 
 

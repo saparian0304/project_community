@@ -18,6 +18,7 @@
     <script src="/pet/js/function.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
+    
     function goSave() {
 		editor.getById['content'].exec('UPDATE_CONTENTS_FIELD',[]);
 		frm.submit();
@@ -40,6 +41,26 @@
                     <table class="board_write">
                         <tbody>
                         <tr>
+                            <th>말머리</th>
+                            <td>
+                                <!-- <form id="aaa"> -->
+	                                <%-- 1.식당, 2. 관광지, 3. 병원 --%>
+	                                <input type="radio" class="radio_value" name="horse_hair" value="1">식당
+									<input type="radio" class="radio_value" name="horse_hair" value="2">관광지
+									<input type="radio" class="radio_value" name="horse_hair" value="3">병원
+                            	<!-- </form> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>주소</th>
+                            <td>
+						        주소1 : <input type = "text" name = "addr" value="${ldata.addr }"/>
+						        주소2 : <input type = "text" name = "addr2" value="${ldata.addr2 }"/> 
+						        위도 : <input type = "text" name = "gps_x" value="${ldata.gps_x }"/>
+						        경도 : <input type = "text" name = "gps_y" value="${ldata.gps_y }"/> 
+                            </td>
+                        </tr>
+                        <tr>
                             <th>제목</th>
                             <td>
                                 <input type="text" name="title" id="title" class="wid100" value="${data.title }"/>
@@ -52,9 +73,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>내용</th>
+                            <th>첨부파일</th>
                             <td>
-                                <input type="file" name="filename">
+                                <input type="file" name="filename_real" value="${fdata.filename_real}"/><!-- 데이터는 남아있는데 글자로는 안뜸 -->
                             </td>
                         </tr>
                         </tbody>

@@ -37,19 +37,4 @@ public class BoardVO {
 		this.pageRow = pageRow;
 	}
 	
-	private List<FileVO> fileList;
-	private int file_no;
-	private String filename_org;
-	private String filename_real;
-	
-	
-	
-	//location
-	private int loc_no;
-	private String gps_x;
-	private String gps_y;
-	private String addr;
-	private String addr2;
-	
-	
 }

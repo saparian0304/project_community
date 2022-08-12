@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+                <button style="width : 100px; height : 30px;" class="reqbtn friend" onclick="javascript:getFriReq(1,${loginInfo.member_no});">친구요청목록</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn friend" onclick="javascript:getFriList(1,${loginInfo.member_no});">친구목록</button>
+                
                   <form action="#" method="post" class="minisrch_form">
                     <fieldset>
                         <legend>
@@ -11,9 +14,9 @@
                         <a href="#" class="btn_srch">검색</a>
                     </fieldset>
                 </form>
-                
                   <table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
                   <h3 class="sub_title">친구 요청 목록</h3>
+                  <input type="hidden" name="page" value="${data.page }">
                     <p><span><strong>총 ${data.totalCount }명</strong>  |  ${data.page}  / ${pageMaker.totalPage }페이지</span></p>
                         <caption>게시판 목록</caption>
                         <colgroup>
@@ -27,7 +30,7 @@
                             <tr>
                                 <th><label><input type="checkbox" name="allChk" onclick="selectAll(this)" ></label></th>
                                 <th style="text-align: left;">선택 <button class="reqbtn success" onclick="javascript: acceptMulti();">수락</button>&nbsp;
-		                    			<button class="reqbtn danger" onclick="javascript: delMulti();">거절</button>
+		                    			<button class="reqbtn danger" onclick="javascript: delMulti(0);">거절</button>
 		                    	</th>
                                 <th>요청자 닉네임</th>
                                 <th>요청 일자</th>
@@ -51,8 +54,8 @@
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.req_date }"/>
 	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
-		                    		<button class="reqbtn success" onclick="javascript: accept(${list.fri_no});">수락</button>&nbsp;
-		                    		<button class="reqbtn danger" onclick="javascript: del(${list.fri_no});">거절</button>
+		                    		<button class="reqbtn success" onclick="javascript: acceptSingle(${list.fri_no});">수락</button>&nbsp;
+		                    		<button class="reqbtn danger" onclick="javascript: delSingle(${list.fri_no}, 0);">거절</button>
 		                    	</td>
 	                    	</tr>
 	                    	</c:forEach>                    
@@ -74,11 +77,12 @@
                         </ul> 
                     </div> --%>
 				<div class="pagenation">
+				<c:if test="${!empty data.list }">
                 	<a style="cursor: pointer" onclick='javascript: getFriReq(1, ${loginInfo.member_no});' class="firstpage pbtn">
                         <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
                     </a>
                     
-                	<c:if test="${pageMaker.prev == true }">
+                	<c:if test="${pageMaker.prev }">
                         <a class="prevpage pbtn" style="cursor: pointer" 
                         	onclick='javascript: getFriReq(${pageMaker.startPage -1 }, ${loginInfo.member_no});' >
                         	<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
@@ -86,10 +90,10 @@
 					</c:if>
 					
                     <c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-                       	<a style="cursor: pointer" class="pagenum <c:if test="${mypageVO.page == p}"> currentpage </c:if>" 
+                       	<a style="cursor: pointer" class="pagenum<c:if test="${mypageVO.page == p}"> currentpage </c:if>" 
                        		onclick='javascript: getFriReq(${p }, ${loginInfo.member_no});' >${p }</a>
 					</c:forEach>
-					<c:if test="${pageMaker.next == true }">
+					<c:if test="${pageMaker.next && pageMaker.endPage > 0 }">
 						<a class="nextpage pbtn" style="cursor: pointer" 
 							onclick='javascript: getFriReq(${pageMaker.endPage +1 }, ${loginInfo.member_no});'>
 							<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
@@ -99,4 +103,5 @@
                     	class="lastpage pbtn">
                         <img src="/pet/img/btn_lastpage.png" alt="마지막 페이지 이동">
                     </a>
+                </c:if>
                 </div>

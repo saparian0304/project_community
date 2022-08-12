@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.pet.hos.HosMapper">
+	
+	<insert id="insert" parameterType="kr.co.pet.hos.HosVO">
+		INSERT INTO hospital (
+			license_no, ani_type, hurry, room, board_no
+		) VALUES (
+			#{license_no}, #{ani_type}, #{hurry}, #{room}, (SELECT board_no FROM board WHERE board_no = #{board_no})
+		)
+	</insert>
+	
+	
+	<select id="count" parameterType="kr.co.pet.hos.HosVO" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM hospital
+		<where>
+			<if test="stype != null and stype != ''">
+				<if test="stype != 'all'">
+		 			${stype} LIKE '%${sword}%'
+				</if>
+				<if test="stype == 'all'">
+					title LIKE '%${sword}%' OR content LIKE '%${sword}%' 
+				</if>
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="list" parameterType="kr.co.pet.hos.HosVO" resultType="kr.co.pet.hos.HosVO">
+		SELECT * FROM hospital
+		order by board_no desc
+	</select>
+	
+	<update id="updateViewCount" parameterType="int">
+		UPDATE hospital SET viewcount = viewcount + 1 WHERE board_no = #{board_no}
+	</update>
+	
+	<select id="view" parameterType="int" resultType="kr.co.pet.hos.HosVO">
+		SELECT * FROM hospital WHERE board_no = #{board_no}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM delete WHERE board_no = #{board_no} 
+	</delete>
+	
+	<update id="update" parameterType="kr.co.pet.hos.HosVO" >
+		UPDATE hospital SET
+			license_no = #{license_no},
+			park = #{park},
+			ani_type = #{ani_type},
+			hurry = #{hurry},
+			room = #{room}
+		WHERE hos_no = #{hos_no}
+	</update>
+</mapper>

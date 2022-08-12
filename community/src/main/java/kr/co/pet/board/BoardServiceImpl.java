@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.pet.board.api.ApiVO;
+
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -46,6 +48,7 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public boolean insert(BoardVO vo) {
+		
 		return mapper.insertSelectKey(vo) > 0 ? true : false;
 	}
 

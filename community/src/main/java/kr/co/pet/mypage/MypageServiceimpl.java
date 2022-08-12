@@ -24,10 +24,8 @@ public class MypageServiceimpl implements MypageService {
 		int totalCount = mapper.friendCount(vo); 
 		// 친구 리스트
 		List list = mapper.friendList(vo); 
-//		Paging pMaker = new Paging(cri, totalCount);
 		map.put("totalCount", totalCount);
 		map.put("list", list);
-//		map.put("pageMaker", pMaker);
 		map.put("page", vo.getPage());
 		return map;
 	}
@@ -36,6 +34,7 @@ public class MypageServiceimpl implements MypageService {
 	public int friTotal(MypageVO vo) {
 		return mapper.friendCount(vo);
 	}
+	
 	@Override
 	public int frireqTotal(MypageVO vo) {
 		return mapper.reqCount(vo);
@@ -48,10 +47,8 @@ public class MypageServiceimpl implements MypageService {
 		// 총 페이지
 		
 		List list  = mapper.reqList(vo);
-//		Paging pMaker = new Paging(cri, totalCount);
 		map.put("totalCount", totalCount);
 		map.put("list", list);
-//		map.put("pageMaker", pMaker);
 		map.put("page", vo.getPage());
 		return map;
 	}
@@ -69,6 +66,27 @@ public class MypageServiceimpl implements MypageService {
 	@Override
 	public MemberVO memberSelect(int member_no) {
 		return mapper.memberSelect(member_no);
+	}
+
+	@Override
+	public Map myActList(MypageVO vo) {
+		Map map = new HashMap();
+		int totalCount = mapper.memberActCnt(vo);
+		List list  = mapper.memberAct(vo);
+		map.put("totalCount", totalCount);
+		map.put("list", list);
+		map.put("page", vo.getPage());
+		return map;
+	}
+
+	@Override
+	public int actTotal(MypageVO vo) {
+		return mapper.memberActCnt(vo);
+	}
+
+	@Override
+	public boolean actIsdel(MypageVO vo) {
+		return mapper.memberActIsdel(vo) > 0? true: false;
 	}
 
 

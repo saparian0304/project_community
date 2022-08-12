@@ -1,5 +1,6 @@
 package kr.co.pet.board.api;
 
+import java.io.IOException;
 import java.util.Map;
 
 public interface ApiService {
@@ -19,5 +20,6 @@ public interface ApiService {
 //	//수정처리
 //	boolean update(BoardVO vo);
 	
+	Map apiInsert(ApiVO vo)throws IOException;
 	
 }

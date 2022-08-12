@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.pet.loc.LocMapper">
+	
+	<insert id="insert" parameterType="kr.co.pet.loc.LocVO">
+		INSERT INTO location (
+			addr, addr2, gps_x, gps_y, board_no
+		) VALUES (
+			#{addr}, #{addr2}, #{gps_x}, #{gps_y}, (SELECT board_no FROM board WHERE board_no = #{board_no})
+		)
+	</insert>
+	
+	<select id="list" parameterType="kr.co.pet.loc.LocVO" resultType="kr.co.pet.loc.LocVO">
+		SELECT * FROM location
+		order by board_no desc
+	</select>
+	
+	<update id="updateViewCount" parameterType="int">
+		UPDATE board SET viewcount = viewcount + 1 WHERE board_no = #{board_no}
+	</update>
+	
+	<select id="view" parameterType="int" resultType="kr.co.pet.loc.LocVO">
+		SELECT * FROM location WHERE board_no = #{board_no}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM board WHERE board_no = #{board_no} 
+	</delete>
+	
+	<select id="findByBoard_no" parameterType="kr.co.pet.loc.LocVO" resultType="kr.co.pet.loc.LocVO">
+		SELECT * FROM location WHERE board_no = #{board_no}
+	</select>
+	
+	<update id="update" parameterType="kr.co.pet.loc.LocVO" >
+		UPDATE location SET
+		gps_x = #{gps_x},
+		gps_y = #{gps_y},
+		addr = #{addr},
+		addr2 = #{addr2}
+		WHERE board_no = #{board_no}
+	</update>
+</mapper>

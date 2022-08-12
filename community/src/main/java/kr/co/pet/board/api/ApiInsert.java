@@ -85,19 +85,19 @@ public class ApiInsert {
 		JSONParser parser = new JSONParser();
 		
 		//문자열을 JSON 형태로 JSONObject 객체에 저장
-		JSONObject obj = (JSONObject)parser.parse(sb.toString());
+		//JSONObject obj = (JSONObject)parser.parse(sb.toString());
 		
 		//필요한 리스트 데이터 부분만 가져와 JSONArray로 저장
-		JSONArray dataArr = (JSONArray)obj.get("data");
+		//JSONArray dataArr = (JSONArray)obj.get("data");
 		
 		Map map = new HashMap();
-		for(int i = 0; i < dataArr.size(); i++) {
+		//for(int i = 0; i < dataArr.size(); i++) {
 			
-			map.put("areaName", ((JsonObject)dataArr.get(i)).get("areaName").getAsInt());
-			map.put("partName", ((JsonObject)dataArr.get(i)).get("partName").getAsString());
-			map.put("title", ((JsonObject)dataArr.get(i)).get("title").getAsString());
-		
-		}
+//			map.put("areaName", ((JsonObject)dataArr.get(i)).get("areaName").getAsInt());
+//			map.put("partName", ((JsonObject)dataArr.get(i)).get("partName").getAsString());
+//			map.put("title", ((JsonObject)dataArr.get(i)).get("title").getAsString());
+//		
+		//}
 		return map;
 	}
 }

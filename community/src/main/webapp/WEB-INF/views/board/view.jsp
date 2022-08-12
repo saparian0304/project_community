@@ -74,9 +74,10 @@ function replyEdit(reply_no){
 			reply_no : reply_no				
 		},			
 		success : function() {
-			$("#redit"+reply_no).html('<tr><td><textarea name="content" id="recon" style="width:900px; height="70px;"></textarea></td><td><div class="btnSet"><a href="javascript:replyEditgo(' + reply_no + ');"  style="  text-align: center;">수정</a></div></td></tr>');				
+			$("#redit"+reply_no).html('<tr><td colspan="5"><textarea name="content" id="recon" style="width:800px; height:70px;" placeholder=""></textarea></td><td><div class="btnSet"><a href="javascript:replyEditgo(' + reply_no + ');"  style="  text-align: center;" >수정</a></div></td></tr>');				
 		}
 	});
+	$("#redit"+reply_no).toggle();
 }
 
 function replyEditgo(reply_no){
@@ -130,19 +131,22 @@ function replySave(gno){
 } 
 
 // 대댓글 리스트
-function replyForm(gno){
+function replyForm(gno){	
 	$.ajax({    			
 		url : "/pet/reply/replylist.do",
 			data : {
 				board_no : ${data.board_no},
+				member_no : ${data.member_no},
 				gno : gno,
 				page: 1				
 			},			
-			success : function(res) {			
-				$("#rbox"+gno).html(res);	
-			 
+			success : function(res) {
+				$("#rbox"+gno).html(res);
+				
 		}
 	});
+		$("#rbox"+gno).toggle();
+	
 }   
 
 // 댓글삭제
@@ -195,7 +199,6 @@ function report(member_no, board_no, reply_no) {
 }
 
 </script>
-
 </head>
 <body>
     <ul class="skipnavi">
@@ -220,16 +223,6 @@ function report(member_no, board_no, reply_no) {
                         <span class="path">/</span> 
                         공지사항
                     </p>
-                    <!-- 모바일 -->
-                    <ul class="page_menu clear">
-                        <li>
-                            <a href="#" class="on">공지사항<a>
-                        </li>
-                        <li>
-                            <a href="#">문의하기</a>
-                        </li>
-                    </ul>
-
                 </div>
             </div> 
             <div class="sub">
@@ -244,7 +237,7 @@ function report(member_no, board_no, reply_no) {
                         <div class="title">
                             <dl>
                                 <dt>${data.title } </dt>
-                                <dd class="date">작성일 : ${data.regdate } </dd> 
+                                <dd class="date">작성일 : ${data.regdate } </dd>
                             </dl>
                         </div>
                         <div class="cont"><p>${data.content }</p> </div>
@@ -254,7 +247,6 @@ function report(member_no, board_no, reply_no) {
                             <a href="/pet/common/download.jsp?oName=${ URLEncoder.encode(fdata.filename_org,'UTF-8')}&sName=${fdata.filename_real}"  
                             target="_blank">${fdata.filename_org}</a></dd>
                         </dl>
-                                    
                         <div class="btnSet clear">
                             <div class="fl_l">
                             <a href="index.do" class="btn">목록으로</a>
@@ -265,10 +257,12 @@ function report(member_no, board_no, reply_no) {
                     </div>
                    </div>
                   </div>
-              </div>
-        </div>
-        <!-- id contner -->        
+        	  </div>
+         </div>
+        <!-- id contner -->
+        
     </div> <!-- div id="wrap" -->
+
   
  <!-- 댓글 폼 -->   
     <div style="width: 980px; margin: 0 auto;">
@@ -279,7 +273,7 @@ function report(member_no, board_no, reply_no) {
 				<col width="100px" />
 			</colgroup>
 			<tbody>
-				<tr>
+				<tr id="test">
 					<td>
 						<textarea name="content" id="content" style="width:900px;height: 70px;" placeholder="로그인 후 작성해주세요"></textarea>
 					</td>

@@ -11,5 +11,11 @@ public interface FileService {
 	
 	FileVO view(int board_no);
 	
+	//수정폼
+	FileVO edit(int board_no);
+	
+	//수정처리
 	boolean update(FileVO vo);
+	
+	
 }
