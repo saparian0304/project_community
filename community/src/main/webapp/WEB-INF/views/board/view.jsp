@@ -13,8 +13,16 @@
       <link rel="stylesheet" href="/pet/css/reset.css"/>
       <link rel="stylesheet" href="/pet/css/contents.css"/> 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	  
+<style>
+	 
+</style>	  
 <script>
+/* 삭제 할거임 */
+function del(no) {
+	if(confirm('삭제하시겠습니까?')){
+		location.href='delete.do?board_no='+no;
+	}
+}
 
 /* 댓글 스크립트  */
  
@@ -199,6 +207,8 @@ function report(member_no, board_no, reply_no) {
 }
 
 </script>
+
+
 </head>
 <body>
     <ul class="skipnavi">
@@ -226,39 +236,102 @@ function report(member_no, board_no, reply_no) {
                 </div>
             </div> 
             <div class="sub">
-            <div class="size">
-                <h3 class="sub_title">게시판</h3>
-                <div class="bbs">
-                	<div style="text-align: right">
-                    	작성자 : ${data.member_no } <a href="javascript:report(${data.member_no}, ${data.board_no }, 0)">[게시글 신고버튼 예]</a><br>  
-						<a href="javascript:report(${data.member_no}, ${data.board_no }, 1)">[댓글 신고버튼 예]</a>
-                	</div>
-                    <div class="view">
-                        <div class="title">
-                            <dl>
-                                <dt>${data.title } </dt>
-                                <dd class="date">작성일 : ${data.regdate } </dd>
-                            </dl>
-                        </div>
-                        <div class="cont"><p>${data.content }</p> </div>
-                        <dl class="file">
-                            <dt>첨부파일 </dt>
-                            <dd>
-                            <a href="/pet/common/download.jsp?oName=${ URLEncoder.encode(fdata.filename_org,'UTF-8')}&sName=${fdata.filename_real}"  
-                            target="_blank">${fdata.filename_org}</a></dd>
-                        </dl>
-                        <div class="btnSet clear">
-                            <div class="fl_l">
-                            <a href="index.do" class="btn">목록으로</a>
-                            <a href="/pet/board/edit.do?board_no=${data.board_no }" class="btn">수정</a>
-                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
-                            <a href="reply.do?board_no=${data.board_no }" class="btn">답변</a>
-                        </div>
-                    </div>
-                   </div>
-                  </div>
-        	  </div>
-         </div>
+	            <div class="size">
+	                <h3 class="sub_title">게시판</h3>
+	                <div class="bbs">
+	                	<div style="text-align: right">
+	                    	작성자 : ${data.member_no } <a href="javascript:report(${data.member_no}, ${data.board_no }, 0)">[게시글 신고버튼 예]</a><br>  
+							<a href="javascript:report(${data.member_no}, ${data.board_no }, 1)">[댓글 신고버튼 예]</a>
+	                	</div>
+	                    <div class="view">
+	                        <div class="title">
+	                            <dl>
+	                                <dt>${data.title } </dt>
+	                                <dd class="date">작성일 : ${data.regdate } </dd>
+	                            </dl>
+	                        </div>
+	                        <div class="leftArea">
+								<!-- 카카오 api -->
+		                        <div id="map" style="width:500px;height:400px;"></div>
+								<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d27f0849a07d99e4a90f3bcd6edd63d&libraries=services"></script>
+								<script>
+									var container = document.getElementById('map');
+									var options = {
+										center: new kakao.maps.LatLng(33.450701, 126.570667),
+										level: 3
+									};
+									var map = new kakao.maps.Map(container, options);
+									
+									// 주소-좌표 변환 객체를 생성합니다
+									var geocoder = new kakao.maps.services.Geocoder();
+
+									var addr = '${ldata.addr}';
+									// 주소로 좌표를 검색합니다
+									geocoder.addressSearch(addr, function(result, status) {
+
+									    // 정상적으로 검색이 완료됐으면 
+									     if (status === kakao.maps.services.Status.OK) {
+
+									        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+									        // 결과값으로 받은 위치를 마커로 표시합니다
+									        var marker = new kakao.maps.Marker({
+									            map: map,
+									            position: coords
+									        });
+
+									        // 인포윈도우로 장소에 대한 설명을 표시합니다
+									        var infowindow = new kakao.maps.InfoWindow({
+									            content: '<div style="width:150px;text-align:center;padding:6px 0;">${data.title}</div>'
+									        });
+									        infowindow.open(map, marker);
+
+									        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+									        map.setCenter(coords);
+									    } 
+									});    
+								</script>
+	                        </div>
+	                        
+	                        <div class="rightArea">
+                       			<!--  스마트 에디터쓰면 p태그가 자동으로 들어감 수정해 주실 분 구함 -->
+                       			
+                       			<dl>
+	                               	<dt>주소 : ${ldata.addr } </dt>
+	                            </dl>
+                       			<dl>
+	                               	<dt>내용 : ${data.content } </dt>
+	                            </dl>
+                       			<dl>
+	                               	<dt>전화번호 : ${data.tel } </dt>
+	                            </dl>
+                       			<dl>
+	                               	<dt>홈페이지 : ${data.link } </dt>
+	                            </dl>
+	                        </div>
+	                        
+	                        
+	                        
+	                        
+	                        <dl class="file" style="clear:both">
+	                            <dt>첨부파일 </dt>
+	                            <dd>
+	                            <a href="/pet/common/download.jsp?oName=${ URLEncoder.encode(fdata.filename_org,'UTF-8')}&sName=${fdata.filename_real}"  
+	                            target="_blank">${fdata.filename_org}</a></dd>
+	                        </dl>
+	                        <div class="btnSet clear">
+	                            <div class="fl_l">
+		                            <a href="index.do" class="btn">목록으로</a>
+		                            <a href="/pet/board/edit.do?board_no=${data.board_no }" class="btn">수정</a>
+		                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
+		                            <a href="reply.do?board_no=${data.board_no }" class="btn">답변</a>
+	                            </div>
+	                        </div>
+	                    </div><!-- view -->
+	                </div><!-- bbs -->
+	            </div><!-- size -->
+	        </div><!-- sub -->
+        </div>
         <!-- id contner -->
         
     </div> <!-- div id="wrap" -->

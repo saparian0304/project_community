@@ -41,13 +41,13 @@
                     	<c:if test="${!empty data.list }">
                     		<c:forEach var="list" items="${data.list }" varStatus="st">
 	                    	<tr>
-	                    		<td >${data.totalCount - ((mypageVO.page -1) * mypageVO.pageRow + st.index) }</td>
+	                    		<td >${(mypageVO.page -1) * mypageVO.pageRow + st.index +1 }</td>
 	                    		<td class="tit_notice" style="text-align : center;">${list.nickname }</td>
 	                    		<td class="tit_notice">
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.res_date }"/>
 	                    		</td>
 	                    		<td>
-	                    			<button class="reqbtn danger" onclick="javascript: delSingle(${list.fri_no}, 1);">삭제</button>
+	                    			<button class="reqbtn danger" onclick="javascript: delSingle(${list.fri_no}, 'friend', 1);">삭제</button>
 	                    		</td>
 	                    	</tr>
 	                    	</c:forEach>                    

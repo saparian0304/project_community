@@ -1,6 +1,6 @@
 package kr.co.pet.file;
 
-import java.util.Map;
+import java.util.List;
 
 public interface FileService {
 //	//목록
@@ -11,6 +11,7 @@ public interface FileService {
 	
 	FileVO view(int board_no);
 	
+	List find(int board_no);
 	//수정폼
 	FileVO edit(int board_no);
 	

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -13,10 +14,11 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import kr.co.pet.member.MemberVO;
-
 @Component
 public class HandlerChat extends TextWebSocketHandler {
+	
+	@Autowired 
+	ChatMapper mapper;
 	
 //	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 	private List<Map<String, Object>> sessionList = new ArrayList<Map<String, Object>>();
@@ -43,22 +45,24 @@ public class HandlerChat extends TextWebSocketHandler {
 			case "CMD_ENTER":
 				// 소켓에 연결된 회원(map) 세션 리스트(sessionList)에 저장
 				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("channel", mapReceive.get("channel"));		// 방번호
+				
+				map.put("channel_no", mapReceive.get("channel_no"));		// 방번호
 				map.put("nickname", mapReceive.get("nickname"));	// 닉네임
 				map.put("session", session);						// 회원 세션정보
 				sessionList.add(map);
 				
+				
 				// 같은 채널에 입장 메세지 전송
 				for (int i=0; i<sessionList.size(); i++) {
 					Map<String, Object> mapSessionList = sessionList.get(i);
-					String channel = (String) mapSessionList.get("channel");
+					String channel = (String) mapSessionList.get("channel_no");
 					WebSocketSession sess = (WebSocketSession)mapSessionList.get("session");
 					
-					if (channel.equals(mapReceive.get("channel"))) {
+					if (channel.equals(mapReceive.get("channel_no"))) {
 						Map<String, String> mapToSend = new HashMap<String, String>();
-						mapToSend.put("channel", channel);
+						mapToSend.put("channel_no", channel);
 						mapToSend.put("cmd", "CMD_ENTER");
-						mapToSend.put("msg", mapReceive.get("nickname") + "님이 입장했습니다.");
+						mapToSend.put("content", mapReceive.get("nickname") + "님이 입장했습니다.");
 						
 						String jsonStr = objectMapper.writeValueAsString(mapToSend);
 						sess.sendMessage(new TextMessage(jsonStr));
@@ -67,21 +71,33 @@ public class HandlerChat extends TextWebSocketHandler {
 				break;
 				
 			case "CMD_MSG_SEND":
+				
+				
+				int readCnt = 0;	// 읽음여부 파악용 변수
 				for (int i=0; i<sessionList.size(); i++) {
+					
 					Map<String, Object> mapSessionList = sessionList.get(i);	// 세션리스트에 있는 각 회원 뽑기
-					String channel = (String) mapSessionList.get("channel");
+					String channel = (String) mapSessionList.get("channel_no");
 					WebSocketSession sess = (WebSocketSession) mapSessionList.get("session");
 					
-					if(channel.equals(mapReceive.get("channel"))) {
+					if(channel.equals(mapReceive.get("channel_no"))) {
+						readCnt++;
+						
 						Map<String, String> mapToSend = new HashMap<String, String>();
-						mapToSend.put("channel", channel);
+						mapToSend.put("channel_no", channel);
 						mapToSend.put("cmd", "CMD_MSG_SEND");
-						mapToSend.put("msg", mapReceive.get("nickname") + " : " + mapReceive.get("msg"));
+						mapToSend.put("content", mapReceive.get("nickname") + " : " + mapReceive.get("content"));
 						
 						String jsonStr = objectMapper.writeValueAsString(mapToSend);
 						sess.sendMessage(new TextMessage(jsonStr));
 					}
 				}
+				// 보낼 당시 읽음 여부 판정
+				if (readCnt > 1) mapReceive.put("isread", "1");	
+				else mapReceive.put("isread", "0");
+				
+				mapper.insertChat(mapReceive);		// DB에 저장
+				
 			break;
 		}
 	}

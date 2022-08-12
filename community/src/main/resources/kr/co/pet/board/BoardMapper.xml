@@ -33,22 +33,14 @@
 	
 	
 	<select id="list" parameterType="kr.co.pet.board.BoardVO" resultType="kr.co.pet.board.BoardVO">
-		SELECT * ,
-			(select nickname from member where member_no=board.member_no)as memb_nickname,
-			(select count(*) from reply where board_no=reply.board_no)as reply_count
-			FROM board
-		<where>
-			<if test="stype != null and stype != ''">
-				<if test="stype != 'all'">
-					${stype} Like '${sword}'
-				</if>
-				<if test="stype == 'all">
-				 title Like '%${sword}%' or content Like '%${sword}%'
-				</if>
-			</if>
-		</where>
+		select *,
+			(select * from 
+				(SELECT filename_real from file 
+				where file.board_no = board.board_no
+				order by file_no asc) as a
+				limit 1) as filename_real
+		from board
 		order by regdate desc
-		Limit ${startIdx},${pageRow};
 	</select>
 	
 	<update id="updateViewCount" parameterType="int">

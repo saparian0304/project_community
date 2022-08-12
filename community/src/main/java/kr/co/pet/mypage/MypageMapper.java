@@ -16,9 +16,19 @@ public interface MypageMapper {
 	// 회원정보수정(닉네임, 비밀번호, 주소)
 	int memberUpdate(MypageVO vo);
 
-	// 내 활동내역(게시글, 댓글, 쪽지, 북마크)
+	// 내 활동내역(게시글, 댓글, 북마크)
 	List memberAct(MypageVO vo);
 	int memberActCnt(MypageVO vo);
+	
+	// 쪽지
+	List messRead(MypageVO vo);
+	int messReadCnt(MypageVO vo);
+	List messSend(MypageVO vo);
+	int messSendCnt(MypageVO vo);
+	
+	// 북마크
+	List bookList(MypageVO vo);
+	int bookCnt(MypageVO vo);
 	
 	// 선택 업데이트 isdelete 
 	int memberActIsdel(MypageVO vo);

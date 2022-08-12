@@ -46,6 +46,12 @@ public class BoardController {
 		model.addAttribute("data", service.index(vo));
 		return "board/index";
 	}
+	@GetMapping("/board/liveindex.do")
+	public String liveindex(Model model, BoardVO vo) {
+		model.addAttribute("data", service.index(vo));
+		model.addAttribute("fdata", fservice.find(vo.getBoard_no()));
+		return "board/liveindex";
+	}
 	
 	@GetMapping("/board/livewrite.do")
 	public String write() {
@@ -72,6 +78,11 @@ public class BoardController {
 		//게시글 저장 board테이블
 		//LocVO lvo = new LocVO();
 		boolean in = service.insert(vo);
+		String st =  vo.getContent();
+		st.replaceAll("<p>", "");
+		st.replaceAll("</p>", "");
+		vo.setContent(st);
+		service.update(vo);
 		lvo.setBoard_no(vo.getBoard_no());
 		lservice.insert(lvo);
 		//첨부파일 처리file테이블

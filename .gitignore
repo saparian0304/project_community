@@ -4,6 +4,7 @@
 .settings/
 target/
 community/target/
+community/target/m2e-wtp/web-resources/META-INF/
 
 # Created by https://www.toptal.com/developers/gitignore/api/java,eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse

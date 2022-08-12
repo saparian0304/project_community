@@ -13,6 +13,14 @@ public class MypageVO extends Criteria{
 	// 테이블명
 	private String table_name;
 	
+	//쪽지
+	private int send_member;
+	private int read_member;
+	private int mess_no;
+	private String send_nick;
+	private String read_nick;
+	private Timestamp senddate;
+	
 	// 활동 내역
 	private String title;
 	private String content;

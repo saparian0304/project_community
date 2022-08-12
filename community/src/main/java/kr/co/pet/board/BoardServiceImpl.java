@@ -15,13 +15,15 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardServiceImpl implements BoardService{
 	@Autowired
 	BoardMapper mapper;
+	@Autowired
+	FileMapper fmapper;
 	
 	@Override
 	public Map index(BoardVO vo) {
 		int totalCount = mapper.count(vo); // 총게시물수
 		// 총페이지수
 		int totalPage = totalCount / vo.getPageRow();
-		if (totalCount % 10 > 0) totalPage++;
+		if (totalCount % vo.getPageRow() > 0) totalPage++;
 		
 		// 시작인덱스
 		int startIdx = (vo.getPage()-1) * vo.getPageRow();
@@ -35,6 +37,7 @@ public class BoardServiceImpl implements BoardService{
 		boolean prev = startPage > 1 ? true : false;
 		boolean next = endPage < totalPage ? true : false;
 		
+//		String ani = "http://www.pettravel.kr/upload/mapdata/C0015/thumb/list/C0015_F20210818171541001.jpg";
 		Map map = new HashMap();
 		map.put("totalCount", totalCount);
 		map.put("totalPage", totalPage);
@@ -43,13 +46,14 @@ public class BoardServiceImpl implements BoardService{
 		map.put("prev", prev);
 		map.put("next", next);
 		map.put("list", list);
+//		map.put("ani", ani);
 		
 		return map;
 	}
 
 	@Override
 	public boolean insert(BoardVO vo) {
-		
+	
 		return mapper.insertSelectKey(vo) > 0 ? true : false;
 	}
 
