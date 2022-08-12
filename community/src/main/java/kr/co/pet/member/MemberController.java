@@ -118,7 +118,7 @@ public class MemberController {
 	public String checkCerti(@RequestParam String certi, HttpSession sess, Model model) throws IOException{
 		//view로부터 넘어온 데이터 확인
 		String certi_num = (String)sess.getAttribute("c_num");
-		if ( certi_num == certi)
+		if ( certi_num.equals(certi))
 			
 		model.addAttribute("msg", "인증확인되었습니다.");
 //		PrintWriter out = res.getWriter(); => httpservletresponse가 있으면 printwriter사용 가능.
