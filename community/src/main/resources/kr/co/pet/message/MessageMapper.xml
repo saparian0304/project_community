@@ -10,5 +10,26 @@
 			)			
 	</insert>
 	
+	<update id="readUpdate">
+		UPDATE message SET readdate = NOW() WHERE mess_no = #{mess_no}
+	</update>
+	
+	<update id="delUpdate">
+		UPDATE message SET isdelete = 1 WHERE mess_no = #{mess_no}
+	</update>
+	
+	<select id="sendList" parameterType="kr.co.pet.message.MessageVO" resultType="kr.co.pet.message.MessageVO">
+		SELECT *,		
+			(SELECT nickname FROM member WHERE member_no=message.send_member) AS member_nickname			
+		FROM message;		
+	</select>	
+	
+	<select id="readList" parameterType="kr.co.pet.message.MessageVO" resultType="kr.co.pet.message.MessageVO">
+		SELECT *,		
+			(SELECT nickname FROM member WHERE member_no=message.read_member) AS member_nickname			
+		FROM message;		
+	</select>
+	
+	
 	
 </mapper>

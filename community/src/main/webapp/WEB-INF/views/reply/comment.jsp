@@ -27,16 +27,16 @@
             <tr style="height:70px;"  class="rbox">
                 <td>${(status.index)+1}</td>
                 <td class="txt_l">               
-                   <a href="javascript:replyForm(${vo.gno});" id="remove"> &nbsp;&nbsp;[댓글수]                   
+                   <a href="javascript:replyForm(${vo.gno});" id="remove"> &nbsp;&nbsp;[댓글수] </a>                  
                    <c:if test="${vo.isdelete == true }">
                        삭제된 댓글입니다.
                    </c:if>
                    <c:if test="${vo.isdelete == false }">
-                    ${vo.content}</a>                   
-                   <c:if test="${loginInfo.member_no == vo.member_no }">
-                    	<a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
-                    	<a href="javascript:replyEdit(${vo.reply_no})"> &nbsp;&nbsp;[수정]</a>
-                    </c:if>	
+                    ${vo.content}                   
+	                   <c:if test="${loginInfo.member_no == vo.member_no }">
+	                    	<a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
+	                    	<a href="javascript:replyEdit(${vo.reply_no})"> &nbsp;&nbsp;[수정]</a>
+	                    </c:if>	
                     </c:if>                	
                 </td>
     		<c:if test="${param.member_no == vo.member_no}">                                            
