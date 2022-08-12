@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="certification" parameterType="String" resultType="int">
-		select * from member where email = #{email}
+		select * from member where email = #{email} and certi_num =#{certi_num}
 	</select>
 	
 	<select id="loginCheck" parameterType="kr.co.pet.member.MemberVO" resultType="kr.co.pet.member.MemberVO">

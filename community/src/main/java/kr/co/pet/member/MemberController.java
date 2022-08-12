@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.pet.certification.CertificationVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -94,6 +95,7 @@ public class MemberController {
 		int cnt = service.nicknameCheck(nickname);
 		return cnt + "";
 	}
+	//이메일 중복체크
 	@GetMapping("/member/emailCheck.do")
 	public void emailCheck(@RequestParam String email, HttpServletResponse res ) throws IOException {
 		int cnt = service.emailCheck(email);
@@ -104,11 +106,26 @@ public class MemberController {
 		//out.flush();
 	}
 	
-	@PostMapping("/member/emailCheck.do")
-	public void certification(@RequestParam String certi_num, HttpServletResponse res) throws IOException{
-	
+	//이메일에 인증번호 보내기
+	@GetMapping("/member/sendCertification.do")
+	@ResponseBody
+	public void Certification(CertificationVO param, HttpSession sess) {
+		service.certification(param, sess);
+		return;
 	}
 	
+	@PostMapping("/member/sendCertification.do")
+	public String certification(@RequestParam CertificationVO vo, HttpServletRequest req, Model model) throws IOException{
+		//view로부터 넘어온 데이터 확인
+		HttpSession sess = req.getSession();
+		if(service.certification(vo, sess)) {
+			return "redirect:/board/index.do";
+			
+		}else {
+			model.addAttribute("msg", "이메일, 비번을 확인 해 주세요.");
+			return "common/alert";
+		}
+	}
 	
 	@GetMapping("/member/findId.do")
 	public String findId() {
@@ -125,17 +142,22 @@ public class MemberController {
 	}
 	
 	@GetMapping("/member/findPwd.do")
-	public String findPwd(MemberVO vo){
+	public String findPwd(){
 		return "member/findPwd";
 	}
 	
 	@PostMapping("/member/findPwd.do")
 	@ResponseBody
-	public String findPwd(MemberVO param, Model model) {
+	public String findPwd(MemberVO param) {
 		MemberVO vo = service.findPwd(param);
-		if(vo != null) {
-			model.addAttribute("result", vo.getPwd());
-		}
-		return "common/result";
-		}
+		if(vo != null) 
+//		{
+//			model.addAttribute("result", vo.getPwd()); //responseBody 있으면 안써줘도됨.
+			return "here";
+//		}
+		else { 
+			return null;
+		}	
+		
+	}
 }
