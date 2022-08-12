@@ -114,17 +114,16 @@ public class MemberController {
 		return;
 	}
 	
-	@PostMapping("/member/sendCertification.do")
-	public String certification(@RequestParam CertificationVO vo, HttpServletRequest req, Model model) throws IOException{
+	@GetMapping("/member/Certification.do")
+	public String checkCerti(@RequestParam String certi, HttpSession sess, Model model) throws IOException{
 		//view로부터 넘어온 데이터 확인
-		HttpSession sess = req.getSession();
-		if(service.certification(vo, sess)) {
-			return "redirect:/board/index.do";
+		String certi_num = (String)sess.getAttribute("c_num");
+		if ( certi_num == certi)
 			
-		}else {
-			model.addAttribute("msg", "이메일, 비번을 확인 해 주세요.");
-			return "common/alert";
-		}
+		model.addAttribute("msg", "인증확인되었습니다.");
+//		PrintWriter out = res.getWriter(); => httpservletresponse가 있으면 printwriter사용 가능.
+//		out.print(certi_num);
+		return "common/result";
 	}
 	
 	@GetMapping("/member/findId.do")

@@ -15,6 +15,6 @@ public interface MemberService {
 	int emailCheck(String email);
 	MemberVO findId(MemberVO vo);
 	MemberVO findPwd(MemberVO vo);
-	boolean certification(CertificationVO c_vo, HttpSession sess);
-
+	void certification(CertificationVO c_vo, HttpSession sess);
+	void checkCerti(String certi_num);
 }

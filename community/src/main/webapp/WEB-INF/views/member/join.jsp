@@ -155,7 +155,6 @@
                	 } else { // cnt가 1일 경우 -> 이미 존재하는 닉네임
                     $('.nick_already').css("display","inline-block");
                     $('.nick_ok').css("display", "none");
-                    
                 }
             },
             error:function(){
@@ -168,8 +167,8 @@
 		console.log("e_certification : "+ certi);
 		
 		$.ajax({
-			url : 'sendCertification.do',
-			method : 'post',
+			url : 'Certification.do',
+			method : 'get',
 			data : {"certi" : certi}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
 			success : function() {
 				if ($("#e_certification").val().trim() == '') {
@@ -177,17 +176,17 @@
 					$("#e_certification").focus();
 				}else{
 					if ({
-						alert('인증완료');
 						$("#e_certification").val('');
 						$("#e_certification").focus();
+						alert('인증완료');
 						emailCheck = false;
-					}	
+					})	
 				}
 			},
 			error:function(){
                 alert("에러");
 			}
-		})
+		}
     }
     
 
