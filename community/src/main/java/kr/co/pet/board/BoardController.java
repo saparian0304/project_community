@@ -42,9 +42,16 @@ public class BoardController {
 	ReplyService rService;
 
 	@GetMapping("/board/index.do")
+	public String mainindex(Model model, BoardVO vo) {
+		model.addAttribute("data", service.index(vo));
+		model.addAttribute("fdata", fservice.find(vo.getBoard_no()));
+		return "board/index";
+	}
+	
+	@GetMapping("/board/freeindex.do")
 	public String index(Model model, BoardVO vo) {
 		model.addAttribute("data", service.index(vo));
-		return "board/index";
+		return "board/freeindex";
 	}
 	@GetMapping("/board/liveindex.do")
 	public String liveindex(Model model, BoardVO vo) {

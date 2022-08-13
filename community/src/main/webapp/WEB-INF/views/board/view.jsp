@@ -9,13 +9,12 @@
 <head>
     <meta charset="UTF-8">
     <title>박물관 미션 투어 당첨자 발표 | 공지사항 | 고객센터 | 투어리스트인투어</title>
-      <link rel="stylesheet" href="/pet/css/common.css">
-      <link rel="stylesheet" href="/pet/css/reset.css"/>
-      <link rel="stylesheet" href="/pet/css/contents.css"/> 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<style>
-	 
-</style>	  
+    <link rel="stylesheet" href="/pet/css/common.css">
+    <link rel="stylesheet" href="/pet/css/reset.css"/>
+    <link rel="stylesheet" href="/pet/css/contents.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+	<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 <script>
 /* 삭제 할거임 */
 function del(no) {
@@ -206,6 +205,23 @@ function report(member_no, board_no, reply_no) {
 	form.submit();
 }
 
+//이미지 슬라이드
+$(document).ready(function(){
+  $('.slider').bxSlider({
+	  slideWidth: 500,
+	  slideheight: 500,
+	  autoHover: true,
+	  infiniteLoop: true,
+	  auto: true,
+	  responsive: true
+  });
+});
+
+
+
+
+
+
 </script>
 
 
@@ -309,17 +325,21 @@ function report(member_no, board_no, reply_no) {
 	                               	<dt>홈페이지 : ${data.link } </dt>
 	                            </dl>
 	                        </div>
-	                        
-	                        
-	                        
-	                        
+							<div class="slider">
+							  <div style="width: 500"><img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" title="Funky roots"></div>
+							  <div style="width: 500"><img src="https://image.news1.kr/system/photos/2018/8/3/3239143/article.jpg/dims/optimize" title="The long and winding road"></div>
+							  <div style="width: 500"><img src="http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg" title="Happy trees"></div>
+							</div>
+
+							<%-- 첨부파일을 뷰에서 보일 필요가 없어서 주석처리해둠 - 박- 
 	                        <dl class="file" style="clear:both">
 	                            <dt>첨부파일 </dt>
 	                            <dd>
 	                            <a href="/pet/common/download.jsp?oName=${ URLEncoder.encode(fdata.filename_org,'UTF-8')}&sName=${fdata.filename_real}"  
 	                            target="_blank">${fdata.filename_org}</a></dd>
-	                        </dl>
-	                        <div class="btnSet clear">
+	                        </dl> --%>
+	                        
+	                        <div class="btnSet clear" style="clear:both">
 	                            <div class="fl_l">
 		                            <a href="index.do" class="btn">목록으로</a>
 		                            <a href="/pet/board/edit.do?board_no=${data.board_no }" class="btn">수정</a>
