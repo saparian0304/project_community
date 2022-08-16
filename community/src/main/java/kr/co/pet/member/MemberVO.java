@@ -24,6 +24,7 @@ public class MemberVO {
 	private Timestamp curr_login;
 	private int gender;
 	private boolean online;
+	private String loginBySns;
 	
 	// 마이페이지용
 	private int board_count;

@@ -34,6 +34,10 @@
 		update member SET pwd = md5(#{pwd}) where member_id = '${member_id}' and email = '${email}'
 	</update>
 	
+	<insert id="joinBySns" parameterType="kr.co.pet.member.MemberVO" >
+		insert into member (id, email, nickname, type) values (#{id}, #{email}, #{nickname}, #{type})
+	</insert>
+	
 	
 	
 </mapper>
