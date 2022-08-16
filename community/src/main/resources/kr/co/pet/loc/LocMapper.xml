@@ -15,10 +15,6 @@
 		order by board_no desc
 	</select>
 	
-	<update id="updateViewCount" parameterType="int">
-		UPDATE board SET viewcount = viewcount + 1 WHERE board_no = #{board_no}
-	</update>
-	
 	<select id="view" parameterType="int" resultType="kr.co.pet.loc.LocVO">
 		SELECT * FROM location WHERE board_no = #{board_no}
 	</select>
