@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import kr.co.pet.certification.CertificationVO;
-
 @Mapper
 public interface MemberMapper {
 
@@ -17,7 +15,6 @@ public interface MemberMapper {
 	int idCheck(String id);
 	int nicknameCheck(String nickname);
 	int emailCheck(String email);
-	int certification(CertificationVO vo);
 	MemberVO loginCheck(MemberVO vo);
 	MemberVO findId(MemberVO vo);
 	MemberVO findPwd(MemberVO vo);

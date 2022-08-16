@@ -20,6 +20,7 @@ import kr.co.pet.file.FileVO;
 import kr.co.pet.hos.HosService;
 import kr.co.pet.loc.LocService;
 import kr.co.pet.loc.LocVO;
+import kr.co.pet.reply.ReplyService;
 @Controller
 public class BoardController {
 	@Autowired
@@ -36,11 +37,27 @@ public class BoardController {
 	
 	@Autowired
 	ApiService aservice;
+	
+	@Autowired
+	ReplyService rService;
 
 	@GetMapping("/board/index.do")
+	public String mainindex(Model model, BoardVO vo) {
+		model.addAttribute("data", service.index(vo));
+		model.addAttribute("fdata", fservice.find(vo.getBoard_no()));
+		return "board/index";
+	}
+	
+	@GetMapping("/board/freeindex.do")
 	public String index(Model model, BoardVO vo) {
 		model.addAttribute("data", service.index(vo));
-		return "board/index";
+		return "board/freeindex";
+	}
+	@GetMapping("/board/liveindex.do")
+	public String liveindex(Model model, BoardVO vo) {
+		model.addAttribute("data", service.index(vo));
+		model.addAttribute("fdata", fservice.find(vo.getBoard_no()));
+		return "board/liveindex";
 	}
 	
 	@GetMapping("/board/livewrite.do")
@@ -57,6 +74,7 @@ public class BoardController {
 		LocVO ldata = lservice.view(lvo.getBoard_no());
 		model.addAttribute("ldata", ldata);
 
+		
 		//model.addAttribute("file", file);
 		return "board/view";
 	}
@@ -67,6 +85,11 @@ public class BoardController {
 		//게시글 저장 board테이블
 		//LocVO lvo = new LocVO();
 		boolean in = service.insert(vo);
+		String st =  vo.getContent();
+		st.replaceAll("<p>", "");
+		st.replaceAll("</p>", "");
+		vo.setContent(st);
+		service.update(vo);
 		lvo.setBoard_no(vo.getBoard_no());
 		lservice.insert(lvo);
 		//첨부파일 처리file테이블
@@ -87,7 +110,9 @@ public class BoardController {
 			if(fservice.insert(fvo)){
 				model.addAttribute("msg", "정상적으로 저장되었습니다.");
 				model.addAttribute("url", "index.do");
+				
 				return "common/alert";
+				
 			} else {
 				service.delete(vo.getBoard_no());
 				model.addAttribute("msg", "저장이 실패했습니다.");
@@ -103,6 +128,8 @@ public class BoardController {
 		if(in) {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
 			model.addAttribute("url", "index.do");
+			
+			//System.out.println("nickname: "+vo.getNickname());
 			return "common/alert";
 		}  else {
 			model.addAttribute("msg", "저장이 실패했습니다.");
