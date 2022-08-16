@@ -18,9 +18,14 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public int search(MessageVO vo) {
+	public Integer search(MessageVO vo) {
 		
+		if(mapper.search(vo) == null) {
+			return 0;
+		}else {
 		return mapper.search(vo).getMember_no();
+		}
+		
 	}
 
 }

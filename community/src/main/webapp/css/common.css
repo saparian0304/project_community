@@ -1,4 +1,4 @@
-@charset="UTF-8";
+@charset "UTF-8";
 @import url('layout_base.css');
 
 /*/*초기화*태크이름이 우선순위/*/
@@ -201,6 +201,14 @@ select{
 	height: 30px; padding: 0 5px;
 	border: 1px solid #ccc;
 }
+
+
+/* 아이디 클릭시 */
+.activityForm{display:none; }
+
+.activityForm.on{display:block; }
+
+
 
 /*select_common*/
 
@@ -2101,9 +2109,6 @@ h1.loginTit a img{
 
 
 }
-
-
-
 
 
 

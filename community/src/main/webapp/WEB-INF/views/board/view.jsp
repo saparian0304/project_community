@@ -24,8 +24,6 @@ function del(no) {
 }
 
 /* 댓글 스크립트  */
- 
-
 function getComment(page){
 	$.ajax({    			
 		url : "/pet/reply/list.do",
@@ -133,6 +131,7 @@ function replySave(gno){
 				}
 			}
 		});
+		
 	}
 	</c:if>
 } 
@@ -153,7 +152,7 @@ function replyForm(gno){
 		}
 	});
 		$("#rbox"+gno).toggle();
-	
+		
 }   
 
 // 댓글삭제
