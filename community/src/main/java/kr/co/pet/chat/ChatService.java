@@ -13,4 +13,7 @@ public interface ChatService {
 	Integer getChannel(int member_no, int friend_no);
 	int joinChannel(int channel_no, int member_no);
 	List<LinkedHashMap> chatHistory(int channel_no, int member_no);
+	
+	List<LinkedHashMap> openChatList();
+	List<LinkedHashMap> myOpenChatList(int member_no);
 }

@@ -1,5 +1,6 @@
 package kr.co.pet.chat;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -86,7 +87,9 @@ public class HandlerChat extends TextWebSocketHandler {
 						Map<String, String> mapToSend = new HashMap<String, String>();
 						mapToSend.put("channel_no", channel);
 						mapToSend.put("cmd", "CMD_MSG_SEND");
-						mapToSend.put("content", mapReceive.get("nickname") + " : " + mapReceive.get("content"));
+						// ${map.nickname }: ${map.content } ( ${map.regdate }) (회원번호 : ${map.member_no } )
+						Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+						mapToSend.put("content", mapReceive.get("nickname") + " : " + mapReceive.get("content") + " ( " + timestamp + " )");
 						
 						String jsonStr = objectMapper.writeValueAsString(mapToSend);
 						sess.sendMessage(new TextMessage(jsonStr));

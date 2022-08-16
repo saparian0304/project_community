@@ -6,6 +6,14 @@
     <meta charset="UTF-8">
     <title>공지사항 | 고객센터 | 투어리스트인투어</title>
       <link rel="stylesheet" href="/pet/css/common.css"> 
+	<script>
+		function popup() {
+			var url = '/pet/chat/index.do';
+			var name = "채팅목록";
+			var option = "width = 500, height = 500, top = 100, left = 100";
+			window.open(url, name, option);
+		}
+	</script>
 </head>
 <body>
     <ul class="skipnavi">
@@ -33,7 +41,7 @@
                 <div class="header_cont">
                     <!-- 로그인 회원가입 -->
                     <ul class="util clear">
-                    	<li><a href="/pet/chat/index.do">채팅목록</a></li>
+                    	<li><a href="javascript:popup()">채팅목록</a></li>
 						<li><a href="/pet/member/logout.do">로그아웃</a></li>
                     </ul>
                     <!-- 네비 -->
