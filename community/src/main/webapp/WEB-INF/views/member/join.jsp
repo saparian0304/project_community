@@ -74,7 +74,7 @@
 		console.log("email : "+ email);
 		
 		$.ajax({
-			url : 'sendCertification.do',
+			url : 'emailCheck.do',
 			type : 'get',
 			data : {"email" : email}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
 			success : function(cnt) {
@@ -89,8 +89,8 @@
 						emailCheck = false;
 						
 					}else{
-						alert('사용가능한 이메일입니다.');
-						
+						alert('인증번호발송되었습니다');
+					
 					}	
 				}
 			}
@@ -155,7 +155,6 @@
                	 } else { // cnt가 1일 경우 -> 이미 존재하는 닉네임
                     $('.nick_already').css("display","inline-block");
                     $('.nick_ok').css("display", "none");
-                    
                 }
             },
             error:function(){
@@ -166,28 +165,33 @@
     function certification(){
     	var certi = $('#e_certification').val();
 		console.log("e_certification : "+ certi);
-		
+		if ($("#e_certification").val().trim() == '') {
+			alert('인증번호를 입력해주세요.');
+			$("#e_certification").focus();
+			return;
+		}
 		$.ajax({
-			url : 'sendCertification.do',
-			method : 'post',
+			url : 'Certification.do',
+			method : 'get',
 			data : {"certi" : certi}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
-			success : function() {
-				if ($("#e_certification").val().trim() == '') {
-					alert('인증번호를 입력해주세요.');
-					$("#e_certification").focus();
-				}else{
-					if ({
+			success : function(res) {
+				if(res.trim() != ''){
+						//$("#e_certification").val('');
+						//$("#e_certification").focus();
 						alert('인증완료');
-						$("#e_certification").val('');
-						$("#e_certification").focus();
-						emailCheck = false;
-					}	
+				
+				}else{
+					alert('인증번호를 다시 확인해주세요');
+					$("#e_certification").val('');
+					$("#e_certification").focus();
+					console.log("###"+res+"###")
 				}
 			},
 			error:function(){
                 alert("에러");
 			}
 		})
+    
     }
     
 

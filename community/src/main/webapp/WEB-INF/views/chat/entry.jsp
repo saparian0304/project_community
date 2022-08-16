@@ -9,8 +9,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
 <script type="text/javascript">
-	var member_no = ${loginInfo.member_no};
-	var nickname = ${loginInfo.nickname};
+	if (${loginInfo.member_no == null}) {
+		alert('로그인 부탁드립니다.');
+		location.href='/pet/member/login.do';
+	}
+	
+	var member_no = '${loginInfo.member_no}';
+	var nickname = '${loginInfo.nickname}';
 	var webSocket = {
 			init : function(param) {
 				this.url = param.url;
@@ -77,10 +82,15 @@
 </head>
 <body>
 	<c:forEach var="list" items="${list }">
+	<div><a href="f/${loginInfo.member_no }/${list.friend_no}">
 	친구 닉네임 : ${list.nickname }<br>
-	친구 회원번호 : ${list.member_no }<br>
+	</a>
+	친구 회원번호 : ${list.friend_no }<br>
 	친구 채팅방 번호 : ${list.channel_no }<br>
+	최근 메시지 : ${list.msg }<br>
+	최근 업데이트 날짜 : ${list.msg_regdate }<br>
 	==========================================
+	</div>
 	<br>
 	</c:forEach>
 	

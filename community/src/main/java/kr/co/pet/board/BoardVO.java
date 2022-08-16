@@ -5,19 +5,28 @@ import java.util.List;
 
 import kr.co.pet.file.FileVO;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
+@Setter
+@Getter
 public class BoardVO {
 	//board
 	private int board_no;
 	private String board_name;
 	private String title;
 	private int member_no;
+	private String memb_nickname;
 	private Timestamp regdate;
 	private int viewcount;
+	private int reply_count;
 	private String content;
+	private String tel;
+	private String link;
 	private int horse_hair;
 	private Timestamp update_date;
+	
 	
 	private int page;
 	private String stype;//검색타입
@@ -37,4 +46,5 @@ public class BoardVO {
 		this.pageRow = pageRow;
 	}
 	
+	private String filename_real;
 }

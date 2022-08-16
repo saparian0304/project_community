@@ -2,8 +2,6 @@ package kr.co.pet.member;
 
 import javax.servlet.http.HttpSession;
 
-import kr.co.pet.certification.CertificationVO;
-
 public interface MemberService {
 
 	boolean update(MemberVO vo);
@@ -12,9 +10,7 @@ public interface MemberService {
 	boolean loginCheck(MemberVO vo, HttpSession sess);
 	int idCheck(String id); 
 	int nicknameCheck(String nickname);
-	int emailCheck(String email);
+	int emailCheck(String email, HttpSession sess);
 	MemberVO findId(MemberVO vo);
 	MemberVO findPwd(MemberVO vo);
-	boolean certification(CertificationVO c_vo, HttpSession sess);
-
 }

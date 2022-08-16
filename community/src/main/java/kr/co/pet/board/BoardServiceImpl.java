@@ -7,13 +7,16 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.pet.board.api.ApiVO;
+import kr.co.pet.file.FileMapper;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @Service
 public class BoardServiceImpl implements BoardService{
 	@Autowired
 	BoardMapper mapper;
+	@Autowired
+	FileMapper fmapper;
 	
 	@Override
 	public Map index(BoardVO vo) {
@@ -34,6 +37,7 @@ public class BoardServiceImpl implements BoardService{
 		boolean prev = startPage > 1 ? true : false;
 		boolean next = endPage < totalPage ? true : false;
 		
+//		String ani = "http://www.pettravel.kr/upload/mapdata/C0015/thumb/list/C0015_F20210818171541001.jpg";
 		Map map = new HashMap();
 		map.put("totalCount", totalCount);
 		map.put("totalPage", totalPage);
@@ -42,13 +46,14 @@ public class BoardServiceImpl implements BoardService{
 		map.put("prev", prev);
 		map.put("next", next);
 		map.put("list", list);
+//		map.put("ani", ani);
 		
 		return map;
 	}
 
 	@Override
 	public boolean insert(BoardVO vo) {
-		
+	
 		return mapper.insertSelectKey(vo) > 0 ? true : false;
 	}
 
