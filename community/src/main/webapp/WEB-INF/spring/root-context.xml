@@ -32,4 +32,13 @@
         <websocket:sockjs websocket-enabled="true" />
     </websocket:handlers>
     <bean id="handlerChat" class="kr.co.pet.chat.HandlerChat" />
+    
+    <websocket:handlers allowed-origins="*" >
+        <websocket:mapping handler="handlerAlram" path="/alram" />
+        <websocket:handshake-interceptors>
+        	<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+        </websocket:handshake-interceptors>
+        <websocket:sockjs websocket-enabled="true" />
+    </websocket:handlers>
+    <bean id="handlerAlram" class="kr.co.pet.alram.HandlerAlram" />
 </beans>

@@ -19,6 +19,11 @@ public class MessageController {
 	public String message(MessageVO vo,  Model model) {
 		return "message/write";
 	}
+	@RequestMapping("/message/send.do")
+	public String messageSend(MessageVO vo,  Model model) {
+		return "message/send";
+	}
+	
 	
 	@RequestMapping("/message/insert.do")
 	public String insert(MessageVO vo, Model model) {
@@ -35,8 +40,17 @@ public class MessageController {
 	
 	@RequestMapping("/message/search.do")
 	public String search(MessageVO vo,  Model model) {
-		model.addAttribute("result", service.search(vo));
-		return "common/result";
+		/*if(service.search(vo) == 0) {
+			model.addAttribute("msg","찾으시는 아이디가 없습니다.");
+			return "common/alert";
+		}
+		else {*/
+			model.addAttribute("result", service.search(vo));
+			return "common/result";
+		
+		/*model.addAttribute("result", service.search(vo));
+		return "common/result";*/
+		
 	}
 	
 	

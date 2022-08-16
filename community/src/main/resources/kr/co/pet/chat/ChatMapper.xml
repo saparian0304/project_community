@@ -75,5 +75,31 @@
 		ORDER BY regdate
 	</select>
 	
+	<select id="openChatList" resultType="java.util.LinkedHashMap">
+		SELECT *
+		FROM chat_channel ch left join (
+				SELECT channel_no, count(*) num_enter, exitdate 
+				FROM chat_member
+				GROUP BY channel_no, exitdate
+				HAVING exitdate IS NULL) m
+		ON m.channel_no = ch.channel_no
+		WHERE type=1 AND closedate IS NULL
+		ORDER BY regdate DESC
+	</select>
+	
+	<select id="myOpenChatlist" parameterType="int" resultType="java.util.LinkedHashMap">
+		SELECT *,
+			(SELECT content FROM chat_history his WHERE his.channel_no = chn.channel_no ORDER BY his.regdate DESC limit 1) msg,
+		    (SELECT his.regdate FROM chat_history his WHERE his.channel_no = chn.channel_no ORDER BY his.regdate DESC limit 1) msg_regdate,
+   			(SELECT count(*) FROM chat_member where channel_no = chn.channel_no GROUP BY channel_no, isexited ) num_enter
+		FROM chat_channel cha inner join (
+				SELECT *,
+					(SELECT ch.type FROM chat_channel ch WHERE m.channel_no = ch.channel_no) type
+				FROM chat_member m 
+				WHERE member_no = #{member_no}) chn
+		ON cha.channel_no = chn.channel_no
+		WHERE chn.type = 1 AND cha.closedate IS null AND isexited = 0
+		ORDER BY msg_regdate DESC
+	</select>
 	
 </mapper>

@@ -55,7 +55,14 @@
 		if (!regExp.test($("#email").val())) {
 			alert("이메일 형식이 아닙니다.");
 			return;
-		} 
+		}
+		
+		if ($("#certi_num").val().trim() == ''){
+			alert('인증번호 입력 필수!');
+			$("#certi_num").focus();
+			return;
+		}
+		
 		if ($("#name").val().trim() == ''){
 			   alert('이름을 입력해주세요.');
 			   $("#name").focus();
@@ -63,10 +70,10 @@
 	   	
 	   	}
 
-		console.log("member_id : "+ member_id);
+		/* console.log("member_id : "+ member_id);
 		console.log("email : "+ email);
 		console.log("name : "+ name);
-		console.log("pwd : "+ pwd);
+		console.log("pwd : "+ pwd); */
 		$('#frm').submit();
 	}
 	function checkemail(){
@@ -162,12 +169,13 @@
             }
         })
     }
+    
     function certification(){
-    	var certi = $('#e_certification').val();
-		console.log("e_certification : "+ certi);
-		if ($("#e_certification").val().trim() == '') {
+    	var certi = $('#certi_num').val();
+		console.log("certi_num : "+ certi);
+		if ($("#certi_num").val().trim() == '') {
 			alert('인증번호를 입력해주세요.');
-			$("#e_certification").focus();
+			$("#certi_num").focus();
 			return;
 		}
 		$.ajax({
@@ -193,6 +201,44 @@
 		})
     
     }
+    
+    function joinBySns() {
+	    Kakao.Auth.join({
+	    	scope: 'account_email, profile_nickname', //동의항목 페이지에 있는 개인정보 보호 테이블의 활성화된 ID값을 넣습니다.
+            success: function(response) {
+                console.log(response) // 로그인 성공하면 받아오는 데이터
+                window.Kakao.API.request({ // 사용자 정보 가져오기 
+                    url: '/v2/user/me',
+                    success: (res) => {
+                        const kakao_account = res.kakao_account;
+                        console.log(kakao_account);
+                        var email = kakao_account.email;
+                		var nickname = kakao_account.nickname;
+                        console.log(res.id);
+                        console.log(kakao_account.email);
+                        console.log(kakao_account.profile.nickname);
+                        $.ajax({
+                        	url:'joinBySns.do',
+                        	data : {
+                        		id : res.id,
+                        		email : email,
+                        		nickname : nickname,
+                        		type:'K'
+                        	},
+                        	success:function(res) {
+                        		console.log(res);
+                        	}
+                        })
+                    }
+                });
+                //location.href='../member/login.do' //리다이렉트 되는 코드
+            },
+	      fail: function (error) {
+	        console.log(error)
+	      },
+	    })
+	   // console.log("kakao_login")
+	  }
     
 
 </script>
@@ -333,7 +379,7 @@
 						</tr>
 						<tr>
 							<th>*이메일인증번호</th>
-							<td><input type="text" name="e_certification" id="e_certification" class="inNextBtn" style="float: left;"> 
+							<td><input type="text" name="certi_num" id="certi_num" class="inNextBtn" style="float: left;"> 
 								<span class="e_certification"><a href="javascript: certification();" class="btn bgGray" style="float: left; width: auto; clear: none;">확인</a></span>
 							</td>
 						</tr>

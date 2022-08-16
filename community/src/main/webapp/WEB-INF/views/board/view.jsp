@@ -16,6 +16,45 @@
     <link rel="stylesheet" href="/pet/css/swiper.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<<<<<<< HEAD
+=======
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+	<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+	<!-- 실시간 알람 연습중 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+	<!-- 실시간 알람 연습중 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+<script>
+ var socket = null;
+function connectWS(){
+	console.log("========================");
+	var ws =  new SockJS("/pet/reply");
+	socket = ws;
+	
+	ws.onopen = function(){
+		console.log("Info : connection opened.");
+	};
+	
+	ws.onmessage = function(event){
+		console.log("ReceiveMessage: " + event.data + "\n");
+	};
+	
+	ws.onclose = function(event){
+		console.log("Info : connection closed.");
+		//setTimeout(function(){connectWS();}, 1000);
+	};
+	
+	ws.onerror = function(err){
+		console.log("Error : " + err);
+	};
+}
+
+$(function(){
+	connectWS();
+})
+
+</script>
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 <script>
 /* 삭제 할거임 */
 function del(no) {
@@ -25,8 +64,9 @@ function del(no) {
 }
 
 /* 댓글 스크립트  */
- 
 
+ 
+var boardWriter = ${data.member_no};
 function getComment(page){
 	$.ajax({    			
 		url : "/pet/reply/list.do",
@@ -66,6 +106,12 @@ function goSave(){
 					alert('정상적으로 댓글이 등록되었습니다.');
 					$("#content").val('');
 					getComment(1);
+					/* 실시간알림 연습중 */
+					if(socket){
+						var soMsg = "reply,"+${loginInfo.member_no}+","+boardWriter+","+${data.board_no};
+						console.log("=========msgmsg=======" + soMsg);
+						//socket.send(soMsg);
+					}
 				}
 			}
 		});
@@ -134,6 +180,7 @@ function replySave(gno){
 				}
 			}
 		});
+		
 	}
 	</c:if>
 } 
@@ -154,7 +201,7 @@ function replyForm(gno){
 		}
 	});
 		$("#rbox"+gno).toggle();
-	
+		
 }   
 
 // 댓글삭제
