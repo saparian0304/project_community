@@ -87,10 +87,11 @@
 </script>
 </head>
 <body>
-	<div id='chatbox' style='width: 500px; height: 200px;  display: none;'>
-		<div id="divChatData" style='width: 100%; height: 200px; padding:10px; border:solid 1px #e1e3e9; overflow-y:auto;'>
+	<div id='chatbox' style='width: 350px; height: 420px;  display: none;'>
+		<div id="divChatData" style='width: 100%; height: 420px; padding:10px; border:solid 1px #e1e3e9; overflow-y:auto;'>
 			<c:forEach  var="map" items="${data}">
-				${map.member_no } (${map.nickname }): ${map.content } ( ${map.regdate }) <br>
+				<!-- (회원번호 : ${map.member_no } ) -->
+				<div>${map.nickname }: ${map.content } ( ${map.regdate } ) </div>
 			</c:forEach>
 		</div>
 		<div style="width:100%; height:10%; padding: 10px;">

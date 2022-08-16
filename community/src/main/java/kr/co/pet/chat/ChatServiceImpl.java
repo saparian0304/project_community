@@ -59,4 +59,16 @@ public class ChatServiceImpl implements ChatService {
 		
 		return mapper.chatHistory(channelInfo);
 	}
+
+	@Override
+	public List<LinkedHashMap> openChatList() {
+		
+		return mapper.openChatList();
+	}
+
+	@Override
+	public List<LinkedHashMap> myOpenChatList(int member_no) {
+		
+		return mapper.myOpenChatlist(member_no);
+	}
 }

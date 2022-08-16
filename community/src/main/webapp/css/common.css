@@ -1,4 +1,4 @@
-@charset="UTF-8";
+@charset "UTF-8";
 @import url('layout_base.css');
 
 /*/*초기화*태크이름이 우선순위/*/
@@ -76,14 +76,14 @@ a:focus{color:#444;}
 
 /*checkbox radio*/
 
-input[type=checkbox].css-checkbox{
+/* input[type=checkbox].checkbox{
 		position: absolute;left: -1000px;
 		width: 1px;height: 1px;
 
 		overflow: hidden;
-	}
+	} */
 
-input[type=checkbox].css-checkbox+ label{
+input[type=checkbox].checkbox+label{
 	display: inline-block; 
 	height: 20px; padding-left: 30px !important;
 	line-height: 20px !important;
@@ -202,6 +202,14 @@ select{
 	border: 1px solid #ccc;
 }
 
+
+/* 아이디 클릭시 */
+.activityForm{display:none; }
+
+.activityForm.on{display:block; }
+
+
+
 /*select_common*/
 
 .select_common{
@@ -246,7 +254,7 @@ input, select, textarea{
 	letter-spacing: -1px;
 	color: #444;
 	/*****직접입력 이미지 겹칠때 기본디자인 없앰******/
-	appearance: none;
+	/* appearance: none; */
 }
 
 textarea{
@@ -942,16 +950,16 @@ v h3 em{
 	padding: 7px;
 	text-align: center;
 }
-.pagenation a .pagenum{
+.pagenation a.pagenum{
 	width: 25px; height: 25px; line-height: 25px;
 	display: inline-block;
 	text-align: center;
 }
-.pagenation a .currentpage{
+.pagenation a.currentpage{
 	border-radius: 3px ;
 	background: #384d75; color: #fff;
 }
-.pagenation a:hover .pagenum{
+.pagenation a:hover.pagenum{
 	border-radius: 3px ;
 	background: #ddd;
 }
@@ -2101,12 +2109,67 @@ h1.loginTit a img{
 
 
 }
+/* mypage서 사용중 */
+.reqbtn {
+	  border: 2px solid black;
+	  cursor: pointer;
+	  border-radius: 5px;
+}
+.friend {
+	border-color : #ff99c4;
+	color: #b26b89;
+	background-color: #fff4f9; 
+}
+.friend:hover {
+	background-color : #ff99c4;
+	color: white;
+}
+.myact {
+	border-color : #b6c3fd;
+	color: #727a9e;
+	background-color: #f0f3fe; 
+}
+.myact:hover {
+	background-color : #b6c3fd;
+	color: white;
+}
+.mymess {
+	border-color : #81f6c9;
+	color: #407b64;
+	background-color: #e5fdf4; 
+}
+.mymess:hover {
+	background-color : #81f6c9;
+	color: white;
+}
+.success {
+	  border-color: #04AA6D;
+	  color: green;
+}
+.success:hover {
+	  background-color: #04AA6D;
+	  color: white;
+}
+.danger {
+	  border-color: #f44336;
+	  color: red
+}
+.danger:hover {
+	  background: #f44336;
+	  color: white;
+}
 
+.default {
+  border-color: #e7e7e7;
+  color: black;
+}
 
-
-
+.default:hover {
+  background: #e7e7e7;
+}
 
 
 /*~320px*/
 @media screen and (max-width: 320px){
-	body{background: orange;}
+	body{background: orange;
+}

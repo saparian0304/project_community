@@ -4,5 +4,5 @@ public interface MessageService {
 
 	boolean insert(MessageVO vo);
 	
-	int search(MessageVO vo);
+	Integer search(MessageVO vo);
 }
