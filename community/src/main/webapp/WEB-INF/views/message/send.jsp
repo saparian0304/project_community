@@ -18,7 +18,7 @@
     <script src="/pet/js/function.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
-</head>
+</head> 
 <body>
 	<form method="post" name="frm" id="frm" action="insert.do" style="width:800px; margin:0 auto;">
 		<table>

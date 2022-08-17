@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -25,16 +26,11 @@
         position: relative;
         height: 100%;
       }
+=======
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 
-      body {
-        background: #eee;
-        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        color: #000;
-        margin: 0;
-        padding: 0;
-      }
-
+<style type="text/css">
       .swiper {
         width: 100%;
         height: 100%;
@@ -68,22 +64,14 @@
         transition: opacity;
       }
       
-h2 {
-  display: block;
-  font-size: 1.5em;
-  margin-top: 0.83em;
-  margin-bottom: 0.83em;
-  margin-left: 0;
-  margin-right: 0;
-  font-weight: bold;
-}
-	</style>
-</head>
-<body>
+
+</style>
+
 	<ul class="skipnavi">
         <li><a href="#container">본문내용</a></li>
     </ul>
 	<div id="wrap">
+<<<<<<< HEAD
 		<header id="header">
 			<!-- 로고 네비 로그인 그룹 -->
 			<div class="header_area box_inner clear">
@@ -152,6 +140,8 @@ h2 {
 			</div>
 		</header>
 
+=======
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 		<!-- 컨텐츠 영역 -->
 		<div id="container">
 			<!-- 위치(페이지 제목)영역 -->

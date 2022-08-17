@@ -11,13 +11,13 @@
     <meta name="format-detection" content="telephone=no, address=no, email=no">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <title>게시판 등록</title>
+    <title>자유게시판 등록</title>
     <link rel="stylesheet" href="/pet/css/reset.css"/>
     <link rel="stylesheet" href="/pet/css/contents.css"/>
     <script src="/pet/smarteditor/js/HuskyEZCreator.js"></script>
     <script src="/pet/js/function.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
+<script>
     
     function goSave() {
 		editor.getById['content'].exec('UPDATE_CONTENTS_FIELD',[]);
@@ -27,13 +27,10 @@
 	$(function() {
 		editor = setEditor('content');
 	})
-    </script>
-</head>
-<body>
+</script>
     
         <div class="sub">
             <div class="size">
-                <h3 class="sub_title">게시판</h3>
     
                 <div class="bbs">
                 <form method="post" name="frm" id="frm" action="update.do">

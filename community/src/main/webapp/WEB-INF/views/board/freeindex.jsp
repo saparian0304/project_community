@@ -1,27 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=yes">
-    <meta name="format-detection" content="telephone=no, address=no, email=no">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <title>공지사항 | 고객센터 | 투어리스트인투어</title>
-      <link rel="stylesheet" href="/pet/css/common.css">
-      <link rel="stylesheet" href="/pet/css/reset.css"/>
-      <link rel="stylesheet" href="/pet/css/contents.css"/> 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-      <script type="text/javascript" src="/pet/js/location.js"></script>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
+
     <ul class="skipnavi">
         <li><a href="#container">본문내용</a></li>
     </ul>
     <div id="wrap">
+<<<<<<< HEAD
         <header id="header">
             <!-- 로고 네비 로그인 그룹 -->
             <div class="header_area box_inner clear">
@@ -92,6 +77,8 @@
                 </div>
             </div>
         </header>
+=======
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
     
         <!-- 컨텐츠 영역 -->
         <div id="container">

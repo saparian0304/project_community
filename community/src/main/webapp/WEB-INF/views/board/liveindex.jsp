@@ -1,23 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no, address=no, email=no">
-    <meta name="author" content="">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <title>공지사항 | 고객센터 | 투어리스트인투어</title>
-    <link rel="stylesheet" href="/pet/css/common.css">
-    <link rel="stylesheet" href="/pet/css/reset.css"/>
-    <link rel="stylesheet" href="/pet/css/contents.css"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<<<<<<< HEAD
     <script src="/pet/js/function.js"></script>
     <script type="text/javascript" src="/pet/js/location.js"></script>
+=======
+	<script>
+		$("#columns").click(function(){
+			alert("되나요?")
+		});
+	</script>
+	
+	
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 	</head>
 
 <!--이미지 4줄로 나오게 함-->
@@ -47,80 +43,10 @@
       }
       
 </style>
-<body>
 	<ul class="skipnavi">
 		<li><a href="#container">본문내용</a></li>
 	</ul>
 	<div id="wrap">
-		<header id="header">
-			<!-- 로고 네비 로그인 그룹 -->
-			<div class="header_area box_inner clear">
-				
-				<!-- 로고 -->
-				<h1>
-					<a href="/pet/board/index.do">Help!</a>
-				</h1>
-				<!-- 네비 로그인 -->
-				<div class="header_cont">
-					<!-- 로그인 회원가입 -->
-					<ul class="util clear">
-						<c:choose>
-							<c:when test="${empty loginInfo.member_no }">
-								<li><a href="/pet/member/login.do">로그인</a></li>
-								<li><a href="/pet/member/join.do">회원가입</a></li>
-							</c:when>
-							<c:otherwise>
-								<li><a href="/pet/member/logout.do">로그아웃</a></li>
-							</c:otherwise>
-						</c:choose>
-					</ul>
-					<!-- 네비 -->
-					<nav>
-						<c:choose>
-							<c:when test="${empty loginInfo.member_no }">
-								<ul class="gnb clear">
-									<li><a href="/pet/board/liveindex.do">생활게시판</a>
-										<div class="gnb_depth gnb_depth_2_1">
-											<ul class="submenu_list">
-												<li><a href="#">국내</a></li>
-												<li><a href="#">해외</a></li>
-											</ul>
-										</div></li>
-									<li><a href="#">유기견관련</a>
-										<div class="gnb_depth gnb_depth_2_2">
-											<ul class="submenu_list">
-												<li><a href="#">공지사항</a></li>
-												<li><a href="#">문의하기</a></li>
-											</ul>
-										</div></li>
-									<li><a href="/pet/board/freeindex.do">자유게시판</a>
-										<div class="gnb_depth gnb_depth_2_3">
-											<ul class="submenu_list">
-												<li><a href="#">프로그램 소개</a></li>
-												<li><a href="#">여행자료</a></li>
-											</ul>
-										</div></li>
-								</ul>
-							</c:when>
-							<c:otherwise>
-								<li><a
-									href="/pet/mypage/index.do?member_no=${loginInfo.member_no }">마이페이지</a>
-									<div class="gnb_depth gnb_depth_2_4">
-										<ul class="submenu_list">
-											<li><a href="#">항공</a></li>
-											<li><a href="#">호텔</a></li>
-										</ul>
-									</div></li>
-							</c:otherwise>
-						</c:choose>
-						</ul>
-					</nav>
-					<p class="closePop">
-						<a href="#">닫기</a>
-					</p>
-				</div>
-			</div>
-		</header>
 	</div>
 	<div class="container">
 		<!-- 위치(페이지 제목)영역 -->
@@ -129,9 +55,6 @@
 				<h2 class="tit_page">
 					<span>생활게시판</span>
 				</h2>
-				<p class="location">
-					고객센터 <span class="path">/</span> 공지사항
-				</p>
 			</div>
 		</div>
 

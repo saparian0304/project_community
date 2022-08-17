@@ -28,7 +28,7 @@
 			editor = setEditor('content');
 		});
     </script>
-</head>
+   </head>
 <body>
     
         <div class="sub">

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <%@ page import="java.net.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -22,37 +23,20 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
 	<!-- 실시간 알람 연습중 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+=======
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 <script>
- var socket = null;
-function connectWS(){
-	console.log("========================");
-	var ws =  new SockJS("/pet/reply");
-	socket = ws;
-	
-	ws.onopen = function(){
-		console.log("Info : connection opened.");
-	};
-	
-	ws.onmessage = function(event){
-		console.log("ReceiveMessage: " + event.data + "\n");
-	};
-	
-	ws.onclose = function(event){
-		console.log("Info : connection closed.");
-		//setTimeout(function(){connectWS();}, 1000);
-	};
-	
-	ws.onerror = function(err){
-		console.log("Error : " + err);
-	};
-}
 
+<<<<<<< HEAD
 $(function(){
 	connectWS();
 })
 
 </script>
 <script>
+=======
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 /* 삭제 할거임 */
 function del(no) {
 	if(confirm('삭제하시겠습니까?')){
@@ -82,6 +66,7 @@ function getComment(page){
  
 $(function(){
 	getComment(1);
+	
 });
 
 
@@ -103,12 +88,9 @@ function goSave(){
 					alert('정상적으로 댓글이 등록되었습니다.');
 					$("#content").val('');
 					getComment(1);
-					/* 실시간알림 연습중 */
-					if(socket){
-						var soMsg = "reply,"+${loginInfo.member_no}+","+boardWriter+","+${data.board_no};
-						console.log("=========msgmsg=======" + soMsg);
-						//socket.send(soMsg);
-					}
+				}
+				if(socket){
+				 socket.send("reply,"+${loginInfo.member_no}+","+boardWriter+","+${data.board_no}+","+'${data.title}');
 				}
 			}
 		});
@@ -251,9 +233,7 @@ function report(member_no, board_no, reply_no) {
 }
 
 </script>
-
-</head>
-<body>
+    
     <ul class="skipnavi">
         <li><a href="#container">본문내용</a></li>
     </ul>
@@ -266,16 +246,8 @@ function report(member_no, board_no, reply_no) {
             <div class="location_area customer">
                 <div class="box_inner">
                     <h2 class="tit_page">
-                        <span>TOURIST</span>
-                        <span class="in">in</span>
-                        <!-- <span class="in">IN</span> -->
-                        <span>TOUR</span>
+                        <span>반려동물 커뮤니티</span>
                     </h2>
-                    <p class="location">
-                        고객센터
-                        <span class="path">/</span> 
-                        공지사항
-                    </p>
                 </div>
             </div> 
             <div class="sub">
@@ -506,34 +478,7 @@ function report(member_no, board_no, reply_no) {
 </div>
     
 
-    <!-- 퀵메뉴 -->
-    <h2 class="hdd">빠른 링크 : 전화문의, 카카오톡, 오시는 길, 꼭대기로 가기</h2>
-    <div class="quick_area">
-        <ul class="quick_list">
-            <li>
-                <a href="tel:010-1234-5678">
-                    <h3>전화문의</h3>
-                    <p>010-1234-5678</p>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <h3>카카오톡<em>상담</em></h3>
-                    <p>1대1상담</p>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <h3 class="to_contact">오시는 길</h3>   
-                </a>
-            </li>
-        </ul>
-        <p class="to_top">
-            <a href="#layout0" class="s_point">TOP</a>
-        </p>
-    </div>
+    
 
 </body>
 </html>
