@@ -21,15 +21,6 @@ public class ChatServiceImpl implements ChatService {
 		int i_no = vo.getMember_no();
 		List<LinkedHashMap> list = mapper.list(i_no);
 		
-//		for (int i=0; i < list.size(); i++) {
-//			LinkedHashMap map = list.get(i);
-//			map.put("i_no", i_no);
-//			map.put("channel_no", mapper.listInfo(map));
-//			System.out.println(map.get("nickname"));
-//			System.out.println(map.get("member_no"));
-//			System.out.println(map.get("channel_no"));
-//			
-//		}
 		return list;
 	}
 	
@@ -70,5 +61,29 @@ public class ChatServiceImpl implements ChatService {
 	public List<LinkedHashMap> myOpenChatList(int member_no) {
 		
 		return mapper.myOpenChatlist(member_no);
+	}
+
+	@Override
+	public boolean isJoined(int channel_no, int member_no) {
+		Map memberInfo = new HashMap();
+		memberInfo.put("channel_no", channel_no);
+		memberInfo.put("member_no", member_no);
+		return mapper.isJoined(memberInfo) > 0;
+	}
+	
+	@Override
+	public Map<String, String> channelInfo(int channel_no) {
+		return mapper.channelInfo(channel_no);
+	}
+	
+	@Override
+	public Map<String, String> creatOpenChat(Map openChatInfo) {
+		mapper.creatOpenChat(openChatInfo);
+		return openChatInfo;
+	}
+
+	@Override
+	public int exitOpenChat(Map memberInfo) {
+		return mapper.exitOpenChat(memberInfo);
 	}
 }

@@ -48,7 +48,9 @@ public class HandlerChat extends TextWebSocketHandler {
 				Map<String, Object> map = new HashMap<String, Object>();
 				
 				map.put("channel_no", mapReceive.get("channel_no"));		// 방번호
+				map.put("member_no", mapReceive.get("member_no"));		// 방번호
 				map.put("nickname", mapReceive.get("nickname"));	// 닉네임
+				map.put("type", mapReceive.get("type"));			// 채팅방 유형 (-1 : 목록, 0 : 친구채팅방, 1 : 오픈채팅방)
 				map.put("session", session);						// 회원 세션정보
 				sessionList.add(map);
 				
@@ -96,12 +98,53 @@ public class HandlerChat extends TextWebSocketHandler {
 					}
 				}
 				// 보낼 당시 읽음 여부 판정
-				if (readCnt > 1) mapReceive.put("isread", "1");	
+				if ("0".equals(mapReceive.get("type")) && readCnt > 1) mapReceive.put("isread", "1");	
 				else mapReceive.put("isread", "0");
 				
 				mapper.insertChat(mapReceive);		// DB에 저장
 				
 			break;
+			
+			case "CMD_MSG_kick":
+				// mapper에서 nick & member_no를 확인
+				
+				
+				for (int i=0; i<sessionList.size(); i++) {
+					
+					Map<String, Object> mapSessionList = sessionList.get(i);	// 세션리스트에 있는 각 회원 뽑기
+					String channel = (String) mapSessionList.get("channel_no");
+					WebSocketSession sess = (WebSocketSession) mapSessionList.get("session");
+					
+					if(channel.equals(mapReceive.get("channel_no"))) {
+						
+						Map<String, String> mapToSend = new HashMap<String, String>();
+						mapToSend.put("channel_no", channel);
+						mapToSend.put("cmd", "CMD_MSG_SEND");
+						// ${map.nickname }: ${map.content } ( ${map.regdate }) (회원번호 : ${map.member_no } )
+						mapToSend.put("content", mapReceive.get("content") +"님이 강퇴당했습니다.");
+						
+						String jsonStr = objectMapper.writeValueAsString(mapToSend);
+						sess.sendMessage(new TextMessage(jsonStr));
+						
+						// 닉네임이랑 같은 사람 강퇴
+						if(mapReceive.get("content").equals(mapSessionList.get("nickname"))
+							
+								) {
+							System.out.println("ddddd");
+							Map<String, String> mapToSend1 = new HashMap<String, String>();
+							mapToSend1.put("channel_no", channel);
+							mapToSend1.put("cmd", "CMD_KICK");
+							// ${map.nickname }: ${map.content } ( ${map.regdate }) (회원번호 : ${map.member_no } )
+							
+							
+							String jsonStr1 = objectMapper.writeValueAsString(mapToSend1);
+							sess.sendMessage(new TextMessage(jsonStr1));
+						}
+						
+					}
+				}
+				
+				break;
 		}
 	}
 	
@@ -118,7 +161,7 @@ public class HandlerChat extends TextWebSocketHandler {
 		// 사용자 세션을 리스트에서 제거
 		for (int i=0; i<sessionList.size(); i++) {
 			Map<String, Object> map = sessionList.get(i);
-			String channel = (String)map.get("channel");
+			String channel = (String)map.get("channel_no");
 			WebSocketSession sess = (WebSocketSession)map.get("session");
 			
 			if(session.equals(sess)) {
@@ -132,7 +175,7 @@ public class HandlerChat extends TextWebSocketHandler {
 		// 같은 채팅방에 퇴장 메세지 전송
 		for (int i = 0; i<sessionList.size(); i++) {
 			Map<String, Object> mapSessionList = sessionList.get(i);
-			String channel = (String)mapSessionList.get("channel");
+			String channel = (String)mapSessionList.get("channel_no");
 			WebSocketSession sess = (WebSocketSession) mapSessionList.get("session");
 			
 			if(channel.equals(now_channel)) {
