@@ -202,6 +202,14 @@ select{
 	border: 1px solid #ccc;
 }
 
+
+/* 아이디 클릭시 */
+.activityForm{display:none; }
+
+.activityForm.on{display:block; }
+
+
+
 /*select_common*/
 
 .select_common{
@@ -2161,10 +2169,7 @@ h1.loginTit a img{
 }
 
 
-
-
-
 /*~320px*/
 @media screen and (max-width: 320px){
-	body{background: orange;}
+	body{background: orange;
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,11 +69,11 @@
 					webSocket.closeMessage(JSON.parse(evt.data));
 				}
 			},
-			_sendMessage : function(channel, cmd, msg) {
+			_sendMessage : function(channel_no, cmd, content) {
 				var msgData = {
-						channel : channel,
+						channel_no : channel_no,
 						cmd : cmd,
-						msg : msg,
+						content : content,
 						nickname : nickname,
 						member_no : member_no
 				};
@@ -99,11 +100,12 @@
 		 -->
 		<div>
 			<div style="height: 50px; border-bottom-style: dotted; border-bottom-width: 0.5px;">
-				<a href="javascript:popup('f/${loginInfo.member_no }/${list.friend_no}', '채팅 - ${list.nickname }')">
-				${list.nickname }
+				<a href="javascript:popup('o/${list.channel_no }', '채팅 - ${list.nickname }')">
+				${list.title }
 				</a>
-				<span style="float: right">${list.msg }</span><br>
-				<span style="float: right">${list.msg_regdate }</span>
+				<span style="float: right">${list.num_enter} / ${list.limit }</span><br>
+				${list.msg }
+				<span style="float: right"><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${list.msg_regdate }"/></span>
 			</div>
 		</div>
 		</c:forEach>

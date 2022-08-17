@@ -19,4 +19,7 @@ public interface ChatMapper {
 	Integer getChannel(Map membersInfo);
 	int joinChannel(Map joinInfo);
 	List<LinkedHashMap> chatHistory(Map channelInfo);
+	
+	List<LinkedHashMap> openChatList();
+	List<LinkedHashMap> myOpenChatlist(int member_no);
 }

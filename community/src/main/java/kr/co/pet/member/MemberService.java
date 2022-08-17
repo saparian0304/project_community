@@ -13,4 +13,5 @@ public interface MemberService {
 	int emailCheck(String email, HttpSession sess);
 	MemberVO findId(MemberVO vo);
 	MemberVO findPwd(MemberVO vo);
+	MemberVO loginBySns(MemberVO vo, HttpSession sess);
 }

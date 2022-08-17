@@ -27,6 +27,7 @@
 	
 	</head>
 
+<!--이미지 4줄로 나오게 함-->
 <style>
 	#columns{
         column-width:300px;

@@ -132,7 +132,7 @@ h2 {
 										</div></li>
 									</ul>
 							</c:when>
-							<c:otherwise>
+							<c:otherwise><!-- 여기만 if사용하기 -->
 								<li><a
 									href="/pet/mypage/index.do?member_no=${loginInfo.member_no }">마이페이지</a>
 									<div class="gnb_depth gnb_depth_2_4">

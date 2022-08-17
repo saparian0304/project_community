@@ -3,7 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <script>
- 
+
+
+function message(gno){
+	$(".activityForm").hide();
+	$(".activityForm"+gno).show();
+	
+}
+
 
 </script>
 
@@ -40,13 +47,25 @@
                     </c:if>                	
                 </td>
     		<c:if test="${param.member_no == vo.member_no}">                                            
-                <td class="writer" style="color:blue; font-weight:bold;">
-                     ${vo.member_nickname}
+                <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
+                	<a href="javascript:message(${vo.gno})">${vo.member_nickname}</a>
+                	<div class="activityForm${vo.gno} activityForm">
+	                     <p><button onclick="window.open('/pet/message/send.do?member_no=${vo.member_no}&nickname=${vo.member_nickname}');">쪽지</button></p>
+	                     <p><button>활동내역</button></p>
+	                     <p><button>친구신청</button></p>
+	                     <p><button>차단</button></p>
+                    </div>
                 </td>
          	</c:if> 
             <c:if test="${param.member_no != vo.member_no}">                                                 
-                <td class="writer">
-                     ${vo.member_nickname}
+                <td class="writer${vo.gno}" style="cursor:pointer;">
+                     <a href="javascript:message(${vo.gno})"> ${vo.member_nickname} </a>
+                     <div class="activityForm${vo.gno} activityForm">
+	                     <p><button onclick="window.open('/pet/message/send.do?member_no=${vo.member_no}&nickname=${vo.member_nickname}');">쪽지</button></p>
+	                     <p><button>활동내역</button></p>
+	                     <p><button>친구신청</button></p>
+	                     <p><button>차단</button></p>
+                     </div>
                 </td>
             </c:if>                       
                 <td class="date"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${vo.regdate}"/></td>
@@ -62,8 +81,11 @@
            		</td>
            	</tr>                                                                                       
         </c:forEach>
-        </tbody>
+        </tbody>      
     </table>   
+    
+    
+    
     
     <div class="pagenation">
     	<a style="cursor:pointer" class="firstpage pbth" href="javascript:getComment(${pageMaker.startPage});">

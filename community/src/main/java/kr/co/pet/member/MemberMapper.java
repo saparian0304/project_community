@@ -19,4 +19,5 @@ public interface MemberMapper {
 	MemberVO findId(MemberVO vo);
 	MemberVO findPwd(MemberVO vo);
 	int updateTempPwd(MemberVO vo);
+	MemberVO loginBySns(MemberVO vo);
 }

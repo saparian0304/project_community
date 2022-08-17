@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.gson.JsonArray;
@@ -39,7 +42,6 @@ public class ApiRealInsert {
 		urlBuilder.append("&" + URLEncoder.encode("pageBlock", "UTF-8") + "=" + URLEncoder.encode("10", "UTF-8"));// 한페이지 결과 수
 		urlBuilder.append("&" + URLEncoder.encode("areaCode", "UTF-8") + "=" + URLEncoder.encode("AC01", "UTF-8"));// 지역번호
 		
-		
 		//url로 요청 보낸 결과 string으로 받기
 		BufferedReader bf;
 		
@@ -55,7 +57,6 @@ public class ApiRealInsert {
 		JsonArray row1 = (JsonArray)rcp.get("resultList");
 		//이미지리스트를 array에 담고 object로 또 담아서 받아와야 함
 
-		
 		for(int i = 0; i < row1.size(); i++) {
 			Map map = new HashMap();
 			

@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<<script type="text/javascript">
+
+</script>
+
 <p><span><strong>총 ${comment.totalCount }개</strong>  |  ${commentVO.page }/${comment.totalPage }페이지</span></p>
                     <table class="list">
                         <colgroup>
@@ -28,6 +32,12 @@
                                 </td>
                                 <td class="writer">
                                     ${comment.member_name }
+                                    <div>
+                                    <p><button>쪽지</button></p>
+                                    <p><button>활동내역</button></p>
+                                    <p><button>친구신청</button></p>
+                                    <p><button>차단</button></p>
+                                    </div>
                                 </td>
                                 <td class="date">${comment.regdate }</td>
                             </tr>

@@ -53,7 +53,6 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public boolean insert(BoardVO vo) {
-	
 		return mapper.insertSelectKey(vo) > 0 ? true : false;
 	}
 

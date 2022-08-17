@@ -17,49 +17,17 @@
     <script src="/pet/smarteditor/js/HuskyEZCreator.js"></script>
     <script src="/pet/js/function.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
     
-    	function seachNick(){
-    		<c:if test="${empty loginInfo}">
-    			alert('로그인후 작성해주세요');
-       		</c:if>
-    		$.ajax({
-    			url : "/pet/message/search.do",
-    			data : {
-    				
-    				searchNick : $("#read").val()
-    				 			
-    			}, 
-    			
-    			success : function(res) {
-    				if(res == 0){
-    					alert('찾으시는 아이디가 없습니다.');
-    					$("#read").focus();
-    				}
-    				else{
-    					alert('내용을 입력해주세요');
-    					$("#content").focus();
-    					
-    				}
-    				 $("#read_member").val(res);
-    				  console.log(res);   				
-    			
-    			}	
-    		});     		
-    	} 
-    	
-    </script>
 </head>
 <body>
 	<form method="post" name="frm" id="frm" action="insert.do" style="width:800px; margin:0 auto;">
-		<table>	
+		<table>
 			<tr>
-				<td>받는사람</td>				
-				<td>
-					<input type="hidden" name="read_member" id="read_member">
-					<input type="search" name="read" id="read"> 			
-					<button type="button" onclick="seachNick();">찾기</button>
-				<td>
+				<td>받는사람</td>		
+				<td>  
+					<input type="hidden" name="read_member" id="read_member" value="${param.member_no}">
+					<input type="search" name="read" id="read" value=" ${param.nickname}"> 				
+				<td>							 
 			</tr>			
 			<tr>
 				<td>보내는사람</td>
