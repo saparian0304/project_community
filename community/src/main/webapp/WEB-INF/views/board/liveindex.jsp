@@ -2,10 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<<<<<<< HEAD
     <script src="/pet/js/function.js"></script>
     <script type="text/javascript" src="/pet/js/location.js"></script>
-=======
 	<script>
 		$("#columns").click(function(){
 			alert("되나요?")
@@ -13,7 +11,6 @@
 	</script>
 	
 	
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 	</head>
 
 <!--이미지 4줄로 나오게 함-->

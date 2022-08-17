@@ -1,42 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD
 <%@ page import="java.net.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%-- <%@ include file= "/WEB-INF/views/includes/header.jsp"%> --%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
-    <title>박물관 미션 투어 당첨자 발표 | 공지사항 | 고객센터 | 투어리스트인투어</title>
-    <link rel="stylesheet" href="/pet/css/common.css">
-    <link rel="stylesheet" href="/pet/css/reset.css"/>
-    <link rel="stylesheet" href="/pet/css/contents.css"/>
-    <link rel="stylesheet" href="/pet/css/swiper.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-	<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-	<!-- 실시간 알람 연습중 -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
-	<!-- 실시간 알람 연습중 -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
-=======
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 <script>
 
-<<<<<<< HEAD
-$(function(){
-	connectWS();
-})
-
-</script>
-<script>
-=======
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 /* 삭제 할거임 */
 function del(no) {
 	if(confirm('삭제하시겠습니까?')){
