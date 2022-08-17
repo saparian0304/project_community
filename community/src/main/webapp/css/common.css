@@ -2173,6 +2173,9 @@ h1.loginTit a img{
   background: #e7e7e7;
 }
 
+.wrap li {
+	padding: 18px 0 0 0;
+}
 
 /*~320px*/
 @media screen and (max-width: 320px){

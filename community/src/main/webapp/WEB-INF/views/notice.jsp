@@ -1,108 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>공지사항 | 고객센터 | 투어리스트인투어</title>
-      <link rel="stylesheet" href="/pet/css/common.css"> 
-	<script>
-		function popup() {
-			var url = '/pet/chat/index.do';
-			var name = "채팅목록";
-			var option = "width = 500, height = 500, top = 100, left = 100";
-			window.open(url, name, option);
-		}
-	</script>
-</head>
-<body>
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
+
     <ul class="skipnavi">
         <li><a href="#container">본문내용</a></li>
     </ul>
 
 
     <div id="wrap">
-        <header id="header">
-            <!-- 로고 네비 로그인 그룹 -->
-            <div class="header_area box_inner clear">
-                <!-- 로고 -->
-                <h1><a href="#">Tourist in tour</a></h1>
-                <!-- 모바일 햄버거버튼 -->
-                <p class="openMOgnb">
-                    <a href="#">
-                        <!-- 클래스hdd=> 히든 -->
-                        <b class="hdd">메뉴열기</b>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </a>
-                </p>
-                <!-- 네비 로그인 -->
-                <div class="header_cont">
-                    <!-- 로그인 회원가입 -->
-                    <ul class="util clear">
-                    	<li><a href="javascript:popup()">채팅목록</a></li>
-						<li><a href="/pet/member/logout.do">로그아웃</a></li>
-                    </ul>
-                    <!-- 네비 -->
-                    <nav>
-                        <ul class="gnb clear">
-                            <li><a href="#">여행정보</a>
-                                <div class="gnb_depth gnb_depth_2_1">
-                                    <ul class="submenu_list">
-                                        <li><a href="#">국내</a></li>
-                                        <li><a href="#">해외</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li><a href="#">고객센터</a>
-                                <div class="gnb_depth gnb_depth_2_2">
-                                    <ul class="submenu_list">
-                                        <li><a href="#">공지사항</a></li>
-                                        <li><a href="#">문의하기</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li><a href="#">상품투어</a>
-                                <div class="gnb_depth gnb_depth_2_3">
-                                    <ul class="submenu_list">
-                                        <li><a href="#">프로그램 소개</a></li>
-                                        <li><a href="#">여행자료</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li><a href="/pet/mypage/index.do?member_no=${loginInfo.member_no }">마이페이지</a>
-                                <div class="gnb_depth gnb_depth_2_4">
-                                    <ul class="submenu_list">
-                                        <li><a href="#">항공</a></li>
-                                        <li><a href="#">호텔</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </nav>
-                    <p class="closePop">
-                        <a href="#">닫기</a>
-                    </p>
-                </div>
-            </div>
-        </header>
         <!-- 컨텐츠 영역 -->
         <div id="container">
             <!-- 위치(페이지 제목)영역 -->
             <div class="location_area customer">
                 <div class="box_inner">
                     <h2 class="tit_page">
-                        <span>TOURIST</span>
-                        <span class="in">in</span>
-                        <!-- <span class="in">IN</span> -->
-                        <span>TOUR</span>
+                        <span>반려동물 커뮤니티</span>
                     </h2>
-                    <p class="location">
-                        고객센터
-                        <span class="path">/</span> 
-                        공지사항
-                    </p>
                     <!-- 모바일 -->
                     <ul class="page_menu clear">
                         <li>
@@ -275,33 +188,7 @@
     </div> <!-- div id="wrap" -->
 
     <!-- 퀵메뉴 -->
-    <h2 class="hdd">빠른 링크 : 전화문의, 카카오톡, 오시는 길, 꼭대기로 가기</h2>
-    <div class="quick_area">
-        <ul class="quick_list">
-            <li>
-                <a href="tel:010-1234-5678">
-                    <h3>전화문의</h3>
-                    <p>010-1234-5678</p>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <h3>카카오톡<em>상담</em></h3>
-                    <p>1대1상담</p>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <h3 class="to_contact">오시는 길</h3>   
-                </a>
-            </li>
-        </ul>
-        <p class="to_top">
-            <a href="#layout0" class="s_point">TOP</a>
-        </p>
-    </div>
+    
 
 </body>
 </html>

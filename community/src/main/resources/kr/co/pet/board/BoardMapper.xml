@@ -8,9 +8,9 @@
 			SELECT last_insert_id()
 		</selectKey>
 		INSERT INTO board (
-			 board_name, title, content, horse_hair, regdate, tel, link, image
+			 board_name, title, content, horse_hair, regdate, tel, link
 		) VALUES (
-			 #{board_name}, #{title}, #{content}, #{horse_hair}, NOW(), #{tel}, #{link}, #{image}
+			 #{board_name}, #{title}, #{content}, #{horse_hair}, NOW(), #{tel}, #{link}
 		)
 	</insert>
 	
@@ -36,10 +36,10 @@
 	<select id="list" parameterType="kr.co.pet.board.BoardVO" resultType="kr.co.pet.board.BoardVO">
 		select *,
 			(select * from 
-				(SELECT filename_real from file 
+				(SELECT filename_org from file 
 				where file.board_no = board.board_no
 				order by file_no asc) as a
-				limit 1) as filename_real
+				limit 1) as filename_org
 		from board
 		order by regdate desc
 	</select>
