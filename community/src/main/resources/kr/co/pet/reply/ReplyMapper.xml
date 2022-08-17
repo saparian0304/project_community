@@ -39,7 +39,7 @@
 			(SELECT nickname FROM member WHERE member_no=reply.member_no) AS member_nickname,
 			(SELECT COUNT(*) FROM reply WHERE reply_no = #{gno} AND gno = #{gno} ) AS reply_count
 		FROM reply
-		WHERE gno = #{gno}  AND isdelete = 0 AND ono != 0
+		WHERE gno = #{gno}   AND ono != 0 <!-- AND isdelete = 0 -->
 		ORDER BY regdate ASC
 		LIMIT ${startIdx}, ${pageRow}		
 	</select>
@@ -51,7 +51,7 @@
 		WHERE board_no = #{board_no} AND ono = 0
 	</select>
 	
-	<select id="list" parameterType="kr.co.pet.reply.ReplyVO" resultType="kr.co.pet.reply.ReplyVO">
+<!-- 	<select id="list" parameterType="kr.co.pet.reply.ReplyVO" resultType="kr.co.pet.reply.ReplyVO">
 		SELECT *,
 			(SELECT board_no  FROM board WHERE board_no=reply.board_no) AS list_no,
 			(SELECT nickname FROM member WHERE member_no=reply.member_no) AS member_nickname			
@@ -60,8 +60,19 @@
 		
 		ORDER BY regdate ASC
 		LIMIT ${startIdx}, ${pageRow}		
-	</select>
+	</select>  -->
 	
+	<select id="list" parameterType="kr.co.pet.reply.ReplyVO" resultType="kr.co.pet.reply.ReplyVO">
+			SELECT *,
+				(SELECT board_no  FROM board WHERE board_no=rp.board_no) AS list_no,
+				(SELECT nickname FROM member WHERE member_no=rp.member_no) AS member_nickname,
+				(SELECT COUNT(*) FROM reply re WHERE re.gno = rp.gno AND ono != 0 AND isdelete = 0) AS reply_count		
+				FROM reply rp					
+			WHERE board_no = #{board_no} AND ono = 0
+			
+			ORDER BY regdate ASC
+			LIMIT ${startIdx}, ${pageRow}		
+	</select>
 	
 	<update id="update">
 		UPDATE reply SET isdelete = 1 WHERE reply_no = #{reply_no}

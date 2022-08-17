@@ -2,6 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<script>
+function popup(send_member, send_nick){
+    var url = "/pet/message/resend.do?member_no="+send_member+"&nickname="+send_nick;
+    var name = "popup test";
+    var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+    window.open(url, name, option);   
+}
+
+  
+</script>
                 <button style="width : 100px; height : 30px;" class="reqbtn mymess" onclick="javascript:getMessReadList(1, ${loginInfo.member_no});">내가 받은 쪽지</button>
                 <button style="width : 100px; height : 30px;" class="reqbtn mymess" onclick="javascript:getMessSendList(1, ${loginInfo.member_no});">내가 보낸 쪽지</button>
                 
@@ -63,7 +74,7 @@
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.senddate }"/>
 	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
-			                    	<a class="reqbtn mymess" href="#">답장</a>
+			                    	<a class="reqbtn mymess" href="javascript:popup(${list.send_member },'${list.send_nick }')">답장</a>
 		                    	</td>
 	                    	</tr>
 	                    	</c:forEach>                    

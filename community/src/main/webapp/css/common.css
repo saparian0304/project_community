@@ -203,13 +203,6 @@ select{
 }
 
 
-/* 아이디 클릭시 */
-.activityForm{display:none; }
-
-.activityForm.on{display:block; }
-
-
-
 /*select_common*/
 
 .select_common{
@@ -887,6 +880,18 @@ v h3 em{
 	display: none;
 } 
 
+
+/* 대댓글 카운트  버튼*/
+/* button#recount {
+		width:50px; height:20px;		
+		border: 2px solid black;
+		cursor: pointer;
+		border-radius: 5px;
+		background: #008080; color: #fff;
+} */
+
+
+
 /*<!-- 회원정보 입력 영역 -->*/
 .bodytext_area{
 	box-sizing: border-box;
@@ -913,7 +918,7 @@ v h3 em{
 
 
 .bbsListTbl{
-	border-top: 2px solid#384d75;
+	border-top: 2px solid #384d75;
 	width: 100%;
 }
 .bbsListTbl th,.bbsListTbl td{

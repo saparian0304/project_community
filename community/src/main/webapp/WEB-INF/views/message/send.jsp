@@ -20,18 +20,23 @@
     
 </head>
 <body>
-	<form method="post" name="frm" id="frm" action="insert.do" style="width:800px; margin:0 auto;">
+<div style="width:800px;margin:40px auto;">
+	<form method="post" name="frm" id="frm" action="sendinsert.do" style="width:800px; margin:0 auto;">
 		<table>
 			<tr>
 				<td>받는사람</td>		
 				<td>  
 					<input type="hidden" name="read_member" id="read_member" value="${param.member_no}">
+					<input type="hidden" name="board_no" id="board_no" value="${param.board_no}">
 					<input type="search" name="read" id="read" value=" ${param.nickname}"> 				
 				<td>							 
 			</tr>			
 			<tr>
 				<td>보내는사람</td>
-				<td><input type="hidden" name="send_member" value="${loginInfo.member_no}">${loginInfo.nickname}</td>		
+				<td>
+					<input type="hidden" name="send_member" value="${loginInfo.member_no}">
+					<input type="text" name="send" id="send" value=" ${loginInfo.nickname}">
+				</td>		
 			<tr>
 				<td>보내실 말씀</td>
 				<td><textarea cols="40" rows="10" name="content" id="content" placeholder="메세지를 입력해주세요"  style="width: 320px; height: 150px;"></textarea></td>
@@ -43,5 +48,6 @@
 			</tr>
 		</table>
 	</form>
+</div>	
 </body>
 </html>

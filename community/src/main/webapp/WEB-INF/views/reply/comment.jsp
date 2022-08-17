@@ -6,8 +6,14 @@
 
 
 function message(gno){
-	$(".activityForm").hide();
-	$(".activityForm"+gno).show();
+	
+	if($(".activityForm"+gno).css("display")=="none"){
+		$(".activityForm").hide();
+		$(".activityForm"+gno).toggle();
+	} else{
+		$(".activityForm"+gno).hide();
+	}
+	
 	
 }
 
@@ -28,18 +34,16 @@ function message(gno){
                 <td class="first" colspan="8" style="height:70px;">등록된 댓글이 없습니다.</td>                
             </tr>
 		</c:if>
-		
-        <c:forEach var="vo" items="${comment.list}" varStatus="status">
-                            	         
+        <c:forEach var="vo" items="${comment.list}" varStatus="status">                           	         
             <tr style="height:70px;"  class="rbox">
                 <td>${(status.index)+1}</td>
                 <td class="txt_l">               
-                   <a href="javascript:replyForm(${vo.gno});" id="remove"> &nbsp;&nbsp;[댓글수] </a>                  
+                   <button onclick="javascript:replyForm(${vo.gno});" id="recount" style="width:80px; height:20px;border-radius: 5px; background: #b0d0df; color: #fff;">[댓글수:  ${vo.reply_count} ] </button>                  
                    <c:if test="${vo.isdelete == true }">
-                       삭제된 댓글입니다.
+                       &emsp;&emsp; 삭제된 댓글입니다.
                    </c:if>
                    <c:if test="${vo.isdelete == false }">
-                    ${vo.content}                   
+                    &emsp;&emsp; ${vo.content}                  
 	                   <c:if test="${loginInfo.member_no == vo.member_no }">
 	                    	<a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
 	                    	<a href="javascript:replyEdit(${vo.reply_no})"> &nbsp;&nbsp;[수정]</a>
@@ -49,8 +53,8 @@ function message(gno){
     		<c:if test="${param.member_no == vo.member_no}">                                            
                 <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
                 	<a href="javascript:message(${vo.gno})">${vo.member_nickname}</a>
-                	<div class="activityForm${vo.gno} activityForm">
-	                     <p><button onclick="window.open('/pet/message/send.do?member_no=${vo.member_no}&nickname=${vo.member_nickname}');">쪽지</button></p>
+                	<div class="activityForm${vo.gno} activityForm" style="display:none;">
+	                     <p><button onclick="window.open('/pet/message/send.do?member_no=${vo.member_no}&nickname=${vo.member_nickname}&board_no=${board_no}');">쪽지</button></p>
 	                     <p><button>활동내역</button></p>
 	                     <p><button>친구신청</button></p>
 	                     <p><button>차단</button></p>
@@ -60,8 +64,8 @@ function message(gno){
             <c:if test="${param.member_no != vo.member_no}">                                                 
                 <td class="writer${vo.gno}" style="cursor:pointer;">
                      <a href="javascript:message(${vo.gno})"> ${vo.member_nickname} </a>
-                     <div class="activityForm${vo.gno} activityForm">
-	                     <p><button onclick="window.open('/pet/message/send.do?member_no=${vo.member_no}&nickname=${vo.member_nickname}');">쪽지</button></p>
+                     <div class="activityForm${vo.gno} activityForm" style="display:none;">
+	                     <p><button onclick="window.open('/pet/message/send.do?member_no=${vo.member_no}&nickname=${vo.member_nickname}&board_no=${vo.board_no}');">쪽지</button></p>
 	                     <p><button>활동내역</button></p>
 	                     <p><button>친구신청</button></p>
 	                     <p><button>차단</button></p>
@@ -77,7 +81,7 @@ function message(gno){
             </tr>
             <tr>
             	<td colspan="5">
-           			<div id="rbox${vo.gno}" ></div>
+           			<div class="rbox${vo.gno} rbox"></div>
            		</td>
            	</tr>                                                                                       
         </c:forEach>

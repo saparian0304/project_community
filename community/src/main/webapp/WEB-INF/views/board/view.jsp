@@ -16,14 +16,11 @@
     <link rel="stylesheet" href="/pet/css/swiper.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<<<<<<< HEAD
-=======
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 	<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 	<!-- 실시간 알람 연습중 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
-	<!-- 실시간 알람 연습중 -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+
 <script>
  var socket = null;
 function connectWS(){
@@ -54,7 +51,7 @@ $(function(){
 })
 
 </script>
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
+
 <script>
 /* 삭제 할거임 */
 function del(no) {
@@ -196,12 +193,12 @@ function replyForm(gno){
 				page: 1				
 			},			
 			success : function(res) {
-				$("#rbox"+gno).html(res);
+				$(".rbox"+gno).html(res);
 				
 		}
 	});
-		$("#rbox"+gno).toggle();
-		
+	$(".replyshow").hide();
+	$(".rbox"+gno).toggle();	
 }   
 
 // 댓글삭제
