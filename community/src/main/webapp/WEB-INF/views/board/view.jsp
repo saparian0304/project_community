@@ -56,9 +56,7 @@ function goSave(){
 					getComment(1);
 				}
 				if(socket){
-				 var soMsg = "reply,"+${loginInfo.member_no}+","+boardWriter+","+${data.board_no};
-				 console.log(soMsg);
-				 socket.send(soMsg);
+				 socket.send("reply,"+${loginInfo.member_no}+","+boardWriter+","+${data.board_no}+","+'${data.title}');
 				}
 			}
 		});
@@ -226,7 +224,6 @@ function report(member_no, board_no, reply_no) {
 	                    	작성자 : ${data.member_no } <a href="javascript:report(${data.member_no}, ${data.board_no }, 0)">[게시글 신고버튼 예]</a><br>  
 							<a href="javascript:report(${data.member_no}, ${data.board_no }, 1)">[댓글 신고버튼 예]</a>
 	                	</div>
-	                	<div id="socketAlert" style="text-align: right">hihi</div>
 	                    <div class="view">
 	                        <div class="title">
 	                            <dl>

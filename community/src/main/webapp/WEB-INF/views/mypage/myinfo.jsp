@@ -18,7 +18,7 @@
                              <td>${mydata.member_id }</td>
                              <th>닉네임</th>
                              <td>${mydata.nickname }</td>
-                             <td><button onclick="location:href='#'">내정보수정</button></td>
+                             <td><button class="reqbtn default" onclick="location:href='#'">내정보수정</button></td>
                          </tr>
                          <tr>
                          	<th><fmt:formatDate pattern="yyyy" value="<%=new java.util.Date()%>"/>년 현재 등급</th>

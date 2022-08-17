@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.socket.CloseStatus;
@@ -16,6 +17,9 @@ import kr.co.pet.member.MemberVO;
 
 @Component
 public class HandlerAlram extends TextWebSocketHandler {
+	
+	@Autowired
+	AlramMapper mapper;
 	
 	List<WebSocketSession> sessions = new ArrayList<>();
 	
@@ -35,11 +39,11 @@ public class HandlerAlram extends TextWebSocketHandler {
 		MemberVO loginMember = (MemberVO)httpSession.get("loginInfo");
 		
 		if (loginMember == null) {
-			String mnick = session.getId();
-			return mnick;
+			String mno = session.getId();
+			return mno;
 		}
-		String mnick = loginMember.getMember_no()+"";
-		return mnick;
+		String mno = loginMember.getMember_no()+"";
+		return mno;
 	}
 
 	@Override
@@ -52,26 +56,46 @@ public class HandlerAlram extends TextWebSocketHandler {
 		if (!StringUtils.isEmpty(msg)) {
 			System.out.println("if문 들어옴");
 			String[] strs = msg.split(",");
-			if (strs != null && strs.length == 4) {
+			if (strs != null && strs.length == 5) {
 				String cmd = strs[0];
 				String replyWriter = strs[1];
 				String boardWriter = strs[2];
 				String bno = strs[3];
-//				String title = strs[4];
+				String title = strs[4];
 //				String bgno = strs[5];
 				System.out.println("length 성공 : " + cmd);
 				
 				WebSocketSession replyWriterSession = memberSessions.get(replyWriter);
 				WebSocketSession boardWriterSession = memberSessions.get(boardWriter);
 				
-				System.out.println("boardWriterSession : " + boardWriterSession);
+				String boardNick = mapper.findNick(Integer.parseInt(boardWriter));
+				String replyNick = mapper.findNick(Integer.parseInt(replyWriter));
 				
+				System.out.println("boardNick " + boardNick);
+				System.out.println("replyNick " + replyNick);
+				System.out.println("boardWriterSession : " + boardWriterSession);
+	
 				//댓글
 				if ("reply".equals(cmd) && boardWriterSession != null) {
 					TextMessage tmpMsg = new TextMessage(
 										"<a href='/pet/board/view.do?board_no=" +bno + "' style='color: white'>" 
-												+ replyWriter + "님이 " + bno+ "번 게시글에 댓글을 달았습니다!</a>");
+												+ replyNick + "님이 [게시글] "+ title +"에 댓글을 달았습니다</a>");
 					boardWriterSession.sendMessage(tmpMsg);							
+				}
+				
+				//대댓글
+				if ("rereply".equals(cmd) && boardWriterSession != null) {
+					TextMessage tmpMsg = new TextMessage(
+										"<a href='/pet/board/view.do?board_no=" +bno + "' style='color: white'>" 
+												+ replyNick + "님이 [댓글] "+ title +"에 답글을 달았습니다</a>");
+					boardWriterSession.sendMessage(tmpMsg);	
+				}
+				
+				if ("recommend".equals(cmd) && boardWriter != null) {
+					TextMessage tmpMsg = new TextMessage(
+										"<a href='/pet/board/view.do?board_no=" +bno + "' style='color: white'>" 
+												+ replyNick + "님이 [게시글] "+ title +"에 좋아요를 눌렀습니다</a>");
+					boardWriterSession.sendMessage(tmpMsg);	
 				}
 			}
 		}
