@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>웹소켓 채팅</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+<%@ include file="/WEB-INF/views/includes/head.jsp" %>
 <script type="text/javascript">
 	var webSocket = {
 			init : function(param) {
@@ -45,7 +39,6 @@
 		webSocket.init({url : '/ajp/chat'});
 	})
 </script>
-</head>
 <body>
 	<div style='width: 800px; height: 700px; padding:10px; border:solid 1px #e1e3e9;'>
 		<div id="divChatData"></div>
