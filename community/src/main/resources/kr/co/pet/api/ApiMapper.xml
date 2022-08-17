@@ -4,11 +4,14 @@
 	
 	<insert id="apiInsert" parameterType="kr.co.pet.api.ApiVO">
 		INSERT INTO board (
-			board_name, title, content, horse_hair, board_no
+			title, content, horse_hair, link, member_no, board_no
 		) VALUES (
-			#{board_name}, #{title}, #{content}, #{horse_hair}, (SELECT board_no FROM board WHERE board_no = #{board_no})
-		) 
-		
+			#{title}, #{content}, #{horse_hair},  #{link}, #{member_no}, (SELECT board_no FROM board WHERE board_no = #{board_no})
+		)
 	</insert>
+	
+	<select id="findByBoard_no" parameterType="kr.co.pet.api.ApiVO" resultType="kr.co.pet.api.ApiVO">
+		SELECT * FROM location WHERE board_no = #{board_no}
+	</select>
 	
 </mapper>

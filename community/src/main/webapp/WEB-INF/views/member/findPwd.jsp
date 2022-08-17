@@ -41,7 +41,7 @@
 	    					alert('회원이 존재하지 않습니다.');
 	    				}else{
 	    					alert('임시비번이 이메일로 발송되었습니다.');
-	    					//location.href="login.do"
+	    					location.href="login.do"
 	    				}
 	    			}
 	    		})

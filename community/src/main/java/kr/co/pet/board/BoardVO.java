@@ -26,7 +26,9 @@ public class BoardVO {
 	private String link;
 	private int horse_hair;
 	private Timestamp update_date;
-	
+	private String nickname;
+	private String[] imageList;
+	private String image;
 	
 	private int page;
 	private String stype;//검색타입

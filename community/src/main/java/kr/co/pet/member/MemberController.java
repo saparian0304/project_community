@@ -1,7 +1,11 @@
 package kr.co.pet.member;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,7 +60,7 @@ public class MemberController {
 	@PostMapping("/member/login.do")
 	public String login(MemberVO vo, HttpSession sess, Model model) {
 		if(service.loginCheck(vo, sess)) {
-			return "redirect:notice.do"; //notice라는 메서드로 매핑돼있는 곳으로 감. notice라는 이름의 파일을 여는게 아님.
+			return "redirect:notice.do"; //notice라는 메서드가 매핑돼있는 곳으로 감. notice라는 이름의 파일을 여는게 아님.
 		}else {
 			model.addAttribute("msg", "아이디/비번을 확인해주세요.");
 			System.out.println("왜 오류남");
@@ -75,11 +82,38 @@ public class MemberController {
 		return "notice";
 	}
 	
-//	@GetMapping("/board/.do") //간편로그인
-//	public String kakaoLogin(HttpSession sess) {
-//		
-//		return "notice";
-//	}
+	@PostMapping("/member/joinBySns.do") //간편가입
+	public String joinBySns(MemberVO vo, Model model ) {
+
+		if (service.insert(vo) > 0) {
+			model.addAttribute("msg", "간편가입성공!");
+			model.addAttribute("url", "member/index.do");
+			log.info("model : "+ model);
+			return "/common/alert";
+		}else {
+			
+			model.addAttribute("msg", "간편가입 실패");
+			return "/common/alert";
+		}
+	}
+	
+	//간편로그인
+	@PostMapping("/member/loginBySns.do")
+	@ResponseBody
+		public String loginBySns(MemberVO param, Model model, HttpServletRequest req) {
+		
+//			MemberVO vo = service.loginBySns(param);
+//			if(vo != null) 
+//				model.addAttribute("result", vo.getPwd()); //responseBody 있으면 안써줘도됨.
+//				return "here";
+//			}
+//			else { 
+				return null;
+//			}	
+			
+	    }
+		
+		
 	
 	@PostMapping("/member/idCheck")
 	@ResponseBody
@@ -107,7 +141,7 @@ public class MemberController {
 		//out.flush();
 	}
 	
-//	//이메일에 인증번호 보내기
+//	//이메일에 인증번호 보내기 => 이메일 중복체크와 합쳤음.
 //	@GetMapping("/member/sendCertification.do")
 //	@ResponseBody
 //	public void Certification(CertificationVO param, HttpSession sess) {
@@ -126,6 +160,7 @@ public class MemberController {
 		if ( certi_num.equals(certi)) {
 		System.out.println("certi_num : "+ certi_num + "certi: "+certi);
 		model.addAttribute("result", "인증확인되었습니다.");
+		
 		}
 //		PrintWriter out = res.getWriter(); => httpservletresponse가 있으면 printwriter사용 가능.
 //		out.print(certi_num);

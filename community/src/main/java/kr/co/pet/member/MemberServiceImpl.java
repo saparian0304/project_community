@@ -1,5 +1,7 @@
 package kr.co.pet.member;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,6 +119,12 @@ public class MemberServiceImpl implements MemberService {
 		    return null;
 	    }
 	}
+	
+	@Override
+	public MemberVO loginBySns(MemberVO vo, HttpSession sess) {
+		return mapper.loginBySns(vo);
+	}
+
 
 
 //	@Override

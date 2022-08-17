@@ -8,13 +8,14 @@
 			SELECT last_insert_id()
 		</selectKey>
 		INSERT INTO board (
-			board_no, board_name, title, content, horse_hair, regdate, nickname
+			 board_name, title, content, horse_hair, regdate, tel, link, image
 		) VALUES (
-			#{board_no}, #{board_name}, #{title}, #{content}, #{horse_hair}, NOW(), #{nickname}}
+			 #{board_name}, #{title}, #{content}, #{horse_hair}, NOW(), #{tel}, #{link}, #{image}
 		)
 	</insert>
+	
 	<select id="nickname" parameterType="String" resultType="String">
-		select nickname from member right join board on member.member_no = board.member_no;
+		select nickname from member right join board on member.member_no = board.member_no
 	</select>
 	
 	<select id="count" parameterType="kr.co.pet.board.BoardVO" resultType="java.lang.Integer">

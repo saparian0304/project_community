@@ -8,11 +8,16 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
     <title>박물관 미션 투어 당첨자 발표 | 공지사항 | 고객센터 | 투어리스트인투어</title>
     <link rel="stylesheet" href="/pet/css/common.css">
     <link rel="stylesheet" href="/pet/css/reset.css"/>
     <link rel="stylesheet" href="/pet/css/contents.css"/>
+    <link rel="stylesheet" href="/pet/css/swiper.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<<<<<<< HEAD
+=======
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 	<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 	<!-- 실시간 알람 연습중 -->
@@ -49,6 +54,7 @@ $(function(){
 })
 
 </script>
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 <script>
 /* 삭제 할거임 */
 function del(no) {
@@ -247,25 +253,7 @@ function report(member_no, board_no, reply_no) {
 	form.submit();
 }
 
-//이미지 슬라이드
-$(document).ready(function(){
-  $('.slider').bxSlider({
-	  slideWidth: 500,
-	  slideheight: 500,
-	  autoHover: true,
-	  infiniteLoop: true,
-	  auto: true,
-	  responsive: true
-  });
-});
-
-
-
-
-
-
 </script>
-
 
 </head>
 <body>
@@ -350,30 +338,141 @@ $(document).ready(function(){
 									});    
 								</script>
 	                        </div>
+					        
+					        <div class="sContainer">
+					        
+					        
+					        
+					        
+					        
+					        
+					        
+	                        <%-- <div class="bbsListTbl">
+			                    <div class="rightArea"   style="border: 1px">
+			                        <ul class="wrap">
+		                       			<li>
+			                               	<div class="sns">
+			                               		<a id="like">
+													<img alt="좋아요" src="http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_theart_off2.png">
+			                               		</a>
+			                               		<a id="book">
+			                               			<img alt="북마크" src="	http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_tstar_off.png">
+			                               		</a>
+			                               	</div>
+			                            </li>
+		                       			<li>
+			                               	<div>
+			                               		<span>주소 : ${ldata.addr }</span>
+			                               	</div>
+			                            </li>
+		                       			<li>
+		                       				<div>
+			                               		<span>내용 : ${data.content }</span>
+			                               	</div>
+			                            </li>
+		                       			<li>
+		                       				<div>
+			                               		<span>전화번호 : {data.tel }</span>
+			                               	</div>
+			                            </li>
+		                       			<li>
+		                       				<div>
+			                               		<span>홈페이지 : ${data.link }</span>
+			                               	</div>
+			                            </li>
+	                            	</ul>
+			                    </div>
+			                </div> --%>
 	                        
-	                        <div class="rightArea">
+	                        
+	                        
+	                        
+	                        
+	                        
+	                        <%-- <div class="rightArea">
                        			<!--  스마트 에디터쓰면 p태그가 자동으로 들어감 수정해 주실 분 구함 -->
-                       			
-                       			<dl>
-	                               	<dt>주소 : ${ldata.addr } </dt>
-	                            </dl>
-                       			<dl>
-	                               	<dt>내용 : ${data.content } </dt>
-	                            </dl>
-                       			<dl>
-	                               	<dt>전화번호 : ${data.tel } </dt>
-	                            </dl>
-                       			<dl>
-	                               	<dt>홈페이지 : ${data.link } </dt>
-	                            </dl>
-	                        </div>
-							<div class="slider">
-							  <div style="width: 500"><img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" title="Funky roots"></div>
-							  <div style="width: 500"><img src="https://image.news1.kr/system/photos/2018/8/3/3239143/article.jpg/dims/optimize" title="The long and winding road"></div>
-							  <div style="width: 500"><img src="http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg" title="Happy trees"></div>
-							</div>
-
-							<%-- 첨부파일을 뷰에서 보일 필요가 없어서 주석처리해둠 - 박- 
+                       			<ul class="wrap">
+	                       			<li>
+		                               	<div class="sns">
+		                               		<a id="like">
+												<img alt="좋아요" src="http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_theart_off2.png">
+		                               		</a>
+		                               		<a id="book">
+		                               			<img alt="북마크" src="	http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_tstar_off.png">
+		                               		</a>
+		                               	</div>
+		                            </li>
+	                       			<li>
+		                               	<dl>
+		                               		<dt>주소</dt><dd>${ldata.addr }</dd>
+		                               	</dl>
+		                            </li>
+	                       			<li>
+		                               	<dl>
+		                               		<dt>내용</dt>
+		                               		<dd>${data.content }</dd>
+		                               	</dl>
+		                            </li>
+	                       			<li>
+		                               	<dl>
+		                               		<dt>전화번호</dt>
+		                               		<dd>{data.tel }</dd>
+		                               	</dl>
+		                            </li>
+	                       			<li>
+		                               	<dl>
+		                               		<dt>홈페이지</dt>
+		                               		<dd>${data.link }</dd>
+		                               	</dl>
+		                            </li>
+	                            </ul>
+	                        </div> --%>
+	                        
+	                        <div class="swiper mySwiper">
+						      <div class="swiper-wrapper">
+						        <div class="swiper-slide">
+						          <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+						        </div>
+						        <div class="swiper-slide">
+						          <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+						        </div>
+						        <div class="swiper-slide">
+						          <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+						        </div>
+						        <div class="swiper-slide">
+						          <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+						        </div>
+						      </div>
+						      <div class="swiper-button-next"></div>
+						      <div class="swiper-button-prev"></div>
+						      <div class="swiper-pagination"></div>
+						    </div>
+						
+						    <!-- Swiper JS -->
+						    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+						
+						    <!-- Initialize Swiper -->
+						    <script>
+						      var swiper = new Swiper(".mySwiper", {
+						    	loop: true,
+						    	spaceBetween: 30,
+						        effect: "fade",
+						        navigation: {
+						          nextEl: ".swiper-button-next",
+						          prevEl: ".swiper-button-prev",
+						        },
+						        pagination: {
+						          loop: true,
+						          el: ".swiper-pagination",
+						          clickable: true,
+						        },
+						      });
+						    </script>
+	                        
+	                        
+	                        
+	                        
+							<%-- 첨부파일을 뷰에서 보일 필요가 없어서 주석처리해둠  
 	                        <dl class="file" style="clear:both">
 	                            <dt>첨부파일 </dt>
 	                            <dd>
