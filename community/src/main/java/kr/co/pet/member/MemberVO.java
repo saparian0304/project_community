@@ -25,6 +25,7 @@ public class MemberVO {
 	private int gender;
 	private boolean online;
 	private String loginBySns;
+	private String snsCheck;
 	
 	// 마이페이지용
 	private int board_count;

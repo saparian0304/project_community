@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/pet/css/contents.css"/> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script type="text/javascript" src="/pet/js/location.js"></script>
+	
 	<style type="text/css">
       html,
       body {
@@ -100,7 +101,8 @@ h2 {
 								<li><a href="/pet/member/join.do">회원가입</a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="/pet/member/logout.do">로그아웃</a></li>
+							<h2>로그아웃</h2>
+    							<li><a href="/pet/member/logout.do">로그아웃</a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>

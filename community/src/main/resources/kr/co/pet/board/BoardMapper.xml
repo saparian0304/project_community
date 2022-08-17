@@ -18,17 +18,19 @@
 	</select>
 	
 	<select id="count" parameterType="kr.co.pet.board.BoardVO" resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM board
+		select count(*) from board
 		<where>
 			<if test="stype != null and stype != ''">
 				<if test="stype != 'all'">
-		 			${stype} LIKE '%${sword}%'
-				</if>
+					${stype} Like '%${sword}%'
+				</if> 
 				<if test="stype == 'all'">
-					title LIKE '%${sword}%' OR content LIKE '%${sword}%' 
+					title Like '%${sword}%' or content Like '%${sword}%'
 				</if>
 			</if>
 		</where>
+		order by regdate desc
+		Limit ${startIdx},${pageRow};	
 	</select>
 	
 	

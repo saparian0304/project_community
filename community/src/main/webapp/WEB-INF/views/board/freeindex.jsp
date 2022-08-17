@@ -62,7 +62,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li><a href="/pet/board/index.do">자유게시판</a>
+                            <li><a href="/pet/board/freeindex.do">자유게시판</a>
                                 <div class="gnb_depth gnb_depth_2_3">
                                     <ul class="submenu_list">
                                         <li><a href="#">프로그램 소개</a></li>
@@ -143,9 +143,9 @@
                         </c:if>
                         <c:forEach var="vo" items="${data.list }" varStatus="status">
                         <tr>
-                            <td>${data.totalCount-status.index-(boardVO.page-1)*boardVO.pageRow }<!-- 총개수 - 인덱스-(현재페이지번호-1)*페이지당개수 --></td>
+                            <td>${data.totalCount-status.index-(boardVO.page-1)*boardVO.pageRow }<!-- 총개수 - 인덱스-(현재페이지번호-1)*페이지당개수 --> </td>
                             <td class="txt_l">
-                                <a href="view.do?board_no=${vo.board_no }">${vo.title} ["댓글 수"]</a>${ vo.reply_count}
+                                <a href="view.do?board_no=${vo.board_no }">${vo.title} [${ vo.reply_count}]</a>
                             </td>
                             <td>
                             	${vo.viewcount }
@@ -163,13 +163,13 @@
                     <div class="pagenate clear">
                         <ul class='paging'>
                         <c:if test="${data.prev == true }">
-                        	<li><a href="index.do?page=${data.startPage-1 }&stype=${param.stype}&sword=${param.sword}"><</a>
+                        	<li><a href="freeindex.do?page=${data.startPage-1 }&stype=${param.stype}&sword=${param.sword}"><</a>
                         </c:if>
-                        <c:forEach var="p" begin="${data.startPage }" end="${data.endPage }">
-                            <li><a href='index.do?page=${p }&stype=${param.stype}&sword=${param.sword}' <c:if test="${boardVO.page == p }">class='current'</c:if>>${p }</a></li>
+                        <c:forEach var="p" begin="${data.startPage }" end="${data.endPage -1}">
+                            <li><a href='freeindex.do?page=${p }&stype=${param.stype}&sword=${param.sword}' <c:if test="${boardVO.page == p }">class='current'</c:if>>${p }</a></li>
                         </c:forEach>
                         <c:if test="${data.next == true }">
-                        	<li><a href="index.do?page=${data.endPage+1 }&stype=${param.stype}&sword=${param.sword}">></a>
+                        	<li><a href="freeindex.do?page=${data.endPage+1 }">></a></li>
                         </c:if>
                         </ul> 
                     </div>
