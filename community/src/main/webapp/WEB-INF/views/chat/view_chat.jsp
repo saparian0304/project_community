@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="/WEB-INF/views/includes/head.jsp" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>웹소켓 채팅</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
 <script type="text/javascript">
 	if (!${loginInfo.member_no == member_no or loginInfo.member_no == friend_no}) {
 		alert('로그인 부탁드립니다.')
@@ -79,6 +85,7 @@
 		$('#divChatData').scrollTop($('#divChatData')[0].scrollHeight);
 	})
 </script>
+</head>
 <body>
 	<div id='chatbox' style='width: 350px; height: 420px;  display: none;'>
 		<div id="divChatData" style='width: 100%; height: 420px; padding:10px; border:solid 1px #e1e3e9; overflow-y:auto;'>

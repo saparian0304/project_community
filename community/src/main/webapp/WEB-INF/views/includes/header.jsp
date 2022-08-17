@@ -2,7 +2,24 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="/WEB-INF/views/includes/head.jsp" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=yes">
+    <meta name="format-detection" content="telephone=no, address=no, email=no">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>help!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+	<link rel="stylesheet" href="/pet/css/common.css">
+    <link rel="stylesheet" href="/pet/css/reset.css"/>
+    <link rel="stylesheet" href="/pet/css/contents.css"/> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type="text/javascript" src="/pet/js/location.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+</head>
 <script>
 	function popup() {
 		var url = '/pet/chat/index.do';
@@ -14,7 +31,6 @@
 <script>
 /* 실시간 알람 */
  var socket = null;
-
 function connectWS(){
 	console.log("==============");
 	var ws = new SockJS("/pet/alram");
