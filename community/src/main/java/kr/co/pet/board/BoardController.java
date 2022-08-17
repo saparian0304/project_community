@@ -2,6 +2,7 @@ package kr.co.pet.board;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.pet.board.api.ApiService;
-import kr.co.pet.board.api.ApiVO;
 import kr.co.pet.file.FileService;
 import kr.co.pet.file.FileVO;
 import kr.co.pet.hos.HosService;
@@ -56,7 +56,6 @@ public class BoardController {
 	@GetMapping("/board/liveindex.do")
 	public String liveindex(Model model, BoardVO vo) {
 		model.addAttribute("data", service.index(vo));
-		model.addAttribute("fdata", fservice.find(vo.getBoard_no()));
 		return "board/liveindex";
 	}
 	
@@ -66,12 +65,12 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/view.do")
-	public String view(BoardVO vo, FileVO fvo, ApiVO avo,LocVO lvo, Model model) {
+	public String view(BoardVO vo, Model model) {
 		BoardVO data = service.view(vo.getBoard_no());
 		model.addAttribute("data", data);
-		FileVO fdata = fservice.view(fvo.getBoard_no());
+		List fdata = fservice.find(vo.getBoard_no());
 		model.addAttribute("fdata", fdata);
-		LocVO ldata = lservice.view(lvo.getBoard_no());
+		LocVO ldata = lservice.view(vo.getBoard_no());
 		model.addAttribute("ldata", ldata);
 
 		

@@ -2,38 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=yes">
-    <meta name="format-detection" content="telephone=no, address=no, email=no">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <title>공지사항 | 고객센터 | 투어리스트인투어</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
-	<link rel="stylesheet" href="/pet/css/common.css">
-    <link rel="stylesheet" href="/pet/css/reset.css"/>
-    <link rel="stylesheet" href="/pet/css/contents.css"/> 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script type="text/javascript" src="/pet/js/location.js"></script>
-	<style type="text/css">
-      html,
-      body {
-        position: relative;
-        height: 100%;
-      }
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
-      body {
-        background: #eee;
-        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        color: #000;
-        margin: 0;
-        padding: 0;
-      }
-
+<style type="text/css">
       .swiper {
         width: 100%;
         height: 100%;
@@ -67,18 +38,9 @@
         transition: opacity;
       }
       
-h2 {
-  display: block;
-  font-size: 1.5em;
-  margin-top: 0.83em;
-  margin-bottom: 0.83em;
-  margin-left: 0;
-  margin-right: 0;
-  font-weight: bold;
-}
-	</style>
-</head>
-<body>
+
+</style>
+
 	<ul class="skipnavi">
         <li><a href="#container">본문내용</a></li>
     </ul>
@@ -100,7 +62,8 @@ h2 {
 								<li><a href="/pet/member/join.do">회원가입</a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="/pet/member/logout.do">로그아웃</a></li>
+							<h2>로그아웃</h2>
+    							<li><a href="/pet/member/logout.do">로그아웃</a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>
@@ -132,7 +95,7 @@ h2 {
 										</div></li>
 									</ul>
 							</c:when>
-							<c:otherwise><!-- 여기만 if사용하기 -->
+							<c:otherwise>
 								<li><a
 									href="/pet/mypage/index.do?member_no=${loginInfo.member_no }">마이페이지</a>
 									<div class="gnb_depth gnb_depth_2_4">
@@ -176,10 +139,10 @@ h2 {
 					<span><strong>총 ${data.totalCount }개</strong> |
 						${boardVO.page }/${data.totalPage }페이지</span>
 				</p>
-				<div>
+				<!-- <div>
 					<select name="sido1" id="sido1"></select> <select name="gugun1"
 						id="gugun1"></select>
-				</div>
+				</div> -->
 
 				<div class="btnSet" style="text-align: right;">
 					<a class="btn" href="livewrite.do">글작성 </a>

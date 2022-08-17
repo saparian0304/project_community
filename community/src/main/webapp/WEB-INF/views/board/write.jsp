@@ -11,7 +11,7 @@
     <meta name="format-detection" content="telephone=no, address=no, email=no">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <title>게시판 등록</title>
+    <title>자유게시판 등록</title>
     <link rel="stylesheet" href="/pet/css/reset.css"/>
     <link rel="stylesheet" href="/pet/css/contents.css"/>
     <script src="/pet/smarteditor/js/HuskyEZCreator.js"></script>
@@ -27,7 +27,7 @@
 			editor = setEditor('content');
 		})
     </script>
-</head>
+    </head>
 <body>
     
         <div class="sub">

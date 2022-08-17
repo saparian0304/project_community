@@ -1,6 +1,10 @@
 package kr.co.pet.member;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -20,4 +24,8 @@ public interface MemberMapper {
 	MemberVO findPwd(MemberVO vo);
 	int updateTempPwd(MemberVO vo);
 	MemberVO loginBySns(MemberVO vo);
+	MemberVO snsCheck(HashMap <String, Object> userInfo); //괄호안에 parameterType, 메서드앞이 resultType
+	int insertSns(HashMap <String, Object> userInfo);
+	
+
 }

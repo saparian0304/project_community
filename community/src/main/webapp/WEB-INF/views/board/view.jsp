@@ -3,59 +3,9 @@
 <%@ page import="java.net.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%-- <%@ include file= "/WEB-INF/views/includes/header.jsp"%> --%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
-    <title>박물관 미션 투어 당첨자 발표 | 공지사항 | 고객센터 | 투어리스트인투어</title>
-    <link rel="stylesheet" href="/pet/css/common.css">
-    <link rel="stylesheet" href="/pet/css/reset.css"/>
-    <link rel="stylesheet" href="/pet/css/contents.css"/>
-    <link rel="stylesheet" href="/pet/css/swiper.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<<<<<<< HEAD
-=======
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-	<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-	<!-- 실시간 알람 연습중 -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
-	<!-- 실시간 알람 연습중 -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
 <script>
- var socket = null;
-function connectWS(){
-	console.log("========================");
-	var ws =  new SockJS("/pet/reply");
-	socket = ws;
-	
-	ws.onopen = function(){
-		console.log("Info : connection opened.");
-	};
-	
-	ws.onmessage = function(event){
-		console.log("ReceiveMessage: " + event.data + "\n");
-	};
-	
-	ws.onclose = function(event){
-		console.log("Info : connection closed.");
-		//setTimeout(function(){connectWS();}, 1000);
-	};
-	
-	ws.onerror = function(err){
-		console.log("Error : " + err);
-	};
-}
 
-$(function(){
-	connectWS();
-})
-
-</script>
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
-<script>
 /* 삭제 할거임 */
 function del(no) {
 	if(confirm('삭제하시겠습니까?')){
@@ -85,6 +35,7 @@ function getComment(page){
  
 $(function(){
 	getComment(1);
+	
 });
 
 
@@ -106,12 +57,9 @@ function goSave(){
 					alert('정상적으로 댓글이 등록되었습니다.');
 					$("#content").val('');
 					getComment(1);
-					/* 실시간알림 연습중 */
-					if(socket){
-						var soMsg = "reply,"+${loginInfo.member_no}+","+boardWriter+","+${data.board_no};
-						console.log("=========msgmsg=======" + soMsg);
-						//socket.send(soMsg);
-					}
+				}
+				if(socket){
+				 socket.send("reply,"+${loginInfo.member_no}+","+boardWriter+","+${data.board_no}+","+'${data.title}');
 				}
 			}
 		});
@@ -196,12 +144,12 @@ function replyForm(gno){
 				page: 1				
 			},			
 			success : function(res) {
-				$("#rbox"+gno).html(res);
+				$(".rbox"+gno).html(res);
 				
 		}
 	});
-		$("#rbox"+gno).toggle();
-		
+	$(".replyshow").hide();
+	$(".rbox"+gno).toggle();	
 }   
 
 // 댓글삭제
@@ -254,9 +202,7 @@ function report(member_no, board_no, reply_no) {
 }
 
 </script>
-
-</head>
-<body>
+    
     <ul class="skipnavi">
         <li><a href="#container">본문내용</a></li>
     </ul>
@@ -269,16 +215,8 @@ function report(member_no, board_no, reply_no) {
             <div class="location_area customer">
                 <div class="box_inner">
                     <h2 class="tit_page">
-                        <span>TOURIST</span>
-                        <span class="in">in</span>
-                        <!-- <span class="in">IN</span> -->
-                        <span>TOUR</span>
+                        <span>반려동물 커뮤니티</span>
                     </h2>
-                    <p class="location">
-                        고객센터
-                        <span class="path">/</span> 
-                        공지사항
-                    </p>
                 </div>
             </div> 
             <div class="sub">
@@ -341,48 +279,32 @@ function report(member_no, board_no, reply_no) {
 					        
 					        <div class="sContainer">
 					        
-					        
-					        
-					        
-					        
-					        
-					        
-	                        <%-- <div class="bbsListTbl">
-			                    <div class="rightArea"   style="border: 1px">
+	                        <div>
+			                    <div class="rightArea" >
 			                        <ul class="wrap">
-		                       			<li>
-			                               	<div class="sns">
+		                       			<li style="text-align: right">
 			                               		<a id="like">
 													<img alt="좋아요" src="http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_theart_off2.png">
 			                               		</a>
 			                               		<a id="book">
-			                               			<img alt="북마크" src="	http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_tstar_off.png">
+			                               			<img alt="북마크" src="http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_tstar_off.png">
 			                               		</a>
-			                               	</div>
 			                            </li>
 		                       			<li>
-			                               	<div>
 			                               		<span>주소 : ${ldata.addr }</span>
-			                               	</div>
 			                            </li>
 		                       			<li>
-		                       				<div>
 			                               		<span>내용 : ${data.content }</span>
-			                               	</div>
 			                            </li>
 		                       			<li>
-		                       				<div>
-			                               		<span>전화번호 : {data.tel }</span>
-			                               	</div>
+			                               		<span>전화번호 : ${data.tel }</span>
 			                            </li>
 		                       			<li>
-		                       				<div>
 			                               		<span>홈페이지 : ${data.link }</span>
-			                               	</div>
 			                            </li>
 	                            	</ul>
 			                    </div>
-			                </div> --%>
+			                </div>
 	                        
 	                        
 	                        
@@ -430,18 +352,19 @@ function report(member_no, board_no, reply_no) {
 	                        
 	                        <div class="swiper mySwiper">
 						      <div class="swiper-wrapper">
+						        <c:if test="${!empty fdata }">
+						        <c:forEach items="${fdata }" var="list">
 						        <div class="swiper-slide">
-						          <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+						          <img src="${list.filename_org }" onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'/>
 						        </div>
+						        </c:forEach>
+						        </c:if>
+						        <c:if test="${empty fdata }">
 						        <div class="swiper-slide">
-						          <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+						          <img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"/>
 						        </div>
-						        <div class="swiper-slide">
-						          <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-						        </div>
-						        <div class="swiper-slide">
-						          <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-						        </div>
+						        </c:if>
+						        
 						      </div>
 						      <div class="swiper-button-next"></div>
 						      <div class="swiper-button-prev"></div>
@@ -465,7 +388,7 @@ function report(member_no, board_no, reply_no) {
 						          loop: true,
 						          el: ".swiper-pagination",
 						          clickable: true,
-						        },
+						        }
 						      });
 						    </script>
 	                        
@@ -524,34 +447,7 @@ function report(member_no, board_no, reply_no) {
 </div>
     
 
-    <!-- 퀵메뉴 -->
-    <h2 class="hdd">빠른 링크 : 전화문의, 카카오톡, 오시는 길, 꼭대기로 가기</h2>
-    <div class="quick_area">
-        <ul class="quick_list">
-            <li>
-                <a href="tel:010-1234-5678">
-                    <h3>전화문의</h3>
-                    <p>010-1234-5678</p>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <h3>카카오톡<em>상담</em></h3>
-                    <p>1대1상담</p>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <h3 class="to_contact">오시는 길</h3>   
-                </a>
-            </li>
-        </ul>
-        <p class="to_top">
-            <a href="#layout0" class="s_point">TOP</a>
-        </p>
-    </div>
+    
 
 </body>
 </html>

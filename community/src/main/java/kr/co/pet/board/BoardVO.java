@@ -48,5 +48,7 @@ public class BoardVO {
 		this.pageRow = pageRow;
 	}
 	
+	private String filename_org;
 	private String filename_real;
+	
 }

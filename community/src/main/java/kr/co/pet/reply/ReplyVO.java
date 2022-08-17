@@ -20,6 +20,8 @@ public class ReplyVO extends Criteria {
 	private int gno;
 	private int ono;
 	
+	
+	private int reply_count;
 	private String member_nickname;	
 	
 	
