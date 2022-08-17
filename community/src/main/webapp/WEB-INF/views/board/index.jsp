@@ -21,6 +21,7 @@
 	<style type="text/css">
       html,
       body {
+      	display: block;
         position: relative;
         height: 100%;
       }
@@ -143,7 +144,6 @@ h2 {
 									</div></li>
 							</c:otherwise>
 						</c:choose>
-						</ul>
 					</nav>
 					<p class="closePop">
 						<a href="#">닫기</a>
@@ -176,10 +176,10 @@ h2 {
 					<span><strong>총 ${data.totalCount }개</strong> |
 						${boardVO.page }/${data.totalPage }페이지</span>
 				</p>
-				<div>
+				<!-- <div>
 					<select name="sido1" id="sido1"></select> <select name="gugun1"
 						id="gugun1"></select>
-				</div>
+				</div> -->
 
 				<div class="btnSet" style="text-align: right;">
 					<a class="btn" href="livewrite.do">글작성 </a>

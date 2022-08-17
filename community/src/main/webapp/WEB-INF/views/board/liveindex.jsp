@@ -18,19 +18,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/pet/js/function.js"></script>
     <script type="text/javascript" src="/pet/js/location.js"></script>
-	<script>
-		$("#columns").click(function(){
-			alert("되나요?")
-		});
-	</script>
-	
-	
 	</head>
 
 <!--이미지 4줄로 나오게 함-->
 <style>
 	#columns{
-        column-width:300px;
+        column-width:200px;
         column-gap: 15px;
       }
       #columns figure{
@@ -39,6 +32,9 @@
         margin:0;
         margin-bottom: 15px;
         padding:10px;
+        height:300px;
+        width:100%;
+        box-sizing: border-box;
         display: inline-block;
       }
       #columns figure img{
@@ -49,6 +45,7 @@
         padding:10px;
         margin-top:11px;
       }
+      
 </style>
 <body>
 	<ul class="skipnavi">
@@ -139,7 +136,7 @@
 		</div>
 
 		<!-- 공지사항 목록영역 -->
-		<div class="bodytext_area box_inner" style="width: 70%">
+		<div class="bodytext_area box_inner">
 			<form action="#" method="post" class="minisrch_form">
 				<fieldset>
 					<legend> 검색 </legend>
@@ -152,30 +149,34 @@
 				<span><strong>총 ${data.totalCount }개</strong> |
 					${boardVO.page }/${data.totalPage }페이지</span>
 			</p>
-			<div>
-				<select name="sido1" id="sido1"></select> <select name="gugun1"
-					id="gugun1"></select>
+			
+		
+				<div id="columns">
+				<c:forEach var="vo" items="${data.list }" varStatus="status">
+					<figure id="figure"
+						onclick="location.href='view.do?board_no=${vo.board_no }';">
+						<c:if test="${!empty vo.filename_org }">
+							<img src="${vo.filename_org}">
+						</c:if>
+						<c:if test="${empty vo.filename_org}">
+							<img
+								src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
+						</c:if>
+						<div class="leftArea">
+						<div>${vo.title }</div>
+						<div>${vo.board_no }</div>
+						</div>
+						<div class="rightArea" style="text-align: right">
+						<i class="fa-solid fa-list"></i>
+						</div>
+					</figure>
+				</c:forEach>
 			</div>
-
+			
 			<div class="btnSet" style="text-align: right;">
 				<a class="btn" href="livewrite.do">글작성 </a>
 			</div>
 
-			<div id="columns">
-				<c:forEach var="vo" items="${data.list }" varStatus="status">
-					<figure id="figure"
-						onclick="location.href='view.do?board_no=${vo.board_no }';">
-						<c:if test="${!empty vo.filename_real }">
-							<img src="${vo.filename_real }">
-						</c:if>
-						<c:if test="${empty vo.filename_real }">
-							<img
-								src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
-						</c:if>
-						<p>${vo.title }</p>
-					</figure>
-				</c:forEach>
-			</div>
 		</div>
 		<!-- /container -->
 	</div>

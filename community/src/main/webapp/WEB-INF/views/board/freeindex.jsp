@@ -62,7 +62,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li><a href="/pet/board/index.do">자유게시판</a>
+                            <li><a href="/pet/board/freeindex.do">자유게시판</a>
                                 <div class="gnb_depth gnb_depth_2_3">
                                     <ul class="submenu_list">
                                         <li><a href="#">프로그램 소개</a></li>
@@ -115,10 +115,10 @@
                     </fieldset>
                 </form>
                     <p><span><strong>총 ${data.totalCount }개</strong>  |  ${boardVO.page }/${data.totalPage }페이지</span></p>
-                <div>
+               <!--  <div>
                 	<select name="sido1" id="sido1"></select>
 					<select name="gugun1" id="gugun1"></select>
-                </div>
+                </div> -->
                 
                 <div class="btnSet"  style="text-align:right;">
                		<a class="btn" href="livewrite.do">글작성 </a>
@@ -159,7 +159,6 @@
 						</c:forEach>
                     </tbody>
                 </table>
-
                     <div class="pagenate clear">
                         <ul class='paging'>
                         <c:if test="${data.prev == true }">
