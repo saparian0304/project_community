@@ -1,116 +1,90 @@
 package kr.co.pet.board.api;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Date;
 
-import javax.net.ssl.HttpsURLConnection;
+import javax.servlet.http.HttpServletRequest;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-
+import kr.co.pet.board.BoardService;
+import kr.co.pet.board.BoardVO;
+import kr.co.pet.file.FileService;
+import kr.co.pet.file.FileVO;
+import kr.co.pet.hos.HosService;
+import kr.co.pet.loc.LocService;
+import kr.co.pet.loc.LocVO;
+import kr.co.pet.reply.ReplyService;
+@Controller
 public class ApiController {
 	
-	public static void main(String[] args) throws IOException, ParseException {
-		String serviceKey = "mxwsziEgD6Ebt98RV0iyVKhOPQ28stVgXeB2UCacKa1H6hwmv%2BHo3Gev9OJ%2FNLV2F2vQdHejsYuw2phxF6Ed3Q%3D%3D";
-		//url을 만들기 위한 StringBuilder
-		StringBuilder urlBuilder = new StringBuilder("https://www.pettravel.kr/api/listArea.do");
-		//오픈 API요청규격에 맞는 파라미터 생성
-		urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + serviceKey);
-		urlBuilder.append("&" + URLEncoder.encode("returnType", "UTF-8") + "=" + URLEncoder.encode("JSON", "UTF-8"));
-		urlBuilder.append("&" + URLEncoder.encode("page", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));// 페이지 번호
-		urlBuilder.append("&" + URLEncoder.encode("pageBlock", "UTF-8") + "=" + URLEncoder.encode("10", "UTF-8"));// 한페이지 결과 수
-		urlBuilder.append("&" + URLEncoder.encode("areaCode", "UTF-8") + "=" + URLEncoder.encode("AC01", "UTF-8"));// 지역번호
+	public void apiTest2() throws IOException{
+		for(int num = 0; num < 100; num++) {
+		URL url1 = new URL("https://www.pettravel.kr/api/detailSeqArea.do?areaCode=AC01&contentNum=" + num);
+//		URL url1 = new URL("https://www.pettravel.kr/api/listArea.do?areaCode=AC01&page=1&pageBlock=100");
+		BufferedReader bf;
 		
-		//URL 객체 생성
-		URL url = new URL(urlBuilder.toString());
-		System.out.println(urlBuilder.toString());
-		//URL과 통신하기 위한 Connection객체 생성
-		HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+		bf = new BufferedReader(new InputStreamReader(url1.openStream(), "UTF-8"));
 		
-		//통신을 위한 메소드 set
-		conn.setRequestMethod("GET");
+		String result1 = bf.readLine();
+		//System.out.println("현규"+result1);
 		
-		//통신을 위한 content-type SET
-		conn.setRequestProperty("Content-type", "application/json");
+		JsonParser jsonParser = new JsonParser();
+		JsonArray jsonObject = (JsonArray)jsonParser.parse(result1);
 		
-		//통신 응답 코드 확인
-		System.out.println("Response code : " + conn.getResponseCode());
+		JsonArray jsonArr1 = new JsonArray();
 		
-		//전달받은 데이터를 BufferedReader객체로 저장
-		BufferedReader rd;
-		if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		} else {
-			rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-		}
+		JsonObject rcp = (JsonObject)jsonObject.get(0);
+		try {
+			
 		
-		//저장된 데이터를 라인별로 읽어 StringBuilder 객체로 저장
-		StringBuilder sb = new StringBuilder();
-		String line;
-		while ((line = rd.readLine()) != null) {
-			sb.append(line);
-		}
+		JsonObject row1 = (JsonObject)rcp.get("resultList");
+//		System.out.println("------" + num +"번 가게------");
+//			System.out.println("지역명 : " +  row1.get("areaName").getAsString());
+//			System.out.println("부분 : " +  row1.get("partName").getAsString());
+//			System.out.println("이름 : " +  row1.get("title").getAsString());
+//			System.out.println("주소 : " +  row1.get("address").getAsString());
+//			System.out.println("위도 : " +  row1.get("latitude").getAsString());
+//			System.out.println("경도 : " +  row1.get("longitude").getAsString());
+//			System.out.println("전화번호 : " +  row1.get("tel").getAsString());
+//			System.out.println("홈페이지 : " +  row1.get("homePage").getAsString());
+//			System.out.println("내용 : " +  row1.get("content").getAsString());
+//			System.out.println("주차 : " +  row1.get("parkingLog").getAsString());
+//			System.out.println("응급 : " +  row1.get("emergencyResponse").getAsString());
+//			System.out.println("이미지 : " +  row1.get("image").getAsJsonArray());
+			
+			jsonArr1.add(row1);
+			
+			
+			} catch (Exception e) {}
+			
+			ArrayList<JsonObject> arrayJson = new ArrayList<JsonObject>();
 		
-		//객체 해제
-		rd.close();
-		conn.disconnect();
-
-		//전달받은 데이터 확인
-		System.out.println("전달받은 데이터 : " +sb.toString());
-		
-		
-		
-		// 문자열 형태의 JSON을 파싱하기 위한 JSONParser 객체 생성
-		JSONParser parser = new JSONParser();
-		
-		//문자열을 JSON 형태로 JSONObject 객체에 저장
-		JSONObject obj = (JSONObject)parser.parse(sb.toString());
-		
-		JsonObject obj1 = (JsonObject) obj.get("title");
-		System.out.println(obj1);
-		
-		//필요한 리스트 데이터 부분만 가져와 JSONArray로 저장
-		JSONArray dataArr = (JSONArray)obj.get("data");
-		System.out.println(dataArr);
-		
+			for(int k = 0; k < jsonArr1.size(); k++) {
+				JsonObject tempJson = jsonArr1.getAsJsonObject();
+				arrayJson.add(tempJson);
+			}
+			
+			JsonObject[] jsons = new JsonObject[arrayJson.size()];
+			arrayJson.toArray(jsons);
+			
+			System.out.println(jsons);
+		}		
 	}
-		
-		
 }
-
-////model에 담아준다
-////JSP에서 data를 참조할 수 있고, jstl의 c:if태그를 사용해 리스트의 각 요소들을 참조하여 사용할 수 있게 된다. 
-//Model model;
-//model.addAttribute("data", dataArr);
-
-
-
-
-
-
-	//json에서 map
-//	public Map<String , Object > getMapFromJsonObject(JSONObject Obj){
-//		Map<String , Object >map = null;
-//		try {
-//			map = new ObjectMapper().readValue(Obj.toJSONString(),Map.class);
-//			System.out.println("map data ===> " + map );
-//			
-//		}catch(JsonParseException e) {
-//			
-//		}catch(JsonMappingException e) {
-//			
-//		}catch(IOException e) {
-//			
-//		}
-//		return map;
-//		
-//	}
 

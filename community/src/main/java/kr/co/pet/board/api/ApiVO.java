@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ApiVO {
+	private int board_no;
 	private int insert_no;
 	private String areaName;
 	private String partName;
@@ -12,4 +13,5 @@ public class ApiVO {
 	private String latitude;
 	private String longitude;
 	private String tel;
+	private String nickname;
 }

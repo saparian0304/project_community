@@ -1,11 +1,9 @@
 package kr.co.pet.file;
 
 import java.util.List;
+import java.util.Map;
 
 public interface FileService {
-//	//목록
-//	Map index(FileVO vo);
-//	
 	//등록처리?
 	boolean insert(FileVO vo);
 	
@@ -17,6 +15,5 @@ public interface FileService {
 	
 	//수정처리
 	boolean update(FileVO vo);
-	
 	
 }

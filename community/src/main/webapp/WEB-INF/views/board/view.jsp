@@ -3,53 +3,9 @@
 <%@ page import="java.net.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%-- <%@ include file= "/WEB-INF/views/includes/header.jsp"%> --%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>박물관 미션 투어 당첨자 발표 | 공지사항 | 고객센터 | 투어리스트인투어</title>
-    <link rel="stylesheet" href="/pet/css/common.css">
-    <link rel="stylesheet" href="/pet/css/reset.css"/>
-    <link rel="stylesheet" href="/pet/css/contents.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-	<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-	<!-- 실시간 알람 연습중 -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
-	<!-- 실시간 알람 연습중 -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+<%@ include file="/WEB-INF/views/includes/header.jsp" %>
 <script>
- var socket = null;
-function connectWS(){
-	console.log("========================");
-	var ws =  new SockJS("/pet/reply");
-	socket = ws;
-	
-	ws.onopen = function(){
-		console.log("Info : connection opened.");
-	};
-	
-	ws.onmessage = function(event){
-		console.log("ReceiveMessage: " + event.data + "\n");
-	};
-	
-	ws.onclose = function(event){
-		console.log("Info : connection closed.");
-		//setTimeout(function(){connectWS();}, 1000);
-	};
-	
-	ws.onerror = function(err){
-		console.log("Error : " + err);
-	};
-}
 
-$(function(){
-	connectWS();
-})
-
-</script>
-<script>
 /* 삭제 할거임 */
 function del(no) {
 	if(confirm('삭제하시겠습니까?')){
@@ -79,6 +35,7 @@ function getComment(page){
  
 $(function(){
 	getComment(1);
+	
 });
 
 
@@ -100,12 +57,9 @@ function goSave(){
 					alert('정상적으로 댓글이 등록되었습니다.');
 					$("#content").val('');
 					getComment(1);
-					/* 실시간알림 연습중 */
-					if(socket){
-						var soMsg = "reply,"+${loginInfo.member_no}+","+boardWriter+","+${data.board_no};
-						console.log("=========msgmsg=======" + soMsg);
-						//socket.send(soMsg);
-					}
+				}
+				if(socket){
+				 socket.send("reply,"+${loginInfo.member_no}+","+boardWriter+","+${data.board_no}+","+'${data.title}');
 				}
 			}
 		});
@@ -190,12 +144,12 @@ function replyForm(gno){
 				page: 1				
 			},			
 			success : function(res) {
-				$("#rbox"+gno).html(res);
+				$(".rbox"+gno).html(res);
 				
 		}
 	});
-		$("#rbox"+gno).toggle();
-		
+	$(".replyshow").hide();
+	$(".rbox"+gno).toggle();	
 }   
 
 // 댓글삭제
@@ -247,28 +201,8 @@ function report(member_no, board_no, reply_no) {
 	form.submit();
 }
 
-//이미지 슬라이드
-$(document).ready(function(){
-  $('.slider').bxSlider({
-	  slideWidth: 500,
-	  slideheight: 500,
-	  autoHover: true,
-	  infiniteLoop: true,
-	  auto: true,
-	  responsive: true
-  });
-});
-
-
-
-
-
-
 </script>
-
-
-</head>
-<body>
+    
     <ul class="skipnavi">
         <li><a href="#container">본문내용</a></li>
     </ul>
@@ -281,16 +215,8 @@ $(document).ready(function(){
             <div class="location_area customer">
                 <div class="box_inner">
                     <h2 class="tit_page">
-                        <span>TOURIST</span>
-                        <span class="in">in</span>
-                        <!-- <span class="in">IN</span> -->
-                        <span>TOUR</span>
+                        <span>반려동물 커뮤니티</span>
                     </h2>
-                    <p class="location">
-                        고객센터
-                        <span class="path">/</span> 
-                        공지사항
-                    </p>
                 </div>
             </div> 
             <div class="sub">
@@ -350,30 +276,126 @@ $(document).ready(function(){
 									});    
 								</script>
 	                        </div>
+					        
+					        <div class="sContainer">
+					        
+	                        <div>
+			                    <div class="rightArea" >
+			                        <ul class="wrap">
+		                       			<li style="text-align: right">
+			                               		<a id="like">
+													<img alt="좋아요" src="http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_theart_off2.png">
+			                               		</a>
+			                               		<a id="book">
+			                               			<img alt="북마크" src="http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_tstar_off.png">
+			                               		</a>
+			                            </li>
+		                       			<li>
+			                               		<span>주소 : ${ldata.addr }</span>
+			                            </li>
+		                       			<li>
+			                               		<span>내용 : ${data.content }</span>
+			                            </li>
+		                       			<li>
+			                               		<span>전화번호 : ${data.tel }</span>
+			                            </li>
+		                       			<li>
+			                               		<span>홈페이지 : ${data.link }</span>
+			                            </li>
+	                            	</ul>
+			                    </div>
+			                </div>
 	                        
-	                        <div class="rightArea">
+	                        
+	                        
+	                        
+	                        
+	                        
+	                        <%-- <div class="rightArea">
                        			<!--  스마트 에디터쓰면 p태그가 자동으로 들어감 수정해 주실 분 구함 -->
-                       			
-                       			<dl>
-	                               	<dt>주소 : ${ldata.addr } </dt>
-	                            </dl>
-                       			<dl>
-	                               	<dt>내용 : ${data.content } </dt>
-	                            </dl>
-                       			<dl>
-	                               	<dt>전화번호 : ${data.tel } </dt>
-	                            </dl>
-                       			<dl>
-	                               	<dt>홈페이지 : ${data.link } </dt>
-	                            </dl>
-	                        </div>
-							<div class="slider">
-							  <div style="width: 500"><img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/cocker-spaniel-2785074__480.jpg" title="Funky roots"></div>
-							  <div style="width: 500"><img src="https://image.news1.kr/system/photos/2018/8/3/3239143/article.jpg/dims/optimize" title="The long and winding road"></div>
-							  <div style="width: 500"><img src="http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg" title="Happy trees"></div>
-							</div>
-
-							<%-- 첨부파일을 뷰에서 보일 필요가 없어서 주석처리해둠 - 박- 
+                       			<ul class="wrap">
+	                       			<li>
+		                               	<div class="sns">
+		                               		<a id="like">
+												<img alt="좋아요" src="http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_theart_off2.png">
+		                               		</a>
+		                               		<a id="book">
+		                               			<img alt="북마크" src="	http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_tstar_off.png">
+		                               		</a>
+		                               	</div>
+		                            </li>
+	                       			<li>
+		                               	<dl>
+		                               		<dt>주소</dt><dd>${ldata.addr }</dd>
+		                               	</dl>
+		                            </li>
+	                       			<li>
+		                               	<dl>
+		                               		<dt>내용</dt>
+		                               		<dd>${data.content }</dd>
+		                               	</dl>
+		                            </li>
+	                       			<li>
+		                               	<dl>
+		                               		<dt>전화번호</dt>
+		                               		<dd>{data.tel }</dd>
+		                               	</dl>
+		                            </li>
+	                       			<li>
+		                               	<dl>
+		                               		<dt>홈페이지</dt>
+		                               		<dd>${data.link }</dd>
+		                               	</dl>
+		                            </li>
+	                            </ul>
+	                        </div> --%>
+	                        
+	                        <div class="swiper mySwiper">
+						      <div class="swiper-wrapper">
+						        <c:if test="${!empty fdata }">
+						        <c:forEach items="${fdata }" var="list">
+						        <div class="swiper-slide">
+						          <img src="${list.filename_org }" onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'/>
+						        </div>
+						        </c:forEach>
+						        </c:if>
+						        <c:if test="${empty fdata }">
+						        <div class="swiper-slide">
+						          <img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"/>
+						        </div>
+						        </c:if>
+						        
+						      </div>
+						      <div class="swiper-button-next"></div>
+						      <div class="swiper-button-prev"></div>
+						      <div class="swiper-pagination"></div>
+						    </div>
+						
+						    <!-- Swiper JS -->
+						    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+						
+						    <!-- Initialize Swiper -->
+						    <script>
+						      var swiper = new Swiper(".mySwiper", {
+						    	loop: true,
+						    	spaceBetween: 30,
+						        effect: "fade",
+						        navigation: {
+						          nextEl: ".swiper-button-next",
+						          prevEl: ".swiper-button-prev",
+						        },
+						        pagination: {
+						          loop: true,
+						          el: ".swiper-pagination",
+						          clickable: true,
+						        }
+						      });
+						    </script>
+	                        
+	                        
+	                        
+	                        
+							<%-- 첨부파일을 뷰에서 보일 필요가 없어서 주석처리해둠  
 	                        <dl class="file" style="clear:both">
 	                            <dt>첨부파일 </dt>
 	                            <dd>
@@ -425,34 +447,7 @@ $(document).ready(function(){
 </div>
     
 
-    <!-- 퀵메뉴 -->
-    <h2 class="hdd">빠른 링크 : 전화문의, 카카오톡, 오시는 길, 꼭대기로 가기</h2>
-    <div class="quick_area">
-        <ul class="quick_list">
-            <li>
-                <a href="tel:010-1234-5678">
-                    <h3>전화문의</h3>
-                    <p>010-1234-5678</p>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <h3>카카오톡<em>상담</em></h3>
-                    <p>1대1상담</p>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <h3 class="to_contact">오시는 길</h3>   
-                </a>
-            </li>
-        </ul>
-        <p class="to_top">
-            <a href="#layout0" class="s_point">TOP</a>
-        </p>
-    </div>
+    
 
 </body>
 </html>

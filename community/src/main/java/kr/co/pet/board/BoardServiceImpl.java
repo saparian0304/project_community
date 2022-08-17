@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.pet.file.FileMapper;
+import kr.co.pet.file.FileVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -29,7 +30,6 @@ public class BoardServiceImpl implements BoardService{
 		int startIdx = (vo.getPage()-1) * vo.getPageRow();
 		vo.setStartIdx(startIdx);
 		List<BoardVO> list = mapper.list(vo);
-		
 		// 페이징처리
 		int endPage = (int)(Math.ceil(vo.getPage()/10.0)*10);
 		int startPage = endPage-9;
@@ -53,7 +53,6 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public boolean insert(BoardVO vo) {
-	
 		return mapper.insertSelectKey(vo) > 0 ? true : false;
 	}
 
