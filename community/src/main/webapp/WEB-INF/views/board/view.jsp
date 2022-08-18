@@ -73,10 +73,10 @@ function replyEdit(reply_no){
 		url : "/pet/reply/list.do",
 		data : {
 			board_no : ${data.board_no},
-			reply_no : reply_no				
+			reply_no : reply_no			
 		},			
 		success : function() {
-			$("#redit"+reply_no).html('<tr><td colspan="5"><textarea name="content" id="recon" style="width:800px; height:70px;" placeholder=""></textarea></td><td><div class="btnSet"><a href="javascript:replyEditgo(' + reply_no + ');"  style="  text-align: center;" >수정</a></div></td></tr>');				
+			$("#redit"+reply_no).html('<tr><td colspan="5"><textarea name="content" id="recon" style="width:800px; height:70px;" placeholder=""></textarea></td><td><div class="btnSet"><a href="javascript:replyEditgo(' + reply_no + ');"  style="  text-align: center;" >&nbsp;&nbsp;수정</a></div></td></tr>');				
 		}
 	});
 	$("#redit"+reply_no).toggle();

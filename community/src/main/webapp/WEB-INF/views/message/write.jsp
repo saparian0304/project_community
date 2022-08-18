@@ -50,7 +50,7 @@
     	
     </script>
 <body>
-<div style="width:800px;margin:40px auto;">
+<div style="width:500px;margin:40px auto;">
 	<form method="post" name="frm" id="frm" action="insert.do" >
 		<table>	
 			<tr>
