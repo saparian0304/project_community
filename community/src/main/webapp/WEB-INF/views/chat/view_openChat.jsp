@@ -25,7 +25,7 @@
 				this._initSocket();
 			},
 			kick : function(nickname) {
-				this._sendMessage('${channel_no}', 'CMD_MSG_kick', nickname);
+				this._sendMessage('${channel_no}', 'CMD_MSG_KICK', nickname);
 				$('#message').val('');
 			},
 			sendChat : function() {
@@ -50,7 +50,8 @@
 					$('#divChatData').append('<div>' + msgData.content + '</div>');
 					$('#divChatData').scrollTop($('#divChatData')[0].scrollHeight);
 				}
-				else if (msgData.cmd == 'CMD_KICK'){
+				else if (msgData.cmd == 'CMD_MSG_KICK'){
+					alert('방장에 의해 강제 퇴장되었습니다.');
 					winClose();
 				}
 			},

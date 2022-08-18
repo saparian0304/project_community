@@ -66,10 +66,15 @@
 			SELECT *,
 				(SELECT board_no  FROM board WHERE board_no=rp.board_no) AS list_no,
 				(SELECT nickname FROM member WHERE member_no=rp.member_no) AS member_nickname,
-				(SELECT COUNT(*) FROM reply re WHERE re.gno = rp.gno AND ono != 0 AND isdelete = 0) AS reply_count		
-				FROM reply rp					
+				(SELECT COUNT(*) FROM reply re WHERE re.gno = rp.gno AND ono != 0 AND isdelete = 0) AS reply_count,
+				(SELECT COUNT(*) FROM recommend rec 
+				WHERE board_no = #{board_no} AND rec.reply_no = rp.reply_no) AS recommendCount
+			<if test="member_no != null">
+			   ,(SELECT count(*) FROM recommend reco
+				WHERE member_no = #{member_no} AND board_no = #{board_no} AND reco.reply_no = rp.reply_no) AS recommended		
+			</if>
+			FROM reply rp					
 			WHERE board_no = #{board_no} AND ono = 0
-			
 			ORDER BY regdate ASC
 			LIMIT ${startIdx}, ${pageRow}		
 	</select>

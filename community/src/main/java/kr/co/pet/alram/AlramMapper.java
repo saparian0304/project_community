@@ -7,4 +7,6 @@ public interface AlramMapper {
 
 	String findNick(int member_no);
 	
+	int insert(AlramVO vo);
+	
 }
