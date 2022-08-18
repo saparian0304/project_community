@@ -1,7 +1,6 @@
 package kr.co.pet.chat;
 
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import kr.co.pet.member.MemberVO;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,18 +22,12 @@ public class ChatMapperTests {
 	private ChatService service;
 	
 	@Test
-	public void Test() {
-		MemberVO vo = new MemberVO();
-		vo.setMember_no(1);
-//		List<LinkedHashMap> list = mapper.listInfo(1);
-//		for (Map map : list) {
-//			
-//			System.out.println("###########################");
-//			System.out.println(map.get("nickname"));
-//			System.out.println(map.get("name"));
-//			System.out.println(map.get("member_id"));
-//			System.out.println("###########################");
-//		}
+	public void entryTest() {
+		Map<String, String> mapReceive = new HashMap();
+		mapReceive.put("type", "1");
+		int readCnt = 1;
+		log.info(Integer.valueOf(mapReceive.get("type")) == 1  && readCnt>0);
 	}
+	
 	
 }
