@@ -27,4 +27,5 @@ public interface ChatMapper {
 	
 	int creatOpenChat(Map openChatInfo);
 	int exitOpenChat(Map memberInfo);
+	int kick(Map kickMemberInfo);
 }

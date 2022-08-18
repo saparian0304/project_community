@@ -132,4 +132,16 @@
 			) tmp
 		)
 	</update>
+	
+	<update id="kick" parameterType="map">
+		UPDATE chat_member
+		SET exitdate = now(), isexited = 2
+		WHERE join_no = (
+			SELECT jno FROM (
+				SELECT max(join_no) jno
+				FROM chat_member chm  
+				WHERE chm.channel_no =#{channel_no} and member_no =#{member_no}
+			) tmp
+		)
+	</update>
 </mapper>

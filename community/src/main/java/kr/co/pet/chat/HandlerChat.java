@@ -21,12 +21,13 @@ public class HandlerChat extends TextWebSocketHandler {
 	@Autowired 
 	ChatMapper mapper;
 	
+	int count = 0;
+	
 //	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 	private List<Map<String, Object>> sessionList = new ArrayList<Map<String, Object>>();
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) {
-		int count = 0;
 		System.out.println("새로 들어왔습니다." + session.getId() +", 카운트 : " + ++count);
 	}
 	
@@ -105,7 +106,7 @@ public class HandlerChat extends TextWebSocketHandler {
 				
 			break;
 			
-			case "CMD_MSG_kick":
+			case "CMD_MSG_KICK":
 				// mapper에서 nick & member_no를 확인
 				
 				
@@ -127,18 +128,19 @@ public class HandlerChat extends TextWebSocketHandler {
 						sess.sendMessage(new TextMessage(jsonStr));
 						
 						// 닉네임이랑 같은 사람 강퇴
-						if(mapReceive.get("content").equals(mapSessionList.get("nickname"))
-							
-								) {
-							System.out.println("ddddd");
-							Map<String, String> mapToSend1 = new HashMap<String, String>();
-							mapToSend1.put("channel_no", channel);
-							mapToSend1.put("cmd", "CMD_KICK");
+						if(mapReceive.get("content").equals(mapSessionList.get("nickname"))) {
+							Map<String, String> mapToKick = new HashMap<String, String>();
+							mapToKick.put("channel_no", channel);
+							mapToKick.put("cmd", "CMD_MSG_KICK");
 							// ${map.nickname }: ${map.content } ( ${map.regdate }) (회원번호 : ${map.member_no } )
+							String jsonStrKick = objectMapper.writeValueAsString(mapToKick);
+							sess.sendMessage(new TextMessage(jsonStrKick));
 							
-							
-							String jsonStr1 = objectMapper.writeValueAsString(mapToSend1);
-							sess.sendMessage(new TextMessage(jsonStr1));
+							// chat_member 테이블 수정
+							Map kickMemberInfo = new HashMap();
+							kickMemberInfo.put("channel_no", channel);
+							kickMemberInfo.put("member_no", mapSessionList.get("member_no"));
+							mapper.kick(kickMemberInfo);
 						}
 						
 					}
@@ -169,23 +171,6 @@ public class HandlerChat extends TextWebSocketHandler {
 				nickname = (String)map.get("nickname");
 				sessionList.remove(map);
 				break;
-			}
-		}
-		
-		// 같은 채팅방에 퇴장 메세지 전송
-		for (int i = 0; i<sessionList.size(); i++) {
-			Map<String, Object> mapSessionList = sessionList.get(i);
-			String channel = (String)mapSessionList.get("channel_no");
-			WebSocketSession sess = (WebSocketSession) mapSessionList.get("session");
-			
-			if(channel.equals(now_channel)) {
-				Map<String, String> mapToSend = new HashMap<String, String>();
-				mapToSend.put("channel", channel);
-				mapToSend.put("cmd", "CMD_EXIT");
-				mapToSend.put("msg", nickname +"님이 퇴장했습니다.");
-				
-				String jsonStr = objectMapper.writeValueAsString(mapToSend);
-				sess.sendMessage(new TextMessage(jsonStr));
 			}
 		}
 		

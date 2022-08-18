@@ -86,4 +86,5 @@ public class ChatServiceImpl implements ChatService {
 	public int exitOpenChat(Map memberInfo) {
 		return mapper.exitOpenChat(memberInfo);
 	}
+
 }
