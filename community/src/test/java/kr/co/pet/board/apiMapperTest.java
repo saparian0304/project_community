@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.sql.Array;
+import java.util.Arrays;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +19,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import kr.co.pet.file.FileMapper;
+import kr.co.pet.file.FileVO;
 import kr.co.pet.hos.HosMapper;
 import kr.co.pet.hos.HosVO;
 import kr.co.pet.loc.LocMapper;
@@ -33,12 +37,14 @@ public class apiMapperTest {
 	private LocMapper lmapper;
 	@Autowired
 	private HosMapper hmapper;
+	@Autowired
+	private FileMapper fmapper;
 	
 	
 	
 	@Test
 	public void apiTest2() throws IOException{
-		for(int num = 0; num < 20; num++) {
+		for(int num = 0; num < 3; num++) {
 			URL url1 = new URL("https://www.pettravel.kr/api/detailSeqArea.do?areaCode=AC01&contentNum="+ num);
 	//		URL url1 = new URL("https://www.pettravel.kr/api/listArea.do?areaCode=AC01&page=1&pageBlock=100");
 			BufferedReader bf;
@@ -60,7 +66,7 @@ public class apiMapperTest {
 			BoardVO vo = new BoardVO();
 			LocVO lvo = new LocVO();
 			HosVO hvo = new HosVO();
-			
+			FileVO fvo = new FileVO();
 	//		for(int i=0; i<vo.getImageList().length; i++) {
 	//		vo.setImage(vo.getImageList()[i]);
 	//		}
@@ -81,16 +87,30 @@ public class apiMapperTest {
 				lvo.setGps_x(row1.get("latitude").getAsString());
 				lvo.setGps_y(row1.get("longitude").getAsString());
 				
-				JsonObject row2 = (JsonObject)row1.get("imageList");
-//				vo.setImage(row2.get("image").getAsString());
-//				vo.setImage(row2.getImageList()[num]);
 				mapper.insertSelectKey(vo);
 				lvo.setBoard_no(vo.getBoard_no());
 				hvo.setBoard_no(vo.getBoard_no());
+				fvo.setBoard_no(vo.getBoard_no());
 				lmapper.insert(lvo);
 				hmapper.insert(hvo);
 				
-			
+				JsonArray row2 = (JsonArray)row1.get("imageList");
+				for (int i=0; i<row2.size(); i++) {
+					
+					JsonObject img = (JsonObject)row2.get(i);
+					System.out.println("image:"+img.get("image"));
+					
+					fvo.setFilename_org(img.get("image").getAsString());
+					fvo.setFilename_real(img.get("image").getAsString());
+					
+					fmapper.insert(fvo);
+				}
+				
+				
+				
+				
+//				
+//			
 				System.out.println("지역명 : " +  row1.get("areaName").getAsString());
 				System.out.println("부분 : " +  row1.get("partName").getAsString());
 				System.out.println("이름 : " +  row1.get("title").getAsString());
@@ -102,12 +122,12 @@ public class apiMapperTest {
 				System.out.println("내용 : " +  row1.get("content").getAsString());
 				System.out.println("주차 : " +  row1.get("parkingLog").getAsString());
 				System.out.println("응급 : " +  row1.get("emergencyResponse").getAsString());
-				System.out.println("이미지 : " +  row1.get("image").getAsJsonArray());
+				System.out.println("이미지 : " +  row1.get("imageList").getAsJsonArray());
 				
 				
 				
 			} catch (Exception e) {
-				System.out.println("=====================이상함");
+				System.out.println("=====================");
 			}
 				
 		}

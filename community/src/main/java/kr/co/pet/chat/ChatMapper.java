@@ -22,4 +22,9 @@ public interface ChatMapper {
 	
 	List<LinkedHashMap> openChatList();
 	List<LinkedHashMap> myOpenChatlist(int member_no);
+	Integer isJoined(Map memberInfo);
+	Map<String, String> channelInfo(int channel_no);
+	
+	int creatOpenChat(Map openChatInfo);
+	int exitOpenChat(Map memberInfo);
 }

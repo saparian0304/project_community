@@ -7,26 +7,32 @@
   
 </script>
 
-<div style="width: 980px; margin: 0 auto; " id="replyshow">    
+<div style="width: 980px; margin: 0 auto;" class="replyshow" >    
 	<%-- <p style="margin-top:5px;"><span><strong>총 ${reply.replyCount}개</strong> ${reply.page}/ ${reply.totalPage} 페이지</span></p> --%>
     <table class="list" style="width:920px;">
         <colgroup>
-            <col width="80px" />
+            <col width="150px" />
             <col width="*" />            
             <col width="150px" />
             <col width="200px" />
         </colgroup>
         <c:forEach var="vo" items="${reply.replyList}" varStatus="status">
-        <c:if test="${vo.isdelete == false}">          	         
-            <tr style="height:70px;">
+        
+                 	         
+            <tr style=" height:70px;">
                 <td>
-                	<c:if test="${vo.ono > 0}">&emsp;&emsp;<img src="/pet/img/answer_icon.gif"></c:if>
+                	<c:if test="${vo.ono > 0}">&emsp;&emsp;&emsp;&emsp;&emsp;<img src="/pet/img/reply-ico.png"  width="25px" height="25px"></c:if>
                 </td>
                 <td class="txt_l">
-                    ${vo.content}<c:if test="${loginInfo.member_no == vo.member_no}">
-                    <a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
-                    <a href="javascript:replyEdit(${vo.reply_no})"> &nbsp;&nbsp;[수정]</a>
-                    </c:if>
+	                <c:if test="${vo.isdelete == true }">
+	                       삭제된 댓글입니다.
+	                </c:if>
+	                <c:if test="${vo.isdelete == false}"> 
+	                   ${vo.content}<c:if test="${loginInfo.member_no == vo.member_no}">
+	                    <a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
+	                    <a href="javascript:replyEdit(${vo.reply_no})"> &nbsp;&nbsp;[수정]</a>
+	                    </c:if>
+	                </c:if>                                        
                 </td>                                            
              <c:if test="${param.member_no == vo.member_no}">                                            
                 <td class="writer" style="color:blue; font-weight:bold;">
@@ -45,8 +51,9 @@
             		<div id="redit${vo.reply_no}"></div>
             	</td>
             </tr>                                                                                    
-         </c:if>                                    
+         
         </c:forEach>
+       
     </table> 
     
     <form method="post" name="frm" id="frm" action="" enctype="multipart/form-data" >

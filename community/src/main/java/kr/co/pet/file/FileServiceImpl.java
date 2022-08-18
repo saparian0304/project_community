@@ -13,7 +13,6 @@ public class FileServiceImpl implements FileService{
 
 	@Override
 	public FileVO view(int board_no) {
-//		mapper.findByBoard_no(board_no);
 		return mapper.view(board_no);
 	}
 	
@@ -37,5 +36,6 @@ public class FileServiceImpl implements FileService{
 		return mapper.view(board_no);
 	}
 
+	
 
 }

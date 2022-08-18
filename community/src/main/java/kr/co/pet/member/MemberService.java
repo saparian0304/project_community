@@ -1,5 +1,7 @@
 package kr.co.pet.member;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 public interface MemberService {
@@ -14,4 +16,8 @@ public interface MemberService {
 	MemberVO findId(MemberVO vo);
 	MemberVO findPwd(MemberVO vo);
 	MemberVO loginBySns(MemberVO vo, HttpSession sess);
+	MemberVO snsCheck(MemberVO vo, HttpSession sess);
+	String getAccessToken(String authorize_code);
+	MemberVO getUserInfo(String access_Token);
 }
+

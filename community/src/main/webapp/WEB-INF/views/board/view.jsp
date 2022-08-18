@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.net.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 <script>
 
@@ -141,12 +144,12 @@ function replyForm(gno){
 				page: 1				
 			},			
 			success : function(res) {
-				$("#rbox"+gno).html(res);
+				$(".rbox"+gno).html(res);
 				
 		}
 	});
-		$("#rbox"+gno).toggle();
-		
+	$(".replyshow").hide();
+	$(".rbox"+gno).toggle();	
 }   
 
 // 댓글삭제
@@ -276,48 +279,32 @@ function report(member_no, board_no, reply_no) {
 					        
 					        <div class="sContainer">
 					        
-					        
-					        
-					        
-					        
-					        
-					        
-	                        <%-- <div class="bbsListTbl">
-			                    <div class="rightArea"   style="border: 1px">
+	                        <div>
+			                    <div class="rightArea" >
 			                        <ul class="wrap">
-		                       			<li>
-			                               	<div class="sns">
+		                       			<li style="text-align: right">
 			                               		<a id="like">
 													<img alt="좋아요" src="http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_theart_off2.png">
 			                               		</a>
 			                               		<a id="book">
-			                               			<img alt="북마크" src="	http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_tstar_off.png">
+			                               			<img alt="북마크" src="http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_tstar_off.png">
 			                               		</a>
-			                               	</div>
 			                            </li>
 		                       			<li>
-			                               	<div>
 			                               		<span>주소 : ${ldata.addr }</span>
-			                               	</div>
 			                            </li>
 		                       			<li>
-		                       				<div>
 			                               		<span>내용 : ${data.content }</span>
-			                               	</div>
 			                            </li>
 		                       			<li>
-		                       				<div>
-			                               		<span>전화번호 : {data.tel }</span>
-			                               	</div>
+			                               		<span>전화번호 : ${data.tel }</span>
 			                            </li>
 		                       			<li>
-		                       				<div>
 			                               		<span>홈페이지 : ${data.link }</span>
-			                               	</div>
 			                            </li>
 	                            	</ul>
 			                    </div>
-			                </div> --%>
+			                </div>
 	                        
 	                        
 	                        
@@ -365,18 +352,19 @@ function report(member_no, board_no, reply_no) {
 	                        
 	                        <div class="swiper mySwiper">
 						      <div class="swiper-wrapper">
+						        <c:if test="${!empty fdata }">
+						        <c:forEach items="${fdata }" var="list">
 						        <div class="swiper-slide">
-						          <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+						          <img src="${list.filename_org }" onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'/>
 						        </div>
+						        </c:forEach>
+						        </c:if>
+						        <c:if test="${empty fdata }">
 						        <div class="swiper-slide">
-						          <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+						          <img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"/>
 						        </div>
-						        <div class="swiper-slide">
-						          <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-						        </div>
-						        <div class="swiper-slide">
-						          <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-						        </div>
+						        </c:if>
+						        
 						      </div>
 						      <div class="swiper-button-next"></div>
 						      <div class="swiper-button-prev"></div>
@@ -400,7 +388,7 @@ function report(member_no, board_no, reply_no) {
 						          loop: true,
 						          el: ".swiper-pagination",
 						          clickable: true,
-						        },
+						        }
 						      });
 						    </script>
 	                        
