@@ -83,7 +83,6 @@
 					</figure>
 				</div>			
 			</c:forEach>
-				</c:forEach>
 				  <tbody>
                         <c:if test="${empty data.list }">
                             <tr>

@@ -46,7 +46,6 @@ public class BoardServiceImpl implements BoardService{
 		
 		Map map = new HashMap();
 		//게시물 리스트
-		List list = mapper.list(vo);
 		map.put("totalCount", totalCount);
 		map.put("page", vo.getPage());
 		map.put("list", list);
@@ -60,9 +59,6 @@ public class BoardServiceImpl implements BoardService{
 		int totalCount = mapper.count(vo); // 총게시물수
 		
 		Map map = new HashMap();
-		
-		// 총 게시물
-		int totalCount = mapper.count(vo);
 		
 		//게시물 리스트
 		List list = mapper.list(vo);
