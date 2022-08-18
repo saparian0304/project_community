@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>웹소켓 채팅</title>
+<title>오픈채팅목록</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
 <script type="text/javascript">
@@ -75,7 +75,8 @@
 						cmd : cmd,
 						content : content,
 						nickname : nickname,
-						member_no : member_no
+						member_no : member_no,
+						type : -1	
 				};
 				var jsonData = JSON.stringify(msgData);
 				this._socket.send(jsonData);
@@ -84,13 +85,19 @@
 	
 	$(function() {
 		webSocket.init({url : '/pet/chat'});
+		window.resizeTo( 
+			400 + (window.outerWidth - window.innerWidth), 
+			520 + (window.outerHeight - window.innerHeight));
 	})
 </script>
 </head>
 <body>
-	<span style="margin: 0 0 0 10px;"><a href='/pet/chat/index.do' >친구</a></span>
-	<span style="margin: 0 0 0 10px; "><a href='/pet/chat/myOpenChat.do' >참여 중인 오픈채팅방</a></span>
-	<span style="margin: 0 0 0 10px; "><a href='/pet/chat/openChat.do' >오픈채팅방</a></span>
+	<div style="height: 30px" >
+		<span style="margin: 0 0 0 10px;"><a href='/pet/chat/index.do' >친구</a></span>
+		<span style="margin: 0 0 0 10px; "><a href='/pet/chat/myOpenChat.do' >참여 중인 오픈채팅방</a></span>
+		<span style="margin: 0 0 0 10px; "><a href='/pet/chat/openChat.do' >오픈채팅방</a></span>
+		<img src="/pet/img/btn_plus.png" style="width:30px; z-index: 10; float: right;" onclick="location.href='/pet/chat/create.do'" >
+	</div>
 	
 	<div style="overflow-y:auto; ">
 		<c:forEach var="list" items="${list }">

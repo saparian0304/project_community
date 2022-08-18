@@ -1,11 +1,7 @@
 package kr.co.pet.member;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,11 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,6 +24,9 @@ public class MemberController {
 
 	@Autowired
 	MemberService service;
+	
+	@Autowired
+	HttpSession sess;
 	
 	@GetMapping("/member/join.do")
 	public String join() {
@@ -69,8 +66,11 @@ public class MemberController {
 	}
 	//로그아웃
 	@GetMapping("/member/logout.do")
-	public String logout(HttpServletRequest req, Model model) throws IOException{
+	public String logout(HttpServletRequest req, Model model ) throws IOException{
+		
+		
 		HttpSession sess = req.getSession();
+		
 		sess.invalidate();
 		model.addAttribute("msg", "로그아웃됨");
 		model.addAttribute("url", "/pet/member/login.do");
@@ -82,38 +82,65 @@ public class MemberController {
 		return "notice";
 	}
 	
-	@PostMapping("/member/joinBySns.do") //간편가입
-	public String joinBySns(MemberVO vo, Model model ) {
-
-		if (service.insert(vo) > 0) {
-			model.addAttribute("msg", "간편가입성공!");
-			model.addAttribute("url", "member/index.do");
-			log.info("model : "+ model);
-			return "/common/alert";
-		}else {
-			
-			model.addAttribute("msg", "간편가입 실패");
-			return "/common/alert";
-		}
-	}
+//	@PostMapping("/member/joinBySns.do") //간편가입
+//	public String joinBySns(MemberVO vo, Model model ) {
+//
+//		if (service.insert(vo) > 0) {
+//			model.addAttribute("msg", "간편가입성공!");
+//			model.addAttribute("url", "member/index.do");
+//			log.info("model : "+ model);
+//			return "/common/alert";
+//		}else {
+//			
+//			model.addAttribute("msg", "간편가입 실패");
+//			return "/common/alert";
+//		}
+//	}
 	
 	//간편로그인
-	@PostMapping("/member/loginBySns.do")
-	@ResponseBody
-		public String loginBySns(MemberVO param, Model model, HttpServletRequest req) {
-		
-//			MemberVO vo = service.loginBySns(param);
-//			if(vo != null) 
-//				model.addAttribute("result", vo.getPwd()); //responseBody 있으면 안써줘도됨.
-//				return "here";
-//			}
-//			else { 
-				return null;
-//			}	
+	@GetMapping("/member/loginBySns.do")
+		public String loginBySns(@RequestParam(value="code", required =false) String code, Model model)throws Exception {
+			System.out.println("##########"+code);
+			String access_Token = service.getAccessToken(code);
 			
+			MemberVO userInfo = service.getUserInfo(access_Token);
+			System.out.println("#####access_Token#####: " + access_Token );
+			System.out.println("#####nickname####: "+ userInfo.getNickname());
+			System.out.println("#####email#####: "+ userInfo.getEmail());
+			System.out.println("#####member_id#####: "+ userInfo.getMember_id());
+			
+			
+			sess.invalidate();
+			// 위 코드는 session객체에 담긴 정보를 초기화 하는 코드. 남아있는 정보가 혹시라도 있을까봐..
+			sess.setAttribute("loginInfo", userInfo);
+			// 위 3개의 코드는 닉네임과 이메일, 아이디를 session객체에 담는 코드
+			// jsp에서 ${sessScope.kakaoN} 이런 형식으로 사용할 수 있다.
+		   System.out.println("loginInfo : "+ userInfo.getMember_id());
+			
+			MemberVO snsCheck = (MemberVO)sess.getAttribute("loginInfo");
+			
+			
+			
+			
+			System.out.println(service.snsCheck(snsCheck, sess));
+			
+			
+			
+			
+			MemberVO svo = service.snsCheck(snsCheck, sess);
+			
+			String svo_id = svo.getMember_id();
+			System.out.println("***************snsId : "+ svo_id);
+			if ( svo_id.equals(userInfo.getMember_id())) {
+			//if ( certi_num.equals(certi))
+			
+			model.addAttribute("result", "가입된 아이디가 있습니다.");
+				
+			return "/board/index";
+				
+			}	
+			return "member/login";
 	    }
-		
-		
 	
 	@PostMapping("/member/idCheck")
 	@ResponseBody
@@ -198,6 +225,7 @@ public class MemberController {
 		else { 
 			return null;
 		}	
-		
 	}
+	
+	
 }

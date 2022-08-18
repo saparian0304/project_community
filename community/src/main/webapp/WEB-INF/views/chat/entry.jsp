@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>웹소켓 채팅</title>
+<title>친구목록</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
 <script type="text/javascript">
@@ -70,11 +70,12 @@
 			},
 			_sendMessage : function(channel, cmd, msg) {
 				var msgData = {
-						channel : channel,
+						channel_no : channel_no,
 						cmd : cmd,
 						msg : msg,
 						nickname : nickname,
-						member_no : member_no
+						member_no : member_no,
+						type : -1	
 				};
 				var jsonData = JSON.stringify(msgData);
 				this._socket.send(jsonData);
@@ -83,6 +84,9 @@
 	
 	$(function() {
 		webSocket.init({url : '/pet/chat'});
+		window.resizeTo( 
+			400 + (window.outerWidth - window.innerWidth), 
+			520 + (window.outerHeight - window.innerHeight));
 	})
 </script>
 </head>
@@ -92,6 +96,9 @@
 	<span style="margin: 0 0 0 10px; "><a href='/pet/chat/openChat.do' >오픈채팅방</a></span>
 	
 	<div style="overflow-y:auto; ">
+		<c:if test="${empty list }">
+			채팅할 친구가 없습니다.
+		</c:if>
 		<c:forEach var="list" items="${list }">
 		<!-- 
 		친구 회원번호 : ${list.friend_no }<br>

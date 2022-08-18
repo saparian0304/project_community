@@ -49,10 +49,28 @@
 		</selectKey>
 	</insert>
 	
+	<insert id="creatOpenChat" parameterType="map">
+		INSERT INTO chat_channel (type, title, chat_channel.limit, master_no, regdate)
+		VALUES (1, #{title},  #{limit}, #{master_no}, now())
+		
+		<selectKey order="AFTER" keyProperty="channel_no" resultType="int">
+			SELECT max(channel_no) FROM chat_channel
+		</selectKey>
+	</insert>
+	
 	<select id="getChannel" parameterType="map" resultType="java.lang.Integer">
 		SELECT channel_no FROM chat_channel
 		WHERE title = concat('${member_no}','_','${friend_no}') 
 			or title = concat('${friend_no}', '_' ,'${member_no}')
+	</select>
+	
+	<select id="channelInfo" parameterType="int" resultType="map">
+		SELECT * FROM chat_channel WHERE channel_no = #{channel_no}
+	</select>
+	
+	<select id="isJoined" parameterType="map" resultType="int">
+		SELECT count(*) FROM chat_member 
+		WHERE channel_no = #{channel_no} AND member_no = #{member_no} AND isexited = 0
 	</select>
 	
 	
@@ -71,6 +89,7 @@
 				SELECT joindate 
 				FROM chat_member 
 		        WHERE member_no = #{member_no} and channel_no = #{channel_no}
+		        AND isexited = 0
 		        ) AND now()
 		ORDER BY regdate
 	</select>
@@ -91,7 +110,7 @@
 		SELECT *,
 			(SELECT content FROM chat_history his WHERE his.channel_no = chn.channel_no ORDER BY his.regdate DESC limit 1) msg,
 		    (SELECT his.regdate FROM chat_history his WHERE his.channel_no = chn.channel_no ORDER BY his.regdate DESC limit 1) msg_regdate,
-   			(SELECT count(*) FROM chat_member where channel_no = chn.channel_no GROUP BY channel_no, isexited ) num_enter
+   			(SELECT count(*) FROM chat_member where channel_no = chn.channel_no GROUP BY channel_no, isexited having isexited = 0 ) num_enter
 		FROM chat_channel cha inner join (
 				SELECT *,
 					(SELECT ch.type FROM chat_channel ch WHERE m.channel_no = ch.channel_no) type
@@ -102,4 +121,15 @@
 		ORDER BY msg_regdate DESC
 	</select>
 	
+	<update id="exitOpenChat" parameterType="map">
+		UPDATE chat_member
+		SET exitdate = now(), isexited = 1
+		WHERE join_no = (
+			SELECT jno FROM (
+				SELECT max(join_no) jno
+				FROM chat_member chm  
+				WHERE chm.channel_no =#{channel_no} and member_no =#{member_no}
+			) tmp
+		)
+	</update>
 </mapper>

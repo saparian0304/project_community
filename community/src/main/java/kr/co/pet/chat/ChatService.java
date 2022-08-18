@@ -16,4 +16,9 @@ public interface ChatService {
 	
 	List<LinkedHashMap> openChatList();
 	List<LinkedHashMap> myOpenChatList(int member_no);
+	boolean isJoined(int channel_no, int member_no);
+	Map<String, String> channelInfo(int channel_no);
+	
+	Map<String, String> creatOpenChat(Map openChatInfo);
+	int exitOpenChat(Map memberInfo);
 }
