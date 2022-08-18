@@ -20,14 +20,13 @@
 
 <%@ include file="/WEB-INF/views/includes/alram.jsp" %>    
 <script>
-
-var soMsg = "message,"+${loginInfo.member_no}+","+${param.member_no}+",0,0";
 function soSend(){
+	var soMsg = "message,"+${loginInfo.member_no}+","+${param.member_no}+",0,0";
 	if(socket){
 		socket.send(soMsg);
 	}
 }
-
+<% session.setAttribute("plus", "message"); %>
 </script>
 
 </head> 

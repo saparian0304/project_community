@@ -13,15 +13,6 @@
 	    window.open(url, name, option);   
 	} 
 	
-	// 쪽지보내기
-	function popmessage(){
-	    var url = "/pet/message/index.do"
-	  	var name = "popup message"; 
-	    var option = "width = 600, height = 500, top = 100, left = 200, location = no"
-	    window.open(url, name, option);   
-	} 
-	
-	
 	var close1 = "${off}";
 	
 	function winclose(){	

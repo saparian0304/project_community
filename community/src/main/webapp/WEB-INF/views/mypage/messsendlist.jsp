@@ -2,8 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
                 <button style="width : 100px; height : 30px;" class="reqbtn mymess" onclick="javascript:getMessReadList(1, ${loginInfo.member_no});">내가 받은 쪽지</button>
                 <button style="width : 100px; height : 30px;" class="reqbtn mymess" onclick="javascript: getMessSendList(1, ${loginInfo.member_no});">내가 보낸 쪽지</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn mymess" onclick="popmessage();">쪽지 보내기</button>
                 
                   <form action="#" method="post" class="minisrch_form">
                     <fieldset>

@@ -9,10 +9,16 @@ public class Criteria {
 	private int page;
 	private int pageRow;
 	private int startIdx;
-	
+
 	public Criteria() {
 		this.page = 1;
 		this.pageRow = 10;
+	}
+	
+	
+	public Criteria(int page, int pageRow) {
+		this.page = page;
+		this.pageRow = pageRow;
 	}
 	
 	public int getStartIdx() {

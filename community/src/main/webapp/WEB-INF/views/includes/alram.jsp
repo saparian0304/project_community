@@ -12,6 +12,9 @@ function connectWS(){
 	
 	ws.onopen = function(){
 		console.log("open");
+		//setTimeout(function(){
+	//		connectWS();
+	//	}, 1000);
 	};
 	
 	ws.onmessage = function(event){
@@ -31,6 +34,9 @@ function connectWS(){
 	
 	ws.onclose = function(){
 		console.log("close");
+		setTimeout(function(){
+			connectWS();
+		}, 1000);
 	};
 };
 $(function(){
@@ -39,3 +45,4 @@ $(function(){
 		connectWS();
 	}
 })
+</script>

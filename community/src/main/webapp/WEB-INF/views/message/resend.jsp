@@ -17,9 +17,16 @@
     <script src="/pet/smarteditor/js/HuskyEZCreator.js"></script>
     <script src="/pet/js/function.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>    	
-    </script>
-    
+<%@ include file="/WEB-INF/views/includes/alram.jsp" %>    
+<script>
+function soSend(){
+	var soMsg = "message,"+${loginInfo.member_no}+","+${param.member_no}+",0,0";
+	if(socket){
+		socket.send(soMsg);
+	}
+}
+<% session.setAttribute("plus", "message"); %>
+</script>    
 </head>
 <body>
 <div style="width:500px;margin:40px auto;">
@@ -44,7 +51,7 @@
 			</tr>
 			<tr>
 				<td>
-					<input type="submit" name="" value="전송">
+					<input type="submit" name="" value="전송" onclick="soSend();">
 				</td>
 			</tr>
 		</table>

@@ -37,12 +37,16 @@ public class HandlerAlram extends TextWebSocketHandler {
 	private String currentMember(WebSocketSession session) {
 		Map<String, Object> httpSession = session.getAttributes();
 		MemberVO loginMember = (MemberVO)httpSession.get("loginInfo");
+		String tmp ="";
+		if(httpSession.get("plus") != null) {
+			tmp = (String)httpSession.get("plus");
+		}
 		
 		if (loginMember == null) {
 			String mno = session.getId();
 			return mno;
 		}
-		String mno = loginMember.getMember_no()+"";
+		String mno = loginMember.getMember_no()+tmp;
 		return mno;
 	}
 
@@ -65,11 +69,18 @@ public class HandlerAlram extends TextWebSocketHandler {
 //				String bgno = strs[5];
 				System.out.println("length 성공 : " + cmd);
 				
+				AlramVO vo = new AlramVO();
+				vo.setSend_no(replyWriter);
+				vo.setRead_no(boardWriter);
+				vo.setBoard_no(bno);
+				vo.setTitle(title);
+				vo.setCmd(cmd);
+				mapper.insert(vo);
+				
 				WebSocketSession replyWriterSession = memberSessions.get(replyWriter);
 				WebSocketSession boardWriterSession = memberSessions.get(boardWriter);
-				
-				String boardNick = mapper.findNick(Integer.parseInt(boardWriter));
-				String replyNick = mapper.findNick(Integer.parseInt(replyWriter));
+				String boardNick = boardWriter; 
+				String replyNick = replyWriter;
 				
 				System.out.println("boardNick " + boardNick);
 				System.out.println("replyNick " + replyNick);
@@ -100,7 +111,7 @@ public class HandlerAlram extends TextWebSocketHandler {
 					boardWriterSession.sendMessage(tmpMsg);	
 				}
 				
-				if ("recommend".equals(cmd) && boardWriter != null) {
+				if ("recommend".equals(cmd) && boardWriterSession != null) {
 					TextMessage tmpMsg = new TextMessage(
 										"<a href='/pet/board/view.do?board_no=" +bno + "' style='color: white'>" 
 												+ replyNick + "님이 [게시글] "+ title +"에 좋아요를 눌렀습니다</a>");

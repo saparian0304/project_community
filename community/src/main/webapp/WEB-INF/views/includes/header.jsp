@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="/pet/css/contents.css"/> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script type="text/javascript" src="/pet/js/location.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
 </head>
+	<%@ include file="/WEB-INF/views/includes/alram.jsp" %>   
 <script>
 	function popup() {
 		var url = '/pet/chat/index.do';
@@ -27,44 +27,6 @@
 		var option = "width = 500, height = 500, top = 100, left = 100";
 		window.open(url, name, option);
 	}
-</script>
-<script>
-/* 실시간 알람 */
- var socket = null;
-function connectWS(){
-	console.log("==============");
-	var ws = new SockJS("/pet/alram");
-	socket = ws;
-	
-	ws.onopen = function(){
-		console.log("open");
-	};
-	
-	ws.onmessage = function(event){
-		console.log("onmessage" + event.data);
-		var $socketAlert = $('h3#socketAlert');
-		$socketAlert.html(event.data);
-		$socketAlert.css({
-			"display" :  "block",
-			"backgorund" : "yellow"
-		});
-			
-		
-		setTimeout(function(){
-			$socketAlert.css("display", "none");
-		}, 5000);
-	};
-	
-	ws.onclose = function(){
-		console.log("close");
-	};
-};
-$(function(){
-	/* 실시간 알람 */
-	if(${loginInfo != null}){
-		connectWS();
-	}
-})
 </script>
 <body>
       <header id="header">
