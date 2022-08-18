@@ -29,7 +29,7 @@ public class MessageController {
 	}
 	
 	
-	
+	// 쪽지 보내기
 	@RequestMapping("/message/insert.do")
 	public String insert(MessageVO vo, Model model) {
 		if (service.insert(vo)){
@@ -43,6 +43,8 @@ public class MessageController {
 	}
 	
 	
+	// 아이디 눌렀을때 쪽지보내기
+	/*
 	@RequestMapping("/message/sendinsert.do")
 	public String insert2(MessageVO vo, Model model, HttpServletRequest request) {
 		String board_no = request.getParameter("board_no");	
@@ -56,31 +58,54 @@ public class MessageController {
 			return "common/alert"; 
 		}
 	}
-	
-	@RequestMapping("/message/resendinsert.do")
-	public String insert3(MessageVO vo, Model model) {		
+	*/
+	// 아이디 눌렀을때 쪽지보내기 팝업
+	@RequestMapping("/message/sendinsert.do")
+	public String insert2(MessageVO vo, Model model) {		
 		if (service.insert(vo)){
-			model.addAttribute("msg", "발송 되었습니다.");
-			/* model.addAttribute("url", "/pet/mypage/index.do"); */
-			return "common/alert"; 
+			model.addAttribute("off", "yes");
+			return "reply/comment"; 
 		} else {
 			model.addAttribute("msg", "발송을 실패했습니다.");
 			return "common/alert"; 
 		}
 	}
 	
-	@RequestMapping("/message/search.do")
-	public String search(MessageVO vo,  Model model) {
-		/*if(service.search(vo) == 0) {
-			model.addAttribute("msg","찾으시는 아이디가 없습니다.");
-			return "common/alert";
+	
+	// 마이페이지에서 쪽지 답장
+	/*
+	@RequestMapping("/message/resendinsert.do")
+	public String insert3(MessageVO vo, Model model) {		
+		if (service.insert(vo)){
+			model.addAttribute("msg", "발송 되었습니다.");
+			model.addAttribute("url", "/pet/message/index.do");
+			return "common/alert"; 
+		} else {
+			model.addAttribute("msg", "발송을 실패했습니다.");
+			return "common/alert"; 
 		}
-		else {*/
+	}
+	*/
+	
+	// 마이페이지에서 쪽지 답장 팝업
+	@RequestMapping("/message/resendinsert.do")
+	public String insert3(MessageVO vo, Model model) {		
+		if (service.insert(vo)){
+			model.addAttribute("off", "yes");
+			return "mypage/messreadlist"; 
+		}		
+		else {
+			model.addAttribute("msg", "발송을 실패했습니다.");
+			return "common/alert"; 
+		}
+	}
+	
+	
+	// 아이디 찾기
+	@RequestMapping("/message/search.do")
+	public String search(MessageVO vo,  Model model) {			
 			model.addAttribute("result", service.search(vo));
-			return "common/result";
-		
-		/*model.addAttribute("result", service.search(vo));
-		return "common/result";*/
+			return "common/result";		
 		
 	}
 	
