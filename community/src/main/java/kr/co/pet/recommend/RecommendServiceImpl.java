@@ -3,8 +3,12 @@ package kr.co.pet.recommend;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import kr.co.pet.member.MemberVO;
 
 @Service
 public class RecommendServiceImpl implements RecommendService {
@@ -26,6 +30,26 @@ public class RecommendServiceImpl implements RecommendService {
 		}
 		return result;
 	}
+	
+	@Override
+	public Map recommend(int board_no, int reply_no, HttpSession sess) {
+		MemberVO mvo = (MemberVO)sess.getAttribute("loginInfo");
+		RecommendVO vo = new RecommendVO();
+		Map recommendInfo = new HashMap();
+		if (mvo != null) {
+			vo.setMember_no(mvo.getMember_no());
+			vo.setBoard_no(board_no);
+			vo.setReply_no(reply_no);
+			
+			recommendInfo.put("recommended", mapper.isRecommended(vo));
+		}
+		recommendInfo.put("recommendCnt", mapper.getRecCnt(vo));
+		
+		return recommendInfo;
+	}
+	
+	
+	
 
 	/**
 	 * 게시글 / 댓글의 좋아요 수를 리턴
