@@ -61,7 +61,7 @@ public class MessageController {
 	public String insert3(MessageVO vo, Model model) {		
 		if (service.insert(vo)){
 			model.addAttribute("msg", "발송 되었습니다.");
-			model.addAttribute("url", "/pet/mypage/index.do");
+			/* model.addAttribute("url", "/pet/mypage/index.do"); */
 			return "common/alert"; 
 		} else {
 			model.addAttribute("msg", "발송을 실패했습니다.");
