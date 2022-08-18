@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <script>
 
-
+// 아이디 눌렀을때 정보 열림
 function message(gno){
 	
 	if($(".activityForm"+gno).css("display")=="none"){
@@ -16,6 +16,28 @@ function message(gno){
 	
 	
 }
+
+// 쪽지보내기 팝업
+function popmessage(member_no, member_nickname){
+    var url = "/pet/message/send.do?member_no="+member_no+"&nickname="+member_nickname;
+  	var name = "popup message"; 
+    var option = "width = 600, height = 500, top = 100, left = 200, location = no"
+    window.open(url, name, option);   
+}
+
+	var close1 = "${off}";
+	
+	function winclose(){	
+		  window.open('','_self').close();
+		  alert("발송 완료 되었습니다.");
+		  
+	}
+	
+	$(function(){
+		if (close1 == "yes"){
+			winclose();
+		}
+	});
 
 
 </script>
@@ -46,7 +68,7 @@ function message(gno){
                     &emsp;&emsp; ${vo.content}                  
 	                   <c:if test="${loginInfo.member_no == vo.member_no }">
 	                    	<a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
-	                    	<a href="javascript:replyEdit(${vo.reply_no})"> &nbsp;&nbsp;[수정]</a>
+	                    	<a href="javascript:replyEdit(${vo.reply_no});"> &nbsp;&nbsp;[수정]</a>
 	                    </c:if>	
                     </c:if>                	
                 </td>
@@ -54,7 +76,7 @@ function message(gno){
                 <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
                 	<a href="javascript:message(${vo.gno})">${vo.member_nickname}</a>
                 	<div class="activityForm${vo.gno} activityForm" style="display:none;">
-	                     <p><button onclick="window.open('/pet/message/send.do?member_no=${vo.member_no}&nickname=${vo.member_nickname}&board_no=${board_no}');">쪽지</button></p>
+	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
 	                     <p><button>활동내역</button></p>
 	                     <p><button>친구신청</button></p>
 	                     <p><button>차단</button></p>
@@ -65,7 +87,7 @@ function message(gno){
                 <td class="writer${vo.gno}" style="cursor:pointer;">
                      <a href="javascript:message(${vo.gno})"> ${vo.member_nickname} </a>
                      <div class="activityForm${vo.gno} activityForm" style="display:none;">
-	                     <p><button onclick="window.open('/pet/message/send.do?member_no=${vo.member_no}&nickname=${vo.member_nickname}&board_no=${vo.board_no}');">쪽지</button></p>
+	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
 	                     <p><button>활동내역</button></p>
 	                     <p><button>친구신청</button></p>
 	                     <p><button>차단</button></p>

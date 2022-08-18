@@ -2,20 +2,45 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-function popup(send_member, send_nick){
-    var url = "/pet/message/resend.do?member_no="+send_member+"&nickname="+send_nick;
-    var name = "popup test";
-    var option = "width = 500, height = 500, top = 100, left = 200, location = no"
-    window.open(url, name, option);   
-}
+	
+	// 답장 팝업
+	function message(send_member, send_nick){
+	    var url = "/pet/message/resend.do?member_no="+send_member+"&nickname="+send_nick;
+	  	var name = "popup message"; 
+	    var option = "width = 600, height = 500, top = 100, left = 200, location = no"
+	    window.open(url, name, option);   
+	} 
+	
+	// 쪽지보내기
+	function popmessage(){
+	    var url = "/pet/message/index.do"
+	  	var name = "popup message"; 
+	    var option = "width = 600, height = 500, top = 100, left = 200, location = no"
+	    window.open(url, name, option);   
+	} 
+	
+	
+	var close1 = "${off}";
+	
+	function winclose(){	
+		  window.open('','_self').close();
+		  alert("발송 완료 되었습니다.");
+		  
+	}
+	
+	$(function(){
+		if (close1 == "yes"){
+			winclose();
+		}
+	});
+	
 
-  
 </script>
                 <button style="width : 100px; height : 30px;" class="reqbtn mymess" onclick="javascript:getMessReadList(1, ${loginInfo.member_no});">내가 받은 쪽지</button>
                 <button style="width : 100px; height : 30px;" class="reqbtn mymess" onclick="javascript:getMessSendList(1, ${loginInfo.member_no});">내가 보낸 쪽지</button>
-                
+                <button style="width : 100px; height : 30px;" class="reqbtn mymess" onclick="popmessage();">쪽지 보내기</button>
                   <form action="#" method="post" class="minisrch_form">
                     <fieldset>
                         <legend>
@@ -74,7 +99,7 @@ function popup(send_member, send_nick){
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.senddate }"/>
 	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
-			                    	<a class="reqbtn mymess" href="javascript:popup(${list.send_member },'${list.send_nick }')">답장</a>
+			                    	<a class="reqbtn mymess" href="javascript:message(${list.send_member },'${list.send_nick }')">답장</a>
 		                    	</td>
 	                    	</tr>
 	                    	</c:forEach>                    
