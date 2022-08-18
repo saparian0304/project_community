@@ -68,15 +68,17 @@ function goSave(){
 }
 
 // 댓글수정
-function replyEdit(reply_no){
+function replyEdit(reply_no, content){
 	$.ajax({    			
 		url : "/pet/reply/list.do",
 		data : {
 			board_no : ${data.board_no},
-			reply_no : reply_no			
+			reply_no : reply_no,
+			content : content
+			
 		},			
 		success : function() {
-			$("#redit"+reply_no).html('<tr><td colspan="5"><textarea name="content" id="recon" style="width:800px; height:70px;" placeholder=""></textarea></td><td><div class="btnSet"><a href="javascript:replyEditgo(' + reply_no + ');"  style="  text-align: center;" >&nbsp;&nbsp;수정</a></div></td></tr>');				
+			$("#redit"+reply_no).html('<tr><td colspan="5"><textarea name="content" id="recon" style="width:800px; height:70px;">'+content+'</textarea></td><td><div class="btnSet"><a href="javascript:replyEditgo(' + reply_no + ');"  style="  text-align: center;" >&nbsp;&nbsp;수정</a></div></td></tr>');				
 		}
 	});
 	$("#redit"+reply_no).toggle();
@@ -431,9 +433,16 @@ function report(member_no, board_no, reply_no) {
 			</colgroup>
 			<tbody>
 				<tr id="test">
+				<c:if test="${empty loginInfo}">
 					<td>
 						<textarea name="content" id="content" style="width:900px;height: 70px;" placeholder="로그인 후 작성해주세요"></textarea>
 					</td>
+				</c:if>
+				<c:if test="${!empty loginInfo}">
+					<td>
+						<textarea name="content" id="content" style="width:900px;height: 70px;" placeholder="댓글을 작성해주세요"></textarea>
+					</td>
+				</c:if>		
 					<td>
 						<div class="btnSet">
 							<a href="javascript:goSave();"  style="  text-align: center;">저장</a>

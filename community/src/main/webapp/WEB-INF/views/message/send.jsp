@@ -12,6 +12,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <title>쪽지보내기</title>
+    <link rel="stylesheet" href="/pet/css/common.css"/>
     <link rel="stylesheet" href="/pet/css/reset.css"/>
     <link rel="stylesheet" href="/pet/css/contents.css"/>
     <script src="/pet/smarteditor/js/HuskyEZCreator.js"></script>
@@ -19,13 +20,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
     <script>
-			
+ 		// 내용없이 보낼때
+	    function messageWrite() {
+			 if(!content.value){
+		     alert("내용을 입력하세요");  
+		     	content.focus();   
+		     return false;     
+		   }
+		}	
     </script>
     
 </head> 
 <body>
 <div style="width:500px;margin:40px auto;">
-	<form method="post" name="frm" id="frm" action="sendinsert.do" style="width:800px; margin:0 auto;">
+	<form method="post" name="frm" id="frm" action="sendinsert.do" onsubmit="return messageWrite()">
 		<table>
 			<tr>
 				<td>받는사람</td>		
@@ -46,8 +54,10 @@
 				<td><textarea cols="40" rows="10" name="content" id="content" placeholder="메세지를 입력해주세요"  style="width: 320px; height: 150px;"></textarea></td>
 			</tr>
 			<tr>
-				<td>
-					<input type="submit" name="" value="전송">
+				<td colspan="2" style="text-align: center;">
+					<button style="width : 80px; height : 30px; position: center; margin-top:5px;" class="reqbtn mymess">
+						<input type="submit" name="" value="전송" style="background-color:transparent; border:0px transparent solid;">
+					</button>					
 				</td>
 			</tr>
 		</table>
