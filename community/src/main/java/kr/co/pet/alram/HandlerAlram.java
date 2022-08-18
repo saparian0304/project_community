@@ -83,6 +83,15 @@ public class HandlerAlram extends TextWebSocketHandler {
 					boardWriterSession.sendMessage(tmpMsg);							
 				}
 				
+				// 쪽지
+				if ("message".equals(cmd) && boardWriterSession != null) {
+					TextMessage tmpMsg = new TextMessage(
+										"<a href='/pet/mypage/index.do?member_no=" + boardWriter + "' style='color: white'>"
+											+ replyNick + "님이 쪽지를 보냈습니다</a>"
+							);
+					boardWriterSession.sendMessage(tmpMsg);
+				}
+				
 				//대댓글
 				if ("rereply".equals(cmd) && boardWriterSession != null) {
 					TextMessage tmpMsg = new TextMessage(

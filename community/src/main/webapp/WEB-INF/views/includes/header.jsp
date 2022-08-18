@@ -87,6 +87,7 @@ $(function(){
 							<h3 id="socketAlert"></h3>
 							<li><a href="javascript:popup()">채팅목록</a></li>
 							<li><a href="/pet/member/logout.do">로그아웃</a></li>
+							<li><img src="/pet/img/alram.png" style="width: 27px"></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
