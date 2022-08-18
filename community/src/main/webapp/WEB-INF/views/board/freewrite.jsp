@@ -42,12 +42,11 @@
                         <tr>
                             <th>말머리</th>
                             <td>
-                                <!-- <form id="aaa"> -->
 	                                <%-- 1.식당, 2. 관광지, 3. 병원 --%>
-	                                <input type="radio" class="radio_value" name="horse_hair" value="1">식당
-									<input type="radio" class="radio_value" name="horse_hair" value="2">관광지
-									<input type="radio" class="radio_value" name="horse_hair" value="3">병원
-                            	<!-- </form> -->
+	                                <input type="radio" class="radio_value" name="horse_hair" value="4">best
+									<input type="radio" class="radio_value" name="horse_hair" value="5">여행후기
+									<input type="radio" class="radio_value" name="horse_hair" value="6">맛집추천
+									<input type="radio" class="radio_value" name="horse_hair" value="7">고민
                             </td>
                         </tr>
                         <tr>
