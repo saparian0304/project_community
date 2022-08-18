@@ -7,4 +7,12 @@
 		WHERE member_no = #{member_no}
 	</select>
 
+	<insert id="insert" parameterType="kr.co.pet.alram.AlramVO">
+		INSERT INTO alram (
+			send_no, read_no, board_no, title, cmd
+		) VALUES (
+			#{send_no}, #{read_no}, #{board_no}, #{title}, #{cmd}
+		)
+	</insert>
+
 </mapper>

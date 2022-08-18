@@ -18,17 +18,28 @@
     <script src="/pet/smarteditor/js/HuskyEZCreator.js"></script>
     <script src="/pet/js/function.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script> 
- 		// 내용없이 보낼때
-	    function messageWrite() {
-			 if(!content.value){
-		     alert("내용을 입력하세요");  
-		     	content.focus();   
-		     return false;     
-		   }
-		}
-    </script>
-    
+
+<%@ include file="/WEB-INF/views/includes/alram.jsp" %>  
+  
+<script>
+function soSend(){
+	var soMsg = "message,"+${loginInfo.member_no}+","+${param.member_no}+",0,0";
+	if(socket){
+		socket.send(soMsg);
+	}
+}
+<% session.setAttribute("plus", "message"); %>
+
+//내용없이 보낼때
+function messageWrite() {
+	 if(!content.value){
+     alert("내용을 입력하세요");  
+     	content.focus();   
+     return false;     
+   }
+}
+</script>
+ 
 </head>
 <body>
 <div style="width:500px;margin:40px auto;">
@@ -55,7 +66,10 @@
 				<td colspan="2" style="text-align: center;">
 					<button style="width : 80px; height : 30px; position: center; margin-top:5px;" class="reqbtn mymess">
 						<input type="submit" name="" value="전송" style="background-color:transparent; border:0px transparent solid;">
-					</button>					
+					</button>
+				</td>						
+				<td>
+					<input type="submit" name="" value="전송" onclick="soSend();">
 				</td>
 			</tr>
 		</table>

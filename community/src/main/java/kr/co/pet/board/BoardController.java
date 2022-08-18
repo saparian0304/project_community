@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,8 @@ import kr.co.pet.file.FileVO;
 import kr.co.pet.hos.HosService;
 import kr.co.pet.loc.LocService;
 import kr.co.pet.loc.LocVO;
+import kr.co.pet.member.MemberVO;
+import kr.co.pet.recommend.RecommendService;
 import kr.co.pet.reply.ReplyService;
 @Controller
 public class BoardController {
@@ -40,6 +43,9 @@ public class BoardController {
 	
 	@Autowired
 	ReplyService rService;
+	
+	@Autowired
+	RecommendService recService;
 
 	@GetMapping("/board/index.do")
 	public String mainindex(Model model, BoardVO vo) {
@@ -65,14 +71,15 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/view.do")
-	public String view(BoardVO vo, Model model) {
+	public String view(BoardVO vo, Model model, HttpSession sess) {
 		BoardVO data = service.view(vo.getBoard_no());
 		model.addAttribute("data", data);
 		List fdata = fservice.find(vo.getBoard_no());
 		model.addAttribute("fdata", fdata);
 		LocVO ldata = lservice.view(vo.getBoard_no());
 		model.addAttribute("ldata", ldata);
-
+		
+		model.addAttribute("recdata", recService.recommend(vo.getBoard_no(), 0, sess));
 		
 		//model.addAttribute("file", file);
 		return "board/view";

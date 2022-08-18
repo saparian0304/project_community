@@ -18,18 +18,28 @@
     <script src="/pet/smarteditor/js/HuskyEZCreator.js"></script>
     <script src="/pet/js/function.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<%@ include file="/WEB-INF/views/includes/alram.jsp" %>
     
-    <script>
- 		// 내용없이 보낼때
-	    function messageWrite() {
-			 if(!content.value){
-		     alert("내용을 입력하세요");  
-		     	content.focus();   
-		     return false;     
-		   }
-		}	
-    </script>
-    
+<script>
+function soSend(){
+	var soMsg = "message,"+${loginInfo.member_no}+","+${param.member_no}+",0,0";
+	if(socket){
+		socket.send(soMsg);
+	}
+}
+<% session.setAttribute("plus", "message"); %>
+
+//내용없이 보낼때
+function messageWrite() {
+	 if(!content.value){
+     alert("내용을 입력하세요");  
+     	content.focus();   
+     return false;     
+   }
+}
+</script>
+
 </head> 
 <body>
 <div style="width:500px;margin:40px auto;">
