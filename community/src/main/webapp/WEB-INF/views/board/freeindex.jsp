@@ -83,7 +83,7 @@
                             <li><a href='freeindex.do?page=${p }&stype=${param.stype}&sword=${param.sword}' <c:if test="${boardVO.page == p }">class='current'</c:if>>${p }</a></li>
                         </c:forEach>
                         <c:if test="${data.next == true }">
-                        	<li><a href="freeindex.do?page=${data.endPage+1 }">></a></li>
+                        	<li><a href="freeindex.do?page=${data.endPage +1 }">></a></li>
                         </c:if>
                         </ul> 
                     </div>

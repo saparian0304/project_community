@@ -23,37 +23,6 @@ public class ChatMapperTests {
 	private ChatMapper mapper;
 	private ChatService service;
 	
-//	@Test
-<<<<<<< HEAD
-//	public void entryTest() {
-//		MemberVO vo = new MemberVO();
-//		vo.setMember_no(1);
-//		List<LinkedHashMap> list = mapper.friendList(1);
-//		for (Map map : list) {
-//			
-//			System.out.println("###########################");
-//			System.out.println(map.get("nickname"));
-//			System.out.println(map.get("name"));
-//			System.out.println(map.get("member_id"));
-//			System.out.println("###########################");
-//		}
-//	}
-=======
-	public void entryTest() {
-//		MemberVO vo = new MemberVO();
-//		vo.setMember_no(1);
-//		List<LinkedHashMap> list = mapper.friendList(1);
-//		for (Map map : list) {
-//			
-//			System.out.println("###########################");
-//			System.out.println(map.get("nickname"));
-//			System.out.println(map.get("name"));
-//			System.out.println(map.get("member_id"));
-//			System.out.println("###########################");
-//		}
-	}
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
-	
 	@Test
 	public void Test() {
 		MemberVO vo = new MemberVO();
