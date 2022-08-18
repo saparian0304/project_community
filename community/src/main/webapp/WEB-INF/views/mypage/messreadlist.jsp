@@ -13,6 +13,7 @@
 	    window.open(url, name, option);   
 	} 
 	
+
 	// 쪽지보내기
 	function popmessage(){
 	    var url = "/pet/message/index.do"
@@ -21,7 +22,8 @@
 	    window.open(url, name, option);   
 	} 
 	
-	
+	// 쪽지보내고 나면 닫기
+
 	var close1 = "${off}";
 	
 	function winclose(){	

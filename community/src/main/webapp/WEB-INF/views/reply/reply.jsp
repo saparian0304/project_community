@@ -1,10 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
 
 <script>
-  
+
+// 닉네임 클릭시 정보 보임
+function info2(gno){
+	
+	if($(".activityForm2"+gno).css("display")=="none"){
+		$(".activityForm2").hide();
+		$(".activityForm").hide();
+		$(".activityForm2"+gno).toggle();
+	} else{
+		$(".activityForm2"+gno).hide();
+	}	
+}
 </script>
 
 <div style="width: 980px; margin: 0 auto;" class="replyshow" >    
@@ -30,18 +42,30 @@
 	                <c:if test="${vo.isdelete == false}"> 
 	                   ${vo.content}<c:if test="${loginInfo.member_no == vo.member_no}">
 	                    <a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
-	                    <a href="javascript:replyEdit(${vo.reply_no})"> &nbsp;&nbsp;[수정]</a>
+	                    <a href="javascript:replyEdit(${vo.reply_no}, '${vo.content}')"> &nbsp;&nbsp;[수정]</a>
 	                    </c:if>
 	                </c:if>                                        
                 </td>                                            
              <c:if test="${param.member_no == vo.member_no}">                                            
-                <td class="writer" style="color:blue; font-weight:bold;">
-                     ${vo.member_nickname}
+                 <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
+                	<a href="javascript:info2(${vo.gno})">${vo.member_nickname}</a>
+                	<div class="activityForm2${vo.gno} activityForm2" style="display:none;">
+	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
+	                     <p><button>활동내역</button></p>
+	                     <p><button>친구신청</button></p>
+	                     <p><button>차단</button></p>
+                    </div>
                 </td>
          	</c:if> 
             <c:if test="${param.member_no != vo.member_no}">                                                 
-                <td class="writer">
-                     ${vo.member_nickname}
+                <td class="writer${vo.gno}" style="cursor:pointer;">
+                     <a href="javascript:info2(${vo.gno})"> ${vo.member_nickname} </a>
+                     <div class="activityForm2${vo.gno} activityForm2" style="display:none;">
+	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
+	                     <p><button>활동내역</button></p>
+	                     <p><button>친구신청</button></p>
+	                     <p><button>차단</button></p>
+                     </div>
                 </td>
             </c:if> 
                 <td class="date"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${vo.regdate}"/></td>
@@ -64,9 +88,16 @@
 	        </colgroup>
 	        <tbody>
 	        <tr>
+	        <c:if test="${empty loginInfo}">
 	            <td>
 	                <textarea name="content" id="contents" style="width:900px; height:70px;" placeholder="로그인 후 작성해주세요"></textarea>
 	            </td>
+	        </c:if>
+	        <c:if test="${!empty loginInfo}">
+	            <td>
+	                <textarea name="content" id="contents" style="width:900px; height:70px;" placeholder="댓글을 작성해주세요"></textarea>
+	            </td>
+	        </c:if>     
 	            <td>
 	                <div class="btnSet">
 	                    <a href="javascript:replySave(${param.gno});"  style="  text-align: center;">저장</a>
