@@ -66,10 +66,10 @@
 							class="btn_srch">검색</a>
 					</fieldset>
 				</form>
-				<p>
+				<%-- <p>
 					<span><strong>총 ${data.totalCount }개</strong> |
 						${boardVO.page }/${data.totalPage }페이지</span>
-				</p>
+				</p> --%>
 				<!-- <div>
 					<select name="sido1" id="sido1"></select> <select name="gugun1"
 						id="gugun1"></select>

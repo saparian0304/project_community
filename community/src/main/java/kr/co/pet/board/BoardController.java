@@ -21,6 +21,7 @@ import kr.co.pet.hos.HosService;
 import kr.co.pet.loc.LocService;
 import kr.co.pet.loc.LocVO;
 import kr.co.pet.reply.ReplyService;
+import util.PageMaker;
 @Controller
 public class BoardController {
 	@Autowired
@@ -45,17 +46,29 @@ public class BoardController {
 	public String mainindex(Model model, BoardVO vo) {
 		model.addAttribute("data", service.index(vo));
 		model.addAttribute("fdata", fservice.find(vo.getBoard_no()));
+		
 		return "board/index";
 	}
 	
 	@GetMapping("/board/freeindex.do")
 	public String index(Model model, BoardVO vo) {
 		model.addAttribute("data", service.index(vo));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.indexTotal(vo));
+		model.addAttribute("pageMaker", pageMaker);
 		return "board/freeindex";
 	}
 	@GetMapping("/board/liveindex.do")
 	public String liveindex(Model model, BoardVO vo) {
+		vo.setPageRow(12);
 		model.addAttribute("data", service.index(vo));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.indexTotal(vo));
+		model.addAttribute("pageMaker", pageMaker);
 		return "board/liveindex";
 	}
 	

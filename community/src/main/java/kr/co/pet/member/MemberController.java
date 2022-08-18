@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,7 +73,7 @@ public class MemberController {
 		HttpSession sess = req.getSession();
 		
 		sess.invalidate();
-		model.addAttribute("msg", "로그아웃됨");
+		model.addAttribute("msg", "로그아웃완료!");
 		model.addAttribute("url", "/pet/member/login.do");
 		return "common/alert";
 	}
@@ -81,21 +82,6 @@ public class MemberController {
 	public String notice() {
 		return "notice";
 	}
-	
-//	@PostMapping("/member/joinBySns.do") //간편가입
-//	public String joinBySns(MemberVO vo, Model model ) {
-//
-//		if (service.insert(vo) > 0) {
-//			model.addAttribute("msg", "간편가입성공!");
-//			model.addAttribute("url", "member/index.do");
-//			log.info("model : "+ model);
-//			return "/common/alert";
-//		}else {
-//			
-//			model.addAttribute("msg", "간편가입 실패");
-//			return "/common/alert";
-//		}
-//	}
 	
 	//간편로그인
 	@GetMapping("/member/loginBySns.do")
@@ -117,31 +103,23 @@ public class MemberController {
 			// jsp에서 ${sessScope.kakaoN} 이런 형식으로 사용할 수 있다.
 		   System.out.println("loginInfo : "+ userInfo.getMember_id());
 			
-			MemberVO snsCheck = (MemberVO)sess.getAttribute("loginInfo");
-			
-			
-			
-			
-			System.out.println(service.snsCheck(snsCheck, sess));
-			
-			
-			
-			
-			MemberVO svo = service.snsCheck(snsCheck, sess);
-			
-			String svo_id = svo.getMember_id();
-			System.out.println("***************snsId : "+ svo_id);
-			if ( svo_id.equals(userInfo.getMember_id())) {
-			//if ( certi_num.equals(certi))
-			
-			model.addAttribute("result", "가입된 아이디가 있습니다.");
-				
-			return "/board/index";
-				
-			}	
-			return "member/login";
-	    }
+			MemberVO snsCheckVo = (MemberVO)sess.getAttribute("loginInfo");
 	
+			MemberVO svo = service.snsCheck(snsCheckVo, sess);
+			
+			if(svo==null) {
+				model.addAttribute("url", "/pet/member/easyLogin.do");
+				return "member/easyLogin";
+				
+			}else {
+				return "/board/index";
+			}
+	    }
+	@GetMapping("/member/easyJoin.do")
+	public String insertSns(HttpSession sess) {
+		service.insertSns(sess);
+		return "board/index";
+	}
 	@PostMapping("/member/idCheck")
 	@ResponseBody
 	public String idCheck(@RequestParam("member_id") String member_id) {

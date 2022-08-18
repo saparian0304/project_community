@@ -31,7 +31,6 @@
 			</if>
 		</where>
 		order by regdate desc
-		Limit ${startIdx},${pageRow};	
 	</select>
 	
 	
@@ -44,6 +43,7 @@
 				limit 1) as filename_org
 		from board
 		order by regdate desc
+		Limit ${startIdx},${pageRow};	
 	</select>
 	
 	<update id="updateViewCount" parameterType="int">
