@@ -73,11 +73,33 @@
 							<div>${vo.title }</div>
 							<div>${vo.board_no }</div>
 						</div>
+						<div>제목 : ${vo.title }</div>
+						<div>글번호 : ${vo.board_no }</div>
+						<div>조회수 : ${vo.viewcount }</div>
+						<div>작성자 : ${vo.memb_nickname }</div>
+						<div>등록일자 : ${vo.regdate }<fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm:ss"/></div>
 						<div class="rightArea" style="text-align: right">
 						</div>
 					</figure>
 				</div>			
 			</c:forEach>
+				</c:forEach>
+				  <tbody>
+                        <c:if test="${empty data.list }">
+                            <tr>
+                                <td class="first" colspan="5">등록된 글이 없습니다.</td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${!empty data.list }">
+	                        <c:forEach var="vo" items="${data.list }" varStatus="status">
+	                        <tr>
+	                        <td>${data.totalCount-status.index-(boardVO.page-1)*boardVO.pageRow}<!--" 총개수-인덱스-(현재페이지번호-1)*페이지당개수 "--></td>
+	                          
+	                        </tr>
+							</c:forEach>
+						</c:if>
+                    </tbody>
+			</div>
 			
 			<!-- <div class="btnSet" style="text-align: right;">
 				<a class="btn" href="livewrite.do">글작성 </a>

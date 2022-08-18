@@ -68,15 +68,17 @@ function goSave(){
 }
 
 // 댓글수정
-function replyEdit(reply_no){
+function replyEdit(reply_no, content){
 	$.ajax({    			
 		url : "/pet/reply/list.do",
 		data : {
 			board_no : ${data.board_no},
-			reply_no : reply_no				
+			reply_no : reply_no,
+			content : content
+			
 		},			
 		success : function() {
-			$("#redit"+reply_no).html('<tr><td colspan="5"><textarea name="content" id="recon" style="width:800px; height:70px;" placeholder=""></textarea></td><td><div class="btnSet"><a href="javascript:replyEditgo(' + reply_no + ');"  style="  text-align: center;" >수정</a></div></td></tr>');				
+			$("#redit"+reply_no).html('<tr><td colspan="5"><textarea name="content" id="recon" style="width:800px; height:70px;">'+content+'</textarea></td><td><div class="btnSet"><a href="javascript:replyEditgo(' + reply_no + ');"  style="  text-align: center;" >&nbsp;&nbsp;수정</a></div></td></tr>');				
 		}
 	});
 	$("#redit"+reply_no).toggle();
@@ -201,6 +203,36 @@ function report(member_no, board_no, reply_no) {
 	form.submit();
 }
 
+// 좋아요
+function recommend(board_no, reply_no) {
+	<c:if test="${empty loginInfo}">
+	 alert('로그인 상태에서 이용할 수 있습니다.');
+	 return;
+	</c:if>
+	$.ajax({
+		url : "/pet/recommend/recommend.do",
+		data : {
+			board_no : board_no,
+			reply_no : reply_no,
+		},			
+		type : 'post',
+		dataType : "JSON",
+		success : function(res) {
+			console.log(res)
+			console.log(res.recommendCount);
+			console.log(res.recommended);
+			if (res.recommended) {
+				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black.png" width="50px"><br>'+res.recommendCount;
+				$('#like').html(icon_img);
+			} else {
+				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white.png" width="50px"><br>'+res.recommendCount;
+				$('#like').html(icon_img);
+			}
+		}	
+	})
+}
+	
+
 </script>
     
     <ul class="skipnavi">
@@ -282,14 +314,27 @@ function report(member_no, board_no, reply_no) {
 	                        <div>
 			                    <div class="rightArea" >
 			                        <ul class="wrap">
-		                       			<li style="text-align: right">
-			                               		<a id="like">
-													<img alt="좋아요" src="http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_theart_off2.png">
-			                               		</a>
+		                       			<div style="height:40px; margin : 10px 10px 0 0;">
+			                            <span style="float: right; text-align: center;">
 			                               		<a id="book">
-			                               			<img alt="북마크" src="http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_tstar_off.png">
+			                               			<img alt="북마크" src="/pet/img/icon_bookmark_white.png" width="45px">
 			                               		</a>
-			                            </li>
+			                            </span>
+	                       				<span style="float: right; text-align: center;">
+		                               		<a id="like" href="javascript:recommend(${param.board_no }, 0);">
+		                               		<c:choose>
+		                               			<c:when test="${recdata.recommended == '1'}">
+													<img alt="좋아요" src="/pet/img/icon_like_black.png" width="50px">
+													<br>${recdata.recommendCnt}
+		                               			</c:when>
+		                               			<c:otherwise>
+		                               				<img alt="좋아요" src="/pet/img/icon_like_white.png" width="50px">
+		                               				<br>${recdata.recommendCnt}
+		                               			</c:otherwise>
+		                               		</c:choose>
+		                               		</a>
+                               			</span>
+	                               		</div>
 		                       			<li>
 			                               		<span>주소 : ${ldata.addr }</span>
 			                            </li>
@@ -388,9 +433,16 @@ function report(member_no, board_no, reply_no) {
 			</colgroup>
 			<tbody>
 				<tr id="test">
+				<c:if test="${empty loginInfo}">
 					<td>
 						<textarea name="content" id="content" style="width:900px;height: 70px;" placeholder="로그인 후 작성해주세요"></textarea>
 					</td>
+				</c:if>
+				<c:if test="${!empty loginInfo}">
+					<td>
+						<textarea name="content" id="content" style="width:900px;height: 70px;" placeholder="댓글을 작성해주세요"></textarea>
+					</td>
+				</c:if>		
 					<td>
 						<div class="btnSet">
 							<a href="javascript:goSave();"  style="  text-align: center;">저장</a>

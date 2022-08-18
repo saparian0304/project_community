@@ -22,7 +22,6 @@
 		select count(*) from board
 		where board_name = #{board_name}
 		order by regdate desc
-		Limit ${startIdx},${pageRow};	
 	</select>
 	
 	
@@ -39,6 +38,7 @@
 			and horse_hair = ${horse_hair}
 		</if>
 		order by regdate desc
+		Limit ${startIdx},${pageRow};	
 	</select>
 	
 	<update id="updateViewCount" parameterType="int">

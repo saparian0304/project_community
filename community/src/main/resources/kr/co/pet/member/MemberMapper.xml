@@ -34,11 +34,11 @@
 		update member SET pwd = md5(#{pwd}) where member_id = '${member_id}' and email = '${email}'
 	</update>
 	
-	<select id="snsCheck" parameterType="java.util.HashMap" resultType="kr.co.pet.member.MemberVO">
+	<select id="snsCheck" parameterType="kr.co.pet.member.MemberVO" resultType="kr.co.pet.member.MemberVO">
 		select * from member where member_id = #{member_id} and email = #{email}
 	</select>
 	
-	<insert id = "insertSns" parameterType="java.util.HashMap">
+	<insert id = "insertSns" parameterType="kr.co.pet.member.MemberVO">
 		insert into member( member_id, email, nickname)
 		values (#{member_id}, #{email}, #{nickname})
 	</insert>

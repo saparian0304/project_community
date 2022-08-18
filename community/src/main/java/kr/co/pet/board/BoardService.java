@@ -22,5 +22,7 @@ public interface BoardService {
 	//수정처리
 	boolean update(BoardVO vo);
 	
+	int indexTotal(BoardVO vo);
+	
 	
 }

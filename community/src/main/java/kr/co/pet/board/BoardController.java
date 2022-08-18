@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,10 @@ import kr.co.pet.file.FileVO;
 import kr.co.pet.hos.HosService;
 import kr.co.pet.loc.LocService;
 import kr.co.pet.loc.LocVO;
+import kr.co.pet.member.MemberVO;
+import kr.co.pet.recommend.RecommendService;
 import kr.co.pet.reply.ReplyService;
+import util.PageMaker;
 @Controller
 public class BoardController {
 	@Autowired
@@ -40,23 +44,37 @@ public class BoardController {
 	
 	@Autowired
 	ReplyService rService;
+	
+	@Autowired
+	RecommendService recService;
 
 	@GetMapping("/board/main.do")
 	public String index(Model model, BoardVO vo) {
 		model.addAttribute("data", service.index(vo));
+		model.addAttribute("fdata", fservice.find(vo.getBoard_no()));
 		return "board/main";
 	}
 	
 	@GetMapping("/board/freeindex.do")
 	public String freeindex(Model model, BoardVO vo) {
 		model.addAttribute("data", service.freeindex(vo));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.indexTotal(vo));
+		model.addAttribute("pageMaker", pageMaker);
 		return "board/freeindex";
 	}
 	
 	@GetMapping("/board/liveindex.do")
 	public String liveindex(Model model, BoardVO vo) {
+		vo.setPageRow(12);
 		model.addAttribute("data", service.liveindex(vo));
-		System.out.println(model.getAttribute("data"));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.indexTotal(vo));
+		model.addAttribute("pageMaker", pageMaker);
 		return "board/liveindex";
 	}
 
@@ -77,14 +95,15 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/view.do")
-	public String view(BoardVO vo, Model model) {
+	public String view(BoardVO vo, Model model, HttpSession sess) {
 		BoardVO data = service.view(vo.getBoard_no());
 		model.addAttribute("data", data);
 		List fdata = fservice.find(vo.getBoard_no());
 		model.addAttribute("fdata", fdata);
 		LocVO ldata = lservice.view(vo.getBoard_no());
 		model.addAttribute("ldata", ldata);
-
+		
+		model.addAttribute("recdata", recService.recommend(vo.getBoard_no(), 0, sess));
 		
 		//model.addAttribute("file", file);
 		return "board/view";

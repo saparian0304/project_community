@@ -45,6 +45,7 @@ public class MypageController {
 
 	@GetMapping("/mypage/frireq.do")
 	public String friReqList(Model model, MypageVO vo) {
+		vo.setPageRow(12);
 		model.addAttribute("data", service.friReqList(vo));
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(vo);

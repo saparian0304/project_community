@@ -1,17 +1,16 @@
 package kr.co.pet.board;
 
 import java.sql.Timestamp;
-import java.util.List;
 
-import kr.co.pet.file.FileVO;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import util.Criteria;
 
 @Data
 @Setter
 @Getter
-public class BoardVO {
+public class BoardVO extends Criteria {
 	//board
 	private int board_no;
 	private String board_name;

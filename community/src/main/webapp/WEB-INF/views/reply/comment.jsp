@@ -2,21 +2,79 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 
-
-function message(gno){
+// 닉네임 눌렀을때 정보 열림
+function info(gno){
 	
 	if($(".activityForm"+gno).css("display")=="none"){
 		$(".activityForm").hide();
+		$(".activityForm2").hide();
 		$(".activityForm"+gno).toggle();
 	} else{
 		$(".activityForm"+gno).hide();
-	}
-	
-	
+	}	
 }
 
+// 쪽지보내기 팝업
+function popmessage(member_no, member_nickname){
+    var url = "/pet/message/send.do?member_no="+member_no+"&nickname="+member_nickname;
+  	var name = "popup message"; 
+    var option = "width = 600, height = 500, top = 100, left = 200, location = no"
+    window.open(url, name, option);   
+}
+
+// 쪽지보내고 나면 닫힘
+	var close1 = "${off}";
+	
+	function winclose(){	
+		  window.open('','_self').close();
+		  alert("발송 완료 되었습니다.");
+		  
+	}
+	
+	$(function(){
+		if (close1 == "yes"){
+			winclose();
+		}
+	});
+
+	
+	// 좋아요
+	function recommendReply(board_no, reply_no) {
+		<c:if test="${empty loginInfo}">
+		 alert('로그인 상태에서 이용할 수 있습니다.');
+		console.log(reply_no);
+		 return;
+		</c:if>
+		$.ajax({
+			url : "/pet/recommend/recommend.do",
+			data : {
+				board_no : board_no,
+				reply_no : reply_no,
+			},			
+			type : 'post',
+			dataType : "JSON",
+			success : function(res) {
+				console.log(res)
+				console.log(res.recommendCount);
+				console.log(res.recommended);
+				if (res.recommended) {
+					var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black_2.png" width="13px"> '+res.recommendCount;
+					$('#relike'+res.reply_no).html(icon_img);
+				} else {
+					var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white_2.png" width="13px"> '+res.recommendCount;
+					$('#relike'+res.reply_no).html(icon_img);
+				}
+			}	
+		})
+	}
+	
+// 팔로우	
+function fillow(member_no){
+	
+}
 
 </script>
 
@@ -38,7 +96,21 @@ function message(gno){
             <tr style="height:70px;"  class="rbox">
                 <td>${(status.index)+1}</td>
                 <td class="txt_l">               
-                   <button onclick="javascript:replyForm(${vo.gno});" id="recount" style="width:80px; height:20px;border-radius: 5px; background: #b0d0df; color: #fff;">[댓글수:  ${vo.reply_count} ] </button>                  
+                   <button onclick="javascript:replyForm(${vo.gno});" id="recount" style="width:80px; height:20px;border-radius: 5px; background: #b0d0df; color: #fff;">[댓글수:  ${vo.reply_count} ] </button>
+                   
+                   <button id="relike${vo.reply_no }" onclick="javascript:recommendReply(${param.board_no}, ${vo.reply_no });" style="width:35px; height:20px;border-radius: 5px; background: pink; color: #fff; line-height: 13px">
+					<c:choose>
+						<c:when test="${vo.recommended == '1'}">
+							<img alt="좋아요" src="/pet/img/icon_like_black_2.png" width="13px"> 
+							${ vo.recommendCount}
+						</c:when>
+						<c:otherwise>
+							<img alt="좋아요" src="/pet/img/icon_like_white_2.png" width="13px"> 
+							${vo.recommendCount}
+						</c:otherwise>
+					</c:choose>
+                   </button>
+                   
                    <c:if test="${vo.isdelete == true }">
                        &emsp;&emsp; 삭제된 댓글입니다.
                    </c:if>
@@ -46,28 +118,30 @@ function message(gno){
                     &emsp;&emsp; ${vo.content}                  
 	                   <c:if test="${loginInfo.member_no == vo.member_no }">
 	                    	<a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
-	                    	<a href="javascript:replyEdit(${vo.reply_no})"> &nbsp;&nbsp;[수정]</a>
+	                    	<a href="javascript:replyEdit(${vo.reply_no}, '${vo.content}' );"> &nbsp;&nbsp;[수정]</a>
 	                    </c:if>	
                     </c:if>                	
                 </td>
     		<c:if test="${param.member_no == vo.member_no}">                                            
                 <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
-                	<a href="javascript:message(${vo.gno})">${vo.member_nickname}</a>
+                	<a href="javascript:info(${vo.gno})">${vo.member_nickname}</a>
                 	<div class="activityForm${vo.gno} activityForm" style="display:none;">
-	                     <p><button onclick="window.open('/pet/message/send.do?member_no=${vo.member_no}&nickname=${vo.member_nickname}&board_no=${board_no}');">쪽지</button></p>
+	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
 	                     <p><button>활동내역</button></p>
 	                     <p><button>친구신청</button></p>
+	                     <p><button onclick="follow(${vo.member_no});">FOLLOW</button></p>
 	                     <p><button>차단</button></p>
                     </div>
                 </td>
          	</c:if> 
             <c:if test="${param.member_no != vo.member_no}">                                                 
                 <td class="writer${vo.gno}" style="cursor:pointer;">
-                     <a href="javascript:message(${vo.gno})"> ${vo.member_nickname} </a>
+                     <a href="javascript:info(${vo.gno})"> ${vo.member_nickname} </a>
                      <div class="activityForm${vo.gno} activityForm" style="display:none;">
-	                     <p><button onclick="window.open('/pet/message/send.do?member_no=${vo.member_no}&nickname=${vo.member_nickname}&board_no=${vo.board_no}');">쪽지</button></p>
+	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
 	                     <p><button>활동내역</button></p>
 	                     <p><button>친구신청</button></p>
+	                     <p><button onclick="follow(${vo.member_no});">FOLLOW</button></p>
 	                     <p><button>차단</button></p>
                      </div>
                 </td>
