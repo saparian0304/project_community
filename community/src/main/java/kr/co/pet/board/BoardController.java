@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.pet.board.api.ApiService;
+import kr.co.pet.bookmark.BookmarkService;
 import kr.co.pet.file.FileService;
 import kr.co.pet.file.FileVO;
 import kr.co.pet.hos.HosService;
@@ -47,9 +48,13 @@ public class BoardController {
 	
 	@Autowired
 	RecommendService recService;
+	
+	@Autowired
+	BookmarkService bService;
 
 	@GetMapping("/board/main.do")
 	public String index(Model model, BoardVO vo) {
+		
 		model.addAttribute("data", service.index(vo));
 		model.addAttribute("fdata", fservice.find(vo.getBoard_no()));
 		return "board/main";
@@ -57,6 +62,7 @@ public class BoardController {
 	
 	@GetMapping("/board/freeindex.do")
 	public String freeindex(Model model, BoardVO vo) {
+		vo.setPageRow(12);
 		model.addAttribute("data", service.freeindex(vo));
 		
 		PageMaker pageMaker = new PageMaker();
@@ -109,7 +115,7 @@ public class BoardController {
 		model.addAttribute("ldata", ldata);
 		
 		model.addAttribute("recdata", recService.recommend(vo.getBoard_no(), 0, sess));
-		
+		model.addAttribute("bookdata", bService.bookmarked(vo, sess));
 		//model.addAttribute("file", file);
 		return "board/freeview";
 	}

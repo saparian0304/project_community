@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<%@ include file="/WEB-INF/views/includes/alram.jsp" %>    
 <script>
 
 // 닉네임 눌렀을때 정보 열림
@@ -63,6 +64,10 @@ function popmessage(member_no, member_nickname){
 				if (res.recommended) {
 					var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black_2.png" width="13px"> '+res.recommendCount;
 					$('#relike'+res.reply_no).html(icon_img);
+					if(socket){
+						var bno = window.location.href.split("=");
+						socket.send("recommend,"+${loginInfo.member_no}+","+$("#no"+reply_no).val()+","+board_no+",[댓글]"+$("#content"+reply_no).val());
+					}
 				} else {
 					var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white_2.png" width="13px"> '+res.recommendCount;
 					$('#relike'+res.reply_no).html(icon_img);
@@ -97,7 +102,9 @@ function fillow(member_no){
                 <td>${(status.index)+1}</td>
                 <td class="txt_l">               
                    <button onclick="javascript:replyForm(${vo.gno});" id="recount" style="width:80px; height:20px;border-radius: 5px; background: #b0d0df; color: #fff;">[댓글수:  ${vo.reply_count} ] </button>
-                   
+                   <!-- 실시간 알람용 -->
+                   <input type="hidden" value="${vo.member_no}" id="no${vo.gno }">
+                   <input type="hidden" value="${vo.content}" id="content${vo.gno }">
                    <button id="relike${vo.reply_no }" onclick="javascript:recommendReply(${param.board_no}, ${vo.reply_no });" style="width:35px; height:20px;border-radius: 5px; background: pink; color: #fff; line-height: 13px">
 					<c:choose>
 						<c:when test="${vo.recommended == '1'}">
@@ -115,11 +122,18 @@ function fillow(member_no){
                        &emsp;&emsp; 삭제된 댓글입니다.
                    </c:if>
                    <c:if test="${vo.isdelete == false }">
-                    &emsp;&emsp; ${vo.content}                  
-	                   <c:if test="${loginInfo.member_no == vo.member_no }">
-	                    	<a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
-	                    	<a href="javascript:replyEdit(${vo.reply_no}, '${vo.content}' );"> &nbsp;&nbsp;[수정]</a>
-	                    </c:if>	
+                    &emsp;&emsp; ${vo.content} &nbsp;&nbsp;
+                    	<c:choose>
+                    		<c:when test="${loginInfo.member_no == vo.member_no }">
+		                    	<a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
+		                    	<a href="javascript:replyEdit(${vo.reply_no}, '${vo.content}' );"> &nbsp;&nbsp;[수정]</a>
+                    		</c:when>
+                    		<c:otherwise>
+	                    		<span style="border:1px; background-color: #d3d3d3; border-radius: 3px; text-align: center; line-height: center; color: white;">
+			                    	<a href="javascript:report(${vo.member_no}, ${param.board_no}, ${vo.reply_no });">&nbsp;[신고]&nbsp;&nbsp;</a>
+			                    </span> 
+                    		</c:otherwise>
+                    	</c:choose>        
                     </c:if>                	
                 </td>
     		<c:if test="${param.member_no == vo.member_no}">                                            

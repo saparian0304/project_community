@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ public class ReportController {
 	@Autowired
 	ReportService service;
 	
-	@PostMapping("report/write.do")
+	@GetMapping("report/write.do")
 	public String write(ReportVO vo, Model model) {
 		model.addAttribute("data", service.getInfo(vo));
 		return "report/write";
@@ -38,7 +39,7 @@ public class ReportController {
 		}
 		
 		if (service.report(vo)>0) {
-			model.addAttribute("url", "/pet/board/index.do");	// 접수 후 이동할 url 입력 필요
+			model.addAttribute("url", "/pet/board/main.do");	// 접수 후 이동할 url 입력 필요
 			model.addAttribute("msg", "신고가 정상적으로 접수되었습니다.");
 		} else {
 			model.addAttribute("msg", "접수 중에 오류가 발생하였습니다. 잠시 후에 다시 시도해주십시오.");

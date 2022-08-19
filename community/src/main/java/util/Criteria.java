@@ -22,6 +22,8 @@ public class Criteria {
 	}
 	
 	public int getStartIdx() {
+		System.out.println(this.page + "dddd");
+		System.out.println(this.pageRow + "dddd");
 		return (this.page - 1) * pageRow;
 	}
 	

@@ -38,7 +38,7 @@
 			and horse_hair = ${horse_hair}
 		</if>
 		order by regdate desc
-		Limit ${startIdx},${pageRow};	
+		Limit #{startIdx},${pageRow}	
 	</select>
 	
 	<update id="updateViewCount" parameterType="int">

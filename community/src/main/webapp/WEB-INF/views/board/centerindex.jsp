@@ -6,8 +6,6 @@
         <li><a href="#container">본문내용</a></li>
     </ul>
 <div id="wrap">
-
-
 	<!-- 컨텐츠 영역 -->
 	<div id="container">
 		<!-- 위치(페이지 제목)영역 -->
@@ -33,9 +31,9 @@
 					${boardVO.page }/${data.totalPage }페이지</span>
 			</p>
 
-			<div class="btnSet" style="text-align: right;">
+			<!-- <div class="btnSet" style="text-align: right;">
 				<a class="btn" href="freewrite.do">글작성 </a>
-			</div>
+			</div> -->
 			<!-- **** -->
 			<table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
 				<caption class="hdd">공지사항 목록</caption>
@@ -69,24 +67,29 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			<%-- <div class="pagenate clear">
-				<ul class='paging'>
-					<c:if test="${data.prev == true }">
-						<li><a
-							href="freeindex.do?page=${data.startPage-1 }&stype=${param.stype}&sword=${param.sword}"><</a>
-					</c:if>
-					<c:forEach var="p" begin="${data.startPage }"
-						end="${data.endPage -1}">
-						<li><a
-							href='freeindex.do?page=${p }&stype=${param.stype}&sword=${param.sword}'
-							<c:if test="${boardVO.page == p }">class='current'</c:if>>${p }</a></li>
-					</c:forEach>
-					<c:if test="${data.next == true }">
-						<li><a href="freeindex.do?page=${data.endPage+1 }">></a></li>
-					</c:if>
-				</ul>
-			</div> --%>
-
+			<div class="pagenation" style="clear: left">
+				<a style="cursor: pointer" class="firstpage pbtn">
+			        <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
+			    </a>
+				<c:if test="${pageMaker.prev == true }">
+					<a class="prevpage pbtn" href="centerindex.do?page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}">
+					<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
+					</a>
+				</c:if>
+				<c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage}">
+					<a href='centerindex.do?page=${p }&stype=${param.stype}&sword=${param.sword}'
+						class='pagenum <c:if test="${boardVO.page == p }"> currentpage</c:if>'>${p }</a>
+				</c:forEach>
+				<c:if test="${pageMaker.next == true }">
+					<a class="nextpage pbtn" href="centerindex.do?page=${pageMaker.endPage +1}">
+					<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
+					</a>
+				</c:if>
+				<a style="cursor: pointer"  
+			    	class="lastpage pbtn">
+			        <img src="/pet/img/btn_lastpage.png" alt="마지막 페이지 이동">
+			    </a>
+			</div>
 			<!-- 페이지처리 -->
 
 		</div>
