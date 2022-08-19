@@ -128,6 +128,10 @@ function replySave(gno){
 					$("#contents").val('');
 					getComment(1);
 				}
+				//대댓글 실시간알람
+				if(socket){
+					socket.send("rereply,"+${loginInfo.member_no}+","+$("#no"+gno).val()+","+${data.board_no}+","+$("#content"+gno).val());
+				}
 			}
 		});
 		
@@ -171,36 +175,15 @@ function commentDel(reply_no) {
 	}
 }
 
-function report(member_no, board_no, reply_no) {
+function report(you_no, board_no, reply_no) {
 	<c:if test="${empty loginInfo}">
 		alert('로그인후 댓글작성해주세요');
 	 	return;
 	</c:if>
-	var isReply;
-	if (reply_no == '' || reply_no == null) {
-		isReply = 0;
-	} else {
-		isReply = 1
-	}
-
-	var form = document.createElement('form');
-	form.setAttribute('method', 'post');
-	form.setAttribute('action', '/pet/report/write.do');
-	document.charset = "uft-8";
-	var list = { 
-			'you_no' : member_no, 
-			'board_no' : board_no, 
-			'reply_no' : reply_no,
-			'isReply' : isReply}
-	for ( var key in list) {
-		var field = document.createElement('input');
-		field.setAttribute('type', 'hidden');
-		field.setAttribute('name', key);
-		field.setAttribute('value', list[key]);
-		form.appendChild(field);
-	}
-	document.body.appendChild(form);
-	form.submit();
+	var option = "width = 800, height = 600, top = 100, left = 100";
+	var url = "/pet/report/write.do?you_no="+you_no+"&board_no="+board_no+"&reply_no="+reply_no;
+	var name = "신고하기";
+	window.open(url, name, option);
 }
 
 // 좋아요
@@ -218,12 +201,12 @@ function recommend(board_no, reply_no) {
 		type : 'post',
 		dataType : "JSON",
 		success : function(res) {
-			console.log(res)
-			console.log(res.recommendCount);
-			console.log(res.recommended);
 			if (res.recommended) {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black.png" width="50px"><br>'+res.recommendCount;
 				$('#like').html(icon_img);
+				if(socket){
+					socket.send("recommend,"+${loginInfo.member_no}+","+boardWriter+","+${data.board_no}+","+'[게시글]${data.title}');
+				}
 			} else {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white.png" width="50px"><br>'+res.recommendCount;
 				$('#like').html(icon_img);
@@ -232,6 +215,36 @@ function recommend(board_no, reply_no) {
 	})
 }
 	
+// 북마크
+function bookmark(board_no) {
+	<c:if test="${empty loginInfo}">
+	 alert('로그인 상태에서 이용할 수 있습니다.');
+	 return;
+	</c:if>
+	var member_no = '${loginInfo.member_no}';
+	
+	$.ajax({
+		url : "/pet/bookmark/bookmark.do",
+		data : {
+			board_no : board_no,
+			member_no : member_no
+		},			
+		type : 'post',
+		dataType : "JSON",
+		success : function(res) {
+			console.log(res)
+			console.log(res.bookmarked);
+			if (res.bookmarked) {
+				var icon_img = '<img alt="북마크" src="/pet/img/icon_bookmark_black.png" width="45px">';
+				$('#book').html(icon_img);
+			} else {
+				var icon_img = '<img alt="북마크" src="/pet/img/icon_bookmark_white.png" width="45px">';
+				$('#book').html(icon_img);
+			}
+		}	
+	})
+}
+
 
 </script>
     
@@ -256,14 +269,17 @@ function recommend(board_no, reply_no) {
 	                <h3 class="sub_title">게시판</h3>
 	                <div class="bbs">
 	                	<div style="text-align: right">
-	                    	작성자 : ${data.member_no } <a href="javascript:report(${data.member_no}, ${data.board_no }, 0)">[게시글 신고버튼 예]</a><br>  
-							<a href="javascript:report(${data.member_no}, ${data.board_no }, 1)">[댓글 신고버튼 예]</a>
+	                    	<span style="border:1px; background-color: #d3d3d3; border-radius: 3px; text-align: center; line-height: center; color: white;">
+			                    <a href="javascript:report(${vo.member_no}, ${param.board_no}, 0);">&nbsp;[게시글 신고]&nbsp;&nbsp;</a>
+			                </span> 
 	                	</div>
 	                    <div class="view">
 	                        <div class="title">
 	                            <dl>
 	                                <dt>${data.title } </dt>
-	                                <dd class="date">작성일 : ${data.regdate } </dd>
+	                                <dd class="date">작성일 : ${data.regdate } </dd> 
+	                                <dd style="float: right; margin-right : 40px;">작성자 : ${data.member_no }
+	                                </dd>
 	                            </dl>
 	                        </div>
 	                        <div class="leftArea">
@@ -316,8 +332,15 @@ function recommend(board_no, reply_no) {
 			                        <ul class="wrap">
 		                       			<div style="height:40px; margin : 10px 10px 0 0;">
 			                            <span style="float: right; text-align: center;">
-			                               		<a id="book">
-			                               			<img alt="북마크" src="/pet/img/icon_bookmark_white.png" width="45px">
+			                               		<a id="book" href="javascript:bookmark(${param.board_no });">
+			                               		<c:choose>
+			                               			<c:when test="${bookdata== true}">
+			                               				<img alt="북마크" src="/pet/img/icon_bookmark_black.png" width="45px">
+			                               			</c:when>
+			                               			<c:otherwise>
+			                               				<img alt="북마크" src="/pet/img/icon_bookmark_white.png" width="45px">
+			                               			</c:otherwise>
+			                               		</c:choose>
 			                               		</a>
 			                            </span>
 	                       				<span style="float: right; text-align: center;">
@@ -419,7 +442,7 @@ function recommend(board_no, reply_no) {
 	        </div><!-- sub -->
         </div>
         <!-- id contner -->
-        
+        </div>
     </div> <!-- div id="wrap" -->
 
   

@@ -12,24 +12,16 @@ function connectWS(){
 	
 	ws.onopen = function(){
 		console.log("open");
-		//setTimeout(function(){
-	//		connectWS();
-	//	}, 1000);
 	};
 	
 	ws.onmessage = function(event){
 		console.log("onmessage" + event.data);
-		var $socketAlert = $('h3#socketAlert');
-		$socketAlert.html(event.data);
-		$socketAlert.css({
-			"display" :  "block",
-			"backgorund" : "yellow"
-		});
-			
-		
-		setTimeout(function(){
-			$socketAlert.css("display", "none");
-		}, 5000);
+		var $socketAlert = $('img.socketAlert');
+		$socketAlert.attr("src",'/pet/img/isalram.png');
+//		$socketAlert.css({
+//			"display" :  "block",
+//		});
+		$('div.socketAlert').html(event.data);	
 	};
 	
 	ws.onclose = function(){
