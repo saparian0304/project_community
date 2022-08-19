@@ -109,7 +109,6 @@ public class BoardController {
 		
 		model.addAttribute("recdata", recService.recommend(vo.getBoard_no(), 0, sess));
 		model.addAttribute("bookdata", bService.bookmarked(vo, sess));
-		System.out.println(model.getAttribute("bookdata"));
 		//model.addAttribute("file", file);
 		return "board/view";
 	}

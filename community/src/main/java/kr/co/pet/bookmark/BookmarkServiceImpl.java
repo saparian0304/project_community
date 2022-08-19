@@ -44,7 +44,6 @@ public class BookmarkServiceImpl implements BookmarkService {
 			if (mapper.bookmarked(vo) > 0)
 				flag = true;
 		}
-		System.out.println("service" + flag);
 		return flag;
 	}
 
