@@ -352,49 +352,6 @@ function recommend(board_no, reply_no) {
 			                </div>
 	                        
 	                        
-	                        
-	                        
-	                        
-	                        
-	                        <%-- <div class="rightArea">
-                       			<!--  스마트 에디터쓰면 p태그가 자동으로 들어감 수정해 주실 분 구함 -->
-                       			<ul class="wrap">
-	                       			<li>
-		                               	<div class="sns">
-		                               		<a id="like">
-												<img alt="좋아요" src="http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_theart_off2.png">
-		                               		</a>
-		                               		<a id="book">
-		                               			<img alt="북마크" src="	http://appdata.hungryapp.co.kr/images/hatdog/img/pc_img/common/icon_tstar_off.png">
-		                               		</a>
-		                               	</div>
-		                            </li>
-	                       			<li>
-		                               	<dl>
-		                               		<dt>주소</dt><dd>${ldata.addr }</dd>
-		                               	</dl>
-		                            </li>
-	                       			<li>
-		                               	<dl>
-		                               		<dt>내용</dt>
-		                               		<dd>${data.content }</dd>
-		                               	</dl>
-		                            </li>
-	                       			<li>
-		                               	<dl>
-		                               		<dt>전화번호</dt>
-		                               		<dd>{data.tel }</dd>
-		                               	</dl>
-		                            </li>
-	                       			<li>
-		                               	<dl>
-		                               		<dt>홈페이지</dt>
-		                               		<dd>${data.link }</dd>
-		                               	</dl>
-		                            </li>
-	                            </ul>
-	                        </div> --%>
-	                        
 	                        <div class="swiper mySwiper">
 						      <div class="swiper-wrapper">
 						        <c:if test="${!empty fdata }">

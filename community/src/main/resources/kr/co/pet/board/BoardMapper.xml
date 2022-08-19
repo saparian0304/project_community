@@ -20,16 +20,7 @@
 	
 	<select id="count" parameterType="kr.co.pet.board.BoardVO" resultType="java.lang.Integer">
 		select count(*) from board
-		<where>
-			<if test="stype != null and stype != ''">
-				<if test="stype != 'all'">
-					${stype} Like '%${sword}%'
-				</if> 
-				<if test="stype == 'all'">
-					title Like '%${sword}%' or content Like '%${sword}%'
-				</if>
-			</if>
-		</where>
+		where board_name = #{board_name}
 		order by regdate desc
 	</select>
 	
@@ -42,6 +33,10 @@
 				order by file_no asc) as a
 				limit 1) as filename_org
 		from board
+		where board_name = #{board_name}
+		<if test="horse_hair != null and horse_hair !=''">
+			and horse_hair = ${horse_hair}
+		</if>
 		order by regdate desc
 		Limit ${startIdx},${pageRow};	
 	</select>

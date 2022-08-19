@@ -34,7 +34,7 @@
 		<div class="header_area box_inner clear">
 			<!-- 로고 -->
 			<h1>
-				<a href="/pet/board/index.do">Help!</a>
+				<a href="/pet/board/main.do">Help!</a>
 			</h1>
 			<!-- 네비 로그인 -->
 			<div class="header_cont">
@@ -63,7 +63,7 @@
 									<li><a href="#">해외</a></li>
 								</ul>
 							</div></li>
-						<li><a href="#">유기견관련</a>
+						<li><a href="/pet/board/centerindex.do">유기견관련</a>
 							<div class="gnb_depth gnb_depth_2_2">
 								<ul class="submenu_list">
 									<li><a href="#">공지사항</a></li>
@@ -80,7 +80,7 @@
 						</li>
 					<c:if test="${!empty loginInfo }">
 					<li><a
-						href="/pet/mypage/index.do?member_no=${loginInfo.member_no }">마이페이지</a>
+						href="/pet/mypage/main.do?member_no=${loginInfo.member_no }">마이페이지</a>
 						<div class="gnb_depth gnb_depth_2_4">
 							<ul class="submenu_list">
 								<li><a href="#">항공</a></li>
