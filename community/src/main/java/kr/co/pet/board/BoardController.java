@@ -50,6 +50,7 @@ public class BoardController {
 
 	@GetMapping("/board/main.do")
 	public String index(Model model, BoardVO vo) {
+		
 		model.addAttribute("data", service.index(vo));
 		model.addAttribute("fdata", fservice.find(vo.getBoard_no()));
 		return "board/main";
@@ -57,6 +58,7 @@ public class BoardController {
 	
 	@GetMapping("/board/freeindex.do")
 	public String freeindex(Model model, BoardVO vo) {
+		vo.setPageRow(12);
 		model.addAttribute("data", service.freeindex(vo));
 		
 		PageMaker pageMaker = new PageMaker();

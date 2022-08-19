@@ -40,6 +40,7 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public Map freeindex(BoardVO vo) {
 		vo.setBoard_name("free");
+		
 		List<BoardVO> list = mapper.list(vo);
 		// 총 게시물
 		int totalCount = mapper.count(vo);
@@ -65,7 +66,6 @@ public class BoardServiceImpl implements BoardService{
 		map.put("totalCount", totalCount);
 		map.put("page", vo.getPage());
 		map.put("list", list);
-		
 		return map;
 	}
 

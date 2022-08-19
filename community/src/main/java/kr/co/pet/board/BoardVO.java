@@ -29,23 +29,9 @@ public class BoardVO extends Criteria {
 	private String[] imageList;
 	private String image;
 	
-	private int page;
 	private String stype;//검색타입
 	private String sword;//검색어
 	
-	private int startIdx;
-	private int pageRow;
-	
-	public BoardVO() {
-		this.page = 1;
-		this.pageRow = 10;
-
-	}
-	
-	public BoardVO(int page, int pageRow) {
-		this.page = page;
-		this.pageRow = pageRow;
-	}
 	
 	private String filename_org;
 	private String filename_real;
