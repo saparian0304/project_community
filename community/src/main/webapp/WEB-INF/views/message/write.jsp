@@ -107,12 +107,8 @@ function soSend(){
 
 				<td colspan="2" style="text-align: center;">
 					<button style="width : 80px; height : 30px; position: center; margin-top:5px;" class="reqbtn mymess">
-						<input type="submit" name="" value="전송" style="background-color:transparent; border:0px transparent solid;">
+						<input type="submit" name="" value="전송" onclick="soSend();" style="background-color:transparent; border:0px transparent solid;">
 					</button>					
-				</td>
-				<td>
-					<input type="submit" name="" value="전송" onclick="soSend();">
-
 				</td>
 			</tr>
 		</table>
