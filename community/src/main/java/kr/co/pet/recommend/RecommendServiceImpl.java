@@ -35,16 +35,15 @@ public class RecommendServiceImpl implements RecommendService {
 	public Map recommend(int board_no, int reply_no, HttpSession sess) {
 		MemberVO mvo = (MemberVO)sess.getAttribute("loginInfo");
 		RecommendVO vo = new RecommendVO();
+		vo.setBoard_no(board_no);
+		vo.setReply_no(reply_no);
 		Map recommendInfo = new HashMap();
 		if (mvo != null) {
 			vo.setMember_no(mvo.getMember_no());
-			vo.setBoard_no(board_no);
-			vo.setReply_no(reply_no);
 			
 			recommendInfo.put("recommended", mapper.isRecommended(vo));
 		}
 		recommendInfo.put("recommendCnt", mapper.getRecCnt(vo));
-		
 		return recommendInfo;
 	}
 	

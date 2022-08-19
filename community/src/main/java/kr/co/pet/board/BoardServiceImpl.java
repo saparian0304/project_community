@@ -68,6 +68,23 @@ public class BoardServiceImpl implements BoardService{
 		
 		return map;
 	}
+
+	@Override
+	public Map centerindex(BoardVO vo) {
+		vo.setBoard_name("center");
+		
+		int totalCount = mapper.count(vo); // 총게시물수
+		
+		Map map = new HashMap();
+		
+		//게시물 리스트
+		List list = mapper.list(vo);
+		map.put("totalCount", totalCount);
+		map.put("page", vo.getPage());
+		map.put("list", list);
+		
+		return map;
+	}
 	
 
 	@Override

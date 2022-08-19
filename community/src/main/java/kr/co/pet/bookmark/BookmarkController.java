@@ -2,12 +2,16 @@ package kr.co.pet.bookmark;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.co.pet.board.BoardVO;
+import kr.co.pet.member.MemberVO;
 
 @Controller
 public class BookmarkController {
@@ -22,11 +26,14 @@ public class BookmarkController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="bookmark/bookmark.do")
-	public BookMarkVO recommend(@RequestBody BookMarkVO vo) {
+	public BookMarkVO recommend(BoardVO vo, HttpSession sess) {
+		MemberVO mvo = (MemberVO)sess.getAttribute("loginInfo");
 		BookMarkVO bvo = new BookMarkVO();
-		bvo.setBookmarked(service.bookmark(vo));
-		bvo.setBookmarkCount(service.getBookmarkCnt(vo));
-		
+		if(mvo != null) {
+			bvo.setMember_no(mvo.getMember_no());
+			bvo.setBookmarked(service.bookmark(vo));
+			bvo.setBookmarkCount(service.getBookmarkCnt(vo));
+		}
 		return bvo;
 	}
 	/**
@@ -37,7 +44,7 @@ public class BookmarkController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="bookmark/count.do")
-	public int count(@RequestBody BookMarkVO vo) {
+	public int count(@RequestBody BoardVO vo) {
 		return service.getBookmarkCnt(vo);
 	}
 	

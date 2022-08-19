@@ -101,7 +101,7 @@
 					<h2>생활게시판</h2>
 					<div class="swiper-wrapper">
 						<div class="swiper-slide">
-							<img alt="" src="http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg">
+							<img src="http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg">
 						</div>
 						<div class="swiper-slide">Slide 2</div>
 						<div class="swiper-slide">Slide 3</div>

@@ -239,6 +239,36 @@ function recommend(board_no, reply_no) {
 	})
 }
 	
+// 북마크
+function bookmark(board_no) {
+	<c:if test="${empty loginInfo}">
+	 alert('로그인 상태에서 이용할 수 있습니다.');
+	 return;
+	</c:if>
+	var member_no = '${loginInfo.member_no}';
+	
+	$.ajax({
+		url : "/pet/bookmark/bookmark.do",
+		data : {
+			board_no : board_no,
+			member_no : member_no
+		},			
+		type : 'post',
+		dataType : "JSON",
+		success : function(res) {
+			console.log(res)
+			console.log(res.bookmarked);
+			if (res.bookmarked) {
+				var icon_img = '<img alt="북마크" src="/pet/img/icon_bookmark_black.png" width="45px">';
+				$('#book').html(icon_img);
+			} else {
+				var icon_img = '<img alt="북마크" src="/pet/img/icon_bookmark_white.png" width="45px">';
+				$('#book').html(icon_img);
+			}
+		}	
+	})
+}
+
 
 </script>
     
@@ -323,8 +353,15 @@ function recommend(board_no, reply_no) {
 			                        <ul class="wrap">
 		                       			<div style="height:40px; margin : 10px 10px 0 0;">
 			                            <span style="float: right; text-align: center;">
-			                               		<a id="book">
-			                               			<img alt="북마크" src="/pet/img/icon_bookmark_white.png" width="45px">
+			                               		<a id="book" href="javascript:bookmark(${param.board_no });">
+			                               		<c:choose>
+			                               			<c:when test="${bookdata== true}">
+			                               				<img alt="북마크" src="/pet/img/icon_bookmark_black.png" width="45px">
+			                               			</c:when>
+			                               			<c:otherwise>
+			                               				<img alt="북마크" src="/pet/img/icon_bookmark_white.png" width="45px">
+			                               			</c:otherwise>
+			                               		</c:choose>
 			                               		</a>
 			                            </span>
 	                       				<span style="float: right; text-align: center;">
