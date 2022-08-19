@@ -128,6 +128,10 @@ function replySave(gno){
 					$("#contents").val('');
 					getComment(1);
 				}
+				//대댓글 실시간알람
+				if(socket){
+					socket.send("rereply,"+${loginInfo.member_no}+","+$("#no"+gno).val()+","+${data.board_no}+","+$("#content"+gno).val());
+				}
 			}
 		});
 		
@@ -200,6 +204,9 @@ function recommend(board_no, reply_no) {
 			if (res.recommended) {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black.png" width="50px"><br>'+res.recommendCount;
 				$('#like').html(icon_img);
+				if(socket){
+					socket.send("recommend,"+${loginInfo.member_no}+","+boardWriter+","+${data.board_no}+","+'[게시글]${data.title}');
+				}
 			} else {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white.png" width="50px"><br>'+res.recommendCount;
 				$('#like').html(icon_img);
