@@ -80,7 +80,7 @@
 						</li>
 					<c:if test="${!empty loginInfo }">
 					<li><a
-						href="/pet/mypage/main.do?member_no=${loginInfo.member_no }">마이페이지</a>
+						href="/pet/mypage/index.do?member_no=${loginInfo.member_no }">마이페이지</a>
 						<div class="gnb_depth gnb_depth_2_4">
 							<ul class="submenu_list">
 								<li><a href="#">항공</a></li>
