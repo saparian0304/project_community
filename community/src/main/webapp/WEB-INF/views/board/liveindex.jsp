@@ -62,7 +62,7 @@
 			
 			<c:forEach var="vo" items="${data.list}" varStatus="status">
 				<div id="list">
-					<figure id="figure" onclick="location.href='view.do?board_no=${vo.board_no }';">
+					<figure id="figure" onclick="location.href='liveview.do?board_no=${vo.board_no }';">
 						<c:if test="${!empty vo.filename_org }">
 							<img src="${vo.filename_org}" onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
 						</c:if>

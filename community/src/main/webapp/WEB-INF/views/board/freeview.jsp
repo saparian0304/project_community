@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
+<link rel="stylesheet" href="/pet/css/tab.css"/>
 <script>
 
 /* 삭제 할거임 */
@@ -231,8 +232,20 @@ function recommend(board_no, reply_no) {
 		}	
 	})
 }
-	
-
+//탭
+$(document).ready(function(){
+	   
+	  $('ul.tabs li').click(function(){
+	    var tab_id = $(this).attr('data-tab');
+	 
+	    $('ul.tabs li').removeClass('current');
+	    $('.tab-content').removeClass('current');
+	 
+	    $(this).addClass('current');
+	    $("#"+tab_id).addClass('current');
+	  })
+	 
+	})
 </script>
     
     <ul class="skipnavi">
@@ -266,148 +279,30 @@ function recommend(board_no, reply_no) {
 	                                <dd class="date">작성일 : ${data.regdate } </dd>
 	                            </dl>
 	                        </div>
-	                        <div class="leftArea">
-								<!-- 카카오 api -->
-		                        <div id="map" style="width:500px;height:400px;"></div>
-								<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d27f0849a07d99e4a90f3bcd6edd63d&libraries=services"></script>
-								<script>
-									var container = document.getElementById('map');
-									var options = {
-										center: new kakao.maps.LatLng(33.450701, 126.570667),
-										level: 3
-									};
-									var map = new kakao.maps.Map(container, options);
-									
-									// 주소-좌표 변환 객체를 생성합니다
-									var geocoder = new kakao.maps.services.Geocoder();
-
-									var addr = '${ldata.addr}';
-									// 주소로 좌표를 검색합니다
-									geocoder.addressSearch(addr, function(result, status) {
-
-									    // 정상적으로 검색이 완료됐으면 
-									     if (status === kakao.maps.services.Status.OK) {
-
-									        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-									        // 결과값으로 받은 위치를 마커로 표시합니다
-									        var marker = new kakao.maps.Marker({
-									            map: map,
-									            position: coords
-									        });
-
-									        // 인포윈도우로 장소에 대한 설명을 표시합니다
-									        var infowindow = new kakao.maps.InfoWindow({
-									            content: '<div style="width:150px;text-align:center;padding:6px 0;">${data.title}</div>'
-									        });
-									        infowindow.open(map, marker);
-
-									        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-									        map.setCenter(coords);
-									    } 
-									});    
-								</script>
+	                        <div class="content" style="text-align: center">
+	                        	<dl>
+	                        		<dt>${data.content }</dt>
+	                        	</dl>
 	                        </div>
-					        
-					        <div class="sContainer">
-					        
-	                        <div>
-			                    <div class="rightArea" >
-			                        <ul class="wrap">
-		                       			<div style="height:40px; margin : 10px 10px 0 0;">
-			                            <span style="float: right; text-align: center;">
-			                               		<a id="book">
-			                               			<img alt="북마크" src="/pet/img/icon_bookmark_white.png" width="45px">
-			                               		</a>
-			                            </span>
-	                       				<span style="float: right; text-align: center;">
-		                               		<a id="like" href="javascript:recommend(${param.board_no }, 0);">
-		                               		<c:choose>
-		                               			<c:when test="${recdata.recommended == '1'}">
-													<img alt="좋아요" src="/pet/img/icon_like_black.png" width="50px">
-													<br>${recdata.recommendCnt}
-		                               			</c:when>
-		                               			<c:otherwise>
-		                               				<img alt="좋아요" src="/pet/img/icon_like_white.png" width="50px">
-		                               				<br>${recdata.recommendCnt}
-		                               			</c:otherwise>
-		                               		</c:choose>
-		                               		</a>
-                               			</span>
-	                               		</div>
-		                       			<li>
-			                               		<span>주소 : ${ldata.addr }</span>
-			                            </li>
-		                       			<li>
-			                               		<span>내용 : ${data.content }</span>
-			                            </li>
-		                       			<li>
-			                               		<span>전화번호 : ${data.tel }</span>
-			                            </li>
-		                       			<li>
-			                               		<span>홈페이지 : ${data.link }</span>
-			                            </li>
-	                            	</ul>
-			                    </div>
-			                </div>
 	                        
-	                        
-	                        <div class="swiper mySwiper">
-						      <div class="swiper-wrapper">
-						        <c:if test="${!empty fdata }">
-						        <c:forEach items="${fdata }" var="list">
-						        <div class="swiper-slide">
-						          <img src="${list.filename_org }" onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'/>
-						        </div>
-						        </c:forEach>
-						        </c:if>
-						        <c:if test="${empty fdata }">
-						        <div class="swiper-slide">
-						          <img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"/>
-						        </div>
-						        </c:if>
-						        
-						      </div>
-						      <div class="swiper-button-next"></div>
-						      <div class="swiper-button-prev"></div>
-						      <div class="swiper-pagination"></div>
-						    </div>
-						
-						    <!-- Swiper JS -->
-						    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-						
-						    <!-- Initialize Swiper -->
-						    <script>
-						      var swiper = new Swiper(".mySwiper", {
-						    	loop: true,
-						    	spaceBetween: 30,
-						        effect: "fade",
-						        navigation: {
-						          nextEl: ".swiper-button-next",
-						          prevEl: ".swiper-button-prev",
-						        },
-						        pagination: {
-						          loop: true,
-						          el: ".swiper-pagination",
-						          clickable: true,
-						        }
-						      });
-						    </script>
-	                        
-	                        
-	                        
-	                        
-							<%-- 첨부파일을 뷰에서 보일 필요가 없어서 주석처리해둠  
 	                        <dl class="file" style="clear:both">
 	                            <dt>첨부파일 </dt>
 	                            <dd>
-	                            <a href="/pet/common/download.jsp?oName=${ URLEncoder.encode(fdata.filename_org,'UTF-8')}&sName=${fdata.filename_real}"  
+	                            <!-- 
+	                            <a href="/pet/common/download.jsp?oName=${URLEncoder.encode(fdata.filename_org,'UTF-8')}&sName=${fdata.filename_real}"  
 	                            target="_blank">${fdata.filename_org}</a></dd>
-	                        </dl> --%>
+	                             -->
+	                            <c:forEach var="fo" items="${fdata }">
+	                            	${URLEncoder.encode(fo.filename_org,'UTF-8')}
+	                            
+	                            </c:forEach>
+	                            </dd>
+	                        </dl>
+	                        
 	                        
 	                        <div class="btnSet clear" style="clear:both">
 	                            <div class="fl_l">
-		                            <a href="index.do" class="btn">목록으로</a>
+		                            <a href="freeindex.do" class="btn">목록으로</a>
 		                            <a href="/pet/board/edit.do?board_no=${data.board_no }" class="btn">수정</a>
 		                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
 		                            <a href="reply.do?board_no=${data.board_no }" class="btn">답변</a>

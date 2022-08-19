@@ -36,17 +36,17 @@
                 <h3 class="sub_title">게시판</h3>
     
                 <div class="bbs">
-                <form method="post" name="frm" id="frm" action="insert.do" enctype="multipart/form-data">
+                <form method="post" name="frm" id="frm" action="freeinsert.do" enctype="multipart/form-data">
                     <table class="board_write">
                         <tbody>
                         <tr>
                             <th>말머리</th>
                             <td>
 	                                <%-- 1.식당, 2. 관광지, 3. 병원 --%>
-	                                <input type="radio" class="radio_value" name="horse_hair" value="4">best
-									<input type="radio" class="radio_value" name="horse_hair" value="5">여행후기
-									<input type="radio" class="radio_value" name="horse_hair" value="6">맛집추천
-									<input type="radio" class="radio_value" name="horse_hair" value="7">고민
+									<input type="radio" class="radio_value" name="horse_hair" value="4">여행후기
+									<input type="radio" class="radio_value" name="horse_hair" value="5">추천
+									<input type="radio" class="radio_value" name="horse_hair" value="6">고민
+									<input type="radio" class="radio_value" name="horse_hair" value="9">보호센터
                             </td>
                         </tr>
                         <tr>
@@ -55,8 +55,6 @@
                                 <%-- 주소1(구군), 주소2(입력한 상세주소), 위도, 경도 --%>
 						        주소 : <input type = "text" name = "addr" />
 						        상세주소 : <input type = "text" name = "addr2" /> 
-						        위도 : <input type = "text" name = "gps_x" />
-						        경도 : <input type = "text" name = "gps_y" /> 
                             </td>
                         </tr>
                         
