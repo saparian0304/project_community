@@ -45,7 +45,7 @@
 <style>
 .alramList  {
  	right: 10px; top:43px; 
- 	width : 300px;
+ 	width : 400px;
 	position:absolute;
 	text-align : left;
 	display : none;
