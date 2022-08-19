@@ -17,6 +17,37 @@ function info2(ono){
 		$(".activityForm2"+ono).hide();
 	}	
 }
+
+//좋아요
+function recommendReply(board_no, reply_no) {
+	<c:if test="${empty loginInfo}">
+	 alert('로그인 상태에서 이용할 수 있습니다.');
+	console.log(reply_no);
+	 return;
+	</c:if>
+	$.ajax({
+		url : "/pet/recommend/recommend.do",
+		data : {
+			board_no : board_no,
+			reply_no : reply_no,
+		},			
+		type : 'post',
+		dataType : "JSON",
+		success : function(res) {
+			console.log(res)
+			console.log(res.recommendCount);
+			console.log(res.recommended);
+			if (res.recommended) {
+				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black_2.png" width="13px"> '+res.recommendCount;
+				$('#relike'+res.reply_no).html(icon_img);
+			} else {
+				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white_2.png" width="13px"> '+res.recommendCount;
+				$('#relike'+res.reply_no).html(icon_img);
+			}
+		}	
+	})
+}
+
 </script>
 
 <div style="width: 980px; margin: 0 auto;" class="replyshow" >    
@@ -34,16 +65,43 @@ function info2(ono){
             <tr style=" height:70px;">
                 <td>
                 	<c:if test="${vo.ono > 0}">&emsp;&emsp;&emsp;&emsp;&emsp;<img src="/pet/img/reply-ico.png"  width="25px" height="25px"></c:if>
+                	<button id="relike${vo.reply_no }" onclick="javascript:recommendReply(${param.board_no}, ${vo.reply_no });" style="width:35px; height:20px;border-radius: 5px; background: pink; color: #fff; line-height: 13px">
+					<c:choose>
+						<c:when test="${vo.recommended == '1'}">
+							<img alt="좋아요" src="/pet/img/icon_like_black_2.png" width="13px"> 
+							${ vo.recommendCount}
+						</c:when>
+						<c:otherwise>
+							<img alt="좋아요" src="/pet/img/icon_like_white_2.png" width="13px"> 
+							${vo.recommendCount}
+						</c:otherwise>
+					</c:choose>
+                   </button>
                 </td>
                 <td class="txt_l">
 	                <c:if test="${vo.isdelete == true }">
 	                       삭제된 댓글입니다.
 	                </c:if>
 	                <c:if test="${vo.isdelete == false}"> 
+<<<<<<< HEAD
 	                   ${vo.content}<c:if test="${loginInfo.member_no == vo.member_no}">
 	                    <a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
 	                    <a href="javascript:replyEdit(${vo.reply_no}, '${vo.content}')"> &nbsp;&nbsp;[수정]</a>	              
 	                    </c:if>
+=======
+	                   ${vo.content}&nbsp;&nbsp;
+	                   <c:choose>
+                    		<c:when test="${loginInfo.member_no == vo.member_no }">
+                    			<a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
+	                   		 	<a href="javascript:replyEdit(${vo.reply_no}, '${vo.content}')"> &nbsp;&nbsp;[수정]</a>
+                    		</c:when>
+	                  		<c:otherwise>
+			                    <span style="border:1px; background-color: #d3d3d3; border-radius: 3px; text-align: center; line-height: center; color: white;">
+		                        <a href="javascript:report(${vo.member_no}, ${param.board_no}, ${vo.reply_no });">&nbsp;[신고]&nbsp;&nbsp;</a>
+		                        </span>  
+                    		</c:otherwise>
+                       </c:choose>     
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 	                </c:if>                                        
                 </td>                                            
              <c:if test="${param.member_no == vo.member_no}">                                            

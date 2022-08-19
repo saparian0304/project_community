@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
+<link rel="stylesheet" href="/pet/css/tab.css"/>
 <script>
 
 /* 삭제 할거임 */
@@ -128,10 +129,6 @@ function replySave(gno){
 					$("#contents").val('');
 					getComment(1);
 				}
-				//대댓글 실시간알람
-				if(socket){
-					socket.send("rereply,"+${loginInfo.member_no}+","+$("#no"+gno).val()+","+${data.board_no}+","+$("#content"+gno).val());
-				}
 			}
 		});
 		
@@ -175,15 +172,36 @@ function commentDel(reply_no) {
 	}
 }
 
-function report(you_no, board_no, reply_no) {
+function report(member_no, board_no, reply_no) {
 	<c:if test="${empty loginInfo}">
 		alert('로그인후 댓글작성해주세요');
 	 	return;
 	</c:if>
-	var option = "width = 800, height = 600, top = 100, left = 100";
-	var url = "/pet/report/write.do?you_no="+you_no+"&board_no="+board_no+"&reply_no="+reply_no;
-	var name = "신고하기";
-	window.open(url, name, option);
+	var isReply;
+	if (reply_no == '' || reply_no == null) {
+		isReply = 0;
+	} else {
+		isReply = 1
+	}
+
+	var form = document.createElement('form');
+	form.setAttribute('method', 'post');
+	form.setAttribute('action', '/pet/report/write.do');
+	document.charset = "uft-8";
+	var list = { 
+			'you_no' : member_no, 
+			'board_no' : board_no, 
+			'reply_no' : reply_no,
+			'isReply' : isReply}
+	for ( var key in list) {
+		var field = document.createElement('input');
+		field.setAttribute('type', 'hidden');
+		field.setAttribute('name', key);
+		field.setAttribute('value', list[key]);
+		form.appendChild(field);
+	}
+	document.body.appendChild(form);
+	form.submit();
 }
 
 // 좋아요
@@ -201,12 +219,12 @@ function recommend(board_no, reply_no) {
 		type : 'post',
 		dataType : "JSON",
 		success : function(res) {
+			console.log(res)
+			console.log(res.recommendCount);
+			console.log(res.recommended);
 			if (res.recommended) {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black.png" width="50px"><br>'+res.recommendCount;
 				$('#like').html(icon_img);
-				if(socket){
-					socket.send("recommend,"+${loginInfo.member_no}+","+boardWriter+","+${data.board_no}+","+'[게시글]${data.title}');
-				}
 			} else {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white.png" width="50px"><br>'+res.recommendCount;
 				$('#like').html(icon_img);
@@ -214,38 +232,20 @@ function recommend(board_no, reply_no) {
 		}	
 	})
 }
-	
-// 북마크
-function bookmark(board_no) {
-	<c:if test="${empty loginInfo}">
-	 alert('로그인 상태에서 이용할 수 있습니다.');
-	 return;
-	</c:if>
-	var member_no = '${loginInfo.member_no}';
-	
-	$.ajax({
-		url : "/pet/bookmark/bookmark.do",
-		data : {
-			board_no : board_no,
-			member_no : member_no
-		},			
-		type : 'post',
-		dataType : "JSON",
-		success : function(res) {
-			console.log(res)
-			console.log(res.bookmarked);
-			if (res.bookmarked) {
-				var icon_img = '<img alt="북마크" src="/pet/img/icon_bookmark_black.png" width="45px">';
-				$('#book').html(icon_img);
-			} else {
-				var icon_img = '<img alt="북마크" src="/pet/img/icon_bookmark_white.png" width="45px">';
-				$('#book').html(icon_img);
-			}
-		}	
+//탭
+$(document).ready(function(){
+	   
+	  $('ul.tabs li').click(function(){
+	    var tab_id = $(this).attr('data-tab');
+	 
+	    $('ul.tabs li').removeClass('current');
+	    $('.tab-content').removeClass('current');
+	 
+	    $(this).addClass('current');
+	    $("#"+tab_id).addClass('current');
+	  })
+	 
 	})
-}
-
-
 </script>
     
     <ul class="skipnavi">
@@ -269,60 +269,108 @@ function bookmark(board_no) {
 	                <h3 class="sub_title">게시판</h3>
 	                <div class="bbs">
 	                	<div style="text-align: right">
-	                    	<span style="border:1px; background-color: #d3d3d3; border-radius: 3px; text-align: center; line-height: center; color: white;">
-			                    <a href="javascript:report(${vo.member_no}, ${param.board_no}, 0);">&nbsp;[게시글 신고]&nbsp;&nbsp;</a>
-			                </span> 
+	                    	작성자 : ${data.member_no } <a href="javascript:report(${data.member_no}, ${data.board_no }, 0)">[게시글 신고버튼 예]</a><br>  
+							<a href="javascript:report(${data.member_no}, ${data.board_no }, 1)">[댓글 신고버튼 예]</a>
 	                	</div>
 	                    <div class="view">
 	                        <div class="title">
 	                            <dl>
 	                                <dt>${data.title } </dt>
-	                                <dd class="date">작성일 : ${data.regdate } </dd> 
-	                                <dd style="float: right; margin-right : 40px;">작성자 : ${data.member_no }
-	                                </dd>
+	                                <dd class="date">작성일 : ${data.regdate } </dd>
 	                            </dl>
 	                        </div>
 	                        <div class="leftArea">
-								<!-- 카카오 api -->
-		                        <div id="map" style="width:500px;height:400px;"></div>
-								<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d27f0849a07d99e4a90f3bcd6edd63d&libraries=services"></script>
-								<script>
-									var container = document.getElementById('map');
-									var options = {
-										center: new kakao.maps.LatLng(33.450701, 126.570667),
-										level: 3
-									};
-									var map = new kakao.maps.Map(container, options);
-									
-									// 주소-좌표 변환 객체를 생성합니다
-									var geocoder = new kakao.maps.services.Geocoder();
-
-									var addr = '${ldata.addr}';
-									// 주소로 좌표를 검색합니다
-									geocoder.addressSearch(addr, function(result, status) {
-
-									    // 정상적으로 검색이 완료됐으면 
-									     if (status === kakao.maps.services.Status.OK) {
-
-									        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-									        // 결과값으로 받은 위치를 마커로 표시합니다
-									        var marker = new kakao.maps.Marker({
-									            map: map,
-									            position: coords
-									        });
-
-									        // 인포윈도우로 장소에 대한 설명을 표시합니다
-									        var infowindow = new kakao.maps.InfoWindow({
-									            content: '<div style="width:150px;text-align:center;padding:6px 0;">${data.title}</div>'
-									        });
-									        infowindow.open(map, marker);
-
-									        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-									        map.setCenter(coords);
-									    } 
-									});    
-								</script>
+	                        	<ul class="tabs">
+	                        		<li class="tab-link current" data-tab="tab-1">지도</li>
+    								<li class="tab-link" data-tab="tab-2">이미지</li>
+	                        	</ul>
+	                        	
+	                        	<div id="tab-1" class="tab-content current">
+								    <!-- 카카오 api -->
+			                        <div id="map" style="width:500px;height:400px;"></div>
+									<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d27f0849a07d99e4a90f3bcd6edd63d&libraries=services"></script>
+									<script>
+										var container = document.getElementById('map');
+										var options = {
+											center: new kakao.maps.LatLng(33.450701, 126.570667),
+											level: 3
+										};
+										var map = new kakao.maps.Map(container, options);
+										
+										// 주소-좌표 변환 객체를 생성합니다
+										var geocoder = new kakao.maps.services.Geocoder();
+	
+										var addr = '${ldata.addr}';
+										// 주소로 좌표를 검색합니다
+										geocoder.addressSearch(addr, function(result, status) {
+	
+										    // 정상적으로 검색이 완료됐으면 
+										     if (status === kakao.maps.services.Status.OK) {
+	
+										        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	
+										        // 결과값으로 받은 위치를 마커로 표시합니다
+										        var marker = new kakao.maps.Marker({
+										            map: map,
+										            position: coords
+										        });
+	
+										        // 인포윈도우로 장소에 대한 설명을 표시합니다
+										        var infowindow = new kakao.maps.InfoWindow({
+										            content: '<div style="width:150px;text-align:center;padding:6px 0;">${data.title}</div>'
+										        });
+										        infowindow.open(map, marker);
+	
+										        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+										        map.setCenter(coords);
+										    } 
+										});    
+									</script>
+								  </div>
+								  
+							      <div id="tab-2" class="tab-content">
+							      	<div class="swiper mySwiper" style="width:500px;height:400px;">
+								      <div class="swiper-wrapper" >
+								        <c:if test="${!empty fdata }">
+								        <c:forEach items="${fdata }" var="list">
+								        <div class="swiper-slide">
+								          <img style="width:500px;height:400px;" src="${list.filename_org }" onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'/>
+								        </div>
+								        </c:forEach>
+								        </c:if>
+								        <c:if test="${empty fdata }">
+								        <div class="swiper-slide">
+								          <img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"/>
+								        </div>
+								        </c:if>
+								        
+								      </div>
+								      <div class="swiper-button-next"></div>
+								      <div class="swiper-button-prev"></div>
+								      <div class="swiper-pagination"></div>
+								    </div>
+								
+								    <!-- Swiper JS -->
+								    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+								
+								    <!-- Initialize Swiper -->
+								    <script>
+								      var swiper = new Swiper(".mySwiper", {
+								    	loop: true,
+								    	spaceBetween: 30,
+								        effect: "fade",
+								        navigation: {
+								          nextEl: ".swiper-button-next",
+								          prevEl: ".swiper-button-prev",
+								        },
+								        pagination: {
+								          loop: true,
+								          el: ".swiper-pagination",
+								          clickable: true,
+								        }
+								      });
+								    </script>
+								 </div>
 	                        </div>
 					        
 					        <div class="sContainer">
@@ -332,15 +380,8 @@ function bookmark(board_no) {
 			                        <ul class="wrap">
 		                       			<div style="height:40px; margin : 10px 10px 0 0;">
 			                            <span style="float: right; text-align: center;">
-			                               		<a id="book" href="javascript:bookmark(${param.board_no });">
-			                               		<c:choose>
-			                               			<c:when test="${bookdata== true}">
-			                               				<img alt="북마크" src="/pet/img/icon_bookmark_black.png" width="45px">
-			                               			</c:when>
-			                               			<c:otherwise>
-			                               				<img alt="북마크" src="/pet/img/icon_bookmark_white.png" width="45px">
-			                               			</c:otherwise>
-			                               		</c:choose>
+			                               		<a id="book">
+			                               			<img alt="북마크" src="/pet/img/icon_bookmark_white.png" width="45px">
 			                               		</a>
 			                            </span>
 	                       				<span style="float: right; text-align: center;">
@@ -374,63 +415,9 @@ function bookmark(board_no) {
 			                    </div>
 			                </div>
 	                        
-	                        
-	                        <div class="swiper mySwiper">
-						      <div class="swiper-wrapper">
-						        <c:if test="${!empty fdata }">
-						        <c:forEach items="${fdata }" var="list">
-						        <div class="swiper-slide">
-						          <img src="${list.filename_org }" onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'/>
-						        </div>
-						        </c:forEach>
-						        </c:if>
-						        <c:if test="${empty fdata }">
-						        <div class="swiper-slide">
-						          <img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"/>
-						        </div>
-						        </c:if>
-						        
-						      </div>
-						      <div class="swiper-button-next"></div>
-						      <div class="swiper-button-prev"></div>
-						      <div class="swiper-pagination"></div>
-						    </div>
-						
-						    <!-- Swiper JS -->
-						    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-						
-						    <!-- Initialize Swiper -->
-						    <script>
-						      var swiper = new Swiper(".mySwiper", {
-						    	loop: true,
-						    	spaceBetween: 30,
-						        effect: "fade",
-						        navigation: {
-						          nextEl: ".swiper-button-next",
-						          prevEl: ".swiper-button-prev",
-						        },
-						        pagination: {
-						          loop: true,
-						          el: ".swiper-pagination",
-						          clickable: true,
-						        }
-						      });
-						    </script>
-	                        
-	                        
-	                        
-	                        
-							<%-- 첨부파일을 뷰에서 보일 필요가 없어서 주석처리해둠  
-	                        <dl class="file" style="clear:both">
-	                            <dt>첨부파일 </dt>
-	                            <dd>
-	                            <a href="/pet/common/download.jsp?oName=${ URLEncoder.encode(fdata.filename_org,'UTF-8')}&sName=${fdata.filename_real}"  
-	                            target="_blank">${fdata.filename_org}</a></dd>
-	                        </dl> --%>
-	                        
 	                        <div class="btnSet clear" style="clear:both">
 	                            <div class="fl_l">
-		                            <a href="index.do" class="btn">목록으로</a>
+		                            <a href="liveindex.do" class="btn">목록으로</a>
 		                            <a href="/pet/board/edit.do?board_no=${data.board_no }" class="btn">수정</a>
 		                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
 		                            <a href="reply.do?board_no=${data.board_no }" class="btn">답변</a>
@@ -442,7 +429,7 @@ function bookmark(board_no) {
 	        </div><!-- sub -->
         </div>
         <!-- id contner -->
-        </div>
+        
     </div> <!-- div id="wrap" -->
 
   

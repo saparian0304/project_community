@@ -18,6 +18,10 @@ public class FileServiceImpl implements FileService{
 	
 	@Override
 	public List find(int board_no) {
+		List<FileVO> vo = mapper.findByBoard_no(board_no);
+		for (FileVO vfo : vo) {
+			System.out.println(vfo.getFilename_org());
+		}
 		return mapper.findByBoard_no(board_no);
 	}
 

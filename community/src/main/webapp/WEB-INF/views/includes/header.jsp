@@ -27,7 +27,43 @@
 		var option = "width = 500, height = 500, top = 100, left = 100";
 		window.open(url, name, option);
 	}
+	
+	$(function(){
+		$(".socketAlert").on("click", function(){
+			dis($(".alramList"));
+		});
+	});
+	
+    function dis(obj){
+        if($(obj).css('display') == 'none'){
+	        $(obj).show();
+	    }else{
+	        $(obj).hide();
+	    }
+    }
 </script>
+<style>
+.alramList  {
+ 	right: 10px; top:43px; 
+ 	width : 400px;
+	position:absolute;
+	text-align : left;
+	display : none;
+	background-color: gray;
+	font-size : 16px;
+}
+.alramList div:first-child {
+	border-bottom : 3px solid white;
+	text-align : center;
+	font-weight : bold;
+	font-size : 20px;
+
+}
+
+.alramList div {
+	padding : 2.5px 5px;
+}
+</style>
 <body>
       <header id="header">
 		<!-- 로고 네비 로그인 그룹 -->
@@ -46,10 +82,15 @@
 							<li><a href="/pet/member/join.do">회원가입</a></li>
 						</c:when>
 						<c:otherwise>
-							<h3 id="socketAlert"></h3>
+							<!-- <h3 id="socketAlert"></h3> -->
 							<li><a href="javascript:popup()">채팅목록</a></li>
 							<li><a href="/pet/member/logout.do">로그아웃</a></li>
-							<li><img src="/pet/img/alram.png" style="width: 27px"></li>
+							<li><img src="/pet/img/alram.png" style="width: 27px" class="socketAlert" >
+								<div class="alramList" style="color : white">
+									<div>[ 알림 내역 ]</div>
+									<div class="socketAlert">내역이 존재하지 않습니다.</div>
+								</div>
+							</li>
 						</c:otherwise>
 					</c:choose>
 				</ul>

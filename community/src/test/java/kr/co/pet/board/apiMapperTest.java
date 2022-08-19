@@ -42,7 +42,7 @@ public class apiMapperTest {
 	
 	
 	
-	@Test
+	//@Test
 	public void apiTest2() throws IOException{
 		for(int num = 0; num < 600; num++) {
 			URL url1 = new URL("https://www.pettravel.kr/api/detailSeqArea.do?areaCode=AC03&contentNum="+ num);
@@ -133,6 +133,18 @@ public class apiMapperTest {
 		}
 		
 	}		
+	
+	@Test
+	public void testObj2() {
+		BoardVO vo = new BoardVO();
+		vo.setTitle("title");
+		vo.setContent("title");
+		int r = 0;
+		for(int i=0; i <16; i++) {
+			r +=mapper.insertSelectKey(vo); 
+		}
+		log.info("등록갯수: " + r);
+	}
 }
 	
 	
