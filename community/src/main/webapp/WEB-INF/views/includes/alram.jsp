@@ -16,16 +16,12 @@ function connectWS(){
 	
 	ws.onmessage = function(event){
 		console.log("onmessage" + event.data);
-		var $socketAlert = $('li#socketAlert');
-		$socketAlert.html("<img src='/pet/img/isalram.png' style='width: 27px'>");
+		var $socketAlert = $('img.socketAlert');
+		$socketAlert.attr("src",'/pet/img/isalram.png');
 //		$socketAlert.css({
 //			"display" :  "block",
 //		});
-			
-		
-		setTimeout(function(){
-			$socketAlert.html("<img src='/pet/img/alram.png' style='width: 27px'>");
-		}, 5000);
+		$('div.socketAlert').html(event.data);	
 	};
 	
 	ws.onclose = function(){
