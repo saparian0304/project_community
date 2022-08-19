@@ -3,10 +3,13 @@ package kr.co.pet.reply;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import kr.co.pet.member.MemberVO;
 
 @Service
 public class ReplyServiceImpl implements ReplyService {
@@ -15,7 +18,7 @@ public class ReplyServiceImpl implements ReplyService {
 	ReplyMapper mapper;
 	
 	@Override
-	public Map index(ReplyVO vo) {
+	public Map index(ReplyVO vo, HttpSession sess) {
 		
 		int replyCount = mapper.rcount(vo);
 		// 총게시물수 // 총페이지수 int totalPage =
@@ -30,6 +33,10 @@ public class ReplyServiceImpl implements ReplyService {
 		 * int startIdx = (vo.getPage()-1) * vo.getPageRow(); vo.setStartIdx(startIdx);
 		 * // vo 주입
 		 */		
+		MemberVO mv = (MemberVO)sess.getAttribute("loginInfo");
+		if (mv != null) {
+			vo.setMember_no(mv.getMember_no());
+		}
 		List<ReplyVO> list = mapper.list(vo); //list 호출
 		List<ReplyVO> replyList = mapper.replyList(vo);
 		

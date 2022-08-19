@@ -19,6 +19,8 @@ public class ReplyVO extends Criteria {
 	private boolean isdelete;
 	private int gno;
 	private int ono;
+	private int recommendCount;
+	private int recommended;
 	
 	
 	private int reply_count;

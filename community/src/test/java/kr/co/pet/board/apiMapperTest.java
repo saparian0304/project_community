@@ -44,8 +44,8 @@ public class apiMapperTest {
 	
 	@Test
 	public void apiTest2() throws IOException{
-		for(int num = 0; num < 3; num++) {
-			URL url1 = new URL("https://www.pettravel.kr/api/detailSeqArea.do?areaCode=AC01&contentNum="+ num);
+		for(int num = 0; num < 600; num++) {
+			URL url1 = new URL("https://www.pettravel.kr/api/detailSeqArea.do?areaCode=AC03&contentNum="+ num);
 	//		URL url1 = new URL("https://www.pettravel.kr/api/listArea.do?areaCode=AC01&page=1&pageBlock=100");
 			BufferedReader bf;
 			

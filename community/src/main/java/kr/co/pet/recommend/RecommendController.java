@@ -35,6 +35,7 @@ public class RecommendController {
 			vo.setMember_no(loginInfo.getMember_no());
 			rvo.setRecommended(service.recommend(vo));
 			rvo.setRecommendCount(service.getRecCnt(vo));
+			rvo.setReply_no(vo.getReply_no());
 		}
 		return rvo;
 	}

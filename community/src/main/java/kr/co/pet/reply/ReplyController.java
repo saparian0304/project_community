@@ -1,12 +1,13 @@
 package kr.co.pet.reply;
 
-import java.util.Map;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import kr.co.pet.recommend.RecommendService;
 import util.PageMaker;
 
 @Controller
@@ -15,10 +16,12 @@ public class ReplyController {
 	@Autowired
 	ReplyService service;
 	
+	@Autowired
+	RecommendService recService;
 	
 	@GetMapping("/reply/list.do")
-	public String list(ReplyVO vo, Model model) {
-		model.addAttribute("comment", service.index(vo));
+	public String list(ReplyVO vo, Model model, HttpSession sess) {
+		model.addAttribute("comment", service.index(vo, sess));
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(vo);
 		pageMaker.setTotalCount(service.totalCount(vo));
@@ -47,8 +50,8 @@ public class ReplyController {
 	}
 	
 	@GetMapping("/reply/replylist.do")
-	public String replylist(ReplyVO vo, Model model) {
-		model.addAttribute("reply", service.index(vo));
+	public String replylist(ReplyVO vo, Model model, HttpSession sess) {
+		model.addAttribute("reply", service.index(vo, sess));
 		return "reply/reply";
 	}	
 	

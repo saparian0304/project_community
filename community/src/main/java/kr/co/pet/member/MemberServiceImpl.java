@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,7 +25,7 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	MemberMapper mapper;
 	private int key;
-	
+
 	@Override
 	public boolean update(MemberVO vo) {
 		// TODO Auto-generated method stub
@@ -46,25 +45,24 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int emailCheck(String email, HttpSession sess) {
-		//이메일 중복 확인
+		// 이메일 중복 확인
 		int cnt = mapper.emailCheck(email);
 		if (cnt == 0) {
-			//인증번호발송
-			//영문3자리,숫자3자리
+			// 인증번호발송
+			// 영문3자리,숫자3자리
 			String temp = "";
-			for (int i=0; i<3; i++) {
-				temp += (char)(Math.random()*26+97);
+			for (int i = 0; i < 3; i++) {
+				temp += (char) (Math.random() * 26 + 97);
 			}
-			for (int i=0; i<3; i++) {
-				temp += (int)(Math.random()*9);
+			for (int i = 0; i < 3; i++) {
+				temp += (int) (Math.random() * 9);
 			}
 			sess.setAttribute("certification", temp);
-			
-			//email발송
-			SendMail.sendMail("a_jin0609@naver.com", email , "[pet_community]비번test", "인증번호: "+temp+"입니다.");
+
+			// email발송
+			SendMail.sendMail("a_jin0609@naver.com", email, "[pet_community]비번test", "인증번호: " + temp + "입니다.");
 		}
 
-		
 		return cnt;
 	}
 
@@ -72,71 +70,67 @@ public class MemberServiceImpl implements MemberService {
 	public boolean loginCheck(MemberVO vo, HttpSession sess) {
 		boolean l = false;
 		MemberVO loginInfo = mapper.loginCheck(vo);
-		if(loginInfo != null) {
+		if (loginInfo != null) {
 			l = true;
-			//로그인 성공하면 세션에 저장
+			// 로그인 성공하면 세션에 저장. 로그인 한 홈페이지안에서 돌아다녀도 로그인상태 계속 유지되도록.
 			sess.setAttribute("loginInfo", loginInfo);
 		}
-		return l; 
+		return l;
 	}
-
 
 	@Override
 	public int idCheck(String id) {
 		int cnt = mapper.idCheck(id);
-		System.out.println("cnt : "+ cnt);
+		System.out.println("cnt : " + cnt);
 		return cnt;
 	}
 
 	@Override
 	public int nicknameCheck(String nickname) {
 		int cnt = mapper.nicknameCheck(nickname);
-		System.out.println("nickname: "+cnt);
+		System.out.println("nickname: " + cnt);
 		return cnt;
 	}
 
 	@Override
 	public MemberVO findId(MemberVO vo) {
-		System.out.println("findId : "+ vo);
-		
+		System.out.println("findId : " + vo);
+
 		return mapper.findId(vo);
 	}
-	
+
 	@Override
 	public MemberVO findPwd(MemberVO vo) {
-		//update
+		// update
 		MemberVO mv = mapper.findPwd(vo);
 
-		
-		if(mv !=null) {
-		//임시비번생성
-		//영문3자리,숫자3자리
-		String temp = "";
-		for (int i=0; i<3; i++) {
-			temp += (char)(Math.random()*26+97);
+		if (mv != null) {
+			// 임시비번생성
+			// 영문3자리,숫자3자리
+			String temp = "";
+			for (int i = 0; i < 3; i++) {
+				temp += (char) (Math.random() * 26 + 97);
+			}
+			for (int i = 0; i < 3; i++) {
+				temp += (int) (Math.random() * 9);
+			}
+			// 임시비번 update
+			vo.setPwd(temp);
+			mapper.updateTempPwd(vo);
+
+			System.out.println("보내는대상 : " + vo.getMember_id());
+			// email발송
+			SendMail.sendMail("a_jin0609@naver.com", vo.getEmail(), "[pet_community]비번test", "임시비번: " + temp + "입니다.");
+			return mv;
+		} else {
+			return null;
 		}
-		for (int i=0; i<3; i++) {
-			temp += (int)(Math.random()*9);
-		}
-		//임시비번 update
-		vo.setPwd(temp);
-		mapper.updateTempPwd(vo);
-		
-		System.out.println("보내는대상 : "+ vo.getMember_id());
-		//email발송
-		SendMail.sendMail("a_jin0609@naver.com", vo.getEmail(), "[pet_community]비번test", "임시비번: "+temp+"입니다.");
-		return mv;
-	    }else {
-		    return null;
-	    }
 	}
-	
+
 	@Override
 	public MemberVO loginBySns(MemberVO vo, HttpSession sess) {
 		return mapper.loginBySns(vo);
 	}
-
-
 
 //	@Override
 //	public void certification(CertificationVO c_vo, HttpSession sess) {
@@ -155,56 +149,56 @@ public class MemberServiceImpl implements MemberService {
 //				SendMail.sendMail("a_jin0609@naver.com", c_vo.getEmail() , "[pet_community]비번test", "인증번호: "+temp+"입니다.");
 //		
 //	}
-	public String getAccessToken (String authorize_code) {
+	public String getAccessToken(String authorize_code) {
 		String access_Token = "";
 		String refresh_Token = "";
 		String reqURL = "https://kauth.kakao.com/oauth/token";
 
 		try {
 			URL url = new URL(reqURL);
-            
+
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			// POST 요청을 위해 기본값이 false인 setDoOutput을 true로
-            
+
 			conn.setRequestMethod("POST");
 			conn.setDoOutput(true);
 			// POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
-            
+
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
-            
-			sb.append("&client_id=559a5c15295281d3e0cf6c7390c0d790"); //본인이 발급받은 key
+
+			sb.append("&client_id=559a5c15295281d3e0cf6c7390c0d790"); // 본인이 발급받은 key
 			sb.append("&redirect_uri=http://localhost:8080/pet/member/loginBySns.do"); // 본인이 설정한 주소
-            
+
 			sb.append("&code=" + authorize_code);
-			bw.write(sb.toString()); 
+			bw.write(sb.toString());
 			bw.flush();
-            
+
 			// 결과 코드가 200이라면 성공
 			int responseCode = conn.getResponseCode();
 			System.out.println("responseCode : " + responseCode);
-            
+
 			// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			String line = "";
 			String result = "";
-            
+
 			while ((line = br.readLine()) != null) {
 				result += line;
 			}
 			System.out.println("response body : " + result);
-            
+
 			// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(result);
-            
+
 			access_Token = element.getAsJsonObject().get("access_token").getAsString();
 			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
-            
+
 			System.out.println("access_token : " + access_Token);
 			System.out.println("refresh_token : " + refresh_Token);
-            
+
 			br.close();
 			bw.close();
 		} catch (IOException e) {
@@ -214,71 +208,85 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	public MemberVO getUserInfo(String access_Token) {
-	
+
 		// 요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
-		HashMap<String, Object> userInfo = new HashMap<String, Object>();
+		MemberVO userInfo = new MemberVO();
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		try {
 			URL url = new URL(reqURL);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
-	
+
 			// 요청에 필요한 Header에 포함될 내용
 			conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-	
+
 			int responseCode = conn.getResponseCode();
 			System.out.println("responseCode : " + responseCode);
-	
+
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-	
+
 			String line = "";
 			String result = "";
-	
+
 			while ((line = br.readLine()) != null) {
 				result += line;
 			}
 			System.out.println("response body : " + result);
 			System.out.println("id : ");
-	
+
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(result);
-	
+
 			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-	
+
 			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 			String email = kakao_account.getAsJsonObject().get("email").getAsString();
 			String member_id = element.getAsJsonObject().get("id").getAsString();
-	
-			userInfo.put("nickname", nickname);
-			userInfo.put("member_id", member_id);
-			userInfo.put("email", email);
-	
+
+//			userInfo.put("nickname", nickname);
+//			userInfo.put("member_id", member_id);
+//			userInfo.put("email", email);\
+			userInfo.setNickname(nickname);
+			userInfo.setMember_id(member_id);
+			userInfo.setEmail(email);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// catch 아래 코드 추가.
-				MemberVO result = mapper.snsCheck(userInfo);
-				// 위 코드는 먼저 정보가 저장되있는지 확인하는 코드.
-				System.out.println("S:" + result);
-				if(result==null) {
-				// result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
-					mapper.insertSns(userInfo);
-					// 위 코드가 정보를 저장하기 위해 Repository로 보내는 코드임.
-					return mapper.snsCheck(userInfo);
-					// 위 코드는 정보 저장 후 컨트롤러에 정보를 보내는 코드임.
-					//  result를 리턴으로 보내면 null이 리턴되므로 위 코드를 사용.
-				} else {
-					return result;
-					// 정보가 이미 있기 때문에 result를 리턴함.
-				}
-    }
+		return userInfo;
+	}
 
 	@Override
 	public MemberVO snsCheck(MemberVO vo, HttpSession sess) {
-		
-		HashMap<String, Object> userInfo = new HashMap<String, Object>();
-		
-		return mapper.snsCheck(userInfo);
+
+		MemberVO user = new MemberVO();
+
+		  user.setMember_id(vo.getMember_id());
+		  user.setEmail(vo.getEmail());
+		  user.setNickname(vo.getNickname());
+		 
+		MemberVO result = mapper.snsCheck(user);
+		sess.setAttribute("result", user);
+		// 위 코드는 먼저 정보가 저장되있는지 확인하는 코드.
+		/*
+		 * System.out.println("######S:" + result.getEmail());
+		 * System.out.println("######SSS:"+ user.getMember_id());
+		 */
+		if (result == null) {
+			return null;
+			
+		} else {
+			return result;
+			// 정보가 이미 있기 때문에 result를 리턴함.
+		}
 	}
+
+	@Override
+	public int insertSns(HttpSession sess) {
+		MemberVO vo = (MemberVO)sess.getAttribute("result");
+		System.out.println("받는중? : "+vo.getEmail());
+		return mapper.insertSns(vo);
+	}
+
 }

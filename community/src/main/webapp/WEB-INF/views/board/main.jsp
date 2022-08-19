@@ -66,18 +66,15 @@
 							class="btn_srch">검색</a>
 					</fieldset>
 				</form>
-				<%-- <p>
-					<span><strong>총 ${data.totalCount }개</strong> |
-						${boardVO.page }/${data.totalPage }페이지</span>
-				</p> --%>
 				<!-- <div>
 					<select name="sido1" id="sido1"></select> <select name="gugun1"
 						id="gugun1"></select>
 				</div> -->
-
-				<div class="btnSet" style="text-align: right;">
-					<a class="btn" href="livewrite.do">글작성 </a>
-				</div>
+						<c:forEach var="vo" items="${data.list}" varStatus="status">
+						<div class="swiper-slide">
+							<img src="${vo.filename_org }">						
+						</div>
+						</c:forEach>
 
 				<!-- 스와이퍼 -->
 				<div class="swiper mySwiper">
@@ -101,7 +98,7 @@
 					<h2>생활게시판</h2>
 					<div class="swiper-wrapper">
 						<div class="swiper-slide">
-							<img alt="" src="http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg">
+							<img alt="" src="https://w.namu.la/s/bd55811ebd0c36a4101051b17f16299f307ff9176f902e578f0904f9e328e4f3f04cdc1534464126960d6906cc686ee0de55eaece19cbc19f94334e11bdae8c10351f6891bbbc455a4f761fac6a9a8f99852ff7644103fd6ac889ced70a28cbdfcb775b5cafba147bda95b1c06d66ee2">						
 						</div>
 						<div class="swiper-slide">Slide 2</div>
 						<div class="swiper-slide">Slide 3</div>

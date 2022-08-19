@@ -4,7 +4,10 @@ import java.util.Map;
 
 public interface BoardService {
 	//목록
+	
 	Map index(BoardVO vo);
+	Map freeindex(BoardVO vo);
+	Map liveindex(BoardVO vo);
 	
 	//등록처리?
 	boolean insert(BoardVO vo);
@@ -18,6 +21,8 @@ public interface BoardService {
 
 	//수정처리
 	boolean update(BoardVO vo);
+	
+	int indexTotal(BoardVO vo);
 	
 	
 }

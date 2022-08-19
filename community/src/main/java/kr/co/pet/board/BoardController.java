@@ -24,6 +24,7 @@ import kr.co.pet.loc.LocVO;
 import kr.co.pet.member.MemberVO;
 import kr.co.pet.recommend.RecommendService;
 import kr.co.pet.reply.ReplyService;
+import util.PageMaker;
 @Controller
 public class BoardController {
 	@Autowired
@@ -47,27 +48,50 @@ public class BoardController {
 	@Autowired
 	RecommendService recService;
 
-	@GetMapping("/board/index.do")
-	public String mainindex(Model model, BoardVO vo) {
+	@GetMapping("/board/main.do")
+	public String index(Model model, BoardVO vo) {
 		model.addAttribute("data", service.index(vo));
 		model.addAttribute("fdata", fservice.find(vo.getBoard_no()));
-		return "board/index";
+		return "board/main";
 	}
 	
 	@GetMapping("/board/freeindex.do")
-	public String index(Model model, BoardVO vo) {
-		model.addAttribute("data", service.index(vo));
+	public String freeindex(Model model, BoardVO vo) {
+		model.addAttribute("data", service.freeindex(vo));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.indexTotal(vo));
+		model.addAttribute("pageMaker", pageMaker);
 		return "board/freeindex";
 	}
+	
 	@GetMapping("/board/liveindex.do")
 	public String liveindex(Model model, BoardVO vo) {
-		model.addAttribute("data", service.index(vo));
+		vo.setPageRow(12);
+		model.addAttribute("data", service.liveindex(vo));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.indexTotal(vo));
+		model.addAttribute("pageMaker", pageMaker);
 		return "board/liveindex";
+	}
+
+	@GetMapping("/board/centerindex.do")
+	public String centerindex(Model model, BoardVO vo) {
+		model.addAttribute("data", service.liveindex(vo));
+		return "board/centerindex";
 	}
 	
 	@GetMapping("/board/livewrite.do")
-	public String write() {
+	public String livewrite() {
 		return "board/livewrite";
+	}
+	
+	@GetMapping("/board/freewrite.do")
+	public String freewrite() {
+		return "board/freewrite";
 	}
 	
 	@GetMapping("/board/view.do")

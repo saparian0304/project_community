@@ -24,8 +24,8 @@ public interface MemberMapper {
 	MemberVO findPwd(MemberVO vo);
 	int updateTempPwd(MemberVO vo);
 	MemberVO loginBySns(MemberVO vo);
-	MemberVO snsCheck(HashMap <String, Object> userInfo); //괄호안에 parameterType, 메서드앞이 resultType
-	int insertSns(HashMap <String, Object> userInfo);
+	MemberVO snsCheck(MemberVO userInfo); //괄호안에 parameterType, 메서드앞이 resultType
+	int insertSns(MemberVO userInfo);
 	
 
 }
