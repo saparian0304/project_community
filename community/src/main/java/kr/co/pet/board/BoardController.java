@@ -84,7 +84,12 @@ public class BoardController {
 
 	@GetMapping("/board/centerindex.do")
 	public String centerindex(Model model, BoardVO vo) {
-		model.addAttribute("data", service.liveindex(vo));
+		model.addAttribute("data", service.centerindex(vo));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.indexTotal(vo));
+		model.addAttribute("pageMaker", pageMaker);
 		return "board/centerindex";
 	}
 	
