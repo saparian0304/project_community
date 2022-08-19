@@ -46,10 +46,10 @@
 							<li><a href="/pet/member/join.do">회원가입</a></li>
 						</c:when>
 						<c:otherwise>
-							<h3 id="socketAlert"></h3>
+							<!-- <h3 id="socketAlert"></h3> -->
 							<li><a href="javascript:popup()">채팅목록</a></li>
 							<li><a href="/pet/member/logout.do">로그아웃</a></li>
-							<li><img src="/pet/img/alram.png" style="width: 27px"></li>
+							<li id="socketAlert"><img src="/pet/img/alram.png" style="width: 27px"></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>

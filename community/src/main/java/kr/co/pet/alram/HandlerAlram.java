@@ -79,8 +79,10 @@ public class HandlerAlram extends TextWebSocketHandler {
 				
 				WebSocketSession replyWriterSession = memberSessions.get(replyWriter);
 				WebSocketSession boardWriterSession = memberSessions.get(boardWriter);
-				String boardNick = boardWriter; 
-				String replyNick = replyWriter;
+//				String boardNick = boardWriter; 
+//				String replyNick = replyWriter;
+				String boardNick = mapper.findNick(Integer.parseInt(boardWriter));
+				String replyNick = mapper.findNick(Integer.parseInt(replyWriter));
 				
 				System.out.println("boardNick " + boardNick);
 				System.out.println("replyNick " + replyNick);
@@ -111,10 +113,11 @@ public class HandlerAlram extends TextWebSocketHandler {
 					boardWriterSession.sendMessage(tmpMsg);	
 				}
 				
+				//좋아요
 				if ("recommend".equals(cmd) && boardWriterSession != null) {
 					TextMessage tmpMsg = new TextMessage(
 										"<a href='/pet/board/view.do?board_no=" +bno + "' style='color: white'>" 
-												+ replyNick + "님이 [게시글] "+ title +"에 좋아요를 눌렀습니다</a>");
+												+ replyNick + "님이 "+ title +"에 좋아요를 눌렀습니다</a>");
 					boardWriterSession.sendMessage(tmpMsg);	
 				}
 			}

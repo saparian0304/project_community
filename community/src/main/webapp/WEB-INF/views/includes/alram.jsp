@@ -12,23 +12,19 @@ function connectWS(){
 	
 	ws.onopen = function(){
 		console.log("open");
-		//setTimeout(function(){
-	//		connectWS();
-	//	}, 1000);
 	};
 	
 	ws.onmessage = function(event){
 		console.log("onmessage" + event.data);
-		var $socketAlert = $('h3#socketAlert');
-		$socketAlert.html(event.data);
-		$socketAlert.css({
-			"display" :  "block",
-			"backgorund" : "yellow"
-		});
+		var $socketAlert = $('li#socketAlert');
+		$socketAlert.html("<img src='/pet/img/isalram.png' style='width: 27px'>");
+//		$socketAlert.css({
+//			"display" :  "block",
+//		});
 			
 		
 		setTimeout(function(){
-			$socketAlert.css("display", "none");
+			$socketAlert.html("<img src='/pet/img/alram.png' style='width: 27px'>");
 		}, 5000);
 	};
 	
