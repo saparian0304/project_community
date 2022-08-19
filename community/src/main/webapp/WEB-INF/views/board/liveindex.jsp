@@ -67,18 +67,15 @@
 							<img src="${vo.filename_org}" onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
 						</c:if>
 						<c:if test="${empty vo.filename_org}">
-							<img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
+							<img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg" style="">
 						</c:if>
 						<div class="leftArea">
 							<div>${vo.title }</div>
 							<div>${vo.board_no }</div>
 						</div>
-						<div>제목 : ${vo.title }</div>
-						<div>글번호 : ${vo.board_no }</div>
-						<div>조회수 : ${vo.viewcount }</div>
-						<div>작성자 : ${vo.memb_nickname }</div>
-						<div>등록일자 : ${vo.regdate }<fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm:ss"/></div>
 						<div class="rightArea" style="text-align: right">
+							<div>하트이미지</div>
+							<div>북마크이미지</div>
 						</div>
 					</figure>
 				</div>			

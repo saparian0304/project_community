@@ -8,6 +8,7 @@ public interface BoardService {
 	Map index(BoardVO vo);
 	Map freeindex(BoardVO vo);
 	Map liveindex(BoardVO vo);
+	Map centerindex(BoardVO vo);
 	
 	//등록처리?
 	boolean insert(BoardVO vo);
