@@ -442,7 +442,7 @@ function bookmark(board_no) {
 	        </div><!-- sub -->
         </div>
         <!-- id contner -->
-        
+        </div>
     </div> <!-- div id="wrap" -->
 
   
