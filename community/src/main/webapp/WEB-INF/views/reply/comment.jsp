@@ -115,11 +115,18 @@ function fillow(member_no){
                        &emsp;&emsp; 삭제된 댓글입니다.
                    </c:if>
                    <c:if test="${vo.isdelete == false }">
-                    &emsp;&emsp; ${vo.content}                  
-	                   <c:if test="${loginInfo.member_no == vo.member_no }">
-	                    	<a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
-	                    	<a href="javascript:replyEdit(${vo.reply_no}, '${vo.content}' );"> &nbsp;&nbsp;[수정]</a>
-	                    </c:if>	
+                    &emsp;&emsp; ${vo.content} &nbsp;&nbsp;
+                    	<c:choose>
+                    		<c:when test="${loginInfo.member_no == vo.member_no }">
+		                    	<a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
+		                    	<a href="javascript:replyEdit(${vo.reply_no}, '${vo.content}' );"> &nbsp;&nbsp;[수정]</a>
+                    		</c:when>
+                    		<c:otherwise>
+	                    		<span style="border:1px; background-color: #d3d3d3; border-radius: 3px; text-align: center; line-height: center; color: white;">
+			                    	<a href="javascript:report(${vo.member_no}, ${param.board_no}, ${vo.reply_no });">&nbsp;[신고]&nbsp;&nbsp;</a>
+			                    </span> 
+                    		</c:otherwise>
+                    	</c:choose>        
                     </c:if>                	
                 </td>
     		<c:if test="${param.member_no == vo.member_no}">                                            

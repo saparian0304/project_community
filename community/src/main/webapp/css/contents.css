@@ -128,7 +128,7 @@
 /* view */
 .bbs .view{}
 .bbs .view{width:100%; border-top:2px solid #221f1f;}
-.bbs .view .title > dl{width:100%; padding:20px; border-bottom:1px solid #221f1f; background:#fafafa;}
+.bbs .view .title > dl{width:100%; padding:20px 0 20px 20px; border-bottom:1px solid #221f1f; background:#fafafa;}
 .bbs .view .title > dl > dt{font-size:18px; color:#000; font-weight:bold;}
 .bbs .view .title > dl > dd{display:inline-block; font-size:14px; color:#999; margin-top:5px; }
 .bbs .view .title > dl > dd.name:after{content:"|"; display:inline-block; margin:0 10px; font-size:14px; color:#e4e4e4;}

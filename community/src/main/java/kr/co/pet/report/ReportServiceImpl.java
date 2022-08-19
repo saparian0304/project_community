@@ -16,7 +16,7 @@ public class ReportServiceImpl implements ReportService {
 	public Map getInfo(ReportVO vo) {
 		Map<String, Object> map = new HashMap();
 		map.put("member", mapper.selectMember(vo));
-		if(vo.getIsReply() == 0 ) {
+		if(vo.getReply_no() == 0 ) {
 			map.put("board", mapper.selectBoard(vo));
 			map.put("isReply", false);
 		} else {
