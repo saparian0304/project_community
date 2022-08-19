@@ -22,6 +22,9 @@ public class ReplyVO extends Criteria {
 	private int recommendCount;
 	private int recommended;
 	
+	private Integer relation;
+	
+	
 	
 	private int reply_count;
 	private String member_nickname;	

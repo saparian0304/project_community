@@ -10,4 +10,13 @@
 			)			
 	</insert>	
 	
+	
+	<delete id="delete" parameterType="kr.co.pet.follow.FollowVO">
+		DELETE FROM follow WHERE i_no=#{i_no} AND you_no=#{you_no} AND relation = 0
+	</delete>
+	
+	<select id="followChk" parameterType="kr.co.pet.follow.FollowVO" resultType="int">
+	SELECT COUNT(*) FROM follow
+		WHERE i_no=#{i_no} AND you_no=#{you_no} AND relation = 0
+	</select>
 </mapper>

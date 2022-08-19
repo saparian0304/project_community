@@ -7,14 +7,14 @@
 <script>
 
 // 닉네임 클릭시 정보 보임
-function info2(gno){
+function info2(ono){
 	
-	if($(".activityForm2"+gno).css("display")=="none"){
+	if($(".activityForm2"+ono).css("display")=="none"){
 		$(".activityForm2").hide();
 		$(".activityForm").hide();
-		$(".activityForm2"+gno).toggle();
+		$(".activityForm2"+ono).toggle();
 	} else{
-		$(".activityForm2"+gno).hide();
+		$(".activityForm2"+ono).hide();
 	}	
 }
 </script>
@@ -42,14 +42,14 @@ function info2(gno){
 	                <c:if test="${vo.isdelete == false}"> 
 	                   ${vo.content}<c:if test="${loginInfo.member_no == vo.member_no}">
 	                    <a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
-	                    <a href="javascript:replyEdit(${vo.reply_no}, '${vo.content}')"> &nbsp;&nbsp;[수정]</a>
+	                    <a href="javascript:replyEdit(${vo.reply_no}, '${vo.content}')"> &nbsp;&nbsp;[수정]</a>	              
 	                    </c:if>
 	                </c:if>                                        
                 </td>                                            
              <c:if test="${param.member_no == vo.member_no}">                                            
                  <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
-                	<a href="javascript:info2(${vo.gno})">${vo.member_nickname}</a>
-                	<div class="activityForm2${vo.gno} activityForm2" style="display:none;">
+                	<a href="javascript:info2(${vo.ono})">${vo.member_nickname}</a>
+                	<div class="activityForm2${vo.ono} activityForm2" style="display:none;">
 	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
 	                     <p><button>활동내역</button></p>
 	                     <p><button>친구신청</button></p>
@@ -59,8 +59,8 @@ function info2(gno){
          	</c:if> 
             <c:if test="${param.member_no != vo.member_no}">                                                 
                 <td class="writer${vo.gno}" style="cursor:pointer;">
-                     <a href="javascript:info2(${vo.gno})"> ${vo.member_nickname} </a>
-                     <div class="activityForm2${vo.gno} activityForm2" style="display:none;">
+                     <a href="javascript:info2(${vo.ono})"> ${vo.member_nickname} </a>
+                     <div class="activityForm2${vo.ono} activityForm2" style="display:none;">
 	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
 	                     <p><button>활동내역</button></p>
 	                     <p><button>친구신청</button></p>

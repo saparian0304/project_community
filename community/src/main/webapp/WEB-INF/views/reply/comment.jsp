@@ -39,7 +39,6 @@ function popmessage(member_no, member_nickname){
 			winclose();
 		}
 	});
-
 	
 	// 좋아요
 	function recommendReply(board_no, reply_no) {
@@ -72,9 +71,47 @@ function popmessage(member_no, member_nickname){
 	}
 	
 // 팔로우	
-function fillow(member_no){
-	
+function follow(member_no){
+	<c:if test="${empty loginInfo}">
+	 alert('로그인 후 사용해 주세요');
+	</c:if>
+	var i_no='${loginInfo.member_no}';
+	 $.ajax({
+		url :"/pet/follow/insert.do",
+		data : {
+			you_no : member_no,
+			i_no : i_no
+		},
+		success : function(res){	
+			$(".followGo").html('팔로우해제');
+			$(".followNo").html('팔로우');
+			 
+		}
+		
+	}); 
 }
+
+//팔로우 해제
+ /* function unfollow(member_no){
+	<c:if test="${empty loginInfo}">
+	 alert('로그인 후 사용해 주세요');
+	</c:if>
+	var i_no='${loginInfo.member_no}';
+	
+	 $.ajax({
+		url :"/pet/follow/insert.do",
+		data : {
+			you_no : member_no,
+			i_no : i_no
+		},
+		success : function(){
+			$(".followGo").css('display','block');
+			$(".followNo").css('display','none'); 
+		}
+		
+	}); 
+} */
+
 
 </script>
 
@@ -92,7 +129,7 @@ function fillow(member_no){
                 <td class="first" colspan="8" style="height:70px;">등록된 댓글이 없습니다.</td>                
             </tr>
 		</c:if>
-        <c:forEach var="vo" items="${comment.list}" varStatus="status">                           	         
+        <c:forEach var="vo" items="${comment.list}" varStatus="status">                                	         
             <tr style="height:70px;"  class="rbox">
                 <td>${(status.index)+1}</td>
                 <td class="txt_l">               
@@ -125,23 +162,35 @@ function fillow(member_no){
     		<c:if test="${param.member_no == vo.member_no}">                                            
                 <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
                 	<a href="javascript:info(${vo.gno})">${vo.member_nickname}</a>
+                	<a class="ficon"></a>
                 	<div class="activityForm${vo.gno} activityForm" style="display:none;">
 	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
 	                     <p><button>활동내역</button></p>
 	                     <p><button>친구신청</button></p>
-	                     <p><button onclick="follow(${vo.member_no});">FOLLOW</button></p>
-	                     <p><button>차단</button></p>
+	                      
+            <c:if test="${empty vo.relation }">           	                   
+	                     <p><button onclick="follow(${vo.member_no});"  class="followGo">팔로우</button></p>
+             </c:if>        
+            <c:if test="${vo.relation == 0}">        
+	                     <p><button onclick="follow(${vo.member_no});" class="followNo">팔로우해제</button></p>
+            </c:if>         
+	                     <p><button>차단 </button></p>
                     </div>
                 </td>
          	</c:if> 
-            <c:if test="${param.member_no != vo.member_no}">                                                 
+            <c:if test="${param.member_no != vo.member_no}">                                                
                 <td class="writer${vo.gno}" style="cursor:pointer;">
                      <a href="javascript:info(${vo.gno})"> ${vo.member_nickname} </a>
                      <div class="activityForm${vo.gno} activityForm" style="display:none;">
 	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
 	                     <p><button>활동내역</button></p>
 	                     <p><button>친구신청</button></p>
-	                     <p><button onclick="follow(${vo.member_no});">FOLLOW</button></p>
+	         <c:if test="${empty vo.relation }">             
+	                     <p><button onclick="follow(${vo.member_no});"  class="followGo">팔로우</button></p>
+	         </c:if>             
+	         <c:if test="${vo.relation == 0}">            
+	                     <p><button onclick="follow(${vo.member_no});" class="followNo">팔로우해제</button></p>
+	         </c:if> 
 	                     <p><button>차단</button></p>
                      </div>
                 </td>
