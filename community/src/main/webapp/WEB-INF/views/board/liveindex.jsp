@@ -127,11 +127,7 @@
             </c:if>
 			<c:forEach var="vo" items="${data.list}" varStatus="status">
 				<div id="list">
-<<<<<<< HEAD
 					<figure id="figure" onclick="location.href='liveview.do?board_no=${vo.board_no }';">
-=======
-					<figure id="figure" style="width:200px" onclick="location.href='view.do?board_no=${vo.board_no }';">
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 						<c:if test="${!empty vo.filename_org }">
 							<img src="${vo.filename_org}" onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
 						</c:if> 
