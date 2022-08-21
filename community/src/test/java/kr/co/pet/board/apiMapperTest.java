@@ -137,10 +137,10 @@ public class apiMapperTest {
 	@Test
 	public void testObj2() {
 		BoardVO vo = new BoardVO();
-		vo.setTitle("안녕하세여");
-		vo.setContent("내용");
+		vo.setTitle("title");
+		vo.setContent("title");
 		int r = 0;
-		for(int i=0; i <5; i++) {
+		for(int i=0; i <16; i++) {
 			r +=mapper.insertSelectKey(vo); 
 		}
 		log.info("등록갯수: " + r);

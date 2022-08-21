@@ -54,6 +54,7 @@ public class BoardController {
 
 	@GetMapping("/board/main.do")
 	public String index(Model model, BoardVO vo) {
+		
 		model.addAttribute("data", service.index(vo));
 		model.addAttribute("fdata", fservice.find(vo.getBoard_no()));
 		return "board/main";
@@ -61,6 +62,7 @@ public class BoardController {
 	
 	@GetMapping("/board/freeindex.do")
 	public String freeindex(Model model, BoardVO vo) {
+		vo.setPageRow(12);
 		model.addAttribute("data", service.freeindex(vo));
 		
 		PageMaker pageMaker = new PageMaker();
@@ -103,8 +105,8 @@ public class BoardController {
 		return "board/freewrite";
 	}
 	
-	@GetMapping("/board/view.do")
-	public String view(BoardVO vo, Model model, HttpSession sess) {
+	@GetMapping("/board/freeview.do")
+	public String freeview(BoardVO vo, Model model, HttpSession sess) {
 		BoardVO data = service.view(vo.getBoard_no());
 		model.addAttribute("data", data);
 		List fdata = fservice.find(vo.getBoard_no());
@@ -115,14 +117,88 @@ public class BoardController {
 		model.addAttribute("recdata", recService.recommend(vo.getBoard_no(), 0, sess));
 		model.addAttribute("bookdata", bService.bookmarked(vo, sess));
 		//model.addAttribute("file", file);
-		return "board/view";
+		return "board/freeview";
+	}
+	@GetMapping("/board/liveview.do")
+	public String liveview(BoardVO vo, Model model, HttpSession sess) {
+		BoardVO data = service.view(vo.getBoard_no());
+		model.addAttribute("data", data);
+		List fdata = fservice.find(vo.getBoard_no());
+		model.addAttribute("fdata", fdata);
+		LocVO ldata = lservice.view(vo.getBoard_no());
+		model.addAttribute("ldata", ldata);
+		
+		model.addAttribute("recdata", recService.recommend(vo.getBoard_no(), 0, sess));
+		
+		//model.addAttribute("file", file);
+		return "board/liveview";
 	}
 	
-	@PostMapping(value = "/board/insert.do", consumes = "multipart/form-data")
-	public String insert(BoardVO vo, FileVO fvo, LocVO lvo, Model model, @RequestParam MultipartFile filename,
+	@PostMapping(value = "/board/liveinsert.do", consumes = "multipart/form-data")
+	public String liveinsert(BoardVO vo, FileVO fvo, LocVO lvo, Model model, @RequestParam MultipartFile filename,
 			HttpServletRequest req) {
 		//게시글 저장 board테이블
 		//LocVO lvo = new LocVO();
+		vo.setBoard_name("live");
+		boolean in = service.insert(vo);
+		String st =  vo.getContent();
+		st.replaceAll("<p>", "");
+		st.replaceAll("</p>", "");
+		vo.setContent(st);
+		service.update(vo);
+		lvo.setBoard_no(vo.getBoard_no());
+		lservice.insert(lvo);
+		vo.setBoard_name("live");
+		//첨부파일 처리file테이블
+		if(!filename.isEmpty()) {
+			//파일명 구하기
+			String org = filename.getOriginalFilename();
+			String ext = org.substring(org.lastIndexOf(".")); //확장자
+			String real = new Date().getTime()+ext;
+			
+			//파일저장req.getRealPath("/upload/")
+			String path = req.getSession().getServletContext().getRealPath("/upload/");
+			try {
+				filename.transferTo(new File(path+real));
+			} catch (Exception e) {}
+			fvo.setBoard_no(vo.getBoard_no());
+			fvo.setFilename_org(org);
+			fvo.setFilename_real(real);
+			if(fservice.insert(fvo)){
+				model.addAttribute("msg", "정상적으로 저장되었습니다.");
+				model.addAttribute("url", "liveview.do?board_no="+vo.getBoard_no());
+				
+				return "common/alert";
+				
+			} else {
+				service.delete(vo.getBoard_no());
+				model.addAttribute("msg", "저장이 실패했습니다.");
+				return "common/alert";
+			}
+		}
+	
+		//member_no 저장 로그인
+//		HttpSession sess = req.getSession();
+//		MemberVO mv = (MemberVO)sess.getAttribute("loginInfo");
+//		vo.setMember_no(mv.getNo());
+		
+		if(in) {
+			model.addAttribute("msg", "정상적으로 저장되었습니다.");
+			model.addAttribute("url", "liveindex.do");
+			
+			//System.out.println("nickname: "+vo.getNickname());
+			return "common/alert";
+		}  else {
+			model.addAttribute("msg", "저장이 실패했습니다.");
+			return "common/alert";
+		}
+	}
+	@PostMapping(value = "/board/freeinsert.do", consumes = "multipart/form-data")
+	public String freeinsert(BoardVO vo, FileVO fvo, LocVO lvo, Model model, @RequestParam MultipartFile filename,
+			HttpServletRequest req) {
+		//게시글 저장 board테이블
+		//LocVO lvo = new LocVO();
+		vo.setBoard_name("free");
 		boolean in = service.insert(vo);
 		String st =  vo.getContent();
 		st.replaceAll("<p>", "");
@@ -143,13 +219,12 @@ public class BoardController {
 			try {
 				filename.transferTo(new File(path+real));
 			} catch (Exception e) {}
+			fvo.setBoard_no(vo.getBoard_no());
 			fvo.setFilename_org(org);
 			fvo.setFilename_real(real);
-			fvo.setBoard_no(vo.getBoard_no());
 			if(fservice.insert(fvo)){
 				model.addAttribute("msg", "정상적으로 저장되었습니다.");
-				model.addAttribute("url", "index.do");
-				
+				model.addAttribute("url", "freeview.do?board_no="+vo.getBoard_no());
 				return "common/alert";
 				
 			} else {
@@ -158,7 +233,7 @@ public class BoardController {
 				return "common/alert";
 			}
 		}
-	
+		
 		//member_no 저장 로그인
 //		HttpSession sess = req.getSession();
 //		MemberVO mv = (MemberVO)sess.getAttribute("loginInfo");
@@ -166,12 +241,14 @@ public class BoardController {
 		
 		if(in) {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
-			model.addAttribute("url", "index.do");
+			model.addAttribute("url", "freeindex.do");
+			vo.setBoard_name("free");
 			
 			//System.out.println("nickname: "+vo.getNickname());
 			return "common/alert";
 		}  else {
 			model.addAttribute("msg", "저장이 실패했습니다.");
+			vo.setBoard_name("free");
 			return "common/alert";
 		}
 	}
