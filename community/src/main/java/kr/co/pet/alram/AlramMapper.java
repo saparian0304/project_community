@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AlramMapper {
 
 	String findNick(int member_no);
+	String findBoard_name(int member_no);
 	
 	int insert(AlramVO vo);
 

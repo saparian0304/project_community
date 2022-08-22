@@ -77,6 +77,8 @@ public class HandlerAlram extends TextWebSocketHandler {
 				vo.setCmd(cmd);
 				mapper.insert(vo);
 				
+				String board_name = mapper.findBoard_name(Integer.parseInt(bno));
+				
 				WebSocketSession replyWriterSession = memberSessions.get(replyWriter);
 				WebSocketSession boardWriterSession = memberSessions.get(boardWriter);
 //				String boardNick = boardWriter; 
@@ -88,10 +90,19 @@ public class HandlerAlram extends TextWebSocketHandler {
 				System.out.println("replyNick " + replyNick);
 				System.out.println("boardWriterSession : " + boardWriterSession);
 	
+				String tempURL = "";
+				if(board_name.equals("free")) {
+					tempURL = "/pet/board/freeview.do?board_no=";
+				} else if (board_name.equals("live")) {
+					tempURL = "/pet/board/liveview.do?board_no=";
+				} else if (board_name.equals("center")) {
+					tempURL = "/pet/board/centerview.do?board_no=";
+				}
+				
 				//댓글
 				if ("reply".equals(cmd) && boardWriterSession != null) {
 					TextMessage tmpMsg = new TextMessage(
-										"<a href='/pet/board/view.do?board_no=" +bno + "'>" 
+										"<a href='"+ tempURL +bno + "'>" 
 												+ replyNick + "님이 [게시글] "+ title +"에 댓글을 달았습니다</a>");
 					boardWriterSession.sendMessage(tmpMsg);							
 				}
@@ -108,7 +119,7 @@ public class HandlerAlram extends TextWebSocketHandler {
 				//대댓글
 				if ("rereply".equals(cmd) && boardWriterSession != null) {
 					TextMessage tmpMsg = new TextMessage(
-										"<a href='/pet/board/view.do?board_no=" +bno + "'>" 
+										"<a href='"+ tempURL +bno + "'>" 
 												+ replyNick + "님이 [댓글] "+ title +"에 답글을 달았습니다</a>");
 					boardWriterSession.sendMessage(tmpMsg);	
 				}
@@ -116,7 +127,7 @@ public class HandlerAlram extends TextWebSocketHandler {
 				//좋아요
 				if ("recommend".equals(cmd) && boardWriterSession != null) {
 					TextMessage tmpMsg = new TextMessage(
-										"<a href='/pet/board/view.do?board_no=" +bno + "'>" 
+										"<a href='" + tempURL +bno + "'>" 
 												+ replyNick + "님이 "+ title +"에 좋아요를 눌렀습니다</a>");
 					boardWriterSession.sendMessage(tmpMsg);	
 				}
