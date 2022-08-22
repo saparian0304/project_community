@@ -2,9 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/WEB-INF/views/includes/alram.jsp" %>   
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
-
 <script>
+var login_no = "";
+<c:if test="${!empty loginInfo.member_no}">
+	login_no = ${loginInfo.member_no};
+</c:if>
 
 // 닉네임 클릭시 정보 보임
 function info2(ono){
@@ -44,6 +48,9 @@ function recommendReply(board_no, reply_no) {
 			if (res.recommended) {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black_2.png" width="13px"> '+res.recommendCount;
 				$('#relike'+res.reply_no).html(icon_img);
+				if(socket){
+					socket.send("recommend,"+login_no+","+$("#no"+reply_no).val()+","+board_no+",[댓글]"+$("#content"+reply_no).val());
+				}
 			} else {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white_2.png" width="13px"> '+res.recommendCount;
 				$('#relike'+res.reply_no).html(icon_img);
@@ -162,6 +169,10 @@ function unfollow(member_no){
              <c:if test="${param.member_no == vo.member_no}">                                            
                  <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
                 	<a href="javascript:info2(${vo.ono})">${vo.member_nickname}</a>
+                	<!-- 실시간 알람 -->
+                	<input type="hidden" value="${vo.member_no}" id="no${vo.reply_no }">
+                	<input type="hidden" value="${vo.content}" id="content${vo.reply_no }">
+                	<!-- 실시간 알람 -->
                 	<div class="activityForm2${vo.ono} activityForm2" style="display:none;">
 	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
 	                     <p><button>활동내역</button></p>

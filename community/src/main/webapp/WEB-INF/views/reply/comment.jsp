@@ -71,7 +71,6 @@ function popmessage(member_no, member_nickname){
 					var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black_2.png" width="13px"> '+res.recommendCount;
 					$('#relike'+res.reply_no).html(icon_img);
 					if(socket){
-						var bno = window.location.href.split("=");
 						socket.send("recommend,"+login_no+","+$("#no"+reply_no).val()+","+board_no+",[댓글]"+$("#content"+reply_no).val());
 					}
 				} else {

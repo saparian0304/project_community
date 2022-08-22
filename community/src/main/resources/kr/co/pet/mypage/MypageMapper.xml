@@ -26,7 +26,12 @@
 	</update>
 	
 	<select id="memberAct"  resultType="map">
-		SELECT * FROM ${table_name}
+		SELECT *
+		<if test="table_name == 'reply'">
+		, (
+			SELECT board_name FROM board WHERE board_no = reply.board_no) AS board_name 
+		</if>
+		FROM ${table_name}
 		WHERE member_no = #{member_no}
 		AND isdelete = 0
 		ORDER BY regdate DESC
