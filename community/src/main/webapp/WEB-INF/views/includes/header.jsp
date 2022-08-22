@@ -32,6 +32,16 @@
 		$(".socketAlert").on("click", function(){
 			dis($(".alramList"));
 		});
+		
+		if(${!empty loginInfo}){
+			$.ajax({
+				url : '/pet/alramlist',
+				type : 'get',
+				success : function(res){
+					$('div.socketAlert').html(res);
+				}
+			})
+		}
 
 	});
 	
@@ -54,7 +64,7 @@
 	background-color: gray;
 	font-size : 16px;
 }
-.alramList div:first-child {
+.alramList #first {
 	border-bottom : 3px solid white;
 	text-align : center;
 	font-weight : bold;
@@ -62,7 +72,7 @@
 
 }
 
-.alramList div {
+.alramList > * {
 	padding : 2.5px 5px;
 }
 </style>
@@ -90,7 +100,7 @@
 							<li>
 								<img src="/pet/img/alram.png" style="width: 27px" class="socketAlert" >
 								<div class="alramList" style="color : white">
-									<div>[ 알림 내역 ]</div>
+									<div id="first">[ 알림 내역 ]</div>
 									<div class="socketAlert">내역이 존재하지 않습니다.</div>
 								</div>
 							</li>
