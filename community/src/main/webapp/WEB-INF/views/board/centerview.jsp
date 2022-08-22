@@ -6,7 +6,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 <link rel="stylesheet" href="/pet/css/tab.css"/>
-
 <script>
 var login_no = "";
 <c:if test="${!empty loginInfo.member_no}">
@@ -133,9 +132,6 @@ function replySave(gno){
 					alert('정상적으로 댓글이 등록되었습니다.');
 					$("#contents").val('');
 					getComment(1);
-				}
-				if(socket){
-					socket.send("rereply,"+${loginInfo.member_no}+","+$("#no"+gno).val()+","+${data.board_no}+","+$("#content"+gno).val());
 				}
 			}
 		});
@@ -280,14 +276,13 @@ $(document).ready(function(){
 	                <h3 class="sub_title">게시판</h3>
 	                <div class="bbs">
 	                	<div style="text-align: right">
-	                    	<span style="border:1px; background-color: #d3d3d3; border-radius: 3px; text-align: center; line-height: center; color: white;">
-			                    <a href="javascript:report(${vo.member_no}, ${param.board_no}, 0);">&nbsp;[게시글 신고]&nbsp;&nbsp;</a>
-			                </span> 
+	                    	작성자 : ${data.member_no } <a href="javascript:report(${data.member_no}, ${data.board_no }, 0)">[게시글 신고버튼 예]</a><br>  
+							<a href="javascript:report(${data.member_no}, ${data.board_no }, 1)">[댓글 신고버튼 예]</a>
 	                	</div>
 	                    <div class="view">
 	                        <div class="title">
 	                            <dl>
-	                                <dt>${data.title } </dt>
+	                                <dt style="width: 200px">${data.title } </dt>
 	                                <dd class="date">작성일 : ${data.regdate } </dd>
 	                            </dl>
 	                        </div>
@@ -296,21 +291,23 @@ $(document).ready(function(){
 	                        		<dt style="height: 200px">${data.content }</dt>
 	                        	</dl>
 	                        </div>
-	                        
+	                        	
 	                        	<!-- 첨부파일 -->
 	                        	<dl class="file" style="clear:both">
-	                            <dd>
 	                            <c:forEach var="fo" items="${fdata }">
+	                            <dd>
 	                            <a href="/pet/common/download.jsp?oName=${URLEncoder.encode(fo.filename_org,'UTF-8')}&sName=${fo.filename_real}"  
-	                            target="_blank">${fo.filename_org}</a>
+	                            target="_blank">${fo.filename_org}</a></dd>
+	                            
+	                            
 	                            </c:forEach>
-	                            </dd>
 	                        </dl>			
+	                        
 	                        
 	                        <div class="btnSet clear" style="clear:both">
 	                            <div class="fl_l">
-		                            <a href="freeindex.do" class="btn">목록으로</a>
-		                            <a href="/pet/board/freeedit.do?board_no=${data.board_no }" class="btn">수정</a>
+		                            <a href="centerindex.do" class="btn">목록으로</a>
+		                            <a href="/pet/board/centeredit.do?board_no=${data.board_no }" class="btn">수정</a>
 		                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
 		                            <a href="reply.do?board_no=${data.board_no }" class="btn">답변</a>
 	                            </div>

@@ -106,6 +106,7 @@ function replyEditgo(reply_no){
 					$("#recon").val('');
 					getComment(1);
 				}
+				
 			}
 		});
 	}
@@ -132,6 +133,9 @@ function replySave(gno){
 					alert('정상적으로 댓글이 등록되었습니다.');
 					$("#contents").val('');
 					getComment(1);
+				}
+				if(socket){
+					socket.send("rereply,"+${loginInfo.member_no}+","+$("#no"+gno).val()+","+${data.board_no}+","+$("#content"+gno).val());
 				}
 			}
 		});
@@ -426,7 +430,7 @@ $(document).ready(function(){
 	                        <div class="btnSet clear" style="clear:both">
 	                            <div class="fl_l">
 		                            <a href="liveindex.do" class="btn">목록으로</a>
-		                            <a href="/pet/board/edit.do?board_no=${data.board_no }" class="btn">수정</a>
+		                            <a href="/pet/board/liveedit.do?board_no=${data.board_no }" class="btn">수정</a>
 		                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
 		                            <a href="reply.do?board_no=${data.board_no }" class="btn">답변</a>
 	                            </div>

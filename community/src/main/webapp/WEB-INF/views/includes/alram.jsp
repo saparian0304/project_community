@@ -21,7 +21,7 @@ function connectWS(){
 //		$socketAlert.css({
 //			"display" :  "block",
 //		});
-		$('div.socketAlert').html(event.data);	
+		$(event.data).prependTo('div.socketAlert');	
 	};
 	
 	ws.onclose = function(){

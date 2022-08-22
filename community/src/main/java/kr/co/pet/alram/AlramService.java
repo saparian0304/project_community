@@ -4,6 +4,6 @@ import java.util.Map;
 
 public interface AlramService {
 
-	Map alramList(AlramVO vo);
+	Map alramList(int member_no);
 	
 }
