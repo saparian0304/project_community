@@ -83,12 +83,6 @@ function recommendReply(board_no, reply_no) {
 	                       삭제된 댓글입니다.
 	                </c:if>
 	                <c:if test="${vo.isdelete == false}"> 
-<<<<<<< HEAD
-	                   ${vo.content}<c:if test="${loginInfo.member_no == vo.member_no}">
-	                    <a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
-	                    <a href="javascript:replyEdit(${vo.reply_no}, '${vo.content}')"> &nbsp;&nbsp;[수정]</a>	              
-	                    </c:if>
-=======
 	                   ${vo.content}&nbsp;&nbsp;
 	                   <c:choose>
                     		<c:when test="${loginInfo.member_no == vo.member_no }">
@@ -100,8 +94,7 @@ function recommendReply(board_no, reply_no) {
 		                        <a href="javascript:report(${vo.member_no}, ${param.board_no}, ${vo.reply_no });">&nbsp;[신고]&nbsp;&nbsp;</a>
 		                        </span>  
                     		</c:otherwise>
-                       </c:choose>     
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
+                       </c:choose> 
 	                </c:if>                                        
                 </td>                                            
              <c:if test="${param.member_no == vo.member_no}">                                            
