@@ -9,7 +9,7 @@ public class AlramVO {
 	private String send_no;
 	private String read_no;
 	private String board_no;
-	private String title;
 	private String cmd;
+	private String link;
 	
 }

@@ -106,6 +106,7 @@ function replyEditgo(reply_no){
 					$("#recon").val('');
 					getComment(1);
 				}
+				
 			}
 		});
 	}
@@ -132,6 +133,9 @@ function replySave(gno){
 					alert('정상적으로 댓글이 등록되었습니다.');
 					$("#contents").val('');
 					getComment(1);
+				}
+				if(socket){
+					socket.send("rereply,"+${loginInfo.member_no}+","+$("#no"+gno).val()+","+${data.board_no}+","+$("#content"+gno).val());
 				}
 			}
 		});

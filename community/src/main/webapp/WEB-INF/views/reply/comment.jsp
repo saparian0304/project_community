@@ -10,15 +10,19 @@ var login_no = "";
 	login_no = ${loginInfo.member_no};
 </c:if>
 // 닉네임 눌렀을때 정보 열림
-function info(gno){
-	
+function info(gno){	
+	<c:if test="${empty loginInfo}">
+	 alert('로그인 후 사용해 주세요');
+	</c:if>
+	<c:if test="${!empty loginInfo}">
 	if($(".activityForm"+gno).css("display")=="none"){
 		$(".activityForm").hide();
 		$(".activityForm2").hide();
 		$(".activityForm"+gno).toggle();
 	} else{
 		$(".activityForm"+gno).hide();
-	}	
+	}
+	</c:if>
 }
 
 // 쪽지보내기 팝업
@@ -67,7 +71,6 @@ function popmessage(member_no, member_nickname){
 					var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black_2.png" width="13px"> '+res.recommendCount;
 					$('#relike'+res.reply_no).html(icon_img);
 					if(socket){
-						var bno = window.location.href.split("=");
 						socket.send("recommend,"+login_no+","+$("#no"+reply_no).val()+","+board_no+",[댓글]"+$("#content"+reply_no).val());
 					}
 				} else {
@@ -79,6 +82,7 @@ function popmessage(member_no, member_nickname){
 	}
 	
 // 팔로우	
+
 function follow(member_no){
 	<c:if test="${empty loginInfo}">
 	 alert('로그인 후 사용해 주세요');
@@ -91,16 +95,14 @@ function follow(member_no){
 			i_no : i_no
 		},
 		success : function(res){	
-			$(".followGo").html('팔로우해제');
-			$(".followNo").html('팔로우');
-			 
-		}
-		
+			$(".followGo"+member_no).replaceWith('<p class="followNo'+member_no+'"><button onclick="unfollow(' + member_no + ');">팔로우해제</button></p>');			 
+		}		
 	}); 
 }
 
 //팔로우 해제
- /* function unfollow(member_no){
+ 
+function unfollow(member_no){
 	<c:if test="${empty loginInfo}">
 	 alert('로그인 후 사용해 주세요');
 	</c:if>
@@ -113,12 +115,14 @@ function follow(member_no){
 			i_no : i_no
 		},
 		success : function(){
-			$(".followGo").css('display','block');
-			$(".followNo").css('display','none'); 
+			$(".followNo"+member_no).replaceWith('<p class="followGo'+member_no+'"><button onclick="follow(' + member_no + ');">팔로우</button></p>');
+			
 		}
 		
 	}); 
-} */
+} 
+
+
 
 
 </script>
@@ -176,21 +180,38 @@ function follow(member_no){
                     	</c:choose>        
                     </c:if>                	
                 </td>
+		<c:choose>
+			<c:when test="${loginInfo.member_no == vo.member_no }">
+				<c:if test="${param.member_no == vo.member_no}">                                            
+                <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
+                	<a href="javascript:info(${vo.gno})"> ${vo.member_nickname}</a>
+                	<div class="activityForm${vo.gno} activityForm" style="display:none;">                		                     
+	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList'";>나의 활동내역</button></p>
+                    </div>
+                </td>
+         	</c:if> 
+            <c:if test="${param.member_no != vo.member_no}">                                                
+                <td class="writer${vo.gno}" style="cursor:pointer;">
+                     <a href="javascript:info(${vo.gno})"> ${vo.member_nickname} </a>
+                     <div class="activityForm${vo.gno} activityForm" style="display:none;">                                         
+	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList'";>나의 활동내역</button></p>           
+                     </div>
+                </td>
+            </c:if>
+			</c:when>
+			<c:otherwise> 
     		<c:if test="${param.member_no == vo.member_no}">                                            
                 <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
-                	<a href="javascript:info(${vo.gno})">${vo.member_nickname}</a>
-                	<a class="ficon"></a>
+                	<a href="javascript:info(${vo.gno})"> ${vo.member_nickname}</a>
                 	<div class="activityForm${vo.gno} activityForm" style="display:none;">
 	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
-	                     <p><button>활동내역</button></p>
-	                     <p><button>친구신청</button></p>
-	                      
-            <c:if test="${empty vo.relation }">           	                   
-	                     <p><button onclick="follow(${vo.member_no});"  class="followGo">팔로우</button></p>
-             </c:if>        
-            <c:if test="${vo.relation == 0}">        
-	                     <p><button onclick="follow(${vo.member_no});" class="followNo">팔로우해제</button></p>
-            </c:if>         
+	                     <p><button>친구신청</button></p>	                      
+            		<c:if test="${empty vo.relation}">           	                   
+	                     <p class="followGo${vo.member_no}"><button onclick="follow(${vo.member_no});">팔로우</button></p>
+           			</c:if>        
+           			<c:if test="${vo.relation == 0}">        
+	                     <p class="followNo${vo.member_no}"><button onclick="unfollow(${vo.member_no});">팔로우해제</button></p>
+           			</c:if>         
 	                     <p><button>차단 </button></p>
                     </div>
                 </td>
@@ -200,18 +221,19 @@ function follow(member_no){
                      <a href="javascript:info(${vo.gno})"> ${vo.member_nickname} </a>
                      <div class="activityForm${vo.gno} activityForm" style="display:none;">
 	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
-	                     <p><button>활동내역</button></p>
 	                     <p><button>친구신청</button></p>
-	         <c:if test="${empty vo.relation }">             
-	                     <p><button onclick="follow(${vo.member_no});"  class="followGo">팔로우</button></p>
-	         </c:if>             
-	         <c:if test="${vo.relation == 0}">            
-	                     <p><button onclick="follow(${vo.member_no});" class="followNo">팔로우해제</button></p>
-	         </c:if> 
+	         		<c:if test="${empty vo.relation}">             
+	                     <p class="followGo${vo.member_no}"><button onclick="follow(${vo.member_no});">팔로우</button></p>
+	         		</c:if>             
+	         		<c:if test="${vo.relation == 0}">            
+	                     <p class="followNo${vo.member_no}"><button onclick="unfollow(${vo.member_no});">팔로우해제</button></p>
+	         		</c:if> 
 	                     <p><button>차단</button></p>
                      </div>
                 </td>
-            </c:if>                       
+            </c:if>
+            </c:otherwise>
+        </c:choose>                            
                 <td class="date"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${vo.regdate}"/></td>
             </tr>           
            	<tr>
@@ -232,25 +254,25 @@ function follow(member_no){
     
     
     <div class="pagenation">
-    	<a style="cursor:pointer" class="firstpage pbth" href="javascript:getComment(${pageMaker.startPage});">
+    	<a style="cursor:pointer;" class="firstpage pbtn" href="javascript:getComment(${pageMaker.startPage});">
     		<img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
     	</a>
-	    <c:if test="${pageMaker.prev == true}">
-	        <a href="javascript:getComment(${pageMaker.startPage-1});" class="firstpage pbtn">
+	    <%-- <c:if test="${pageMaker.prev == true}"> --%>
+	    <c:if test="${pageMaker.prev}">
+	        <a href="javascript:getComment(${pageMaker.startPage-1});" class="prevpage pbtn" style="cursor:pointer;">
 	            <img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
 	        </a>
 	    </c:if>
 	     <c:forEach var="p" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">    
-	        <a href="javascript:getComment(${p});"<c:if test="${replyVO.page == p}"/>>
-	            <span class="pagenum currentpage">${p}</span>
-	        </a>
+	        <a style="cursor:pointer;" class="pagenum<c:if test="${replyVO.page == p}"> currentpage</c:if>"
+	        href="javascript:getComment(${p});">${p}</a>
 	     </c:forEach>  
-	     <c:if test="${data.next == true}">   
-	        <a href="ijavascript:getComment(${pageMaker.endPage+1});" class="lastpage pbtn">
+	     <c:if test="${pageMaker.next && pageMaker.endPage > 0}">   
+	        <a href="ijavascript:getComment(${pageMaker.endPage+1});" class="nextpage pbtn" style="cursor:pointer;">
 	            <img src="/pet/img/btn_nextpage.png" alt="다음 페이지 이동">
 	        </a>
 	     </c:if>
-	     <a style="cursor:poiner"  href="javascript:getComment(${pageMaker.totalPage});" class="lastpage pbtn">
+	     <a style="cursor:poiner;"  href="javascript:getComment(${pageMaker.totalPage});" class="lastpage pbtn">
 	     		<img src="/pet/img/btn_lastpage.png" alt="마지막 페이지 이동">
 	     </a>
     </div>
