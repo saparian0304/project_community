@@ -19,8 +19,8 @@
     <script src="/pet/js/function.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<%@ include file="/WEB-INF/views/includes/alram.jsp" %>
-    
+<%@ include file="/WEB-INF/views/includes/alram.jsp" %>  
+  
 <script>
 function soSend(){
 	var soMsg = "message,"+${loginInfo.member_no}+","+${param.member_no}+",0,0";
@@ -38,36 +38,39 @@ function messageWrite() {
      return false;     
    }
 }
-</script>
 
-</head> 
+
+</script>
+ 
+</head>
 <body>
 <div style="width:500px;margin:40px auto;">
-	<form method="post" name="frm" id="frm" action="sendinsert.do" onsubmit="return messageWrite()">
+	<form method="post" name="frm" id="frm" action="resend.do?member_no=${param.member_no}&nickname=${param.nickname}" onsubmit="return messageWrite()">
 		<table>
 			<tr>
-				<td>받는사람</td>		
+				<td>보낸 사람</td>		
 				<td>  
 					<input type="hidden" name="read_member" id="read_member" value="${param.member_no}">
-					<input type="hidden" name="board_no" id="board_no" value="${param.board_no}">
-					<input type="search" name="read" id="read" value=" ${param.nickname}"> 				
+					<input type="text" name="read" id="read" value=" ${param.nickname}"> 				
 				<td>							 
 			</tr>			
 			<tr>
-				<td>보내는사람</td>
+				<td>받은 사람</td>
 				<td>
 					<input type="hidden" name="send_member" value="${loginInfo.member_no}">
 					<input type="text" name="send" id="send" value=" ${loginInfo.nickname}">
 				</td>		
 			<tr>
-				<td>보내실 말씀</td>
-				<td><textarea cols="40" rows="10" name="content" id="content" placeholder="메세지를 입력해주세요"  style="width: 320px; height: 150px;">${param.content}</textarea></td>
+				<td>내용</td>
+				<td>
+					<textarea cols="40" rows="10" name="content" id="content" style="width: 320px; height: 150px;">${param.content}</textarea>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align: center;">
 					<button style="width : 80px; height : 30px; position: center; margin-top:5px;" class="reqbtn mymess">
-						<input type="submit" name="" value="다시보내기" onclick="soSend();" style="background-color:transparent; border:0px transparent solid;">
-					</button>					
+						<input type="submit" name="" value="답장하기" ; style="background-color:transparent; border:0px transparent solid;">
+					</button>
 				</td>
 			</tr>
 		</table>

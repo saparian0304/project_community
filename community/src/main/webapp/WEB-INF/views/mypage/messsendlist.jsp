@@ -3,6 +3,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+//보낸쪽지 리스트 글 클릭
+function listSend(read_member,read_nick, content){
+    var url = "/pet/message/listsend.do?member_no="+read_member+"&nickname="+read_nick+"&content="+content;
+  	var name = "popup message"; 
+    var option = "width = 600, height = 500, top = 100, left = 200, location = no"
+    window.open(url, name, option);   
+}
+</script>
                 <button style="width : 100px; height : 30px;" class="reqbtn mymess" onclick="javascript:getMessReadList(1, ${loginInfo.member_no});">내가 받은 쪽지</button>
                 <button style="width : 100px; height : 30px;" class="reqbtn mymess" onclick="javascript: getMessSendList(1, ${loginInfo.member_no});">내가 보낸 쪽지</button>
                 <button style="width : 100px; height : 30px;" class="reqbtn mymess" onclick="popmessage();">쪽지 보내기</button>
@@ -52,10 +61,10 @@
 	                    		</td>
 	                    		<td></td>
 	                    		<td class="tit_notice" style="text-align : center;">
-	                    			${list.read_nick }
+	                    			${list.read_nick}
 	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
-	                    			<a href="#!">
+	                    			<a href="javascript:listSend(${list.read_member},'${list.read_nick }', '${list.content}')">
 	                    			${list.content }
 	                    			</a>
 	                    		</td>
