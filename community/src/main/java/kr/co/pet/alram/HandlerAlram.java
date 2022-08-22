@@ -25,6 +25,7 @@ public class HandlerAlram extends TextWebSocketHandler {
 	
 	Map<String, WebSocketSession> memberSessions = new HashMap<>();
 	
+	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		System.out.println("afterConnectionEstablished : " + session);
@@ -70,12 +71,10 @@ public class HandlerAlram extends TextWebSocketHandler {
 				System.out.println("length 성공 : " + cmd);
 				
 				AlramVO vo = new AlramVO();
-				vo.setSend_no(replyWriter);
-				vo.setRead_no(boardWriter);
 				vo.setBoard_no(bno);
-				vo.setTitle(title);
+				vo.setRead_no(boardWriter);
+				vo.setSend_no(replyWriter);
 				vo.setCmd(cmd);
-				mapper.insert(vo);
 				
 				String board_name = mapper.findBoard_name(Integer.parseInt(bno));
 				
@@ -90,47 +89,51 @@ public class HandlerAlram extends TextWebSocketHandler {
 				System.out.println("replyNick " + replyNick);
 				System.out.println("boardWriterSession : " + boardWriterSession);
 	
-				String tempURL = "";
-				if(board_name.equals("free")) {
-					tempURL = "/pet/board/freeview.do?board_no=";
-				} else if (board_name.equals("live")) {
-					tempURL = "/pet/board/liveview.do?board_no=";
-				} else if (board_name.equals("center")) {
-					tempURL = "/pet/board/centerview.do?board_no=";
+				String tmpURL = "";
+				if(!"message".equals(cmd)) {
+					if(board_name.equals("free")) {
+						tmpURL = "/pet/board/freeview.do?board_no=";
+					} else if (board_name.equals("live")) {
+						tmpURL = "/pet/board/liveview.do?board_no=";
+					} else if (board_name.equals("center")) {
+						tmpURL = "/pet/board/centerview.do?board_no=";
+					}
 				}
-				
+				String str = "";
+
 				//댓글
 				if ("reply".equals(cmd) && boardWriterSession != null) {
-					TextMessage tmpMsg = new TextMessage(
-										"<a href='"+ tempURL +bno + "'>" 
-												+ replyNick + "님이 [게시글] "+ title +"에 댓글을 달았습니다</a>");
+					str = "<a href='"+ tmpURL +bno + "'>" 
+							+ replyNick + "님이 [게시글] "+ title +"에 댓글을 달았습니다</a>";
+					TextMessage tmpMsg = new TextMessage(str);
 					boardWriterSession.sendMessage(tmpMsg);							
 				}
 				
 				// 쪽지
 				if ("message".equals(cmd) && boardWriterSession != null) {
-					TextMessage tmpMsg = new TextMessage(
-										"<a href='/pet/mypage/index.do?member_no=" + boardWriter + "'>"
-											+ replyNick + "님이 쪽지를 보냈습니다</a>"
-							);
+					str = "<a href='/pet/mypage/index.do?member_no=" + boardWriter + "'>"
+							+ replyNick + "님이 쪽지를 보냈습니다</a>";
+					TextMessage tmpMsg = new TextMessage(str);
 					boardWriterSession.sendMessage(tmpMsg);
 				}
 				
 				//대댓글
 				if ("rereply".equals(cmd) && boardWriterSession != null) {
-					TextMessage tmpMsg = new TextMessage(
-										"<a href='"+ tempURL +bno + "'>" 
-												+ replyNick + "님이 [댓글] "+ title +"에 답글을 달았습니다</a>");
+					str = "<a href='"+ tmpURL +bno + "'>" 
+							+ replyNick + "님이 [댓글] "+ title +"에 답글을 달았습니다</a>";
+					TextMessage tmpMsg = new TextMessage(str);
 					boardWriterSession.sendMessage(tmpMsg);	
 				}
 				
 				//좋아요
 				if ("recommend".equals(cmd) && boardWriterSession != null) {
-					TextMessage tmpMsg = new TextMessage(
-										"<a href='" + tempURL +bno + "'>" 
-												+ replyNick + "님이 "+ title +"에 좋아요를 눌렀습니다</a>");
+					str = "<a href='" + tmpURL +bno + "'>" 
+							+ replyNick + "님이 "+ title +"에 좋아요를 눌렀습니다</a>";
+					TextMessage tmpMsg = new TextMessage(str);
 					boardWriterSession.sendMessage(tmpMsg);	
 				}
+				vo.setLink(str);
+				mapper.insert(vo);
 			}
 		}
 	}

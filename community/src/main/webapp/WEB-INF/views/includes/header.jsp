@@ -32,6 +32,7 @@
 		$(".socketAlert").on("click", function(){
 			dis($(".alramList"));
 		});
+
 	});
 	
     function dis(obj){
@@ -41,6 +42,7 @@
 	        $(obj).hide();
 	    }
     }
+    
 </script>
 <style>
 .alramList  {
@@ -85,7 +87,8 @@
 							<!-- <h3 id="socketAlert"></h3> -->
 							<li><a href="javascript:popup()">채팅목록</a></li>
 							<li><a href="/pet/member/logout.do">로그아웃</a></li>
-							<li><img src="/pet/img/alram.png" style="width: 27px" class="socketAlert" >
+							<li>
+								<img src="/pet/img/alram.png" style="width: 27px" class="socketAlert" >
 								<div class="alramList" style="color : white">
 									<div>[ 알림 내역 ]</div>
 									<div class="socketAlert">내역이 존재하지 않습니다.</div>

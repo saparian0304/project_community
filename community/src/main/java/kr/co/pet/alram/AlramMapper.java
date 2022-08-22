@@ -12,5 +12,5 @@ public interface AlramMapper {
 	
 	int insert(AlramVO vo);
 
-	List alramList(AlramVO vo);
+	List alramList(int member_no);
 }

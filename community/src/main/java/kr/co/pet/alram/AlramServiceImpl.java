@@ -14,9 +14,10 @@ public class AlramServiceImpl implements AlramService{
 	AlramMapper mapper;
 	
 	@Override
-	public Map alramList(AlramVO vo) {
+	public Map alramList(int member_no) {
 		Map map = new HashMap();
-		List list = mapper.alramList(vo);
+		List list = mapper.alramList(member_no);
+		map.put("list", list);
 		return map;
 	}
 
