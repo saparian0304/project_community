@@ -15,4 +15,11 @@
 		)
 	</insert>
 
+	<select id="alramList" parameterType="kr.co.pet.alram.AlramVO" resultType="kr.co.pet.alram.AlramVO">
+		SELECT * FROM alram
+		WHERE read_no = #{member_no}
+		AND isread = 0
+		ORDER BY alram_no desc
+	</select>
+
 </mapper>
