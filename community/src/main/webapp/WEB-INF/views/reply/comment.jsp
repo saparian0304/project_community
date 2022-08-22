@@ -5,7 +5,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <%@ include file="/WEB-INF/views/includes/alram.jsp" %>    
 <script>
-
+var login_no = "";
+<c:if test="${!empty loginInfo.member_no}">
+	login_no = ${loginInfo.member_no};
+</c:if>
 // 닉네임 눌렀을때 정보 열림
 function info(gno){	
 	if($(".activityForm"+gno).css("display")=="none"){
@@ -64,7 +67,7 @@ function popmessage(member_no, member_nickname){
 					$('#relike'+res.reply_no).html(icon_img);
 					if(socket){
 						var bno = window.location.href.split("=");
-						socket.send("recommend,"+${loginInfo.member_no}+","+$("#no"+reply_no).val()+","+board_no+",[댓글]"+$("#content"+reply_no).val());
+						socket.send("recommend,"+login_no+","+$("#no"+reply_no).val()+","+board_no+",[댓글]"+$("#content"+reply_no).val());
 					}
 				} else {
 					var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white_2.png" width="13px"> '+res.recommendCount;

@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="org.apache.commons.fileupload.*"%>
 <%@ page import="java.net.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 <link rel="stylesheet" href="/pet/css/tab.css"/>
 <script>
-
+var login_no = "";
+<c:if test="${!empty loginInfo.member_no}">
+	login_no = ${loginInfo.member_no};
+</c:if>
 /* 삭제 할거임 */
 function del(no) {
 	if(confirm('삭제하시겠습니까?')){
@@ -225,6 +229,9 @@ function recommend(board_no, reply_no) {
 			if (res.recommended) {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black.png" width="50px"><br>'+res.recommendCount;
 				$('#like').html(icon_img);
+				if(socket){
+					socket.send("recommend,"+login_no+","+boardWriter+","+${data.board_no}+","+'[게시글]${data.title}');
+				}
 			} else {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white.png" width="50px"><br>'+res.recommendCount;
 				$('#like').html(icon_img);
@@ -285,19 +292,18 @@ $(document).ready(function(){
 	                        	</dl>
 	                        </div>
 	                        
-	                        <dl class="file" style="clear:both">
+	                        	<dl class="file" style="clear:both">
 	                            <dt>첨부파일 </dt>
 	                            <dd>
-	                            <!-- 
-	                            <a href="/pet/common/download.jsp?oName=${URLEncoder.encode(fdata.filename_org,'UTF-8')}&sName=${fdata.filename_real}"  
-	                            target="_blank">${fdata.filename_org}</a></dd>
-	                             -->
+	                            
 	                            <c:forEach var="fo" items="${fdata }">
-	                            	${URLEncoder.encode(fo.filename_org,'UTF-8')}
+	                            <a href="/pet/common/download.jsp?oName=${URLEncoder.encode(fo.filename_org,'UTF-8')}&sName=${fo.filename_real}"  
+	                            target="_blank">${fo.filename_org}</a></dd>
+	                            
 	                            
 	                            </c:forEach>
 	                            </dd>
-	                        </dl>
+	                        </dl>			
 	                        
 	                        
 	                        <div class="btnSet clear" style="clear:both">
