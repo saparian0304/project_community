@@ -79,8 +79,8 @@ public class BoardServiceImpl implements BoardService{
 		
 		//게시물 리스트
 		List list = mapper.list(vo);
-		map.put("totalCount", totalCount);
 		map.put("page", vo.getPage());
+		map.put("totalCount", totalCount);
 		map.put("list", list);
 		
 		return map;

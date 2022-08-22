@@ -276,8 +276,9 @@ $(document).ready(function(){
 	                <h3 class="sub_title">게시판</h3>
 	                <div class="bbs">
 	                	<div style="text-align: right">
-	                    	작성자 : ${data.member_no } <a href="javascript:report(${data.member_no}, ${data.board_no }, 0)">[게시글 신고버튼 예]</a><br>  
-							<a href="javascript:report(${data.member_no}, ${data.board_no }, 1)">[댓글 신고버튼 예]</a>
+	                    	<span style="border:1px; background-color: #d3d3d3; border-radius: 3px; text-align: center; line-height: center; color: white;">
+			                    <a href="javascript:report(${vo.member_no}, ${param.board_no}, 0);">&nbsp;[게시글 신고]&nbsp;&nbsp;</a>
+			                </span> 
 	                	</div>
 	                    <div class="view">
 	                        <div class="title">
