@@ -24,7 +24,6 @@
 	
 	<update id="update" parameterType="kr.co.pet.file.FileVO">
 		UPDATE file SET
-			<!-- board_no = (SELECT board_no FROM board WHERE board_no = #{board_no}), -->
 			filename_org = #{filename_org},
 			filename_real = #{filename_real}
 			WHERE file_no = #{file_no}

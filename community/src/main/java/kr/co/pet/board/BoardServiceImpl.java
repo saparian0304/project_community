@@ -41,12 +41,13 @@ public class BoardServiceImpl implements BoardService{
 	public Map freeindex(BoardVO vo) {
 		vo.setBoard_name("free");
 		
-		List<BoardVO> list = mapper.list(vo);
 		// 총 게시물
 		int totalCount = mapper.count(vo);
 		
 		Map map = new HashMap();
+		
 		//게시물 리스트
+		List<BoardVO> list = mapper.list(vo);
 		map.put("totalCount", totalCount);
 		map.put("page", vo.getPage());
 		map.put("list", list);
@@ -76,13 +77,12 @@ public class BoardServiceImpl implements BoardService{
 		int totalCount = mapper.count(vo); // 총게시물수
 		
 		Map map = new HashMap();
-		
 		//게시물 리스트
 		List list = mapper.list(vo);
+		//map.put("viewCount", viewCount);
 		map.put("totalCount", totalCount);
 		map.put("page", vo.getPage());
 		map.put("list", list);
-		
 		return map;
 	}
 	

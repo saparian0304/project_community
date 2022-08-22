@@ -6,7 +6,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 <link rel="stylesheet" href="/pet/css/tab.css"/>
-
 <script>
 var login_no = "";
 <c:if test="${!empty loginInfo.member_no}">
@@ -283,7 +282,7 @@ $(document).ready(function(){
 	                    <div class="view">
 	                        <div class="title">
 	                            <dl>
-	                                <dt>${data.title } </dt>
+	                                <dt style="width: 200px">${data.title } </dt>
 	                                <dd class="date">작성일 : ${data.regdate } </dd>
 	                            </dl>
 	                        </div>
@@ -292,21 +291,23 @@ $(document).ready(function(){
 	                        		<dt style="height: 200px">${data.content }</dt>
 	                        	</dl>
 	                        </div>
-	                        
+	                        	
 	                        	<!-- 첨부파일 -->
 	                        	<dl class="file" style="clear:both">
-	                            <dd>
 	                            <c:forEach var="fo" items="${fdata }">
+	                            <dd>
 	                            <a href="/pet/common/download.jsp?oName=${URLEncoder.encode(fo.filename_org,'UTF-8')}&sName=${fo.filename_real}"  
-	                            target="_blank">${fo.filename_org}</a>
+	                            target="_blank">${fo.filename_org}</a></dd>
+	                            
+	                            
 	                            </c:forEach>
-	                            </dd>
 	                        </dl>			
+	                        
 	                        
 	                        <div class="btnSet clear" style="clear:both">
 	                            <div class="fl_l">
-		                            <a href="freeindex.do" class="btn">목록으로</a>
-		                            <a href="/pet/board/freeedit.do?board_no=${data.board_no }" class="btn">수정</a>
+		                            <a href="centerindex.do" class="btn">목록으로</a>
+		                            <a href="/pet/board/centeredit.do?board_no=${data.board_no }" class="btn">수정</a>
 		                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
 		                            <a href="reply.do?board_no=${data.board_no }" class="btn">답변</a>
 	                            </div>
