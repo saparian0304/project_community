@@ -111,8 +111,6 @@ public class BoardController {
 		model.addAttribute("data", data);
 		List fdata = fservice.find(vo.getBoard_no());
 		model.addAttribute("fdata", fdata);
-		LocVO ldata = lservice.view(vo.getBoard_no());
-		model.addAttribute("ldata", ldata);
 		
 		model.addAttribute("recdata", recService.recommend(vo.getBoard_no(), 0, sess));
 		model.addAttribute("bookdata", bService.bookmarked(vo, sess));

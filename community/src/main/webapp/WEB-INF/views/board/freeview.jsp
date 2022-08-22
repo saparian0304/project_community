@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="org.apache.commons.fileupload.*"%>
 <%@ page import="java.net.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -285,19 +286,18 @@ $(document).ready(function(){
 	                        	</dl>
 	                        </div>
 	                        
-	                        <dl class="file" style="clear:both">
+	                        	<dl class="file" style="clear:both">
 	                            <dt>첨부파일 </dt>
 	                            <dd>
-	                            <!-- 
-	                            <a href="/pet/common/download.jsp?oName=${URLEncoder.encode(fdata.filename_org,'UTF-8')}&sName=${fdata.filename_real}"  
-	                            target="_blank">${fdata.filename_org}</a></dd>
-	                             -->
+	                            
 	                            <c:forEach var="fo" items="${fdata }">
-	                            	${URLEncoder.encode(fo.filename_org,'UTF-8')}
+	                            <a href="/pet/common/download.jsp?oName=${URLEncoder.encode(fo.filename_org,'UTF-8')}&sName=${fo.filename_real}"  
+	                            target="_blank">${fo.filename_org}</a></dd>
+	                            
 	                            
 	                            </c:forEach>
 	                            </dd>
-	                        </dl>
+	                        </dl>			
 	                        
 	                        
 	                        <div class="btnSet clear" style="clear:both">
