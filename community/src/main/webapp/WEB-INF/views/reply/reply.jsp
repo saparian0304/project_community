@@ -144,7 +144,7 @@ function unfollow(member_no){
                  <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
                 	<a href="javascript:info2(${vo.ono})">${vo.member_nickname}</a>
                 	<div class="activityForm2${vo.ono} activityForm2" style="display:none;">	                     
-	                     <p><button>나의 활동내역</button></p>	                     
+	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList'";>나의 활동내역</button></p>	                     
                     </div>
                 </td>
          	</c:if> 
@@ -152,7 +152,7 @@ function unfollow(member_no){
                 <td class="writer${vo.gno}" style="cursor:pointer;">
                      <a href="javascript:info2(${vo.ono})"> ${vo.member_nickname} </a>
                      <div class="activityForm2${vo.ono} activityForm2" style="display:none;">	                    
-	                     <p><button>나의 활동내역</button></p>
+	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList'";>나의 활동내역</button></p>
                      </div>
                 </td>
             </c:if>
