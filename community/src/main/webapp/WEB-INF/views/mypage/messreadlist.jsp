@@ -13,7 +13,14 @@
 	    window.open(url, name, option);   
 	} 
 	
-
+	// 받은쪽지 리스트 글 클릭
+	function messListSend(send_member, send_nick, content){
+	    var url = "/pet/message/listsend.do?member_no="+send_member+"&nickname="+send_nick+"&content="+content;
+	  	var name = "popup message"; 
+	    var option = "width = 600, height = 500, top = 100, left = 200, location = no"
+	    window.open(url, name, option);   
+	} 
+	
 	// 쪽지보내기
 	function popmessage(){
 	    var url = "/pet/message/index.do"
@@ -93,8 +100,8 @@
 	                    			${list.send_nick }
 	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
-	                    			<a href="#">
-	                    			${list.content }
+	                    			<a href="javascript:messListSend(${list.send_member },'${list.send_nick }', '${list.content}')">
+	                    			${list.content}
 	                    			</a>
 	                    		</td>
 	                    		<td>

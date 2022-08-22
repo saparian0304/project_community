@@ -55,7 +55,7 @@
 	                    			${list.read_nick }
 	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
-	                    			<a href="#">
+	                    			<a href="#!">
 	                    			${list.content }
 	                    			</a>
 	                    		</td>

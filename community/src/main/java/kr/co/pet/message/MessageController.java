@@ -26,6 +26,10 @@ public class MessageController {
 		return "message/resend";
 	}
 	
+	@RequestMapping("/message/listsend.do")
+	public String messageListsend(MessageVO vo,  Model model) {		
+		return "message/listsend";
+	}
 	
 	// 쪽지 보내기
 	@RequestMapping("/message/insert.do")

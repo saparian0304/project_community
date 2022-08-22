@@ -38,36 +38,38 @@ function messageWrite() {
      return false;     
    }
 }
+
+
 </script>
  
 </head>
 <body>
 <div style="width:500px;margin:40px auto;">
-	<form method="post" name="frm" id="frm" action="resendinsert.do" onsubmit="return messageWrite()">
+	<form method="post" name="frm" id="frm" action="resend.do?member_no=${param.member_no}&nickname=${param.nickname}" onsubmit="return messageWrite()">
 		<table>
 			<tr>
-				<td>받는사람</td>		
+				<td>보낸 사람</td>		
 				<td>  
 					<input type="hidden" name="read_member" id="read_member" value="${param.member_no}">
 					<input type="text" name="read" id="read" value=" ${param.nickname}"> 				
 				<td>							 
 			</tr>			
 			<tr>
-				<td>보내는사람</td>
+				<td>받은 사람</td>
 				<td>
 					<input type="hidden" name="send_member" value="${loginInfo.member_no}">
 					<input type="text" name="send" id="send" value=" ${loginInfo.nickname}">
 				</td>		
 			<tr>
-				<td>보내실 말씀</td>
+				<td>내용</td>
 				<td>
-					<textarea cols="40" rows="10" name="content" id="content" placeholder="메세지를 입력해주세요"  style="width: 320px; height: 150px;"></textarea>
+					<textarea cols="40" rows="10" name="content" id="content" style="width: 320px; height: 150px;">${param.content}</textarea>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align: center;">
 					<button style="width : 80px; height : 30px; position: center; margin-top:5px;" class="reqbtn mymess">
-						<input type="submit" name="" value="전송" onclick="soSend();" style="background-color:transparent; border:0px transparent solid;">
+						<input type="submit" name="" value="답장하기" ; style="background-color:transparent; border:0px transparent solid;">
 					</button>
 				</td>
 			</tr>
