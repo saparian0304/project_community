@@ -10,15 +10,19 @@ var login_no = "";
 	login_no = ${loginInfo.member_no};
 </c:if>
 // 닉네임 눌렀을때 정보 열림
-function info(gno){
-	
+function info(gno){	
+	<c:if test="${empty loginInfo}">
+	 alert('로그인 후 사용해 주세요');
+	</c:if>
+	<c:if test="${!empty loginInfo}">
 	if($(".activityForm"+gno).css("display")=="none"){
 		$(".activityForm").hide();
 		$(".activityForm2").hide();
 		$(".activityForm"+gno).toggle();
 	} else{
 		$(".activityForm"+gno).hide();
-	}	
+	}
+	</c:if>
 }
 
 // 쪽지보내기 팝업
@@ -78,6 +82,7 @@ function popmessage(member_no, member_nickname){
 	}
 	
 // 팔로우	
+
 function follow(member_no){
 	<c:if test="${empty loginInfo}">
 	 alert('로그인 후 사용해 주세요');
@@ -90,16 +95,14 @@ function follow(member_no){
 			i_no : i_no
 		},
 		success : function(res){	
-			$(".followGo").html('팔로우해제');
-			$(".followNo").html('팔로우');
-			 
-		}
-		
+			$(".followGo"+member_no).replaceWith('<p class="followNo'+member_no+'"><button onclick="unfollow(' + member_no + ');">팔로우해제</button></p>');			 
+		}		
 	}); 
 }
 
 //팔로우 해제
- /* function unfollow(member_no){
+ 
+function unfollow(member_no){
 	<c:if test="${empty loginInfo}">
 	 alert('로그인 후 사용해 주세요');
 	</c:if>
@@ -112,12 +115,12 @@ function follow(member_no){
 			i_no : i_no
 		},
 		success : function(){
-			$(".followGo").css('display','block');
-			$(".followNo").css('display','none'); 
+			$(".followNo"+member_no).replaceWith('<p class="followGo'+member_no+'"><button onclick="follow(' + member_no + ');">팔로우</button></p>');
+			
 		}
 		
 	}); 
-} */
+} 
 
 
 </script>
@@ -175,21 +178,39 @@ function follow(member_no){
                     	</c:choose>        
                     </c:if>                	
                 </td>
+		<c:choose>
+			<c:when test="${loginInfo.member_no == vo.member_no }">
+				<c:if test="${param.member_no == vo.member_no}">                                            
+                <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
+                	<a href="javascript:info(${vo.gno})"> ${vo.member_nickname}</a>
+                	<div class="activityForm${vo.gno} activityForm" style="display:none;">	                     
+	                     <p><button>나의 활동내역</button></p>
+                    </div>
+                </td>
+         	</c:if> 
+            <c:if test="${param.member_no != vo.member_no}">                                                
+                <td class="writer${vo.gno}" style="cursor:pointer;">
+                     <a href="javascript:info(${vo.gno})"> ${vo.member_nickname} </a>
+                     <div class="activityForm${vo.gno} activityForm" style="display:none;">                                         
+	                     <p><button>나의 활동내역</button></p>	           
+                     </div>
+                </td>
+            </c:if>
+			</c:when>
+			<c:otherwise> 
     		<c:if test="${param.member_no == vo.member_no}">                                            
                 <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
-                	<a href="javascript:info(${vo.gno})">${vo.member_nickname}</a>
-                	<a class="ficon"></a>
+                	<a href="javascript:info(${vo.gno})"> ${vo.member_nickname}</a>
                 	<div class="activityForm${vo.gno} activityForm" style="display:none;">
 	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
 	                     <p><button>활동내역</button></p>
-	                     <p><button>친구신청</button></p>
-	                      
-            <c:if test="${empty vo.relation }">           	                   
-	                     <p><button onclick="follow(${vo.member_no});"  class="followGo">팔로우</button></p>
-             </c:if>        
-            <c:if test="${vo.relation == 0}">        
-	                     <p><button onclick="follow(${vo.member_no});" class="followNo">팔로우해제</button></p>
-            </c:if>         
+	                     <p><button>친구신청</button></p>	                      
+            		<c:if test="${empty vo.relation}">           	                   
+	                     <p class="followGo${vo.member_no}"><button onclick="follow(${vo.member_no});">팔로우</button></p>
+           			</c:if>        
+           			<c:if test="${vo.relation == 0}">        
+	                     <p class="followNo${vo.member_no}"><button onclick="unfollow(${vo.member_no});">팔로우해제</button></p>
+           			</c:if>         
 	                     <p><button>차단 </button></p>
                     </div>
                 </td>
@@ -201,16 +222,18 @@ function follow(member_no){
 	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
 	                     <p><button>활동내역</button></p>
 	                     <p><button>친구신청</button></p>
-	         <c:if test="${empty vo.relation }">             
-	                     <p><button onclick="follow(${vo.member_no});"  class="followGo">팔로우</button></p>
-	         </c:if>             
-	         <c:if test="${vo.relation == 0}">            
-	                     <p><button onclick="follow(${vo.member_no});" class="followNo">팔로우해제</button></p>
-	         </c:if> 
+	         		<c:if test="${empty vo.relation}">             
+	                     <p class="followGo${vo.member_no}"><button onclick="follow(${vo.member_no});">팔로우</button></p>
+	         		</c:if>             
+	         		<c:if test="${vo.relation == 0}">            
+	                     <p class="followNo${vo.member_no}"><button onclick="unfollow(${vo.member_no});">팔로우해제</button></p>
+	         		</c:if> 
 	                     <p><button>차단</button></p>
                      </div>
                 </td>
-            </c:if>                       
+            </c:if>
+            </c:otherwise>
+        </c:choose>                            
                 <td class="date"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${vo.regdate}"/></td>
             </tr>           
            	<tr>
