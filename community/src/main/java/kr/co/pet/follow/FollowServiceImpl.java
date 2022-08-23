@@ -18,7 +18,7 @@ public class FollowServiceImpl implements FollowService {
 	FollowMapper mapper;
 	
 	
-
+	// 팔로우
 	@Override
 	public int insert(FollowVO vo) {
 		
@@ -28,6 +28,22 @@ public class FollowServiceImpl implements FollowService {
 		}
 		else {
 			return mapper.delete(vo);
+		}
+	}
+
+
+	// 차단
+	@Override
+	public int blockInsert(FollowVO vo) {
+		
+		Integer i = mapper.blockChk(vo);
+		Integer e = mapper.followChk(vo);
+		if(i == null || i == 0 || e != 0) {
+			mapper.delete(vo);
+			return mapper.blockInsert(vo);
+		}		
+		else {
+			return mapper.blockDel(vo);			
 		}
 	}
 	
