@@ -8,12 +8,14 @@
 		#list {
 			border: 1px solid;
 			width: 200px;
+			height:250px;
 			margin: 10px;
 			float: left;
 		}
 		
 		#list figure img {
-			width: 100%
+			width: 100%;
+			height: 150px;
 		}
 			
 	</style>
@@ -86,7 +88,7 @@
 						<div class="leftArea">
 							<div>${vo.board_no }</div>
 							<div>조회수 : ${vo.viewcount }</div>
-							<div>회원 : ${vo.member_no }</div>
+							<div>회원 : ${vo.nickname }</div>
 						</div>
 						<div class="rightArea" style="text-align: right">
 							<!-- 좋아요 댓글 이미지 -->
