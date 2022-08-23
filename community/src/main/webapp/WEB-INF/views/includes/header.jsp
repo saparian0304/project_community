@@ -28,6 +28,24 @@
 		window.open(url, name, option);
 	}
 	
+	function isRead(read_no, cmd, board_no){
+		$.ajax({
+			url : '/pet/isread',
+			type : 'get',
+			data : {
+				read_no : read_no,
+				cmd : cmd,
+				board_no : board_no					
+			},
+			success : function(){
+				alret("성공");
+			},
+			error : function(){
+				alert("실패");
+			}
+		})
+	}
+	
 	$(function(){
 		$(".socketAlert").on("click", function(){
 			dis($(".alramList"));
@@ -41,8 +59,9 @@
 					$('div.socketAlert').html(res);
 				}
 			})
+		
 		}
-
+		
 	});
 	
     function dis(obj){
@@ -100,8 +119,8 @@
 							<li>
 								<img src="/pet/img/alram.png" style="width: 27px" class="socketAlert" >
 								<div class="alramList" style="color : white">
-									<div id="first">[ 알림 내역 ]</div>
-									<div class="socketAlert">내역이 존재하지 않습니다.</div>
+									<div id="first">[ 실시간 알림 ]</div>
+									<div class="socketAlert"></div>
 								</div>
 							</li>
 						</c:otherwise>
