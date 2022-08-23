@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="org.apache.commons.fileupload.*"%>
 <%@ page import="java.net.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 <link rel="stylesheet" href="/pet/css/tab.css"/>
-<script>
 
+<script>
+var login_no = "";
+<c:if test="${!empty loginInfo.member_no}">
+	login_no = ${loginInfo.member_no};
+</c:if>
 /* 삭제 할거임 */
 function del(no) {
 	if(confirm('삭제하시겠습니까?')){
@@ -129,6 +134,9 @@ function replySave(gno){
 					$("#contents").val('');
 					getComment(1);
 				}
+				if(socket){
+					socket.send("rereply,"+${loginInfo.member_no}+","+$("#no"+gno).val()+","+${data.board_no}+","+$("#content"+gno).val());
+				}
 			}
 		});
 		
@@ -225,6 +233,9 @@ function recommend(board_no, reply_no) {
 			if (res.recommended) {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black.png" width="50px"><br>'+res.recommendCount;
 				$('#like').html(icon_img);
+				if(socket){
+					socket.send("recommend,"+login_no+","+boardWriter+","+${data.board_no}+","+'[게시글]${data.title}');
+				}
 			} else {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white.png" width="50px"><br>'+res.recommendCount;
 				$('#like').html(icon_img);
@@ -269,8 +280,9 @@ $(document).ready(function(){
 	                <h3 class="sub_title">게시판</h3>
 	                <div class="bbs">
 	                	<div style="text-align: right">
-	                    	작성자 : ${data.member_no } <a href="javascript:report(${data.member_no}, ${data.board_no }, 0)">[게시글 신고버튼 예]</a><br>  
-							<a href="javascript:report(${data.member_no}, ${data.board_no }, 1)">[댓글 신고버튼 예]</a>
+	                    	<span style="border:1px; background-color: #d3d3d3; border-radius: 3px; text-align: center; line-height: center; color: white;">
+			                    <a href="javascript:report(${vo.member_no}, ${param.board_no}, 0);">&nbsp;[게시글 신고]&nbsp;&nbsp;</a>
+			                </span> 
 	                	</div>
 	                    <div class="view">
 	                        <div class="title">
@@ -281,29 +293,24 @@ $(document).ready(function(){
 	                        </div>
 	                        <div class="content" style="text-align: center">
 	                        	<dl>
-	                        		<dt>${data.content }</dt>
+	                        		<dt style="height: 200px">${data.content }</dt>
 	                        	</dl>
 	                        </div>
 	                        
-	                        <dl class="file" style="clear:both">
-	                            <dt>첨부파일 </dt>
+	                        	<!-- 첨부파일 -->
+	                        	<dl class="file" style="clear:both">
 	                            <dd>
-	                            <!-- 
-	                            <a href="/pet/common/download.jsp?oName=${URLEncoder.encode(fdata.filename_org,'UTF-8')}&sName=${fdata.filename_real}"  
-	                            target="_blank">${fdata.filename_org}</a></dd>
-	                             -->
 	                            <c:forEach var="fo" items="${fdata }">
-	                            	${URLEncoder.encode(fo.filename_org,'UTF-8')}
-	                            
+	                            <a href="/pet/common/download.jsp?oName=${URLEncoder.encode(fo.filename_org,'UTF-8')}&sName=${fo.filename_real}"  
+	                            target="_blank">${fo.filename_org}</a>
 	                            </c:forEach>
 	                            </dd>
-	                        </dl>
-	                        
+	                        </dl>			
 	                        
 	                        <div class="btnSet clear" style="clear:both">
 	                            <div class="fl_l">
 		                            <a href="freeindex.do" class="btn">목록으로</a>
-		                            <a href="/pet/board/edit.do?board_no=${data.board_no }" class="btn">수정</a>
+		                            <a href="/pet/board/freeedit.do?board_no=${data.board_no }" class="btn">수정</a>
 		                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
 		                            <a href="reply.do?board_no=${data.board_no }" class="btn">답변</a>
 	                            </div>

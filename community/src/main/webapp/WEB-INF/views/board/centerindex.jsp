@@ -31,9 +31,9 @@
 					${boardVO.page }/${data.totalPage }페이지</span>
 			</p>
 
-			<!-- <div class="btnSet" style="text-align: right;">
-				<a class="btn" href="freewrite.do">글작성 </a>
-			</div> -->
+			<div class="btnSet" style="text-align: right;">
+				<a class="btn" href="centerwrite.do">글작성 </a>
+			</div>
 			<!-- **** -->
 			<table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
 				<caption class="hdd">공지사항 목록</caption>
@@ -56,10 +56,11 @@
 						<tr>
 							<td>${data.totalCount-status.index-(boardVO.page-1)*boardVO.pageRow }<!-- 총개수 - 인덱스-(현재페이지번호-1)*페이지당개수 -->
 							</td>
-							<td class="txt_l"><a href="view.do?board_no=${vo.board_no }">${vo.title}
+							<td class="txt_l"><a href="centerview.do?board_no=${vo.board_no }">${vo.title}
 									[${ vo.reply_count}]</a></td>
 							<td>${vo.viewcount }</td>
-							<td class="writer">${vo.memb_nickname }</td>
+							<td>${vo.nickname }</td>
+							<%-- <td class="writer">${vo.memb_nickname }</td> --%>
 
 							<td class="date"><fmt:formatDate value="${vo.regdate }"
 									pattern="yyyy-MM-dd HH:mm:ss" /></td>

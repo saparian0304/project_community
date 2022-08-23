@@ -211,6 +211,12 @@
 	    connectWS();
 	} 
 	
+	
+	// 아이디 클릭시 나의 활동 내역 	
+	$(function(){ 
+		${param.add}(1,${loginInfo.member_no},'board');		
+	});
+	
     </script> 
 </head>
 <body>

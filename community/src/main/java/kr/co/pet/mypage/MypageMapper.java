@@ -8,7 +8,7 @@ import kr.co.pet.member.MemberVO;
 
 @Mapper
 public interface MypageMapper {
-
+	
 	// 회원정보테이블
 	MemberVO memberSelect(int member_no);
 	// 내 정보 수정 눌렀을 때 패스워드 확인

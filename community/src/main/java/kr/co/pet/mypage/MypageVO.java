@@ -13,6 +13,9 @@ public class MypageVO extends Criteria{
 	// 테이블명
 	private String table_name;
 	
+	// 게시판 이름
+	private String board_name;
+	
 	//쪽지
 	private int send_member;
 	private int read_member;

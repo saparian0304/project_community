@@ -6,6 +6,10 @@
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 <link rel="stylesheet" href="/pet/css/tab.css"/>
 <script>
+var login_no = "";
+<c:if test="${!empty loginInfo.member_no}">
+	login_no = ${loginInfo.member_no};
+</c:if>
 
 /* 삭제 할거임 */
 function del(no) {
@@ -102,6 +106,7 @@ function replyEditgo(reply_no){
 					$("#recon").val('');
 					getComment(1);
 				}
+				
 			}
 		});
 	}
@@ -128,6 +133,9 @@ function replySave(gno){
 					alert('정상적으로 댓글이 등록되었습니다.');
 					$("#contents").val('');
 					getComment(1);
+				}
+				if(socket){
+					socket.send("rereply,"+${loginInfo.member_no}+","+$("#no"+gno).val()+","+${data.board_no}+","+$("#content"+gno).val());
 				}
 			}
 		});
@@ -225,6 +233,9 @@ function recommend(board_no, reply_no) {
 			if (res.recommended) {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black.png" width="50px"><br>'+res.recommendCount;
 				$('#like').html(icon_img);
+				if(socket){
+					socket.send("recommend,"+login_no+","+boardWriter+","+${data.board_no}+","+'[게시글]${data.title}');
+				}
 			} else {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white.png" width="50px"><br>'+res.recommendCount;
 				$('#like').html(icon_img);
@@ -269,8 +280,9 @@ $(document).ready(function(){
 	                <h3 class="sub_title">게시판</h3>
 	                <div class="bbs">
 	                	<div style="text-align: right">
-	                    	작성자 : ${data.member_no } <a href="javascript:report(${data.member_no}, ${data.board_no }, 0)">[게시글 신고버튼 예]</a><br>  
-							<a href="javascript:report(${data.member_no}, ${data.board_no }, 1)">[댓글 신고버튼 예]</a>
+	                    	<span style="border:1px; background-color: #d3d3d3; border-radius: 3px; text-align: center; line-height: center; color: white;">
+			                    <a href="javascript:report(${vo.member_no}, ${param.board_no}, 0);">&nbsp;[게시글 신고]&nbsp;&nbsp;</a>
+			                </span> 
 	                	</div>
 	                    <div class="view">
 	                        <div class="title">
@@ -418,7 +430,7 @@ $(document).ready(function(){
 	                        <div class="btnSet clear" style="clear:both">
 	                            <div class="fl_l">
 		                            <a href="liveindex.do" class="btn">목록으로</a>
-		                            <a href="/pet/board/edit.do?board_no=${data.board_no }" class="btn">수정</a>
+		                            <a href="/pet/board/liveedit.do?board_no=${data.board_no }" class="btn">수정</a>
 		                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
 		                            <a href="reply.do?board_no=${data.board_no }" class="btn">답변</a>
 	                            </div>

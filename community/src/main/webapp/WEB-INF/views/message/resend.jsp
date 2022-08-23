@@ -60,7 +60,9 @@ function messageWrite() {
 				</td>		
 			<tr>
 				<td>보내실 말씀</td>
-				<td><textarea cols="40" rows="10" name="content" id="content" placeholder="메세지를 입력해주세요"  style="width: 320px; height: 150px;"></textarea></td>
+				<td>
+					<textarea cols="40" rows="10" name="content" id="content" placeholder="메세지를 입력해주세요"  style="width: 320px; height: 150px;"></textarea>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align: center;">

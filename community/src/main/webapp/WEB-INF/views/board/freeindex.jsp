@@ -59,27 +59,38 @@
 	
 	
 	
-			<!-- <div class="btnSet" style="text-align: right;">
+			<div class="btnSet" style="text-align: right;">
 				<a class="btn" href="freewrite.do">글작성 </a>
-			</div> -->
-	
+			</div>
+			
+			<c:if test="${empty data.list }">
+				<tr>
+					<td class="first" colspan="5">등록된 글이 없습니다.</td>
+				</tr>
+			</c:if>
 			<c:forEach var="vo" items="${data.list}" varStatus="status">
 				<div id="list">
 					<figure id="figure"
-						onclick="location.href='view.do?board_no=${vo.board_no }';">
+						onclick="location.href='freeview.do?board_no=${vo.board_no }';">
+						<!-- 이미지가 upload에 들어가 있거나 D:\kdigital\java\workspace1\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\community\upload 여기 경로
+						톰캣clear하면 후자 내용 초기화-->
 						<c:if test="${!empty vo.filename_org }">
-							<img src="${vo.filename_org}"
-								onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
+							<img src="/pet/upload/${vo.filename_org }" style="height: 150px"
+								onerror='this.onerror=null; this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
 						</c:if>
 						<c:if test="${empty vo.filename_org}">
-							<img
+							<img  
 								src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
 						</c:if>
+						<div>${vo.title }</div>
 						<div class="leftArea">
-							<div>${vo.title }</div>
 							<div>${vo.board_no }</div>
+							<div>조회수 : ${vo.viewcount }</div>
+							<div>회원 : ${vo.member_no }</div>
 						</div>
-						<div class="rightArea" style="text-align: right"></div>
+						<div class="rightArea" style="text-align: right">
+							<!-- 좋아요 댓글 이미지 -->
+						</div>
 					</figure>
 				</div>
 			</c:forEach>

@@ -6,6 +6,11 @@
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 <script>
 
+var login_no = "";
+<c:if test="${!empty loginInfo.member_no}">
+	login_no = ${loginInfo.member_no};
+</c:if>
+
 /* 삭제 할거임 */
 function del(no) {
 	if(confirm('삭제하시겠습니까?')){
@@ -205,7 +210,7 @@ function recommend(board_no, reply_no) {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black.png" width="50px"><br>'+res.recommendCount;
 				$('#like').html(icon_img);
 				if(socket){
-					socket.send("recommend,"+${loginInfo.member_no}+","+boardWriter+","+${data.board_no}+","+'[게시글]${data.title}');
+					socket.send("recommend,"+login_no+","+boardWriter+","+${data.board_no}+","+'[게시글]${data.title}');
 				}
 			} else {
 				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white.png" width="50px"><br>'+res.recommendCount;
