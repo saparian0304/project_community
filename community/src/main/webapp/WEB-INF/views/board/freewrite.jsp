@@ -46,7 +46,6 @@
 									<input type="radio" class="radio_value" name="horse_hair" value="4">여행후기
 									<input type="radio" class="radio_value" name="horse_hair" value="5">추천
 									<input type="radio" class="radio_value" name="horse_hair" value="6">고민
-									<input type="radio" class="radio_value" name="horse_hair" value="9">보호센터
                             </td>
                         </tr>
                         <tr>
