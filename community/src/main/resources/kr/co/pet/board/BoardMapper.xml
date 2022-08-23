@@ -8,9 +8,9 @@
 			SELECT last_insert_id()
 		</selectKey>
 		INSERT INTO board (
-			 board_name, title, content, horse_hair, regdate, tel, link
+			 board_name, title, content, horse_hair, regdate, tel, link, member_no
 		) VALUES (
-			 #{board_name}, #{title}, #{content}, #{horse_hair}, NOW(), #{tel}, #{link}
+			 #{board_name}, #{title}, #{content}, #{horse_hair}, NOW(), #{tel}, #{link}, #{member_no}
 		)
 	</insert>
 	
@@ -21,24 +21,54 @@
 	<select id="count" parameterType="kr.co.pet.board.BoardVO" resultType="java.lang.Integer">
 		select count(*) from board
 		where board_name = #{board_name}
+		
+		<if test="horse_hair != null and horse_hair !=''">
+			and horse_hair = ${horse_hair}
+		</if>
+		
+		<!-- 말머리가없을때(전체) 검색결과 나오게 위 코드와 따로 분리 -->
+		
+		<if test="stype != null and stype != ''">
+			<if test="stype != 'all'">
+				and ${stype} Like '%${sword}%'
+			</if> 
+			<if test="stype == 'all'">
+				and (title Like '%${sword}%' or content Like '%${sword}%')
+			</if>
+		</if>
 		order by regdate desc
 	</select>
 	
 	
 	<select id="list" parameterType="kr.co.pet.board.BoardVO" resultType="kr.co.pet.board.BoardVO">
 		select *,
-			(select * from 
-				(SELECT filename_org from file 
-				where file.board_no = board.board_no
-				order by file_no asc) as a
-				limit 1) as filename_org
+			(select nickname from member
+				 where board.member_no = member.member_no
+			) as nickname,
+				(select * from 
+					(SELECT filename_real from file 
+						where file.board_no = board.board_no
+						order by file_no asc
+					) as a limit 1
+				) as filename_real
 		from board
 		where board_name = #{board_name}
 		<if test="horse_hair != null and horse_hair !=''">
 			and horse_hair = ${horse_hair}
 		</if>
+		
+		<!-- 말머리가없을때(전체) 검색결과 나오게 위 코드와 따로 분리 -->
+		
+		<if test="stype != null and stype != ''"> 
+			<if test="stype != 'all'">
+				and ${stype} Like '%${sword}%'
+			</if> 
+			<if test="stype == 'all'">
+				and (title Like '%${sword}%' or content Like '%${sword}%')
+			</if>
+		</if>
 		order by regdate desc
-		Limit #{startIdx},${pageRow}	
+		Limit #{startIdx},${pageRow}
 	</select>
 	
 	<update id="updateViewCount" parameterType="int">

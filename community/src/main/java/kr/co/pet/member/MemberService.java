@@ -16,7 +16,7 @@ public interface MemberService {
 	MemberVO findPwd(MemberVO vo);
 	MemberVO loginBySns(MemberVO vo, HttpSession sess);
 	MemberVO snsCheck(MemberVO vo, HttpSession sess);
-	int insertSns(HttpSession sess);
+	int insertSns(HttpSession sess, String nickname);
 	String getAccessToken(String authorize_code);
 	MemberVO getUserInfo(String access_Token);
 }

@@ -40,8 +40,11 @@ public class MypageVO extends Criteria{
 	// 친구
 	private int fri_no;
 	private int i_no;
-	private int you_no;
+	private int you_no;	
 	private Timestamp req_date;
 	private Timestamp res_date;
+	
+	// 팔로우
+	private int foll_no;
 
 }

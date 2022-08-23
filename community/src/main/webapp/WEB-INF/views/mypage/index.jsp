@@ -54,6 +54,37 @@
     		}
     	})
     }
+    
+    /* ajax로 팔로우목록 불러오기 */
+    function getFollList(page, member_no){
+    	$.ajax({
+    		url : "followlist.do",
+    		data : {
+    			table_name : 'follow',
+    			member_no : member_no,
+    			page : page
+    		},
+    		success : function(res){
+    			$("#hi").html(res);
+    		}
+    	});
+    }
+    
+    /* ajax로 차단목록 불러오기 */
+    function getBlockList(page, member_no){
+    	$.ajax({
+    		url : "blocklist.do",
+    		data : {
+    			table_name : 'follow',
+    			member_no : member_no,
+    			page : page
+    		},
+    		success : function(res){
+    			$("#hi").html(res);
+    		}
+    	});
+    }
+    
     /* ajax로 내활동목록 불러오기 */
     function getActList(page, member_no, table_name){
     	$.ajax({

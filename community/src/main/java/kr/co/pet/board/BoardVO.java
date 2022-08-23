@@ -23,7 +23,7 @@ public class BoardVO extends Criteria {
 	private String content;
 	private String tel;
 	private String link;
-	private int horse_hair;
+	private String horse_hair;
 	private Timestamp update_date;
 	private String nickname;
 	private String[] imageList;

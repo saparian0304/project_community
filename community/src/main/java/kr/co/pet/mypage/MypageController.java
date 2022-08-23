@@ -112,4 +112,26 @@ public class MypageController {
 		return "mypage/booklist";
 	}
 	
+	// 팔로우 리스트
+	@GetMapping("/mypage/followlist.do")
+	public String followList(Model model, MypageVO vo) {
+		model.addAttribute("data", service.followList(vo));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.followCount(vo));
+		model.addAttribute("pageMaker", pageMaker);
+		return "mypage/followlist";
+	}
+	
+	
+	// 차단 리스트
+	@GetMapping("/mypage/blocklist.do")
+	public String blockList(Model model, MypageVO vo) {
+		model.addAttribute("data", service.blockList(vo));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.blockCount(vo));
+		model.addAttribute("pageMaker", pageMaker);
+		return "mypage/blocklist";
+	}
 }
