@@ -237,17 +237,14 @@ public class MemberServiceImpl implements MemberService {
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(result);
 
-			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
-			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 			String email = kakao_account.getAsJsonObject().get("email").getAsString();
 			String member_id = element.getAsJsonObject().get("id").getAsString();
 
 //			userInfo.put("nickname", nickname);
 //			userInfo.put("member_id", member_id);
 //			userInfo.put("email", email);\
-			userInfo.setNickname(nickname);
 			userInfo.setMember_id(member_id);
 			userInfo.setEmail(email);
 
@@ -283,9 +280,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int insertSns(HttpSession sess) {
+	public int insertSns(HttpSession sess, String nickname) {
 		MemberVO vo = (MemberVO)sess.getAttribute("result");
 		System.out.println("받는중? : "+vo.getEmail());
+		vo.setNickname(nickname);
+		
+		System.out.println("###############nickname : "+ vo.getNickname());
 		return mapper.insertSns(vo);
 	}
 

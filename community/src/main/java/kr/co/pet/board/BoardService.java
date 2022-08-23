@@ -24,6 +24,4 @@ public interface BoardService {
 	boolean update(BoardVO vo);
 	
 	int indexTotal(BoardVO vo);
-	
-	
 }

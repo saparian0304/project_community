@@ -5,20 +5,16 @@
     <script src="/pet/js/function.js"></script>
     <script type="text/javascript" src="/pet/js/location.js"></script>
 <script>
- 	
-	$(function() {
+
+	function horse_hairSearch(val) {
+		if(val == 0) {
+			$("#horse_hair").val('0');
+		} else {
+			$("#horse_hair").val(val); // 파라미터를 폼안에 있는 히든에 넣어주기(말머리+검색어까지 같이 사용하기위해)
+		}
 		
-		$('ul.tabs li').click(function(){
-			var tab_id = $(this).attr('data-tab');
-			
-			$('ul.tabs li').removeClass('current');
-			$('.tab-content').removeClass('current');
-			
-			$(this).addClass('current');
-			$("#"+tab_id).addClass('current');
-		
-		})
-	}) 
+		$("#minisrch_form").submit(); // 폼을 전송
+	}
 	
 </script>
 
@@ -66,12 +62,10 @@
 		.tab-content.current{
 		  display: inherit;
 		}
-			
+		
 	</style>
 	
 	</head>
-	
-	
 	
 	<ul class="skipnavi">
 		<li><a href="#container">본문내용</a></li>
@@ -88,15 +82,24 @@
 			</div>
 		</div>
 
-		<!-- 공지사항 목록영역 -->
+		<!-- 목록영역 -->
 		<div class="bodytext_area box_inner" style="width:80%">
-			<form action="#" method="post" class="minisrch_form">
-				<fieldset>
+			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
+			<input type="hidden" name="horse_hair" id="horse_hair" value="">
+				 <fieldset>
+				<span>
+				   <select id="stype" name="stype" class="dSelect" title="검색분류 선택">
+                       <option value="all">전체</option>
+                       <option value="title">제목</option>
+                       <option value="content">내용</option>
+                   </select>
+				
 					<legend> 검색 </legend>
-					<input type="text" class="tbox" title="검색어를 입력해주세요"
-						placeholder="검색어를 입력해주세요." name=""> <a href="#"
-						class="btn_srch">검색</a>
+					<input type="text" class="tbox" id="sval" name="sword" value="" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
+					
+					<a href="javascript:horse_hairSearch('${param.horse_hair }')" class="btn_srch">검색</a>
 				</fieldset>
+                </span>
 			</form>
 			<p>
 				<span><strong>총 ${pageMaker.totalCount }개</strong> |
@@ -104,22 +107,21 @@
 			</p>
 			
 			<!-- 탭 부분 -->
-			<ul class="tabs">
-				<li class="tab-link current" data-tab = "tab-1">음식점</li>
-				<li class="tab-link" data-tab = "tab-2">공원</li>
-				<li class="tab-link" data-tab = "tab-3">병원</li>
-			</ul>
 			
-			<div id="tab-1" class="tab-content current" >
-				음식점입니당
-			</div>
-			<div id="tab-2" class="tab-content current" >
-				공원입니당
-			</div>
-			<div id="tab-1" class="tab-content current" >
-				병원입니당
-			</div>
-			 
+			<DIV>
+				 <table width="707px" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-top: 30px;" >
+				  <tr>
+				  
+				   <td><a href="javascript:horse_hairSearch('0');">전체</a></td>
+				   <td><a href="javascript:horse_hairSearch('1');">음식점</a></td>
+				   <td><a href="javascript:horse_hairSearch('2');">관광지</a></td>
+				   <td><a href="javascript:horse_hairSearch('3');">병원</a></td>
+				       
+				  </tr>
+				  <tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>
+				</table>
+			</DIV>
+			
             <c:if test="${empty data.list }">
                 <tr>
                     <td class="first" colspan="5">등록된 글이 없습니다.</td>
