@@ -119,7 +119,7 @@
 							<li>
 								<img src="/pet/img/alram.png" style="width: 27px" class="socketAlert" >
 								<div class="alramList" style="color : white">
-									<div id="first">[ 실시간 알림 ]</div>
+									<div id="first">[ 실시간 알람 내역 ]</div>
 									<div class="socketAlert"></div>
 								</div>
 							</li>
