@@ -68,28 +68,24 @@
 			</fieldset>
 		</form>
 		<p>
-			<span><strong>총 ${pageMaker.totalCount }개</strong> |
-				${boardVO.page }/${pageMaker.totalPage }페이지</span>
+			<span><strong>총 ${pageMaker.totalCount }개</strong> | ${boardVO.page }/${pageMaker.totalPage }페이지</span>
 		</p>
 
 		<!-- 탭 부분 -->
 
 		<DIV>
-			<table width="707px" cellspacing="0" cellpadding="0" border="0"
-				align="center" style="margin-top: 30px;">
-				<tr>
-
-					<td><a href="javascript:horse_hairSearch('');">전체</a></td>
-					<td><a href="javascript:horse_hairSearch('4');">여행후기</a></td>
-					<td><a href="javascript:horse_hairSearch('5');">정보공유</a></td>
-					<td><a href="javascript:horse_hairSearch('7');">고민상담</a></td>
-
-				</tr>
-				<tr>
-					<td colspan=4 align=center style='padding-top: 20px;'></td>
-				</tr>
-			</table>
-		</DIV>
+				 <table width="707px" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-top: 30px;" >
+				  <tr>
+				  
+				   <td><a href="javascript:horse_hairSearch('');">전체</a></td>
+				   <td><a href="javascript:horse_hairSearch('4');">여행후기</a></td>
+				   <td><a href="javascript:horse_hairSearch('5');">정보공유</a></td>
+				   <td><a href="javascript:horse_hairSearch('7');">고민상담</a></td>
+				       
+				  </tr>
+				  <tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>
+				</table>
+			</DIV>
 
 		<c:if test="${empty loginInfo }">
 			<div class="btnSet" style="text-align: right;">

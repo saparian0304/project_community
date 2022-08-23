@@ -21,4 +21,10 @@ public class AlramServiceImpl implements AlramService{
 		return map;
 	}
 
+	@Override
+	public int isRead(AlramVO vo) {
+		
+		return mapper.isRead(vo);
+	}
+
 }

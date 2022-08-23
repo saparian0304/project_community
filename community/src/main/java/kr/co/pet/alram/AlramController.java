@@ -22,4 +22,12 @@ public class AlramController {
 		return "alramlist";
 	}
 	
+	@GetMapping("/isread")
+	public String isRead(Model model, HttpSession sess, AlramVO vo) {
+		System.out.println("============= read_no === " + vo.getRead_no());
+		System.out.println("============= cmd === " + vo.getCmd());
+		System.out.println("============= board_no === " + vo.getBoard_no());
+		service.isRead(vo);
+		return "alramlist";
+	} 
 }
