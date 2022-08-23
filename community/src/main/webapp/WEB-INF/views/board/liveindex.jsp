@@ -104,18 +104,24 @@
 				<span><strong>총 ${pageMaker.totalCount }개</strong> |
 					${boardVO.page }/${pageMaker.totalPage }페이지</span>
 			</p>
+			
+			<div>
+				<select name="sido1" id="sido1"></select>
+				<select name="gugun1" id="gugun1"></select>
+			</div>
 
 			<c:if test="${!empty loginInfo }">
+			</c:if>
+			<c:if test="${loginInfo.member_no == 1}">
 			<div class="btnSet"  style="text-align:right;">
            		<a class="btn" href="livewrite.do">글작성 </a>
             </div>
-			</c:if>
-			<c:if test="${empty loginInfo }">
+			
 			</c:if>
 			<!-- 탭 부분 -->
 			
 			<DIV>
-				 <table width="707px" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-top: 30px;" >
+				 <table  style="margin-top: 30px; width:707px; cellspacing:0; cellpadding:0; border:0; align:center;" >
 				  <tr>
 				  
 				   <td><a href="javascript:horse_hairSearch('');">전체</a></td>

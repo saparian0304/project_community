@@ -81,6 +81,7 @@
 	                    <div class="btnSet"  style="text-align:right;">
 	                        <a class="btn" href="javascript:goSave();">저장 </a>
 	                    </div>
+	                    <%-- <input type="hidden" name="member_no" value="${loginInfo.member_no }"> --%>
                     </form>
                 </div>
             </div>
