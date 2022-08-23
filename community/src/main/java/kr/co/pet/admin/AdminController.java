@@ -22,7 +22,6 @@ public class AdminController {
 	
 	@RequestMapping("/admin/board/board_list.do")
 	public String myinfoIndex(Model model, AdminBoardVO vo) {
-		
 		model.addAttribute("data", service.list(vo));
 		
 		PageMaker pageMaker = new PageMaker();

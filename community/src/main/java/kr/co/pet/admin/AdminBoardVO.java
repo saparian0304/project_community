@@ -18,19 +18,29 @@ public class AdminBoardVO extends Criteria {
 	private int member_no;
 	private String memb_nickname;
 	private Timestamp regdate;
+	// count
 	private int viewcount;
 	private int reply_count;
+	private int rec_count;
+	private int book_count;
+	private int report_count;
+	
 	private String content;
 	private String tel;
 	private String link;
-	private int horse_hair;
+	private String horse_hair;
 	private Timestamp update_date;
 	private String nickname;
 	private String[] imageList;
 	private String image;
 	
+	
+	
 	private String stype;//검색타입
 	private String sword;//검색어
+	private String fromDate;	// 검색시작일자
+	private String toDate;	//검색종료일자
+	private String reply_content;
 	
 	
 	private String filename_org;

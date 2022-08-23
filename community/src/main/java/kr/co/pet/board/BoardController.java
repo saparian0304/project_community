@@ -133,7 +133,7 @@ public class BoardController {
 		model.addAttribute("ldata", ldata);
 		
 		model.addAttribute("recdata", recService.recommend(vo.getBoard_no(), 0, sess));
-		
+		model.addAttribute("bookdata", bService.bookmarked(vo, sess));
 		return "board/liveview";
 	}
 	
