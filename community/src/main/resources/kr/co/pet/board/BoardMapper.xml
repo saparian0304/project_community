@@ -24,13 +24,16 @@
 		
 		<if test="horse_hair != null and horse_hair !=''">
 			and horse_hair = ${horse_hair}
-			<if test="stype != null and stype != ''">
-				<if test="stype != 'all'">
-					and ${stype} Like '%${sword}%'
-				</if> 
-				<if test="stype == 'all'">
-					and (title Like '%${sword}%' or content Like '%${sword}%')
-				</if>
+		</if>
+		
+		<!-- 말머리가없을때(전체) 검색결과 나오게 위 코드와 따로 분리 -->
+		
+		<if test="stype != null and stype != ''">
+			<if test="stype != 'all'">
+				and ${stype} Like '%${sword}%'
+			</if> 
+			<if test="stype == 'all'">
+				and (title Like '%${sword}%' or content Like '%${sword}%')
 			</if>
 		</if>
 		order by regdate desc
@@ -52,17 +55,20 @@
 		where board_name = #{board_name}
 		<if test="horse_hair != null and horse_hair !=''">
 			and horse_hair = ${horse_hair}
-			<if test="stype != null and stype != ''">
-				<if test="stype != 'all'">
-					and ${stype} Like '%${sword}%'
-				</if> 
-				<if test="stype == 'all'">
-					and (title Like '%${sword}%' or content Like '%${sword}%')
-				</if>
+		</if>
+		
+		<!-- 말머리가없을때(전체) 검색결과 나오게 위 코드와 따로 분리 -->
+		
+		<if test="stype != null and stype != ''"> 
+			<if test="stype != 'all'">
+				and ${stype} Like '%${sword}%'
+			</if> 
+			<if test="stype == 'all'">
+				and (title Like '%${sword}%' or content Like '%${sword}%')
 			</if>
 		</if>
 		order by regdate desc
-		Limit #{startIdx},${pageRow}	
+		Limit #{startIdx},${pageRow}
 	</select>
 	
 	<update id="updateViewCount" parameterType="int">

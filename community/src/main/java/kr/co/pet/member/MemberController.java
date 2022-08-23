@@ -118,7 +118,7 @@ public class MemberController {
 	public String insertSns(HttpSession sess, @RequestParam("nickname") String nickname, MemberVO vo) {
 		service.insertSns(sess, nickname);
 		System.out.println("@@@@@@@@@@nickname : "+ service.nicknameCheck(nickname));
-		sess.setAttribute("loginInfo", vo);
+		sess.setAttribute("loginInfo", vo); //session에다가 vo를 담음
 		return "board/index";
 	}
 	@PostMapping("/member/idCheck")
