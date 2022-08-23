@@ -14,53 +14,81 @@
     <link rel="stylesheet" href="/pet/css/contents.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"/></script>
     <script>
-    function checkNick(){
-    	if ($("#nickname").val().trim() == ''){
-    		$('.nick_ok').css("display","none"); 
-            $('.nick_already').css("display", "none");
-			$("#nickname").focus();
-			return;
-    	}
-        var nickname = $('#nickname').val(); //id값이 "id"인 입력란의 값을 저장
-        $.ajax({
-            url:'nickname.do', //Controller에서 요청 받을 주소
-            method:'post', //POST 방식으로 전달
-            data:{"nickname": nickname},
-            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
-                 if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 닉네임 
-                    $('.nick_ok').css("display","inline-block"); 
-                    $('.nick_already').css("display", "none");
-               	 } else { // cnt가 1일 경우 -> 이미 존재하는 닉네임
-                    $('.nick_already').css("display","inline-block");
-                    $('.nick_ok').css("display", "none");
-                }
-            },
-            error:function(){
-                alert("에러입니다");
-            }
-        })
-    }
+    $(function() {
+	    $("#nickname").keyup(function() {
+	    	if ($("#nickname").val().trim() == ''){
+	    		$('.nick_ok').css("display","none"); 
+	            $('.nick_already').css("display", "none");
+				$("#nickname").focus();
+				return;
+	    	}
+	        var nickname = $('#nickname').val(); //id값이 "nickname"인 입력란의 값을 저장
+	        $.ajax({
+	            url:'nickname.do', //Controller에서 요청 받을 주소
+	            method:'post', //POST 방식으로 전달
+	            data:{"nickname": nickname},
+	            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+	                 if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 닉네임 
+	                    $('.nick_ok').css("display","inline-block"); 
+	                    $('.nick_already').css("display", "none");
+	               	 } else { // cnt가 1일 경우 -> 이미 존재하는 닉네임
+	                    $('.nick_already').css("display","inline-block");
+	                    $('.nick_ok').css("display", "none");
+	                }
+	            },
+	            error:function(){
+	                alert("에러입니다");
+	            }
+	        })
+	    });
+	    
+	    $("#joinBtn").click(function() {
+	    	
+	    	var join_form = document.easy_join;
+	    	if(!join_form.agree_chk.checked){
+	    		
+	    		join_form.agree_chk.focus();
+	    		alert('약관에 동의하지 않았습니다');
+	    		return;
+	    	}
+	    	
+	    	if ($("#nickname").val().trim() == ''){
+				   alert('닉네임을 입력해 주세요.');
+				   $("#nickname").focus();
+				   return;   
+		   	}
+	    	var con = false;
+	    	$.ajax({
+	            url:'nickname.do', //Controller에서 요청 받을 주소
+	            async:false,
+	            method:'post', //POST 방식으로 전달
+	            data:{"nickname": $('#nickname').val()},
+	            type : 'json',
+	            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+	                 if(cnt == '0'){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 닉네임 
+	               	 	con = true;
+	                    
+	               	 } else { // cnt가 1일 경우 -> 이미 존재하는 닉네임
+	                    alert('이미 존재하는 닉네임입니다.');
+	                }
+	            },
+	            error:function(){
+	                alert("에러입니다");
+	            }
+	        })
+	        if (con) {
+	        	// 전송
+	        	$("#easy_join").submit();
+	        }
+	    })
+    });
     
-    function goeasy(){
+    //function goeasy(){
     	
-    	if($("#agree") != true){
-    		alert('약관에 동의하지 않았습니다')
-    		$("#agree").focus();
-    		return false;
-    	}else{
-    		alert('약관에 동의하셨습니다')
-    		
-    	}
-    	
-    	if ($("#nickname").val().trim() == ''){
-			   alert('닉네임을 입력해 주세요.');
-			   $("#nickname").focus();
-			   return;   
-	   	
-	   	}
-    	
-    	$(".btn").attr("href", "/pet/member/easyJoin.do?nickname="+$('#nickname').val());
-    }
+   		
+    	//간편가입창에 입력한 닉네임 받기
+    	//$(".btn").attr("href", "/pet/member/easyJoin.do?nickname="+$('#nickname').val()); 
+    //}
     </script>
     
     <style>
@@ -77,26 +105,26 @@
 </style>
 </head>
 <body>
-        <form action="index.do" method="get" id="loginFrm1" name="loginFrm1" onsubmit="return loginCheck1();"><!-- header에서 id="board"이미 사용중이라서 board2로 함 -->
+        <form action="/pet/member/easyJoin.do" method="get" id="easy_join" name="easy_join">
             <div class="sub">
                 <div class="size">
                     <h3 class="sub_title">간편회원가입</h3>
                     
                     <div class="member">
                         <div class="box">
-                            <fieldset class="login_form">
+                            <fieldset class="join_form">
                            		<div scope="row">개인정보이용동의</div>
                            		<div>개인정보 수집, 이용에 동의 하십니까?</div>
-                           			<input type="checkbox" id="agree" name="agree" value="1">
+                           			<input type="checkbox" id="agree_chk" name="agree_chk" value="1">
                            			<span><label for="agree" onclick="return agree() ">동의</label></span>
                            			<br>
                             	
                             	<div scope="row">닉네임은 필수입력사항입니다</div>
-									<td><input type="text" name="nickname" id="nickname" oninput="checkNick()"style="float: left;">
+									<td><input type="text" name="nickname" id="nickname" style="float: left;">
 										<span class="nick_ok">사용가능한 닉네임입니다.</span>
 									 	<span class="nick_already">이미 사용중인 닉네임입니다.</span>
 									</td><br>
-                               <div><a href="#" class="btn" onclick="goeasy();">회원가입</a></div>
+                               <div><a href="#" class="btn" id="joinBtn">회원가입</a></div>
                              </fieldset>
 						</div>
                      </div>	
