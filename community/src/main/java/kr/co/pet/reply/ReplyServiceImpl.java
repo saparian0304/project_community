@@ -8,6 +8,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.pet.member.MemberVO;
 
@@ -66,6 +69,7 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 	public int insert(ReplyVO vo) {
 		int i = mapper.insert(vo) > 0 ? 1 : 0;	
 		

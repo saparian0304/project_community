@@ -60,10 +60,17 @@
 			</p>
 	
 	
-	
+			<c:if test="${empty loginInfo }" >
+			<div class="btnSet" style="text-align: right;">
+				<a class="btn" href="/pet/member/login.do">글작성 </a>
+			</div>
+			</c:if>
+
+			<c:if test="${!empty loginInfo }" >
 			<div class="btnSet" style="text-align: right;">
 				<a class="btn" href="freewrite.do">글작성 </a>
 			</div>
+			</c:if>
 			
 			<c:if test="${empty data.list }">
 				<tr>
@@ -76,11 +83,11 @@
 						onclick="location.href='freeview.do?board_no=${vo.board_no }';">
 						<!-- 이미지가 upload에 들어가 있거나 D:\kdigital\java\workspace1\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\community\upload 여기 경로
 						톰캣clear하면 후자 내용 초기화-->
-						<c:if test="${!empty vo.filename_org }">
-							<img src="/pet/upload/${vo.filename_org }" style="height: 150px"
+						<c:if test="${!empty vo.filename_real }">
+							<img src="/pet/upload/${vo.filename_real }" style="height: 150px"
 								onerror='this.onerror=null; this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
 						</c:if>
-						<c:if test="${empty vo.filename_org}">
+						<c:if test="${empty vo.filename_real}">
 							<img  
 								src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
 						</c:if>

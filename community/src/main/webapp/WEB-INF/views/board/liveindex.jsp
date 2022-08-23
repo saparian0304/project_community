@@ -106,6 +106,18 @@
 					${boardVO.page }/${pageMaker.totalPage }페이지</span>
 			</p>
 			
+			<div>
+				<select name="sido1" id="sido1"></select>
+				<select name="gugun1" id="gugun1"></select>
+			</div>
+
+			<c:if test="${!empty loginInfo }">
+			<div class="btnSet"  style="text-align:right;">
+           		<a class="btn" href="livewrite.do">글작성 </a>
+            </div>
+			</c:if>
+			<c:if test="${empty loginInfo }">
+			</c:if>
 			<!-- 탭 부분 -->
 			
 			<DIV>
@@ -130,10 +142,10 @@
 			<c:forEach var="vo" items="${data.list}" varStatus="status">
 				<div id="list">
 					<figure id="figure" onclick="location.href='liveview.do?board_no=${vo.board_no }';">
-						<c:if test="${!empty vo.filename_org }">
-							<img src="${vo.filename_org}" onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
+						<c:if test="${!empty vo.filename_real }">
+							<img src="${vo.filename_real}" onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
 						</c:if> 
-					    <c:if test="${empty vo.filename_org}">
+					    <c:if test="${empty vo.filename_real}">
 							<img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg" style="">
 						</c:if>
 						
@@ -153,10 +165,6 @@
 					</figure>
 				</div>			
 			</c:forEach>
-			
-			<!-- <div class="btnSet"  style="text-align:right;">
-           		<a class="btn" href="livewrite.do">글작성 </a>
-            </div> -->
 			
 			<!-- 페이징처리  -->
             

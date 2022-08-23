@@ -31,4 +31,43 @@
 			ani_type = #{anu_type}
 			WHERE cent_no = #{cent_no}
 	</update>
+	
+	<select id="count" parameterType="kr.co.pet.center.CenterVO" resultType="java.lang.Integer">
+		select count(*) from center
+		where board_no = #{board_no}
+	</select>
+	
+	<select id="list" parameterType="kr.co.pet.center.CenterVO" resultType="kr.co.pet.center.CenterVO">
+		select *,
+			(select nickname from member 
+				where board.member_no = member.member_no
+			) as nickname,
+				(select board_no from board
+					where board.board_no = center.board_no
+				) as board_no,
+					(select * from 
+						(SELECT filename_real from file 
+							where file.board_no = center.board_no
+							order by file_no asc
+						) as a limit 1
+					) as filename_real
+		from center
+		where board_no = #{board_no}
+		
+		
+		
+		<!-- <if test="horse_hair != null and horse_hair !=''">
+			and horse_hair = ${horse_hair}
+			<if test="stype != null and stype != ''">
+				<if test="stype != 'all'">
+					and ${stype} Like '%${sword}%'
+				</if> 
+				<if test="stype == 'all'">
+					and (title Like '%${sword}%' or content Like '%${sword}%')
+				</if>
+			</if>
+		</if> 
+		order by regdate desc
+		Limit #{startIdx},${pageRow}-->	
+	</select>
 </mapper>
