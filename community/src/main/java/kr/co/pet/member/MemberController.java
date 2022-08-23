@@ -56,7 +56,7 @@ public class MemberController {
 	@PostMapping("/member/login.do")
 	public String login(MemberVO vo, HttpSession sess, Model model) {
 		if(service.loginCheck(vo, sess)) {
-			return "redirect:notice.do"; //notice라는 메서드가 매핑돼있는 곳으로 감. notice라는 이름의 파일을 여는게 아님.
+			return "redirect:/board/main.do"; //notice라는 메서드가 매핑돼있는 곳으로 감. notice라는 이름의 파일을 여는게 아님.
 		}else {
 			model.addAttribute("msg", "아이디/비번을 확인해주세요.");
 			System.out.println("왜 오류남");
@@ -106,8 +106,8 @@ public class MemberController {
 			MemberVO svo = service.snsCheck(snsCheckVo, sess);
 			
 			if(svo==null) {
-				model.addAttribute("url", "/pet/member/easyLogin.do");
-				return "member/easyLogin";
+				model.addAttribute("url", "/pet/member/easyJoin.do");
+				return "member/easyJoin";
 				
 			}else {
 				sess.setAttribute("loginInfo", svo);
@@ -115,8 +115,10 @@ public class MemberController {
 			}
 	    }
 	@GetMapping("/member/easyJoin.do")
-	public String insertSns(HttpSession sess) {
-		service.insertSns(sess);
+	public String insertSns(HttpSession sess, @RequestParam("nickname") String nickname, MemberVO vo) {
+		service.insertSns(sess, nickname);
+		System.out.println("@@@@@@@@@@nickname : "+ service.nicknameCheck(nickname));
+		sess.setAttribute("loginInfo", vo);
 		return "board/index";
 	}
 	@PostMapping("/member/idCheck")

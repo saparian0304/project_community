@@ -21,6 +21,18 @@
 	<select id="count" parameterType="kr.co.pet.board.BoardVO" resultType="java.lang.Integer">
 		select count(*) from board
 		where board_name = #{board_name}
+		
+		<if test="horse_hair != null and horse_hair !=''">
+			and horse_hair = ${horse_hair}
+			<if test="stype != null and stype != ''">
+				<if test="stype != 'all'">
+					and ${stype} Like '%${sword}%'
+				</if> 
+				<if test="stype == 'all'">
+					and (title Like '%${sword}%' or content Like '%${sword}%')
+				</if>
+			</if>
+		</if>
 		order by regdate desc
 	</select>
 	
@@ -40,6 +52,14 @@
 		where board_name = #{board_name}
 		<if test="horse_hair != null and horse_hair !=''">
 			and horse_hair = ${horse_hair}
+			<if test="stype != null and stype != ''">
+				<if test="stype != 'all'">
+					and ${stype} Like '%${sword}%'
+				</if> 
+				<if test="stype == 'all'">
+					and (title Like '%${sword}%' or content Like '%${sword}%')
+				</if>
+			</if>
 		</if>
 		order by regdate desc
 		Limit #{startIdx},${pageRow}	

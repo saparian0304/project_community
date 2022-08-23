@@ -117,5 +117,6 @@ public class BoardServiceImpl implements BoardService{
 	public int indexTotal(BoardVO vo) {
 		return mapper.count(vo);
 	}
+	
 
 }

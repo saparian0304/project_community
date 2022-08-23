@@ -362,4 +362,5 @@ public class BoardController {
 			return "common/alert";
 		}
 	}
+	
 }
