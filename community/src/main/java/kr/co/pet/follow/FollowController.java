@@ -12,7 +12,7 @@ public class FollowController {
 	@Autowired
 	FollowService service;
 		
-	
+	// 팔로우
 	@RequestMapping("/follow/insert.do")
 	public String insert(FollowVO vo, Model model) {	
 		int i = service.insert(vo);
@@ -21,7 +21,13 @@ public class FollowController {
 		return "common/result";
 	}
 	
-	
+	// 차단
+	@RequestMapping("/follow/blockinsert.do")
+	public String blockInsert(FollowVO vo, Model model) {	
+		int i = service.blockInsert(vo);
+		model.addAttribute("result", i);		
+		return "common/result";
+	}
 	
 	
 }

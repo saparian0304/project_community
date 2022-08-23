@@ -46,5 +46,13 @@ public interface MypageMapper {
 	List friendList(MypageVO vo);
 	int friendCount(MypageVO vo);
 	
+	// 팔로우 목록
+	List followList(MypageVO vo);
+	int followCount(MypageVO vo);
+	
+	
+	// 차단 목록
+	List blockList(MypageVO vo);
+	int blockCount(MypageVO vo);
 	
 }

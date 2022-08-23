@@ -122,8 +122,27 @@ function unfollow(member_no){
 	}); 
 } 
 
-
-
+// 차단
+function block(member_no){
+	<c:if test="${empty loginInfo}">
+	 	alert('로그인 후 사용해 주세요');
+	</c:if>
+	<c:if test="${!empty loginInfo}">
+		if (confirm('차단 하시겠습니까?')){	
+		var i_no='${loginInfo.member_no}';
+		 $.ajax({
+			url :"/pet/follow/blockinsert.do",
+			data : {
+				you_no : member_no,
+				i_no : i_no
+			},
+			success : function(res){	
+				alert("차단하였습니다.");
+			}		
+		});
+	}
+</c:if>
+} 
 
 </script>
 
@@ -184,7 +203,7 @@ function unfollow(member_no){
 			<c:when test="${loginInfo.member_no == vo.member_no }">
 				<c:if test="${param.member_no == vo.member_no}">                                            
                 <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
-                	<a href="javascript:info(${vo.gno})"> ${vo.member_nickname}</a>
+                	<a href="javascript:info(${vo.gno})"> [글쓴이]&nbsp;&nbsp;${vo.member_nickname}</a>
                 	<div class="activityForm${vo.gno} activityForm" style="display:none;">                		                     
 	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList'";>나의 활동내역</button></p>
                     </div>
@@ -202,7 +221,7 @@ function unfollow(member_no){
 			<c:otherwise> 
     		<c:if test="${param.member_no == vo.member_no}">                                            
                 <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
-                	<a href="javascript:info(${vo.gno})"> ${vo.member_nickname}</a>
+                	<a href="javascript:info(${vo.gno})"> [글쓴이]&nbsp;&nbsp;${vo.member_nickname}</a>
                 	<div class="activityForm${vo.gno} activityForm" style="display:none;">
 	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
 	                     <p><button>친구신청</button></p>	                      
@@ -228,7 +247,7 @@ function unfollow(member_no){
 	         		<c:if test="${vo.relation == 0}">            
 	                     <p class="followNo${vo.member_no}"><button onclick="unfollow(${vo.member_no});">팔로우해제</button></p>
 	         		</c:if> 
-	                     <p><button>차단</button></p>
+	                     <p><button onclick="block(${vo.member_no});">차단</button></p>
                      </div>
                 </td>
             </c:if>

@@ -16,7 +16,30 @@
 	</delete>
 	
 	<select id="followChk" parameterType="kr.co.pet.follow.FollowVO" resultType="int">
-	SELECT COUNT(*) FROM follow
-		WHERE i_no=#{i_no} AND you_no=#{you_no} AND relation = 0
+		SELECT COUNT(*) FROM follow
+			WHERE i_no=#{i_no} AND you_no=#{you_no} AND relation = 0
 	</select>
+	
+	
+	<insert id = "blockInsert" parameterType="kr.co.pet.follow.FollowVO">
+		INSERT INTO follow (
+			i_no, you_no,  req_date, relation
+			) VALUES (
+				#{i_no}, #{you_no}, NOW(), 1
+			)			
+	</insert>
+	
+	<select id="blockChk" parameterType="kr.co.pet.follow.FollowVO" resultType="int">
+		SELECT COUNT(*) FROM follow
+			WHERE i_no=#{i_no} AND you_no=#{you_no} AND relation = 1 
+	</select>
+	
+	<delete id="blockDel" parameterType="kr.co.pet.follow.FollowVO">
+		DELETE FROM follow WHERE i_no = #{i_no} AND you_no=#{you_no} AND relation = 1 
+	</delete>
+	
+	
+	<!-- <update id="blockUP" parameterType="int">
+		UPDATE follow SET relation = 1 WHERE  relation = 0
+	</update> -->
 </mapper>

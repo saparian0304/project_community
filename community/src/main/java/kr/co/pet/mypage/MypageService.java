@@ -1,5 +1,6 @@
 package kr.co.pet.mypage;
 
+import java.util.List;
 import java.util.Map;
 
 import kr.co.pet.member.MemberVO;
@@ -37,4 +38,15 @@ public interface MypageService {
 	
 	// 활동내역 삭제(isdelete)
 	boolean actIsdel(MypageVO vo);
+	
+	// 팔로우
+	Map followList(MypageVO vo);
+	int followCount(MypageVO vo);
+	
+	// 차단 목록
+	Map blockList(MypageVO vo);
+	int blockCount(MypageVO vo);
+	
 }
+
+
