@@ -87,25 +87,6 @@
 			</DIV>
 	
 	
-<<<<<<< HEAD
-			<c:if test="${empty loginInfo }" >
-			<div class="btnSet" style="text-align: right;">
-				<a class="btn" href="/pet/member/login.do">글작성 </a>
-			</div>
-			</c:if>
-
-			<c:if test="${!empty loginInfo }" >
-			<div class="btnSet" style="text-align: right;">
-=======
-			<!-- <div class="btnSet" style="text-align: right;">
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
-				<a class="btn" href="freewrite.do">글작성 </a>
-<<<<<<< HEAD
-			</div>
-			</c:if>
-=======
-			</div> -->
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 			
 			<c:if test="${empty data.list }">
 				<tr>
