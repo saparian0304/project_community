@@ -23,8 +23,20 @@
 	<select id="alramList" parameterType="int" resultType="kr.co.pet.alram.AlramVO">
 		SELECT * FROM alram
 		WHERE read_no = #{member_no}
+		AND send_no != #{member_no}
 		AND isread = 0
 		ORDER BY alram_no desc
 	</select>
+	
+	<update id="isRead" parameterType="kr.co.pet.alram.AlramVO">
+		UPDATE alram SET
+			isread = 1
+		WHERE board_no = #{board_no}
+		AND read_no = #{read_no}
+		AND send_no != #{read_no}
+		<if test="board_no == '0'">
+		AND cmd = #{cmd}
+		</if>
+	</update>
 
 </mapper>

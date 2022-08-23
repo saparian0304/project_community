@@ -31,9 +31,14 @@
 					${boardVO.page }/${data.totalPage }페이지</span>
 			</p>
 
+			<c:if test="${empty loginInfo }" >
+			</c:if>
+			<c:if test="${!empty loginInfo }" >
 			<div class="btnSet" style="text-align: right;">
 				<a class="btn" href="centerwrite.do">글작성 </a>
 			</div>
+			</c:if>
+			
 			<!-- **** -->
 			<table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
 				<caption class="hdd">공지사항 목록</caption>

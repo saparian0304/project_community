@@ -201,7 +201,6 @@ public class BoardController {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
 			model.addAttribute("url", "liveindex.do");
 			
-			//System.out.println("nickname: "+vo.getNickname());
 			return "common/alert";
 		}  else {
 			model.addAttribute("msg", "저장이 실패했습니다.");
@@ -259,7 +258,6 @@ public class BoardController {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
 			model.addAttribute("url", "freeindex.do");
 			
-			//System.out.println("nickname: "+vo.getNickname());
 			return "common/alert";
 		}  else {
 			model.addAttribute("msg", "저장이 실패했습니다.");
@@ -299,7 +297,6 @@ public class BoardController {
 			if(fservice.insert(fvo)){
 				model.addAttribute("msg", "정상적으로 저장되었습니다.");
 				model.addAttribute("url", "centerview.do?board_no="+vo.getBoard_no());
-				System.out.println("==================="+vo.getBoard_no());
 				return "common/alert";
 				
 			} else {
@@ -318,7 +315,6 @@ public class BoardController {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
 			model.addAttribute("url", "centerindex.do");
 			
-			//System.out.println("nickname: "+vo.getNickname());
 			return "common/alert";
 		}  else {
 			model.addAttribute("msg", "저장이 실패했습니다.");
@@ -362,4 +358,5 @@ public class BoardController {
 			return "common/alert";
 		}
 	}
+	
 }

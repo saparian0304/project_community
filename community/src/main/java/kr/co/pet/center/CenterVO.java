@@ -11,4 +11,6 @@ public class CenterVO {
 	private boolean park;
 	private int ani_tpe;
 	
+	private String nickname;
+	
 }
