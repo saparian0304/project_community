@@ -57,7 +57,7 @@ function messageWrite() {
 				<td>보내는사람</td>
 				<td>
 					<input type="hidden" name="send_member" value="${loginInfo.member_no}">
-					<input type="text" name="send" id="send" value=" ${loginInfo.nickname}">
+					<input type="text" name="send" id="send" value="${loginInfo.nickname}"><%-- ${loginInfo.nickname} --%>
 				</td>		
 			<tr>
 				<td>보내실 말씀</td>
@@ -66,7 +66,7 @@ function messageWrite() {
 			<tr>
 				<td colspan="2" style="text-align: center;">
 					<button style="width : 80px; height : 30px; position: center; margin-top:5px;" class="reqbtn mymess">
-						<input type="submit" name="" value="전송" onclick="soSend();" style="background-color:transparent; border:0px transparent solid;">
+						<input type="submit" name="" value="보내기" onclick="soSend();" style="background-color:transparent; border:0px transparent solid;">
 					</button>					
 				</td>
 			</tr>

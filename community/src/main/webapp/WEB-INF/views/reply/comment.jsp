@@ -145,6 +145,8 @@ function block(member_no){
 </c:if>
 } 
 
+// 친구 요청
+
 </script>
 
 <p style="margin-top:5px;"><span><strong>총 ${pageMaker.totalCount}개</strong> ${replyVO.page}/ ${pageMaker.totalPage} 페이지</span></p>
@@ -225,7 +227,7 @@ function block(member_no){
                 	<a href="javascript:info(${vo.gno})"> [글쓴이]&nbsp;&nbsp;${vo.member_nickname}</a>
                 	<div class="activityForm${vo.gno} activityForm" style="display:none;">
 	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
-	                     <p><button>친구신청</button></p>	                      
+	                     <p><button onclick=" ">친구요청</button></p>	                      
             		<c:if test="${empty vo.relation}">           	                   
 	                     <p class="followGo${vo.member_no}"><button onclick="follow(${vo.member_no});">팔로우</button></p>
            			</c:if>        
@@ -241,7 +243,7 @@ function block(member_no){
                      <a href="javascript:info(${vo.gno})"> ${vo.member_nickname} </a>
                      <div class="activityForm${vo.gno} activityForm" style="display:none;">
 	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
-	                     <p><button>친구신청</button></p>
+	                     <p><button  onclick="">친구요청</button></p>
 	         		<c:if test="${empty vo.relation}">             
 	                     <p class="followGo${vo.member_no}"><button onclick="follow(${vo.member_no});">팔로우</button></p>
 	         		</c:if>             

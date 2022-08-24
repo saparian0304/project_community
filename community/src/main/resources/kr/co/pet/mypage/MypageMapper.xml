@@ -190,5 +190,11 @@
 	<select id="blockCount" parameterType="kr.co.pet.mypage.MypageVO" resultType="int">
 		SELECT COUNT(*) FROM follow WHERE i_no = #{member_no} AND relation=1
 	</select>
+	
+	<select id="findFriNo" parameterType="kr.co.pet.mypage.MypageVO" resultType="Integer">
+		SELECT fri_no FROM friend
+		WHERE (i_no = #{i_no} AND you_no = #{you_no})
+		OR (i_no = #{you_no} AND you_no = #{i_no})
+	</select>
 
 </mapper>
