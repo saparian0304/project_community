@@ -34,6 +34,11 @@
 		FROM ${table_name}
 		WHERE member_no = #{member_no}
 		AND isdelete = 0
+		<if test="table_name == 'reply'">
+		AND board_no NOT IN (
+			SELECT board_no FROM board WHERE member_no IN (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)
+		)
+		</if>
 		ORDER BY regdate DESC
 		LIMIT #{startIdx}, ${pageRow} <!-- 페이징처리 -->
 	</select>
@@ -44,6 +49,7 @@
 		FROM message
 		WHERE read_member = #{member_no}
 		AND isdelete = 0
+		AND message.send_member NOT IN (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)
 		ORDER BY senddate DESC
 		LIMIT #{startIdx}, ${pageRow}
 	</select>
@@ -53,6 +59,7 @@
 		FROM message
 		WHERE read_member = #{member_no}
 		AND isdelete = 0
+		AND message.send_member NOT IN (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)
 	</select>
 	
 	<select id="messSend" resultType="map">
@@ -61,6 +68,7 @@
 		FROM message
 		WHERE send_member = #{member_no}
 		AND isdelete = 0
+		AND message.read_member NOT IN (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)
 		ORDER BY senddate DESC
 		LIMIT #{startIdx}, ${pageRow}
 	</select>
@@ -69,6 +77,7 @@
 		SELECT COUNT(*)
 		FROM message
 		WHERE send_member = #{member_no}
+		AND message.read_member NOT IN (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)
 		AND isdelete = 0
 	</select>
 	
@@ -76,6 +85,12 @@
 		SELECT COUNT(*) FROM ${table_name}
 		WHERE member_no = #{member_no}
 		AND isdelete = 0
+		<if test="table_name == 'reply'">
+		AND board_no NOT IN (
+			SELECT board_no FROM board 
+			WHERE member_no IN (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)
+		)
+		</if>
 	</select>
 	
 	<update id="memberActIsdel" parameterType="kr.co.pet.mypage.MypageVO">
@@ -112,6 +127,7 @@
 		SELECT * FROM board, bookmark
 		WHERE board.board_no = bookmark.board_no
 		AND bookmark.member_no = #{member_no}
+		AND board.member_no NOT IN (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)
 		ORDER BY book_no DESC
 		LIMIT #{startIdx}, ${pageRow}
 	</select>
@@ -119,6 +135,7 @@
 		SELECT COUNT(*) FROM board, bookmark
 		WHERE board.board_no = bookmark.board_no
 		AND bookmark.member_no = #{member_no}
+		AND board.member_no NOT IN (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)
 	</select>
 	
 	<!-- 친구 -->

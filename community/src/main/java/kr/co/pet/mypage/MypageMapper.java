@@ -47,6 +47,8 @@ public interface MypageMapper {
 	int friendCount(MypageVO vo);
 	Integer findFriNo(MypageVO vo);
 	
+	Integer findFriNo(MypageVO vo);
+	
 	// 팔로우 목록
 	List followList(MypageVO vo);
 	int followCount(MypageVO vo);

@@ -39,4 +39,11 @@
 		</if>
 	</update>
 
+	<select id="checkBlock" parameterType="kr.co.pet.alram.AlramVO" resultType="int">
+		SELECT COUNT(*) FROM follow
+		WHERE i_no = #{read_no}
+		AND you_no = #{send_no}
+		AND relation = 1
+	</select>
+	
 </mapper>
