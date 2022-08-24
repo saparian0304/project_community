@@ -172,5 +172,14 @@ public class MypageServiceimpl implements MypageService {
 		return mapper.blockCount(vo);
 	}
 
+	@Override
+	public int friReqInsert(MypageVO vo) {
+		if (mapper.findFriNo(vo) == null) {
+			return mapper.friendReq(vo);
+		} else {		
+			return 0;
+		}
+	}
+
 
 }
