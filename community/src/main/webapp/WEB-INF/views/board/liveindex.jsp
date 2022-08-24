@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
     <script src="/pet/js/function.js"></script>
-<<<<<<< HEAD
 <script>
-=======
-<script> 
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 
 	function horse_hairSearch(val) {
 		if(val == '') {
@@ -156,7 +152,6 @@
 							<img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
 						</c:if>
 
-<<<<<<< HEAD
 						<div class="s21_tour_list_tbox" style="width: 50%; float: left;">
 							<p class="list_content">${vo.title }</p>
 							<p class="list_content">${vo.content}</p>
@@ -165,14 +160,6 @@
 							<img style="width: 15px; height: 15px;" src="https://previews.123rf.com/images/captainvector/captainvector1512/captainvector151209976/81535071-%EB%8C%93%EA%B8%80-%EC%95%84%EC%9D%B4%EC%BD%98.jpg">${vo.rep }
 							<img style="width: 15px; height: 15px;" src="/pet/img/icon_like_black.png">${vo.rec }
 						</div>
-=======
-									 <div class="s21_desc" onclick="">
-										<div class="s21_d_comment"><p class="icon_comment">댓글</p>0</div>
-										<div class="s21_d_heart"><p class="icon_heart">좋아요</p>0</div>
-								   </div>
-							</div>
-							<div>하트이미지 북마크이미지</div>
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 					</figure>
 				</div>			
 			</c:forEach>
