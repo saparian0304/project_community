@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
-
+	<script src="/pet/js/function.js"></script>
     <ul class="skipnavi">
         <li><a href="#container">본문내용</a></li>
     </ul>
@@ -27,8 +27,8 @@
 				</fieldset>
 			</form>
 			<p>
-				<span><strong>총 ${data.totalCount }개</strong> |
-					${boardVO.page }/${data.totalPage }페이지</span>
+				<span><strong>총 ${pageMaker.totalCount }개</strong> |
+					${boardVO.page }/${pageMaker.totalPage }페이지</span>
 			</p>
 
 			<c:if test="${empty loginInfo }" >

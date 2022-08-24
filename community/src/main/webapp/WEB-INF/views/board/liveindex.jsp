@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/pet/js/function.js"></script>
-    <script type="text/javascript" src="/pet/js/location.js"></script>
-<script>
+<script> 
 
 	function horse_hairSearch(val) {
 		if(val == '') {
@@ -15,6 +13,8 @@
 		
 		$("#minisrch_form").submit(); // 폼을 전송
 	}
+	
+
 	
 </script>
 
@@ -83,6 +83,10 @@
 		</div>
 
 		<!-- 목록영역 -->
+		<div>
+			<select name="sido1" id="sido1"></select>
+			<select name="gugun1" id="gugun1"></select>
+		</div>
 		<div class="bodytext_area box_inner" style="width:80%">
 			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
 			<input type="hidden" name="horse_hair" id="horse_hair" value="">

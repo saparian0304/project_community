@@ -21,7 +21,7 @@ $('document').ready(function() {
 
  // 시/도 선택 박스 초기화
 
- $("select[name^=sido]").each(function() {
+ $("select[name!=sido]").each(function() {
   $selsido = $(this);
   $.each(eval(area0), function() {
    $selsido.append("<option value='"+this+"'>"+this+"</option>");
@@ -29,11 +29,11 @@ $('document').ready(function() {
   $selsido.next().append("<option value=''>구/군 선택</option>");
  });
 
- 
+
 
  // 시/도 선택시 구/군 설정
 
- $("select[name^=sido]").change(function() {
+ $("select[name!=sido]").change(function() {
   var area = "area"+$("option",$(this)).index($("option:selected",$(this))); // 선택지역의 구군 Array
   var $gugun = $(this).next(); // 선택영역 군구 객체
   $("option",$gugun).remove(); // 구군 초기화
