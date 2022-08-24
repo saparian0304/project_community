@@ -176,48 +176,7 @@ function commentDel(reply_no) {
 	}
 }
 
-function report(you_no, board_no, reply_no) {
-	<c:if test="${empty loginInfo}">
-		alert('로그인후 댓글작성해주세요');
-	 	return;
-	</c:if>
-	var option = "width = 800, height = 600, top = 100, left = 100";
-	var url = "/pet/report/write.do?you_no="+you_no+"&board_no="+board_no+"&reply_no="+reply_no;
-	var name = "신고하기";
-	window.open(url, name, option);
-}
 
-// 좋아요
-function recommend(board_no, reply_no) {
-	<c:if test="${empty loginInfo}">
-	 alert('로그인 상태에서 이용할 수 있습니다.');
-	 return;
-	</c:if>
-	$.ajax({
-		url : "/pet/recommend/recommend.do",
-		data : {
-			board_no : board_no,
-			reply_no : reply_no,
-		},			
-		type : 'post',
-		dataType : "JSON",
-		success : function(res) {
-			console.log(res)
-			console.log(res.recommendCount);
-			console.log(res.recommended);
-			if (res.recommended) {
-				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black.png" width="50px"><br>'+res.recommendCount;
-				$('#like').html(icon_img);
-				if(socket){
-					socket.send("recommend,"+login_no+","+boardWriter+","+${data.board_no}+","+'[게시글]${data.title}');
-				}
-			} else {
-				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white.png" width="50px"><br>'+res.recommendCount;
-				$('#like').html(icon_img);
-			}
-		}	
-	})
-}
 //탭
 $(document).ready(function(){
 	   
@@ -280,7 +239,7 @@ $(document).ready(function(){
 			                               		</a>
 			                            </span>
 	                       				<span style="float: right; text-align: center;">
-		                               		<a id="like" href="javascript:recommend(${param.board_no }, 0, '${loginInfo.member_no }', '${data.title }');">
+		                               		<a id="like" href="javascript:recommend(${param.board_no }, 0, '${data.member_no }','${loginInfo.member_no }','${data.title }');">
 		                               		<c:choose>
 		                               			<c:when test="${recdata.recommended == '1'}">
 													<img alt="좋아요" src="/pet/img/icon_like_black.png" width="50px">

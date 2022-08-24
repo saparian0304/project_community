@@ -40,4 +40,6 @@ public class BoardVO extends Criteria {
 	private String filename_org;
 	private String filename_real;
 	
+	private int loginNO; // 로그인한 멤버no 
+	
 }

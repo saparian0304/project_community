@@ -22,6 +22,10 @@ public class AdminController {
 	
 	@RequestMapping("/admin/board/board_list.do")
 	public String myinfoIndex(Model model, AdminBoardVO vo) {
+		if(vo.getSort() == null) {
+			vo.setSort("regdate");
+			vo.setOrder("DESC");
+		}
 		model.addAttribute("data", service.list(vo));
 		
 		PageMaker pageMaker = new PageMaker();

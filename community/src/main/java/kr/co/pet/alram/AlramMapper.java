@@ -12,6 +12,7 @@ public interface AlramMapper {
 	
 	int insert(AlramVO vo);
 	int isRead(AlramVO vo);
+	int checkBlock(AlramVO vo);
 	
 	List alramList(int member_no);
 }

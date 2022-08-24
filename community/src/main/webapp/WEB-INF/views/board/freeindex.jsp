@@ -68,13 +68,17 @@
 					title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
 				<a href="javascript:horse_hairSearch('${param.horse_hair }')" class="btn_srch">검색</a>
 				</span>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 				</fieldset>
 				
 				
 			</form>
 			<DIV>
 
+<<<<<<< HEAD
 			</fieldset>
 		</form>
 		<p>
@@ -85,6 +89,8 @@
 
 		<DIV>
 
+=======
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 				 <table width="707px" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-top: 30px;" >
 				  <tr>
 				  
