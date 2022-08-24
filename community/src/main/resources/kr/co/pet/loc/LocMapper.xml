@@ -35,4 +35,5 @@
 		addr2 = #{addr2}
 		WHERE board_no = #{board_no}
 	</update>
+	
 </mapper>

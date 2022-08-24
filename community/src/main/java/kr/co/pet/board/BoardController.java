@@ -83,18 +83,33 @@ public class BoardController {
 	}
 	
 	@GetMapping("/board/freeindex.do")
-	public String freeindex(Model model, BoardVO vo) {
+	public String freeindex(Model model, BoardVO vo, HttpSession sess) {
+		// 차단한 사람 글 안보이게 로그인했을때! 로그인 멤버no 파라미터  
+		MemberVO loginInfo = (MemberVO)sess.getAttribute("loginInfo");		
+		if(loginInfo !=null) {
+			vo.setLoginNO(loginInfo.getMember_no());
+		}
+		
 		vo.setPageRow(12);
 		model.addAttribute("data", service.freeindex(vo));
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(vo);
 		pageMaker.setTotalCount(service.indexTotal(vo));
 		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("stype", vo.getStype());
+		model.addAttribute("sword", vo.getSword());
+		
 		return "board/freeindex";
 	}
 	
 	@GetMapping("/board/liveindex.do")
-	public String liveindex(Model model, BoardVO vo) {
+	public String liveindex(Model model, BoardVO vo, HttpSession sess) {
+		// 차단한 사람 글 안보이게 로그인했을때! 로그인 멤버no 파라미터  
+		MemberVO loginInfo = (MemberVO)sess.getAttribute("loginInfo");		
+		if(loginInfo !=null) {
+			vo.setLoginNO(loginInfo.getMember_no());
+		}
+		
 		vo.setPageRow(12);
 		model.addAttribute("data", service.liveindex(vo));
 		
@@ -102,16 +117,31 @@ public class BoardController {
 		pageMaker.setCri(vo);
 		pageMaker.setTotalCount(service.indexTotal(vo));
 		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("stype", vo.getStype());
+		model.addAttribute("sword", vo.getSword());
+		
 		return "board/liveindex";
 	}
 
 	@GetMapping("/board/centerindex.do")
-	public String centerindex(Model model, BoardVO vo) {
+	public String centerindex(Model model, BoardVO vo, HttpSession sess) {
+		// 차단한 사람 글 안보이게 로그인했을때! 로그인 멤버no 파라미터  
+		MemberVO loginInfo = (MemberVO)sess.getAttribute("loginInfo");		
+		if(loginInfo !=null) {
+			vo.setLoginNO(loginInfo.getMember_no());
+		}
+		
+		vo.setPageRow(12);
+		model.addAttribute("data", service.liveindex(vo));
+		
 		model.addAttribute("data", service.centerindex(vo));
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(vo);
 		pageMaker.setTotalCount(service.indexTotal(vo));
 		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("stype", vo.getStype());
+		model.addAttribute("sword", vo.getSword());
+		
 		return "board/centerindex";
 	}
 	

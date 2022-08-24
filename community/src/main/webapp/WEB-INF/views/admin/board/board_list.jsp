@@ -10,11 +10,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="/pet/css/common.css">
+	<link rel="stylesheet" href="/pet/css/admin/common.css">
     <link rel="stylesheet" href="/pet/css/reset.css"/>
     <link rel="stylesheet" href="/pet/css/contents.css"/> 
 	<script type="text/javascript" src="/pet/js/util/admin_an.js"></script>
 <script>
+
 $(function () {
 	// 초기 셋팅
 	change_hair('${param.board_name}')
@@ -36,7 +37,7 @@ $(function () {
        ,minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
        ,maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
 	});
-	
+	makeTh('${param.sort}', '${param.order}');
 })
 </script>
 </head>
@@ -46,7 +47,9 @@ $(function () {
 	<div id="container">
 		<!-- 공지사항 목록영역 -->
 		<div class="bodytext_area box_inner" style="width: 100%">
-			<form action="/pet/admin/board/board_list.do" method="post" class="minisrch_form">
+			<form action="/pet/admin/board/board_list.do" method="post"  id="boardSearch" class="minisrch_form">
+				<input type="hidden" id="sort" name="sort" value="${param.sort }">
+				<input type="hidden" id="order" name="order" value="${param.order }">
 				<input type="text" id="fromDate" name="fromDate" value="${param.fromDate }" placeholder="시작일자" autocomplete="off">
 				&emsp;~&emsp;
 				<input type="text" id="toDate" name="toDate" value="${param.toDate }" placeholder="종료일자" autocomplete="off">
@@ -91,17 +94,8 @@ $(function () {
 				<caption class="hdd">공지사항 목록</caption>
 				<thead>
 					<tr>
-						<th scope="col">번호</th>
-						<th scope="col">게시판</th>
-						<th scope="col">말머리</th>
-						<th scope="col">제목</th>
-						<th scope="col">조회수</th>
-						<th scope="col">댓글 수</th>
-						<th scope="col">좋아요 횟수</th>
-						<th scope="col">북마크 횟수</th>
-						<th scope="col">신고 횟수</th>
-						<th scope="col">작성자</th>
-						<th scope="col">작성일</th>
+						<th scope="col"><a href="javascript:;">번호</a></th>
+						<!-- 테이블 헤더 makeTh()로 작성 -->
 					</tr>
 				</thead>
 				<tbody>

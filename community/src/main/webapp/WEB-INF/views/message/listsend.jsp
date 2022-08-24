@@ -57,7 +57,7 @@ function messageWrite() {
 				<td>보내는사람</td>
 				<td>
 					<input type="hidden" name="send_member" value="${loginInfo.member_no}">
-					<input type="text" name="send" id="send" value=" ${loginInfo.nickname}">
+					<input type="text" name="send" id="send" value="${loginInfo.nickname}"><%-- ${loginInfo.nickname} --%>
 				</td>		
 			<tr>
 				<td>보내실 말씀</td>

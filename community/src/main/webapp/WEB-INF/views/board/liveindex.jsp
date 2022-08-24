@@ -1,9 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/pet/js/function.js"></script>
+<<<<<<< HEAD
 <script>
+=======
+<script> 
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 
 	function horse_hairSearch(val) {
 		if(val == '') {
@@ -14,6 +16,8 @@
 		
 		$("#minisrch_form").submit(); // 폼을 전송
 	}
+	
+
 	
 </script>
 
@@ -82,21 +86,27 @@
 			</div>
 		</div>
 
-		<!-- 목록영역 -->
+		<!-- 검색영역 -->
 		<div class="bodytext_area box_inner" style="width:80%">
 			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
 			<input type="hidden" name="horse_hair" id="horse_hair" value="">
+			
+			
 				<fieldset>
+				<div class="selectSi_gu">
+					<select name="sido1" id="sido1"></select>
+					<select name="gugun1" id="gugun1"<c:if test="${stype eq 'gugun1' }">selected</c:if>></select>
+				</div>
 				<span>
 				   <select id="stype" name="stype" class="dSelect" title="검색분류 선택">
                        <option value="all">전체</option>
-                       <option value="title">제목</option>
-                       <option value="content">내용</option>
+                       <option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
+					   <option value="content"<c:if test="${stype eq 'content' }">selected</c:if>>내용</option>
                    </select>
 				
-				   <legend> 검색 </legend>
-				   <input type="text" class="tbox" id="sval" name="sword" value="" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
-				   <a href="javascript:horse_hairSearch('${param.horse_hair }')" class="btn_srch">검색</a>
+				 <legend> 검색 </legend>
+				 <input type="text" class="tbox" id="sval" name="sword" value="${sword }" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
+				 <a href="javascript:horse_hairSearch('${param.horse_hair }')" class="btn_srch">검색</a>
                 </span>
 				</fieldset>
 			</form>
@@ -105,10 +115,6 @@
 					${boardVO.page }/${pageMaker.totalPage }페이지</span>
 			</p>
 			
-			<div>
-				<select name="sido1" id="sido1"></select>
-				<select name="gugun1" id="gugun1"></select>
-			</div>
 
 			<c:if test="${!empty loginInfo }">
 			</c:if>
@@ -121,7 +127,7 @@
 			<!-- 탭 부분 -->
 			
 			<DIV>
-				 <table  style="margin-top: 30px; width:707px; cellspacing:0; cellpadding:0; border:0; align:center;" >
+				 <table style="margin-top: 30px; width:707px; cellspacing:0; cellpadding:0; border:0; align:center;" >
 				  <tr>
 				  
 				   <td><a href="javascript:horse_hairSearch('');">전체</a></td>
@@ -130,7 +136,7 @@
 				   <td><a href="javascript:horse_hairSearch('3');">병원</a></td>
 				       
 				  </tr>
-				  <tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>
+				  <tr><td colspan=4 align=center style='padding-top:20px;'></td></tr>
 				</table>
 			</DIV>
 			
@@ -150,6 +156,7 @@
 							<img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
 						</c:if>
 
+<<<<<<< HEAD
 						<div class="s21_tour_list_tbox" style="width: 50%; float: left;">
 							<p class="list_content">${vo.title }</p>
 							<p class="list_content">${vo.content}</p>
@@ -158,6 +165,14 @@
 							<img style="width: 15px; height: 15px;" src="https://previews.123rf.com/images/captainvector/captainvector1512/captainvector151209976/81535071-%EB%8C%93%EA%B8%80-%EC%95%84%EC%9D%B4%EC%BD%98.jpg">${vo.rep }
 							<img style="width: 15px; height: 15px;" src="/pet/img/icon_like_black.png">${vo.rec }
 						</div>
+=======
+									 <div class="s21_desc" onclick="">
+										<div class="s21_d_comment"><p class="icon_comment">댓글</p>0</div>
+										<div class="s21_d_heart"><p class="icon_heart">좋아요</p>0</div>
+								   </div>
+							</div>
+							<div>하트이미지 북마크이미지</div>
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 					</figure>
 				</div>			
 			</c:forEach>

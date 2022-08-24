@@ -34,10 +34,17 @@ public class BoardVO extends Criteria {
 	
 	private String main;
 	
+	private String addr; // 시도,구군 select box
+	private String addr2; // 시도,구군 select box
+	private String sido1;
+	private String gugun1; // 시도,구군 select box
+	
 	private String filename_org;
 	private String filename_real;
 	
-	private int rec;
-	private int rep;
+	private int rec;//추천
+	private int rep;//댓글
+	
+	private int loginNO; // 로그인한 멤버no
 	
 }

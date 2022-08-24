@@ -76,65 +76,78 @@ public class HandlerAlram extends TextWebSocketHandler {
 				vo.setSend_no(replyWriter);
 				vo.setCmd(cmd);
 				
-				String board_name = mapper.findBoard_name(Integer.parseInt(bno));
-				
-				WebSocketSession replyWriterSession = memberSessions.get(replyWriter);
-				WebSocketSession boardWriterSession = memberSessions.get(boardWriter);
-//				String boardNick = boardWriter; 
-//				String replyNick = replyWriter;
-				String boardNick = mapper.findNick(Integer.parseInt(boardWriter));
-				String replyNick = mapper.findNick(Integer.parseInt(replyWriter));
-				
-				System.out.println("boardNick " + boardNick);
-				System.out.println("replyNick " + replyNick);
-				System.out.println("boardWriterSession : " + boardWriterSession);
-	
-				String tmpURL = "";
-				if(!"message".equals(cmd)) {
-					if(board_name.equals("free")) {
-						tmpURL = "/pet/board/freeview.do?board_no=";
-					} else if (board_name.equals("live")) {
-						tmpURL = "/pet/board/liveview.do?board_no=";
-					} else if (board_name.equals("center")) {
-						tmpURL = "/pet/board/centerview.do?board_no=";
+				if(!replyWriter.equals(boardWriter) && mapper.checkBlock(vo) == 0) {
+					
+					
+					String board_name = mapper.findBoard_name(Integer.parseInt(bno));
+					
+					WebSocketSession replyWriterSession = memberSessions.get(replyWriter);
+					WebSocketSession boardWriterSession = memberSessions.get(boardWriter);
+	//				String boardNick = boardWriter; 
+	//				String replyNick = replyWriter;
+					String boardNick = mapper.findNick(Integer.parseInt(boardWriter));
+					String replyNick = mapper.findNick(Integer.parseInt(replyWriter));
+					
+					System.out.println("boardNick " + boardNick);
+					System.out.println("replyNick " + replyNick);
+					System.out.println("boardWriterSession : " + boardWriterSession);
+		
+					String tmpURL = "";
+					
+					if(!"message".equals(cmd)) {
+						if("free".equals(board_name)) {
+							tmpURL = "/pet/board/freeview.do?board_no=";
+						} else if ("live".equals(board_name)) {
+							tmpURL = "/pet/board/liveview.do?board_no=";
+						} else if ("center".equals(board_name)) {
+							tmpURL = "/pet/board/centerview.do?board_no=";
+						}
 					}
+					String str = "";
+					String s = "\""+boardWriter+"\",\""+cmd+"\",\""+bno+"\"";
+					
+					//댓글
+					if ("reply".equals(cmd) && boardWriterSession != null) {
+						str = "<a href='"+ tmpURL +bno + "' onclick='javascript:isRead("+s+");'>" 
+								+ replyNick + "님이 [게시글] "+ title +"에 댓글을 달았습니다</a>";
+						TextMessage tmpMsg = new TextMessage(str);
+						boardWriterSession.sendMessage(tmpMsg);							
+					}
+					
+					// 쪽지
+					if ("message".equals(cmd) && boardWriterSession != null) {
+						str = "<a href='/pet/mypage/index.do?member_no=" + boardWriter + "' onclick='javascript:isRead("+s+");'>"
+								+ replyNick + "님이 쪽지를 보냈습니다</a>";
+						TextMessage tmpMsg = new TextMessage(str);
+						boardWriterSession.sendMessage(tmpMsg);
+					}
+					
+					// 친구요청
+					if ("fri".equals(cmd) && boardWriterSession != null) {
+						str = "<a href='/pet/mypage/index.do?member_no=" + boardWriter + "' onclick='javascript:isRead("+s+");'>"
+								+ replyNick + "님이 친구요청을 보냈습니다</a>";
+						TextMessage tmpMsg = new TextMessage(str);
+						boardWriterSession.sendMessage(tmpMsg);
+					}
+					
+					//대댓글
+					if ("rereply".equals(cmd) && boardWriterSession != null) {
+						str = "<a href='"+ tmpURL +bno + "' onclick='javascript:isRead("+s+");'>" 
+								+ replyNick + "님이 [댓글] "+ title +"에 답글을 달았습니다</a>";
+						TextMessage tmpMsg = new TextMessage(str);
+						boardWriterSession.sendMessage(tmpMsg);	
+					}
+					
+					//좋아요
+					if ("recommend".equals(cmd) && boardWriterSession != null) {
+						str = "<a href='" + tmpURL +bno + "' onclick='javascript:isRead("+s+");'>" 
+								+ replyNick + "님이 "+ title +"에 좋아요를 눌렀습니다</a>";
+						TextMessage tmpMsg = new TextMessage(str);
+						boardWriterSession.sendMessage(tmpMsg);	
+					}
+					vo.setLink(str);
+					mapper.insert(vo);
 				}
-				String str = "";
-				String s = "\""+boardWriter+"\",\""+cmd+"\",\""+bno+"\"";
-				
-				//댓글
-				if ("reply".equals(cmd) && boardWriterSession != null) {
-					str = "<a href='"+ tmpURL +bno + "' onclick='javascript:isRead("+s+");'>" 
-							+ replyNick + "님이 [게시글] "+ title +"에 댓글을 달았습니다</a>";
-					TextMessage tmpMsg = new TextMessage(str);
-					boardWriterSession.sendMessage(tmpMsg);							
-				}
-				
-				// 쪽지
-				if ("message".equals(cmd) && boardWriterSession != null) {
-					str = "<a href='/pet/mypage/index.do?member_no=" + boardWriter + "' onclick='javascript:isRead("+s+");'>"
-							+ replyNick + "님이 쪽지를 보냈습니다</a>";
-					TextMessage tmpMsg = new TextMessage(str);
-					boardWriterSession.sendMessage(tmpMsg);
-				}
-				
-				//대댓글
-				if ("rereply".equals(cmd) && boardWriterSession != null) {
-					str = "<a href='"+ tmpURL +bno + "' onclick='javascript:isRead("+s+");'>" 
-							+ replyNick + "님이 [댓글] "+ title +"에 답글을 달았습니다</a>";
-					TextMessage tmpMsg = new TextMessage(str);
-					boardWriterSession.sendMessage(tmpMsg);	
-				}
-				
-				//좋아요
-				if ("recommend".equals(cmd) && boardWriterSession != null) {
-					str = "<a href='" + tmpURL +bno + "' onclick='javascript:isRead("+s+");'>" 
-							+ replyNick + "님이 "+ title +"에 좋아요를 눌렀습니다</a>";
-					TextMessage tmpMsg = new TextMessage(str);
-					boardWriterSession.sendMessage(tmpMsg);	
-				}
-				vo.setLink(str);
-				mapper.insert(vo);
 			}
 		}
 	}

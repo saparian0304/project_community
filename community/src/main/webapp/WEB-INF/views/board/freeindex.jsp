@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/pet/js/function.js"></script>
-    <script type="text/javascript" src="/pet/js/location.js"></script>
 	<script>
 
 		function horse_hairSearch(val) {
@@ -52,18 +50,30 @@
 		<form action="#" id="minisrch_form" method="get" class="minisrch_form">
 			<input type="hidden" name="horse_hair" id="horse_hair" value="">
 			<fieldset>
-				<span> <select id="stype" name="stype" class="dSelect"
-					title="검색분류 선택">
+				<div class="selectSi_gu">
+					<select name="sido1" id="sido1"></select>
+					<select name="gugun1" id="gugun1"></select>
+				</div>
+			
+				<span> 
+				<select id="stype" name="stype" class="dSelect" title="검색분류 선택">
 						<option value="all">전체</option>
-						<option value="title">제목</option>
-						<option value="content">내용</option>
-				</select> <legend> 검색 </legend> <input type="text" class="tbox" id="sval"
-					name="sword" value=""
+						<option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
+						<option value="content"<c:if test="${stype eq 'content' }">selected</c:if>>내용</option>
+				</select> 
+				<legend> 검색 </legend> 
+				<input type="text" class="tbox" id="sval" name="sword" value="${sword }"
 					onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');"
-					title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> <a
-					href="javascript:horse_hairSearch('${param.horse_hair }')"
-					class="btn_srch">검색</a>
+					title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
+				<a href="javascript:horse_hairSearch('${param.horse_hair }')" class="btn_srch">검색</a>
 				</span>
+
+				</fieldset>
+				
+				
+			</form>
+			<DIV>
+
 			</fieldset>
 		</form>
 		<p>
@@ -85,6 +95,19 @@
 			  <tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>
 			</table>
 		</div>
+				 <table width="707px" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-top: 30px;" >
+				  <tr>
+				  
+				   <td><a href="javascript:horse_hairSearch('');">전체</a></td>
+				   <td><a href="javascript:horse_hairSearch('6');">여행후기</a></td>
+				   <td><a href="javascript:horse_hairSearch('5');">정보공유</a></td>
+				   <td><a href="javascript:horse_hairSearch('7');">고민상담</a></td>
+				   <td><a href="javascript:horse_hairSearch('4');">잡담</a></td>
+				       
+				  </tr>
+				  <tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>
+				</table>
+			</DIV>
 
 		<c:if test="${empty loginInfo }">
 			<div class="btnSet" style="text-align: right;">

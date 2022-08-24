@@ -19,18 +19,32 @@
 	</select>
 	
 	<select id="count" parameterType="kr.co.pet.board.BoardVO" resultType="java.lang.Integer">
-		select count(*) from board
+		select count(*) from board left join location
+		ON board.board_no = location.board_no
 		where board_name = #{board_name}
-		
+		<if test="loginNO != null and loginNO !=''"> <!-- 차단 사람 글 count 안하게 WHERE 추가-->
+			AND board.member_no not in (SELECT you_no FROM follow WHERE i_no = #{loginNO} AND relation = 1)
+		</if>
+		<!-- left join location
+		ON board.board_no = location.board_no
+		추가--> 
 		<if test="horse_hair != null and horse_hair !=''">
 			and horse_hair = ${horse_hair}
 		</if>
 		
 		<!-- 말머리가없을때(전체) 검색결과 나오게 위 코드와 따로 분리 -->
 		
+		<if test="sido1 != null and sido1 !=''"> <!--     test="vo"에 들어있는 변수명" -->
+			and addr LIKE '%${sido1}%'           <!--   'addr'은 db에있는 컬럼명, '%${sido1}%'은 받아온 파라미터 값(vo에 있는 변수명) -->
+		</if> 
+		
+		<if test="gugun1 != null and gugun1 !=''">
+			and addr2 LIKE '%${gugun1}%'
+		</if> 
+		
 		<if test="stype != null and stype != ''">
 			<if test="stype != 'all'">
-				and ${stype} Like '%${sword}%'
+				and ${stype} Like '%${stype}%'
 			</if> 
 			<if test="stype == 'all'">
 				and (title Like '%${sword}%' or content Like '%${sword}%')
@@ -40,7 +54,7 @@
 	</select>
 	
 	
-	<select id="list" parameterType="kr.co.pet.board.BoardVO" resultType="kr.co.pet.board.BoardVO">
+	<select id="list" parameterType="kr.co.pet.board.BoardVO" resultType="kr.co.pet.board.BoardVO"> 
 		select *,
 			(select nickname from member
 				 where board.member_no = member.member_no
@@ -57,13 +71,29 @@
 			(select count(*) from reply
 				where reply.board_no = board.board_no
 			) as rep
-		from board
+		from board left join location
+		ON board.board_no = location.board_no
 		where board_name = #{board_name}
+
+		from board
+		where board_name = #{board_name} 
+		<if test="loginNO != null and loginNO !=''"> <!-- 차단 사람 글 안보이게 WHERE추가 -->
+			AND board.member_no not in (SELECT you_no FROM follow WHERE i_no = #{loginNO} AND relation = 1)
+		</if>
+
 		<if test="horse_hair != null and horse_hair !=''">
 			and horse_hair = ${horse_hair}
 		</if>
 		
 		<!-- 말머리가없을때(전체) 검색결과 나오게 위 코드와 따로 분리 -->
+		
+		<if test="sido1 != null and sido1 !=''">
+			and addr LIKE '%${sido1}%'
+		</if>
+		
+		<if test="gugun1 != null and gugun1 !=''">
+			and addr2 LIKE '%${gugun1}%'
+		</if>
 		
 		<if test="stype != null and stype != ''"> 
 			<if test="stype != 'all'">

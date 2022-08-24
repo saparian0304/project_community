@@ -1,5 +1,7 @@
 package kr.co.pet.loc;
 
+import java.util.Map;
+
 public interface LocService {
 
 	boolean insert(LocVO vo);
@@ -11,4 +13,5 @@ public interface LocService {
 		
 		//수정처리
 	boolean update(LocVO vo);
+	
 }

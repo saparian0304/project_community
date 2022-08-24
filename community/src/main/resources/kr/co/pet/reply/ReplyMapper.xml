@@ -28,13 +28,13 @@
 			)		
 	</insert>
 	
-	<select id="rcount" parameterType="kr.co.pet.reply.ReplyVO" resultType="java.lang.Integer">
+	<select id="rcount" parameterType="kr.co.pet.reply.ReplyVO" resultType="java.lang.Integer"> <!-- 차단 사람 글 count 안하게 WHERE 추가-->
 		SELECT COUNT(gno) FROM reply
-		WHERE gno = #{gno} AND ono !=0 AND isdelete = 0
+		WHERE gno = #{gno} AND ono !=0 AND isdelete = 0 AND reply.member_no not in (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)
 		
 	</select>
 	
-	<select id="replyList" parameterType="kr.co.pet.reply.ReplyVO" resultType="kr.co.pet.reply.ReplyVO">
+	<select id="replyList" parameterType="kr.co.pet.reply.ReplyVO" resultType="kr.co.pet.reply.ReplyVO"> <!-- 차단 사람 글 안보이게 WHERE 추가-->
 		SELECT *,				
 			(SELECT nickname FROM member WHERE member_no=rp.member_no) AS member_nickname
 			,(SELECT COUNT(*) FROM reply WHERE reply_no = #{gno} AND gno = #{gno} ) AS reply_count
@@ -46,16 +46,16 @@
 				WHERE member_no = #{member_no} AND board_no = #{board_no} AND reco.reply_no = rp.reply_no) AS recommended		
 			</if>
 		FROM reply rp
-		WHERE gno = #{gno}   AND ono != 0 <!-- AND isdelete = 0 -->
+		WHERE gno = #{gno}   AND ono != 0 AND rp.member_no not in (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)
 		ORDER BY regdate ASC
 		LIMIT ${startIdx}, ${pageRow}		
 	</select>
 	
 	
 	
-	<select id="count" parameterType="kr.co.pet.reply.ReplyVO" resultType="java.lang.Integer">
+	<select id="count" parameterType="kr.co.pet.reply.ReplyVO" resultType="java.lang.Integer"> <!-- 차단 사람 글 count 안하게 WHERE 추가-->
 		SELECT COUNT(*) FROM reply
-		WHERE board_no = #{board_no} AND ono = 0
+		WHERE board_no = #{board_no} AND ono = 0 AND reply.member_no not in (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)
 	</select>
 	
 <!-- 	<select id="list" parameterType="kr.co.pet.reply.ReplyVO" resultType="kr.co.pet.reply.ReplyVO">
@@ -69,7 +69,7 @@
 		LIMIT ${startIdx}, ${pageRow}		
 	</select>  -->
 	
-	<select id="list" parameterType="kr.co.pet.reply.ReplyVO" resultType="kr.co.pet.reply.ReplyVO">
+	<select id="list" parameterType="kr.co.pet.reply.ReplyVO" resultType="kr.co.pet.reply.ReplyVO"> <!-- 차단 사람 글 안보이게 WHERE 추가-->
 		SELECT *,
 			(SELECT board_no  FROM board WHERE board_no=rp.board_no) AS list_no
 			,(SELECT nickname FROM member WHERE member_no=rp.member_no) AS member_nickname
@@ -81,8 +81,8 @@
 		    ,(SELECT count(*) FROM recommend reco
 			WHERE member_no = #{member_no} AND board_no = #{board_no} AND reco.reply_no = rp.reply_no) AS recommended		
 		</if>
-		FROM reply rp 					
-		WHERE board_no = #{board_no} AND ono = 0 
+		FROM reply rp 
+		WHERE board_no = #{board_no} AND ono = 0 AND rp.member_no not in (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)		
 		ORDER BY regdate ASC
 		LIMIT ${startIdx}, ${pageRow}		
 	</select>

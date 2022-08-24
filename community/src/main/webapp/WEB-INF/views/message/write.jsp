@@ -49,8 +49,14 @@ function soSend(){
     			}, 
     			
     			success : function(res) {
+    				var loginSend = '${loginInfo.member_no}';
     				
-    				if(res == 0){
+    				if(res == loginSend ) {
+    					alert($("#read").val()+" 나에게 보내시겠습니까?");
+    					$("#content").focus();
+    					$("#read_member").val(res);
+    				}
+    				else if(res == 0){
     					alert($("#read").val()+" 찾으시는 닉네임이 없습니다.");
     					$("#read").focus();
     				} 
@@ -107,7 +113,7 @@ function soSend(){
 
 				<td colspan="2" style="text-align: center;">
 					<button style="width : 80px; height : 30px; position: center; margin-top:5px;" class="reqbtn mymess">
-						<input type="submit" name="" value="전송" onclick="soSend();" style="background-color:transparent; border:0px transparent solid;">
+						<input type="submit" name="" value="보내기" onclick="soSend();" style="background-color:transparent; border:0px transparent solid;">
 					</button>					
 				</td>
 			</tr>
