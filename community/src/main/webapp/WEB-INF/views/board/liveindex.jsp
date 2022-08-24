@@ -3,7 +3,6 @@
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/pet/js/function.js"></script>
-    <script type="text/javascript" src="/pet/js/location.js"></script>
 <script>
 
 	function horse_hairSearch(val) {
@@ -21,13 +20,14 @@
 	<style>
 		#list {
 			border-style : block;
-			width: 200px;
+			width: 320px;
 			margin: 10px;
 			float: left;
 		}
 		
 		#list figure img {
-			width: 100%
+			width: 100%;
+			height: 200px;
 		}
 		
 		.list_content {
@@ -143,22 +143,21 @@
 				<div id="list">
 					<figure id="figure" onclick="location.href='liveview.do?board_no=${vo.board_no }';">
 						<c:if test="${!empty vo.filename_real }">
-							<img src="${vo.filename_real}" onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
+							<img src="${vo.filename_real}" 
+								onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
 						</c:if> 
 					    <c:if test="${empty vo.filename_real}">
-							<img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg" style="">
+							<img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
 						</c:if>
-						
-							<div class="s21_tour_list_tbox">
-									<h4 class="list_title">${vo.title }</h4>
-									<p class="list_content">${vo.content}</p>
 
-									 <div class="s21_desc" onclick="">
-										<div class="s21_d_comment"><p class="icon_comment">댓글</p>0</div>
-										<div class="s21_d_heart"><p class="icon_heart">좋아요</p>0</div>
-								   </div>
-								</div>
-							<div>하트이미지 북마크이미지</div>
+						<div class="s21_tour_list_tbox" style="width: 50%; float: left;">
+							<p class="list_content">${vo.title }</p>
+							<p class="list_content">${vo.content}</p>
+						</div>
+						<div style="width: 49%; float: right; text-align: right;">
+							<img style="width: 15px; height: 15px;" src="https://previews.123rf.com/images/captainvector/captainvector1512/captainvector151209976/81535071-%EB%8C%93%EA%B8%80-%EC%95%84%EC%9D%B4%EC%BD%98.jpg">${vo.rep }
+							<img style="width: 15px; height: 15px;" src="/pet/img/icon_like_black.png">${vo.rec }
+						</div>
 					</figure>
 				</div>			
 			</c:forEach>

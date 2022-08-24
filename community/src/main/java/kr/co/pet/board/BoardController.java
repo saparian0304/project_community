@@ -58,9 +58,27 @@ public class BoardController {
 
 	@GetMapping("/board/main.do")
 	public String index(Model model, BoardVO vo) {
+		vo.setMain("main");
+		vo.setHorse_hair("2");
+		vo.setPageRow(5);
+		model.addAttribute("ldata", service.liveindex(vo));
 		
-		model.addAttribute("data", service.index(vo));
-		model.addAttribute("fdata", fservice.find(vo.getBoard_no()));
+		//좋아요순
+		vo.setHorse_hair("4");//여행후기
+		model.addAttribute("tdata", service.freeindex(vo));
+		
+		vo.setHorse_hair("5");// 정보공유
+		model.addAttribute("ddata", service.freeindex(vo));
+		
+		//최신순
+		vo.setMain(null);
+		vo.setHorse_hair("6");//잡담
+		model.addAttribute("sdata", service.freeindex(vo));
+		
+		vo.setHorse_hair("7");//고민상담
+		model.addAttribute("wdata", service.freeindex(vo));
+		
+		
 		return "board/main";
 	}
 	
@@ -328,8 +346,8 @@ public class BoardController {
 		}
 	}
 	
-	@GetMapping("/board/edit.do")
-	public String edit(BoardVO vo, FileVO fvo, LocVO lvo, Model model) {
+	@GetMapping("/board/liveedit.do")
+	public String liveedit(BoardVO vo, FileVO fvo, LocVO lvo, Model model) {
 		BoardVO data = service.edit(vo.getBoard_no());
 		model.addAttribute("data", data);
 		
@@ -338,14 +356,64 @@ public class BoardController {
 		
 		LocVO ldata = lservice.edit(lvo.getBoard_no());
 		model.addAttribute("ldata", ldata);
-		return "board/edit";
+		return "board/liveedit";
 	}
 	
-	@PostMapping("/board/update.do")
+	@GetMapping("/board/freeedit.do")
+	public String freeedit(BoardVO vo, FileVO fvo, LocVO lvo, Model model) {
+		BoardVO data = service.edit(vo.getBoard_no());
+		model.addAttribute("data", data);
+		
+		FileVO fdata = fservice.edit(fvo.getBoard_no());
+		model.addAttribute("fdata", fdata);
+		
+		LocVO ldata = lservice.edit(lvo.getBoard_no());
+		model.addAttribute("ldata", ldata);
+		return "board/freeedit";
+	}
+	
+	@GetMapping("/board/centeredit.do")
+	public String centeredit(BoardVO vo, FileVO fvo, LocVO lvo, Model model) {
+		BoardVO data = service.edit(vo.getBoard_no());
+		model.addAttribute("data", data);
+		
+		FileVO fdata = fservice.edit(fvo.getBoard_no());
+		model.addAttribute("fdata", fdata);
+		
+		LocVO ldata = lservice.edit(lvo.getBoard_no());
+		model.addAttribute("ldata", ldata);
+		return "board/centeredit";
+	}
+	
+	@PostMapping("/board/liveupdate.do")
+	public String liveupdate(BoardVO vo, Model model) {
+		if(service.update(vo)) {
+			model.addAttribute("msg", "정상적으로 수정되었습니다.");
+			model.addAttribute("url", "liveview.do?board_no="+vo.getBoard_no());
+			return "common/alert";
+		}else {
+			model.addAttribute("msg", "수정실패");
+			return "common/alert";
+		}
+	}
+	
+	@PostMapping("/board/freeupdate.do")
+	public String freeupdate(BoardVO vo, Model model) {
+		if(service.update(vo)) {
+			model.addAttribute("msg", "정상적으로 수정되었습니다.");
+			model.addAttribute("url", "freeview.do?board_no="+vo.getBoard_no());
+			return "common/alert";
+		}else {
+			model.addAttribute("msg", "수정실패");
+			return "common/alert";
+		}
+	}
+	
+	@PostMapping("/board/centerupdate.do")
 	public String update(BoardVO vo, Model model) {
 		if(service.update(vo)) {
 			model.addAttribute("msg", "정상적으로 수정되었습니다.");
-			model.addAttribute("url", "view.do?board_no="+vo.getBoard_no());
+			model.addAttribute("url", "centerview.do?board_no="+vo.getBoard_no());
 			return "common/alert";
 		}else {
 			model.addAttribute("msg", "수정실패");

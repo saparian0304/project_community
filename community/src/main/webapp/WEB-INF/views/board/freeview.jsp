@@ -227,6 +227,7 @@ $(document).ready(function(){
 	                            <dl>
 	                                <dt>${data.title } </dt>
 	                                <dd class="date">작성일 : ${data.regdate } </dd>
+	                                <dd>작성자 : ${data.nickname }</dd>
 	                            </dl>
 	                        </div>
 	                        <div style="height:40px; margin : 10px 10px 0 0;">
@@ -276,9 +277,10 @@ $(document).ready(function(){
 	                        <div class="btnSet clear" style="clear:both">
 	                            <div class="fl_l">
 		                            <a href="freeindex.do" class="btn">목록으로</a>
+		                            <c:if test="${data.member_no == loginInfo.member_no}">
 		                            <a href="/pet/board/freeedit.do?board_no=${data.board_no }" class="btn">수정</a>
 		                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
-		                            <a href="reply.do?board_no=${data.board_no }" class="btn">답변</a>
+		                            </c:if>
 	                            </div>
 	                        </div>
 	                    </div><!-- view -->

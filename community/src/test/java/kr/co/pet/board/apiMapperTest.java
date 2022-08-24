@@ -42,10 +42,10 @@ public class apiMapperTest {
 	
 	
 	
-	//@Test
+	@Test
 	public void apiTest2() throws IOException{
 		for(int num = 0; num < 600; num++) {
-			URL url1 = new URL("https://www.pettravel.kr/api/detailSeqArea.do?areaCode=AC03&contentNum="+ num);
+			URL url1 = new URL("https://www.pettravel.kr/api/detailSeqArea.do?areaCode=AC19&contentNum="+ num);
 	//		URL url1 = new URL("https://www.pettravel.kr/api/listArea.do?areaCode=AC01&page=1&pageBlock=100");
 			BufferedReader bf;
 			
@@ -75,8 +75,19 @@ public class apiMapperTest {
 				
 				JsonObject row1 = (JsonObject)rcp.get("resultList");
 				System.out.println("------" + num +"번 가게------");
-				vo.setBoard_name(row1.get("partName").getAsString());
-				lvo.setAddr(row1.get("areaName").getAsString());
+				
+				
+				vo.setBoard_name("live");
+				String str = row1.get("partName").getAsString();
+				if(str.equals("동물병원")) {
+					vo.setHorse_hair("3");
+				}else if(str.equals("식음료")){
+					vo.setHorse_hair("1");
+				}else {
+					vo.setHorse_hair("2");
+				}
+				vo.setMember_no(1);
+				lvo.setAddr(row1.get("address").getAsString().split("\\s")[0]);
 				vo.setTitle(row1.get("title").getAsString());
 				lvo.setAddr2(row1.get("address").getAsString());
 				vo.setTel(row1.get("tel").getAsString());
@@ -109,8 +120,8 @@ public class apiMapperTest {
 				
 				
 				
-//				
-//			
+				
+			
 				System.out.println("지역명 : " +  row1.get("areaName").getAsString());
 				System.out.println("부분 : " +  row1.get("partName").getAsString());
 				System.out.println("이름 : " +  row1.get("title").getAsString());
@@ -127,14 +138,13 @@ public class apiMapperTest {
 				
 				
 			} catch (Exception e) {
-				System.out.println("=====================");
 			}
 				
 		}
 		
 	}		
 	
-	@Test
+	//@Test
 	public void testObj2() {
 		BoardVO vo = new BoardVO();
 		vo.setTitle("title");

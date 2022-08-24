@@ -20,16 +20,15 @@
 	
 	<style>
 		#list {
-			border: 1px solid;
-			width: 200px;
-			height:250px;
+			border-style : block;
+			width: 300px;
 			margin: 10px;
 			float: left;
 		}
 		
 		#list figure img {
 			width: 100%;
-			height: 150px;
+			height: 200px;
 		}
 			
 	</style>
@@ -37,7 +36,7 @@
 	<ul class="skipnavi">
 		<li><a href="#container">본문내용</a></li>
 	</ul>
-	<div id="wrap"></div>
+	<div id="wrap">
 	<div class="container">
 		<!-- 위치(페이지 제목)영역 -->
 		<div class="location_area customer">
@@ -49,7 +48,7 @@
 		</div>
 	
 		<!--  목록영역 -->
-	<div class="bodytext_area box_inner" style="width: 80%">
+	<div class="bodytext_area box_inner" style="width:80%">
 		<form action="#" id="minisrch_form" method="get" class="minisrch_form">
 			<input type="hidden" name="horse_hair" id="horse_hair" value="">
 			<fieldset>
@@ -73,19 +72,19 @@
 
 		<!-- 탭 부분 -->
 
-		<DIV>
-				 <table width="707px" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-top: 30px;" >
-				  <tr>
-				  
-				   <td><a href="javascript:horse_hairSearch('');">전체</a></td>
-				   <td><a href="javascript:horse_hairSearch('4');">여행후기</a></td>
-				   <td><a href="javascript:horse_hairSearch('5');">정보공유</a></td>
-				   <td><a href="javascript:horse_hairSearch('7');">고민상담</a></td>
-				       
-				  </tr>
-				  <tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>
-				</table>
-			</DIV>
+		<div>
+		   <table style="margin-top: 30px; width:707px; cellspacing:0; cellpadding:0; border:0; align:center;">
+			  <tr>
+			  
+			   <td><a href="javascript:horse_hairSearch('');">전체</a></td>
+			   <td><a href="javascript:horse_hairSearch('4');">여행후기</a></td>
+			   <td><a href="javascript:horse_hairSearch('5');">정보공유</a></td>
+			   <td><a href="javascript:horse_hairSearch('7');">고민상담</a></td>
+			       
+			  </tr>
+			  <tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>
+			</table>
+		</div>
 
 		<c:if test="${empty loginInfo }">
 			<div class="btnSet" style="text-align: right;">
@@ -98,8 +97,6 @@
 				<a class="btn" href="/pet/board/freewrite.do">글작성 </a>
 			</div>
 		</c:if>
-	</div>
-
 	<c:if test="${empty data.list }">
 				<tr>
 					<td class="first" colspan="5">등록된 글이 없습니다.</td>
@@ -112,7 +109,7 @@
 						<!-- 이미지가 upload에 들어가 있거나 D:\kdigital\java\workspace1\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\community\upload 여기 경로
 						톰캣clear하면 후자 내용 초기화-->
 						<c:if test="${!empty vo.filename_real }">
-							<img src="/pet/upload/${vo.filename_real }" style="height: 150px"
+							<img src="/pet/upload/${vo.filename_real }"
 								onerror='this.onerror=null; this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
 						</c:if>
 						<c:if test="${empty vo.filename_real}">
@@ -154,9 +151,8 @@
 		        <img src="/pet/img/btn_lastpage.png" alt="마지막 페이지 이동">
 		    </a>
 		</div>
-		
 	</div>
-
+</div>
 
 <!-- 페이지처리 -->
 

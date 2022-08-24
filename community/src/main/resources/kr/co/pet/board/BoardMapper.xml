@@ -45,12 +45,18 @@
 			(select nickname from member
 				 where board.member_no = member.member_no
 			) as nickname,
-				(select * from 
-					(SELECT filename_real from file 
-						where file.board_no = board.board_no
-						order by file_no asc
-					) as a limit 1
-				) as filename_real
+			(select * from 
+				(SELECT filename_real from file 
+					where file.board_no = board.board_no
+					order by file_no asc
+				) as a limit 1
+			) as filename_real,
+			(select count(*) from recommend
+				where recommend.board_no = board.board_no
+			) as rec,
+			(select count(*) from reply
+				where reply.board_no = board.board_no
+			) as rep
 		from board
 		where board_name = #{board_name}
 		<if test="horse_hair != null and horse_hair !=''">
@@ -67,7 +73,12 @@
 				and (title Like '%${sword}%' or content Like '%${sword}%')
 			</if>
 		</if>
+		<if test="main != null">
+			order by rec desc, viewcount desc
+		</if>
+		<if test="main == null">
 		order by regdate desc
+		</if>
 		Limit #{startIdx},${pageRow}
 	</select>
 	
@@ -76,7 +87,11 @@
 	</update>
 	
 	<select id="view" parameterType="int" resultType="kr.co.pet.board.BoardVO">
-		SELECT * FROM board WHERE board_no = #{board_no}
+		SELECT *,
+			(select nickname from member
+				 where board.member_no = member.member_no
+			) as nickname
+		from board WHERE board_no = #{board_no}
 	</select>
 	
 	<delete id="delete" parameterType="int">

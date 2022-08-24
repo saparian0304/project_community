@@ -32,8 +32,12 @@ public class BoardVO extends Criteria {
 	private String stype;//검색타입
 	private String sword;//검색어
 	
+	private String main;
 	
 	private String filename_org;
 	private String filename_real;
+	
+	private int rec;
+	private int rep;
 	
 }

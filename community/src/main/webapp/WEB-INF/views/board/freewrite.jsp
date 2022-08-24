@@ -42,10 +42,10 @@
                         <tr>
                             <th>말머리</th>
                             <td>
-	                                <%-- 1.식당, 2. 관광지, 3. 병원 --%>
-									<input type="radio" class="radio_value" name="horse_hair" value="4">여행후기
-									<input type="radio" class="radio_value" name="horse_hair" value="5">추천
-									<input type="radio" class="radio_value" name="horse_hair" value="6">고민
+								<input type="radio" class="radio_value" name="horse_hair" value="4">여행후기
+								<input type="radio" class="radio_value" name="horse_hair" value="5">정보공유
+								<input type="radio" class="radio_value" name="horse_hair" value="6">잡담
+								<input type="radio" class="radio_value" name="horse_hair" value="7">고민
                             </td>
                         </tr>
                         <tr>
