@@ -138,6 +138,7 @@ function block(member_no){
 			},
 			success : function(res){	
 				alert("차단하였습니다.");
+				 document.location.reload();
 			}		
 		});
 	}
@@ -231,7 +232,7 @@ function block(member_no){
            			<c:if test="${vo.relation == 0}">        
 	                     <p class="followNo${vo.member_no}"><button onclick="unfollow(${vo.member_no});">팔로우해제</button></p>
            			</c:if>         
-	                     <p><button>차단 </button></p>
+	                     <p><button onclick="block(${vo.member_no});">차단 </button></p>
                     </div>
                 </td>
          	</c:if> 
