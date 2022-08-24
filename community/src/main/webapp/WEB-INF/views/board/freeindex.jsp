@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/pet/js/function.js"></script>
-    <script type="text/javascript" src="/pet/js/location.js"></script>
 	<script>
 
 		function horse_hairSearch(val) {
@@ -65,6 +63,20 @@
 					href="javascript:horse_hairSearch('${param.horse_hair }')"
 					class="btn_srch">검색</a>
 				</span>
+<<<<<<< HEAD
+				</fieldset>
+				
+				
+			</form>
+			<p>
+				<span><strong>총 ${pageMaker.totalCount }개</strong> | ${boardVO.page }/${pageMaker.totalPage }페이지</span>
+			</p>
+			
+			
+			<!-- 탭 부분 -->
+			
+			<DIV>
+=======
 			</fieldset>
 		</form>
 		<p>
@@ -74,13 +86,15 @@
 		<!-- 탭 부분 -->
 
 		<DIV>
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 				 <table width="707px" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-top: 30px;" >
 				  <tr>
 				  
 				   <td><a href="javascript:horse_hairSearch('');">전체</a></td>
-				   <td><a href="javascript:horse_hairSearch('4');">여행후기</a></td>
+				   <td><a href="javascript:horse_hairSearch('6');">여행후기</a></td>
 				   <td><a href="javascript:horse_hairSearch('5');">정보공유</a></td>
 				   <td><a href="javascript:horse_hairSearch('7');">고민상담</a></td>
+				   <td><a href="javascript:horse_hairSearch('4');">잡담</a></td>
 				       
 				  </tr>
 				  <tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>

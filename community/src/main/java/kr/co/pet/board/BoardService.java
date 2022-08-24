@@ -2,6 +2,8 @@ package kr.co.pet.board;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 public interface BoardService {
 	//목록
 	
@@ -24,4 +26,6 @@ public interface BoardService {
 	boolean update(BoardVO vo);
 	
 	int indexTotal(BoardVO vo);
+	
+
 }
