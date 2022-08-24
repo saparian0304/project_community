@@ -61,7 +61,7 @@
 				)
 			</if>
 		</where>
-		ORDER BY regdate DESC
+		ORDER BY ${sort} ${order}
 		Limit #{startIdx},${pageRow}
 	</select>
 	

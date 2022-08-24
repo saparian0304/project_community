@@ -63,7 +63,6 @@
 					href="javascript:horse_hairSearch('${param.horse_hair }')"
 					class="btn_srch">검색</a>
 				</span>
-<<<<<<< HEAD
 				</fieldset>
 				
 				
@@ -76,17 +75,7 @@
 			<!-- 탭 부분 -->
 			
 			<DIV>
-=======
-			</fieldset>
-		</form>
-		<p>
-			<span><strong>총 ${pageMaker.totalCount }개</strong> | ${boardVO.page }/${pageMaker.totalPage }페이지</span>
-		</p>
 
-		<!-- 탭 부분 -->
-
-		<DIV>
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 				 <table width="707px" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-top: 30px;" >
 				  <tr>
 				  
