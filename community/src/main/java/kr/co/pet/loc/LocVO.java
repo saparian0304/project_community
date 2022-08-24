@@ -11,5 +11,6 @@ public class LocVO {
 	private String gps_y;
 	private String addr;
 	private String addr2;
+	private String gugun;
 	
 }

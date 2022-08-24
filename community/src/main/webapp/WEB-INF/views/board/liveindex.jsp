@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
     <script src="/pet/js/function.js"></script>
 <script> 
@@ -82,25 +81,27 @@
 			</div>
 		</div>
 
-		<!-- 목록영역 -->
-		<div>
-			<select name="sido1" id="sido1"></select>
-			<select name="gugun1" id="gugun1"></select>
-		</div>
+		<!-- 검색영역 -->
 		<div class="bodytext_area box_inner" style="width:80%">
 			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
 			<input type="hidden" name="horse_hair" id="horse_hair" value="">
+			
+			
 				<fieldset>
+				<div class="selectSi_gu">
+					<select name="sido1" id="sido1"></select>
+					<select name="gugun1" id="gugun1"<c:if test="${stype eq 'gugun1' }">selected</c:if>></select>
+				</div>
 				<span>
 				   <select id="stype" name="stype" class="dSelect" title="검색분류 선택">
                        <option value="all">전체</option>
-                       <option value="title">제목</option>
-                       <option value="content">내용</option>
+                       <option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
+					   <option value="content"<c:if test="${stype eq 'content' }">selected</c:if>>내용</option>
                    </select>
 				
-				   <legend> 검색 </legend>
-				   <input type="text" class="tbox" id="sval" name="sword" value="" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
-				   <a href="javascript:horse_hairSearch('${param.horse_hair }')" class="btn_srch">검색</a>
+				 <legend> 검색 </legend>
+				 <input type="text" class="tbox" id="sval" name="sword" value="${sword }" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
+				 <a href="javascript:horse_hairSearch('${param.horse_hair }')" class="btn_srch">검색</a>
                 </span>
 				</fieldset>
 			</form>
@@ -109,10 +110,6 @@
 					${boardVO.page }/${pageMaker.totalPage }페이지</span>
 			</p>
 			
-			<div>
-				<select name="sido1" id="sido1"></select>
-				<select name="gugun1" id="gugun1"></select>
-			</div>
 
 			<c:if test="${!empty loginInfo }">
 			</c:if>
@@ -125,7 +122,7 @@
 			<!-- 탭 부분 -->
 			
 			<DIV>
-				 <table  style="margin-top: 30px; width:707px; cellspacing:0; cellpadding:0; border:0; align:center;" >
+				 <table style="margin-top: 30px; width:707px; cellspacing:0; cellpadding:0; border:0; align:center;" >
 				  <tr>
 				  
 				   <td><a href="javascript:horse_hairSearch('');">전체</a></td>
@@ -134,7 +131,7 @@
 				   <td><a href="javascript:horse_hairSearch('3');">병원</a></td>
 				       
 				  </tr>
-				  <tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>
+				  <tr><td colspan=4 align=center style='padding-top:20px;'></td></tr>
 				</table>
 			</DIV>
 			
@@ -161,7 +158,7 @@
 										<div class="s21_d_comment"><p class="icon_comment">댓글</p>0</div>
 										<div class="s21_d_heart"><p class="icon_heart">좋아요</p>0</div>
 								   </div>
-								</div>
+							</div>
 							<div>하트이미지 북마크이미지</div>
 					</figure>
 				</div>			

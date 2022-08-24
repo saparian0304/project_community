@@ -1,5 +1,7 @@
 package kr.co.pet.loc;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +31,6 @@ public class LocServiceImpl implements LocService{
 		public boolean update(LocVO vo) {
 			return mapper.update(vo) > 0 ? true : false;
 		}
+
 	
 }

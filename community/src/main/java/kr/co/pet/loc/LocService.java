@@ -14,5 +14,4 @@ public interface LocService {
 		//수정처리
 	boolean update(LocVO vo);
 	
-	Map index();
 }

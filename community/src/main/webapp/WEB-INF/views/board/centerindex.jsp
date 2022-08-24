@@ -16,14 +16,24 @@
 				</h2>
 			</div>
 		</div>
-		<!-- 공지사항 목록영역 -->
+		<!-- 목록영역 -->
 		<div class="bodytext_area box_inner" style="width: 70%">
-			<form action="#" method="post" class="minisrch_form">
+			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
 				<fieldset>
+					<div class="selectSi_gu">
+						<select name="sido1" id="sido1"<c:if test="${sido1 eq '서울특별시' }">selected</c:if>></select>
+						<select name="gugun1" id="gugun1"></select>
+					</div>
+					<span>
+					<select id="stype" name="stype" class="dSelect" title="검색분류 선택">
+						<option value="all">전체</option>
+						<option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
+						<option value="content"<c:if test="${stype eq 'content' }">selected</c:if>>내용</option>
+					</select> 
 					<legend> 검색 </legend>
-					<input type="text" class="tbox" title="검색어를 입력해주세요"
-						placeholder="검색어를 입력해주세요." name=""> <a href="#"
-						class="btn_srch">검색</a>
+					<input type="text" class="tbox" id="sval" name="sword" value="${sword }" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
+					<a href="#" class="btn_srch">검색</a>
+					</span>
 				</fieldset>
 			</form>
 			<p>

@@ -49,14 +49,13 @@
                                 <ul>
                                     <li><input type="text" id="member_id1" name="member_id" placeholder="아이디"></li>
                                     <li><input type="password" id="pwd1" name="pwd" placeholder="비밀번호"></li>
-								    <li>
-								      <a class="btn" id="snsCheck" href="https://kauth.kakao.com/oauth/authorize?client_id=559a5c15295281d3e0cf6c7390c0d790&redirect_uri=http://localhost:8080/pet/member/loginBySns.do&response_type=code">
-								          <span>카카오 로그인</span>
-								      </a>
-									</li>
-								</ul>
                                     <li><label><input type="checkbox" name="reg1" id="reg1"/> 아이디저장</label></li>
                                 </ul>
+								    <li>
+								      <a class="btn" id="snsCheck" href="https://kauth.kakao.com/oauth/authorize?client_id=559a5c15295281d3e0cf6c7390c0d790&redirect_uri=http://localhost:8080/pet/member/loginBySns.do&response_type=code">
+								          <span>카카오 로그인 / 간편가입</span>
+								      </a>
+									</li>
                                 <div class="login_btn"><input type="submit" value="로그인" alt="로그인" /></div>
                             </fieldset>
                             <div class="btnSet clear">

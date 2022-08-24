@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.pet.file.FileMapper;
-import kr.co.pet.file.FileVO;
+import kr.co.pet.loc.LocMapper;
+import kr.co.pet.loc.LocVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

@@ -72,6 +72,9 @@ public class BoardController {
 		pageMaker.setCri(vo);
 		pageMaker.setTotalCount(service.indexTotal(vo));
 		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("stype", vo.getStype());
+		model.addAttribute("sword", vo.getSword());
+		
 		return "board/freeindex";
 	}
 	
@@ -84,6 +87,9 @@ public class BoardController {
 		pageMaker.setCri(vo);
 		pageMaker.setTotalCount(service.indexTotal(vo));
 		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("stype", vo.getStype());
+		model.addAttribute("sword", vo.getSword());
+		
 		return "board/liveindex";
 	}
 
@@ -94,6 +100,9 @@ public class BoardController {
 		pageMaker.setCri(vo);
 		pageMaker.setTotalCount(service.indexTotal(vo));
 		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("stype", vo.getStype());
+		model.addAttribute("sword", vo.getSword());
+		
 		return "board/centerindex";
 	}
 	

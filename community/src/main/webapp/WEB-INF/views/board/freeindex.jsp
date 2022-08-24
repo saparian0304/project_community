@@ -35,7 +35,7 @@
 	<ul class="skipnavi">
 		<li><a href="#container">본문내용</a></li>
 	</ul>
-	<div id="wrap"></div>
+	<div id="wrap">
 	<div class="container">
 		<!-- 위치(페이지 제목)영역 -->
 		<div class="location_area customer">
@@ -46,37 +46,35 @@
 			</div>
 		</div>
 	
-		<!--  목록영역 -->
+		<!--  검색영역 -->
 	<div class="bodytext_area box_inner" style="width: 80%">
 		<form action="#" id="minisrch_form" method="get" class="minisrch_form">
 			<input type="hidden" name="horse_hair" id="horse_hair" value="">
 			<fieldset>
-				<span> <select id="stype" name="stype" class="dSelect"
-					title="검색분류 선택">
+				<div class="selectSi_gu">
+					<select name="sido1" id="sido1"></select>
+					<select name="gugun1" id="gugun1"></select>
+				</div>
+			
+				<span> 
+				<select id="stype" name="stype" class="dSelect" title="검색분류 선택">
 						<option value="all">전체</option>
-						<option value="title">제목</option>
-						<option value="content">내용</option>
-				</select> <legend> 검색 </legend> <input type="text" class="tbox" id="sval"
-					name="sword" value=""
+						<option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
+						<option value="content"<c:if test="${stype eq 'content' }">selected</c:if>>내용</option>
+				</select> 
+				<legend> 검색 </legend> 
+				<input type="text" class="tbox" id="sval" name="sword" value="${sword }"
 					onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');"
-					title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> <a
-					href="javascript:horse_hairSearch('${param.horse_hair }')"
-					class="btn_srch">검색</a>
+					title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
+				<a href="javascript:horse_hairSearch('${param.horse_hair }')" class="btn_srch">검색</a>
 				</span>
-<<<<<<< HEAD
+
 				</fieldset>
 				
 				
 			</form>
-			<p>
-				<span><strong>총 ${pageMaker.totalCount }개</strong> | ${boardVO.page }/${pageMaker.totalPage }페이지</span>
-			</p>
-			
-			
-			<!-- 탭 부분 -->
-			
 			<DIV>
-=======
+
 			</fieldset>
 		</form>
 		<p>
@@ -86,7 +84,7 @@
 		<!-- 탭 부분 -->
 
 		<DIV>
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
+
 				 <table width="707px" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-top: 30px;" >
 				  <tr>
 				  
