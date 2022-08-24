@@ -16,7 +16,6 @@ public class MypageController {
 	@Autowired
 	MypageService service;
 	
-	
 	@GetMapping("/mypage/info.do")
 	public String mypageList(Model model, HttpSession sess) {
 		MemberVO mv = (MemberVO)sess.getAttribute("loginInfo");
@@ -28,9 +27,14 @@ public class MypageController {
 	@GetMapping("/mypage/index.do")
 	public String myIndex(Model model, HttpSession sess) {
 		MemberVO mv = (MemberVO)sess.getAttribute("loginInfo");
-//		vo.setMember_no(mv.getMember_no());
-		model.addAttribute("mydata", service.memberSelect(mv.getMember_no()));
-		return "mypage/index";
+		if (mv != null) {
+			model.addAttribute("mydata", service.memberSelect(mv.getMember_no()));
+			return "mypage/index";
+		} else {
+			model.addAttribute("msg", "다시 로그인해주세요");
+			model.addAttribute("url", "/pet/member/login.do");
+			return "common/alert";
+		}
 	}
 	
 	@GetMapping("/mypage/frilist.do")
@@ -133,5 +137,17 @@ public class MypageController {
 		pageMaker.setTotalCount(service.blockCount(vo));
 		model.addAttribute("pageMaker", pageMaker);
 		return "mypage/blocklist";
+	}
+	
+	//친구신청
+	@GetMapping("/mypage/friinsert.do")
+	public String friInsert(Model model, MypageVO vo) {
+		if(service.friReqInsert(vo) == 1) {
+			model.addAttribute("result", 1);
+			return "common/result";
+		} else {
+			model.addAttribute("result", 0);
+			return "common/result";
+		}
 	}
 }
