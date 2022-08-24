@@ -243,7 +243,7 @@ $(document).ready(function(){
 			                               		</a>
 			                            </span>
 	                       				<span style="float: right; text-align: center;">
-		                               		<a id="like" href="javascript:recommend(${param.board_no }, 0, '${loginInfo.member_no }', '${data.title }');">
+		                               		<a id="like" href="javascript:recommend(${param.board_no },0,'${data.member_no }','${loginInfo.member_no }','${data.title }');">
 		                               		<c:choose>
 		                               			<c:when test="${recdata.recommended == '1'}">
 													<img alt="좋아요" src="/pet/img/icon_like_black.png" width="50px">

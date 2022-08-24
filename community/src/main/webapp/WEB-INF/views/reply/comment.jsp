@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<%@ include file="/WEB-INF/views/includes/alram.jsp" %>    
+<%@ include file="/WEB-INF/views/includes/alram.jsp" %> 
 <script>
 var login_no = "";
 <c:if test="${!empty loginInfo.member_no}">
@@ -48,38 +48,6 @@ function popmessage(member_no, member_nickname){
 		}
 	});
 	
-	// 좋아요
-	function recommendReply(board_no, reply_no) {
-		<c:if test="${empty loginInfo}">
-		 alert('로그인 상태에서 이용할 수 있습니다.');
-		console.log(reply_no);
-		 return;
-		</c:if>
-		$.ajax({
-			url : "/pet/recommend/recommend.do",
-			data : {
-				board_no : board_no,
-				reply_no : reply_no,
-			},			
-			type : 'post',
-			dataType : "JSON",
-			success : function(res) {
-				console.log(res)
-				console.log(res.recommendCount);
-				console.log(res.recommended);
-				if (res.recommended) {
-					var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black_2.png" width="13px"> '+res.recommendCount;
-					$('#relike'+res.reply_no).html(icon_img);
-					if(socket){
-						socket.send("recommend,"+login_no+","+$("#no"+reply_no).val()+","+board_no+",[댓글]"+$("#content"+reply_no).val());
-					}
-				} else {
-					var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white_2.png" width="13px"> '+res.recommendCount;
-					$('#relike'+res.reply_no).html(icon_img);
-				}
-			}	
-		})
-	}
 	
 // 팔로우	
 
@@ -168,7 +136,7 @@ function block(member_no){
                    <!-- 실시간 알람용 -->
                    <input type="hidden" value="${vo.member_no}" id="no${vo.gno }">
                    <input type="hidden" value="${vo.content}" id="content${vo.gno }">
-                   <button id="relike${vo.reply_no }" onclick="javascript:recommendReply(${param.board_no}, ${vo.reply_no });" style="width:35px; height:20px;border-radius: 5px; background: pink; color: #fff; line-height: 13px">
+                   <button id="relike${vo.reply_no }" onclick="javascript:recommendReply(${param.board_no}, ${vo.reply_no },'${loginInfo.member_no}');" style="width:35px; height:20px;border-radius: 5px; background: pink; color: #fff; line-height: 13px">
 					<c:choose>
 						<c:when test="${vo.recommended == '1'}">
 							<img alt="좋아요" src="/pet/img/icon_like_black_2.png" width="13px"> 
