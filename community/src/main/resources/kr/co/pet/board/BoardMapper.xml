@@ -8,9 +8,9 @@
 			SELECT last_insert_id()
 		</selectKey>
 		INSERT INTO board (
-			 board_name, title, content, horse_hair, regdate, tel, link
+			 board_name, title, content, horse_hair, regdate, tel, link, member_no
 		) VALUES (
-			 #{board_name}, #{title}, #{content}, #{horse_hair}, NOW(), #{tel}, #{link}
+			 #{board_name}, #{title}, #{content}, #{horse_hair}, NOW(), #{tel}, #{link}, #{member_no}
 		)
 	</insert>
 	
@@ -45,12 +45,12 @@
 			(select nickname from member
 				 where board.member_no = member.member_no
 			) as nickname,
-					(select * from 
-						(SELECT filename_org from file 
-							where file.board_no = board.board_no
-							order by file_no asc
-						) as a limit 1
-					) as filename_org
+				(select * from 
+					(SELECT filename_real from file 
+						where file.board_no = board.board_no
+						order by file_no asc
+					) as a limit 1
+				) as filename_real
 		from board
 		where board_name = #{board_name}
 		<if test="horse_hair != null and horse_hair !=''">

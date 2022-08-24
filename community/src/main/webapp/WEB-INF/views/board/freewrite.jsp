@@ -46,7 +46,6 @@
 									<input type="radio" class="radio_value" name="horse_hair" value="4">여행후기
 									<input type="radio" class="radio_value" name="horse_hair" value="5">추천
 									<input type="radio" class="radio_value" name="horse_hair" value="6">고민
-									<input type="radio" class="radio_value" name="horse_hair" value="9">보호센터
                             </td>
                         </tr>
                         <tr>
@@ -82,6 +81,7 @@
 	                    <div class="btnSet"  style="text-align:right;">
 	                        <a class="btn" href="javascript:goSave();">저장 </a>
 	                    </div>
+	                    <%-- <input type="hidden" name="member_no" value="${loginInfo.member_no }"> --%>
                     </form>
                 </div>
             </div>

@@ -133,7 +133,7 @@ public class BoardController {
 		model.addAttribute("ldata", ldata);
 		
 		model.addAttribute("recdata", recService.recommend(vo.getBoard_no(), 0, sess));
-		
+		model.addAttribute("bookdata", bService.bookmarked(vo, sess));
 		return "board/liveview";
 	}
 	
@@ -151,10 +151,15 @@ public class BoardController {
 	
 	@PostMapping(value = "/board/liveinsert.do", consumes = "multipart/form-data")
 	public String liveinsert(BoardVO vo, FileVO fvo, LocVO lvo, Model model, @RequestParam MultipartFile filename,
-			HttpServletRequest req) {
+			HttpServletRequest req, HttpSession sess) {
 		//게시글 저장 board테이블
 		//LocVO lvo = new LocVO();
 		vo.setBoard_name("live");
+		MemberVO mno =(MemberVO)(sess.getAttribute("loginInfo"));
+		vo.setMember_no(mno.getMember_no());
+		
+//		vo.setMember_no(((MemberVO)sess.getAttribute("loginInfo")).getMember_no());
+		
 		boolean in = service.insert(vo);
 		String st =  vo.getContent();
 		st.replaceAll("<p>", "");
@@ -201,7 +206,6 @@ public class BoardController {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
 			model.addAttribute("url", "liveindex.do");
 			
-			//System.out.println("nickname: "+vo.getNickname());
 			return "common/alert";
 		}  else {
 			model.addAttribute("msg", "저장이 실패했습니다.");
@@ -209,11 +213,13 @@ public class BoardController {
 		}
 	}
 	@PostMapping(value = "/board/freeinsert.do", consumes = "multipart/form-data")
-	public String freeinsert(BoardVO vo, FileVO fvo, LocVO lvo, MemberVO mvo, Model model, @RequestParam MultipartFile filename,
-			HttpServletRequest req) {
+	public String freeinsert(BoardVO vo, FileVO fvo, LocVO lvo, Model model, @RequestParam MultipartFile filename,
+			HttpServletRequest req, HttpSession sess) {
 		//게시글 저장 board테이블
 		//LocVO lvo = new LocVO();
 		vo.setBoard_name("free");
+		MemberVO member = (MemberVO)sess.getAttribute("loginInfo");
+		vo.setMember_no(member.getMember_no());
 		boolean in = service.insert(vo);
 		String st =  vo.getContent();
 		st.replaceAll("<p>", "");
@@ -222,7 +228,6 @@ public class BoardController {
 		service.update(vo);
 		lvo.setBoard_no(vo.getBoard_no());
 		fvo.setBoard_no(vo.getBoard_no());
-		mvo.setBoard_no(vo.getBoard_no());
 		lservice.insert(lvo);
 		//첨부파일 처리file테이블
 		if(!filename.isEmpty()) {
@@ -259,7 +264,6 @@ public class BoardController {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
 			model.addAttribute("url", "freeindex.do");
 			
-			//System.out.println("nickname: "+vo.getNickname());
 			return "common/alert";
 		}  else {
 			model.addAttribute("msg", "저장이 실패했습니다.");
@@ -299,7 +303,6 @@ public class BoardController {
 			if(fservice.insert(fvo)){
 				model.addAttribute("msg", "정상적으로 저장되었습니다.");
 				model.addAttribute("url", "centerview.do?board_no="+vo.getBoard_no());
-				System.out.println("==================="+vo.getBoard_no());
 				return "common/alert";
 				
 			} else {
@@ -318,7 +321,6 @@ public class BoardController {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
 			model.addAttribute("url", "centerindex.do");
 			
-			//System.out.println("nickname: "+vo.getNickname());
 			return "common/alert";
 		}  else {
 			model.addAttribute("msg", "저장이 실패했습니다.");

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.pet.board.BoardVO;
 import kr.co.pet.file.FileVO;
 
 @Mapper
@@ -18,4 +19,8 @@ public interface CenterMapper {
 	CenterVO view(int Board_no);
 	
 	int update(CenterVO vo);
+	
+	int count(CenterVO vo);
+	
+	List<CenterVO> list(CenterVO vo);
 }

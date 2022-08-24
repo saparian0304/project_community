@@ -102,6 +102,9 @@
 		<if test="table_name == 'friend'">
 			WHERE fri_no = #{select_no}
 		</if>
+		<if test="table_name == 'follow'"> <!-- 팔로우 삭제 추가 -->
+			WHERE foll_no = #{select_no}
+		</if>		
 	</delete>
 	
 	<!-- 북마크 -->
@@ -161,7 +164,31 @@
 			#{i_no}, #{you_no}, now()
 		)
 	</insert>
+	
+	<!-- 팔로우 리스트 -->
+	<select id="followList" parameterType="kr.co.pet.mypage.MypageVO" resultType="kr.co.pet.mypage.MypageVO">
+		SELECT nickname, a.req_date, a.foll_no FROM member,
+			(SELECT i_no, you_no, req_date, foll_no FROM follow WHERE i_no = #{member_no} AND relation=0) AS a
+		WHERE member_no = a.you_no
+		ORDER BY a.req_date DESC
+		LIMIT #{startIdx}, ${pageRow}
+	</select>
+	
+	<select id="followCount" parameterType="kr.co.pet.mypage.MypageVO" resultType="int">
+		SELECT COUNT(*) FROM follow WHERE i_no = #{member_no} AND relation=0
+	</select>
 
-
+	<!-- 차단 리스트 -->
+	<select id="blockList" parameterType="kr.co.pet.mypage.MypageVO" resultType="kr.co.pet.mypage.MypageVO">
+		SELECT nickname, a.req_date, a.foll_no FROM member,
+			(SELECT i_no, you_no, req_date, foll_no FROM follow WHERE i_no = #{member_no} AND relation=1) AS a
+		WHERE member_no = a.you_no
+		ORDER BY a.req_date DESC
+		LIMIT #{startIdx}, ${pageRow}
+	</select>
+	
+	<select id="blockCount" parameterType="kr.co.pet.mypage.MypageVO" resultType="int">
+		SELECT COUNT(*) FROM follow WHERE i_no = #{member_no} AND relation=1
+	</select>
 
 </mapper>

@@ -47,21 +47,23 @@
 		</div>
 	
 		<!--  목록영역 -->
-		<div class="bodytext_area box_inner" style="width:80%">
-			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
+	<div class="bodytext_area box_inner" style="width: 80%">
+		<form action="#" id="minisrch_form" method="get" class="minisrch_form">
 			<input type="hidden" name="horse_hair" id="horse_hair" value="">
-				<fieldset>
-				<span>
-					<select id="stype" name="stype" class="dSelect" title="검색분류 선택">
-                       <option value="all">전체</option>
-                       <option value="title">제목</option>
-                       <option value="content">내용</option>
-                   	</select>
-                   	
-					<legend> 검색 </legend>
-					<input type="text" class="tbox" id="sval" name="sword" value="" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name="">  
-					<a href="javascript:horse_hairSearch('${param.horse_hair }')" class="btn_srch">검색</a>
+			<fieldset>
+				<span> <select id="stype" name="stype" class="dSelect"
+					title="검색분류 선택">
+						<option value="all">전체</option>
+						<option value="title">제목</option>
+						<option value="content">내용</option>
+				</select> <legend> 검색 </legend> <input type="text" class="tbox" id="sval"
+					name="sword" value=""
+					onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');"
+					title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> <a
+					href="javascript:horse_hairSearch('${param.horse_hair }')"
+					class="btn_srch">검색</a>
 				</span>
+<<<<<<< HEAD
 				</fieldset>
 				
 				
@@ -74,6 +76,17 @@
 			<!-- 탭 부분 -->
 			
 			<DIV>
+=======
+			</fieldset>
+		</form>
+		<p>
+			<span><strong>총 ${pageMaker.totalCount }개</strong> | ${boardVO.page }/${pageMaker.totalPage }페이지</span>
+		</p>
+
+		<!-- 탭 부분 -->
+
+		<DIV>
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 				 <table width="707px" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-top: 30px;" >
 				  <tr>
 				  
@@ -87,13 +100,21 @@
 				  <tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>
 				</table>
 			</DIV>
-	
-	
-			<!-- <div class="btnSet" style="text-align: right;">
-				<a class="btn" href="freewrite.do">글작성 </a>
-			</div> -->
-			
-			<c:if test="${empty data.list }">
+
+		<c:if test="${empty loginInfo }">
+			<div class="btnSet" style="text-align: right;">
+				<a class="btn" href="/pet/member/login.do">글작성 </a>
+			</div>
+		</c:if>
+
+		<c:if test="${!empty loginInfo }">
+			<div class="btnSet" style="text-align: right;">
+				<a class="btn" href="/pet/board/freewrite.do">글작성 </a>
+			</div>
+		</c:if>
+	</div>
+
+	<c:if test="${empty data.list }">
 				<tr>
 					<td class="first" colspan="5">등록된 글이 없습니다.</td>
 				</tr>
@@ -104,11 +125,11 @@
 						onclick="location.href='freeview.do?board_no=${vo.board_no }';">
 						<!-- 이미지가 upload에 들어가 있거나 D:\kdigital\java\workspace1\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\community\upload 여기 경로
 						톰캣clear하면 후자 내용 초기화-->
-						<c:if test="${!empty vo.filename_org }">
-							<img src="/pet/upload/${vo.filename_org }" style="height: 150px"
+						<c:if test="${!empty vo.filename_real }">
+							<img src="/pet/upload/${vo.filename_real }" style="height: 150px"
 								onerror='this.onerror=null; this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
 						</c:if>
-						<c:if test="${empty vo.filename_org}">
+						<c:if test="${empty vo.filename_real}">
 							<img  
 								src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
 						</c:if>

@@ -5,6 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 <link rel="stylesheet" href="/pet/css/tab.css"/>
+<script type="text/javascript" src="/pet/js/util/board_an.js"></script>
 <script>
 var login_no = "";
 <c:if test="${!empty loginInfo.member_no}">
@@ -180,69 +181,8 @@ function commentDel(reply_no) {
 	}
 }
 
-function report(member_no, board_no, reply_no) {
-	<c:if test="${empty loginInfo}">
-		alert('로그인후 댓글작성해주세요');
-	 	return;
-	</c:if>
-	var isReply;
-	if (reply_no == '' || reply_no == null) {
-		isReply = 0;
-	} else {
-		isReply = 1
-	}
 
-	var form = document.createElement('form');
-	form.setAttribute('method', 'post');
-	form.setAttribute('action', '/pet/report/write.do');
-	document.charset = "uft-8";
-	var list = { 
-			'you_no' : member_no, 
-			'board_no' : board_no, 
-			'reply_no' : reply_no,
-			'isReply' : isReply}
-	for ( var key in list) {
-		var field = document.createElement('input');
-		field.setAttribute('type', 'hidden');
-		field.setAttribute('name', key);
-		field.setAttribute('value', list[key]);
-		form.appendChild(field);
-	}
-	document.body.appendChild(form);
-	form.submit();
-}
 
-// 좋아요
-function recommend(board_no, reply_no) {
-	<c:if test="${empty loginInfo}">
-	 alert('로그인 상태에서 이용할 수 있습니다.');
-	 return;
-	</c:if>
-	$.ajax({
-		url : "/pet/recommend/recommend.do",
-		data : {
-			board_no : board_no,
-			reply_no : reply_no,
-		},			
-		type : 'post',
-		dataType : "JSON",
-		success : function(res) {
-			console.log(res)
-			console.log(res.recommendCount);
-			console.log(res.recommended);
-			if (res.recommended) {
-				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_black.png" width="50px"><br>'+res.recommendCount;
-				$('#like').html(icon_img);
-				if(socket){
-					socket.send("recommend,"+login_no+","+boardWriter+","+${data.board_no}+","+'[게시글]${data.title}');
-				}
-			} else {
-				var icon_img = '<img alt="좋아요" src="/pet/img/icon_like_white.png" width="50px"><br>'+res.recommendCount;
-				$('#like').html(icon_img);
-			}
-		}	
-	})
-}
 //탭
 $(document).ready(function(){
 	   
@@ -281,7 +221,7 @@ $(document).ready(function(){
 	                <div class="bbs">
 	                	<div style="text-align: right">
 	                    	<span style="border:1px; background-color: #d3d3d3; border-radius: 3px; text-align: center; line-height: center; color: white;">
-			                    <a href="javascript:report(${vo.member_no}, ${param.board_no}, 0);">&nbsp;[게시글 신고]&nbsp;&nbsp;</a>
+			                    <a href="javascript:report(${data.member_no}, ${param.board_no}, 0, '${loginInfo.member_no }');">&nbsp;[게시글 신고]&nbsp;&nbsp;</a>
 			                </span> 
 	                	</div>
 	                    <div class="view">
@@ -392,12 +332,19 @@ $(document).ready(function(){
 			                        <ul class="wrap">
 		                       			<div style="height:40px; margin : 10px 10px 0 0;">
 			                            <span style="float: right; text-align: center;">
-			                               		<a id="book">
-			                               			<img alt="북마크" src="/pet/img/icon_bookmark_white.png" width="45px">
+			                               		<a id="book" href="javascript:bookmark(${param.board_no }, '${loginInfo.member_no }');">
+			                               		<c:choose>
+			                               			<c:when test="${bookdata== true}">
+			                               				<img alt="북마크" src="/pet/img/icon_bookmark_black.png" width="45px">
+			                               			</c:when>
+			                               			<c:otherwise>
+			                               				<img alt="북마크" src="/pet/img/icon_bookmark_white.png" width="45px">
+			                               			</c:otherwise>
+			                               		</c:choose>
 			                               		</a>
 			                            </span>
 	                       				<span style="float: right; text-align: center;">
-		                               		<a id="like" href="javascript:recommend(${param.board_no }, 0);">
+		                               		<a id="like" href="javascript:recommend(${param.board_no }, 0, '${loginInfo.member_no }', '${data.title }');">
 		                               		<c:choose>
 		                               			<c:when test="${recdata.recommended == '1'}">
 													<img alt="좋아요" src="/pet/img/icon_like_black.png" width="50px">

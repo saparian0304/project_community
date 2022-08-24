@@ -137,5 +137,40 @@ public class MypageServiceimpl implements MypageService {
 		return mapper.bookCnt(vo);
 	}
 
+	
+	// 팔로우 목록
+	@Override
+	public Map followList(MypageVO vo) {
+		Map map = new HashMap();		
+		int totalCount = mapper.followCount(vo);
+		List list  = mapper.followList(vo);
+		map.put("totalCount", totalCount);
+		map.put("list", list);
+		map.put("page", vo.getPage());
+		return map;
+	}
+
+	@Override
+	public int followCount(MypageVO vo) {
+		return mapper.followCount(vo);
+	}
+
+	// 차단 목록
+	@Override
+	public Map blockList(MypageVO vo) {
+		Map map = new HashMap();		
+		int totalCount = mapper.blockCount(vo);
+		List list  = mapper.blockList(vo);
+		map.put("totalCount", totalCount);
+		map.put("list", list);
+		map.put("page", vo.getPage());
+		return map;
+	}
+
+	@Override
+	public int blockCount(MypageVO vo) {
+		return mapper.blockCount(vo);
+	}
+
 
 }

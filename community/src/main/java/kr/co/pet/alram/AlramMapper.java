@@ -11,6 +11,7 @@ public interface AlramMapper {
 	String findBoard_name(int member_no);
 	
 	int insert(AlramVO vo);
-
+	int isRead(AlramVO vo);
+	
 	List alramList(int member_no);
 }

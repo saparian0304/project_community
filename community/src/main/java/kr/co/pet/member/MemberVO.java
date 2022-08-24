@@ -31,6 +31,4 @@ public class MemberVO {
 	private int board_count;
 	private int reply_count;
 	
-	private int board_no;
-	
 }

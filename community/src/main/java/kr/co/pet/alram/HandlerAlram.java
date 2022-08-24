@@ -100,10 +100,11 @@ public class HandlerAlram extends TextWebSocketHandler {
 					}
 				}
 				String str = "";
-
+				String s = "\""+boardWriter+"\",\""+cmd+"\",\""+bno+"\"";
+				
 				//댓글
 				if ("reply".equals(cmd) && boardWriterSession != null) {
-					str = "<a href='"+ tmpURL +bno + "'>" 
+					str = "<a href='"+ tmpURL +bno + "' onclick='javascript:isRead("+s+");'>" 
 							+ replyNick + "님이 [게시글] "+ title +"에 댓글을 달았습니다</a>";
 					TextMessage tmpMsg = new TextMessage(str);
 					boardWriterSession.sendMessage(tmpMsg);							
@@ -111,7 +112,7 @@ public class HandlerAlram extends TextWebSocketHandler {
 				
 				// 쪽지
 				if ("message".equals(cmd) && boardWriterSession != null) {
-					str = "<a href='/pet/mypage/index.do?member_no=" + boardWriter + "'>"
+					str = "<a href='/pet/mypage/index.do?member_no=" + boardWriter + "' onclick='javascript:isRead("+s+");'>"
 							+ replyNick + "님이 쪽지를 보냈습니다</a>";
 					TextMessage tmpMsg = new TextMessage(str);
 					boardWriterSession.sendMessage(tmpMsg);
@@ -119,7 +120,7 @@ public class HandlerAlram extends TextWebSocketHandler {
 				
 				//대댓글
 				if ("rereply".equals(cmd) && boardWriterSession != null) {
-					str = "<a href='"+ tmpURL +bno + "'>" 
+					str = "<a href='"+ tmpURL +bno + "' onclick='javascript:isRead("+s+");'>" 
 							+ replyNick + "님이 [댓글] "+ title +"에 답글을 달았습니다</a>";
 					TextMessage tmpMsg = new TextMessage(str);
 					boardWriterSession.sendMessage(tmpMsg);	
@@ -127,7 +128,7 @@ public class HandlerAlram extends TextWebSocketHandler {
 				
 				//좋아요
 				if ("recommend".equals(cmd) && boardWriterSession != null) {
-					str = "<a href='" + tmpURL +bno + "'>" 
+					str = "<a href='" + tmpURL +bno + "' onclick='javascript:isRead("+s+");'>" 
 							+ replyNick + "님이 "+ title +"에 좋아요를 눌렀습니다</a>";
 					TextMessage tmpMsg = new TextMessage(str);
 					boardWriterSession.sendMessage(tmpMsg);	

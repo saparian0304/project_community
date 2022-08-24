@@ -4,7 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
                 <button style="width : 100px; height : 30px;" class="reqbtn friend" onclick="javascript:getFriReq(1,${loginInfo.member_no});">친구요청목록</button>
                 <button style="width : 100px; height : 30px;" class="reqbtn friend" onclick="javascript:getFriList(1,${loginInfo.member_no});">친구목록</button>
-                
+                <button style="width : 100px; height : 30px;" class="reqbtn friend" onclick="javascript:getFollList(1,${loginInfo.member_no});">팔로우목록</button>
+                <button style="width : 100px; height : 30px;" class="reqbtn friend" onclick="javascript:getBlockList(1,${loginInfo.member_no});">차단목록</button>
                   <form action="#" method="post" class="minisrch_form">
                     <fieldset>
                         <legend>
