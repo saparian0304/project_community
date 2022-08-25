@@ -82,19 +82,7 @@
 
 		<!-- 탭 부분 -->
 
-		<div>
-		   <table style="margin-top: 30px; width:707px; cellspacing:0; cellpadding:0; border:0; align:center;">
-			  <tr>
-			  
-			   <td><a href="javascript:horse_hairSearch('');">전체</a></td>
-			   <td><a href="javascript:horse_hairSearch('4');">여행후기</a></td>
-			   <td><a href="javascript:horse_hairSearch('5');">정보공유</a></td>
-			   <td><a href="javascript:horse_hairSearch('7');">고민상담</a></td>
-			       
-			  </tr>
-			  <tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>
-			</table>
-		</div>
+		
 				 <table width="707px" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-top: 30px;" >
 				  <tr>
 				  
