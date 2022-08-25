@@ -86,7 +86,7 @@
 					<h2>< 관광지 TOP 5 ></h2>
 					<div class="swiper-wrapper">
 						<c:forEach var="vo" items="${ldata.list}" varStatus="status">
-							
+						
 						<div class="swiper-slide">
 							<a style="font-size: 16px;" href="liveview.do?board_no=${vo.board_no }">
 							<img src="${vo.filename_real}">

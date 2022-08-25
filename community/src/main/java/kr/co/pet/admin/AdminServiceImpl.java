@@ -29,4 +29,21 @@ public class AdminServiceImpl implements AdminService {
 		return map;
 	}
 
+	
+	// 회원관리용입니다
+	public Map memberList(AdminMemberVO vo) {
+		Map map = new HashMap();
+		List list = mapper.memberList(vo);
+		int totalCount = mapper.memberCnt(vo);
+		map.put("totalCount", totalCount);
+		map.put("list", list);
+		map.put("page", vo.getPage());
+		return map;
+	}
+
+
+	@Override
+	public int memberCnt(AdminMemberVO vo) {
+		return mapper.memberCnt(vo);
+	}
 }

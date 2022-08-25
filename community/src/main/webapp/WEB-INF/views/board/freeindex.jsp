@@ -81,14 +81,20 @@
 				
 			</form>
 			<DIV>
+<<<<<<< HEAD
 
+=======
+
+			</fieldset>
+		</form>
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 		<p>
 			<span><strong>총 ${pageMaker.totalCount }개</strong> | ${boardVO.page }/${pageMaker.totalPage }페이지</span>
 		</p>
 
 		<!-- 탭 부분 -->		
 		
-				 <table style="margin-top: 30px; width : 707px;  cellspacing : 0; cellpadding : 0; border : 0; align : center;" >
+				 <table style="width: 707px; cellspacing:0; cellpadding:0; border:0; align:center; margin-top: 30px;" >
 				  <tr>
 				  
 				   <td><a href="javascript:horse_hairSearch('');">전체</a></td>

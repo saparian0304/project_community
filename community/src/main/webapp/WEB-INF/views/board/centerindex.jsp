@@ -2,6 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 	<script src="/pet/js/function.js"></script>
+<script>
+
+/* 	function loc_search(val){
+		if(val == ''){
+			$("#sido1").val('');
+		}else{
+			$("#sodo1").val(val);	
+		}
+	} */
+</script>
     <ul class="skipnavi">
         <li><a href="#container">본문내용</a></li>
     </ul>
@@ -21,7 +31,7 @@
 			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
 				<fieldset>
 					<div class="selectSi_gu">
-						<select name="sido1" id="sido1"<c:if test="${sido1 eq '서울특별시' }">selected</c:if>></select>
+						<select name="sido1" id="sido1"></select>
 						<select name="gugun1" id="gugun1"></select>
 					</div>
 					<span>

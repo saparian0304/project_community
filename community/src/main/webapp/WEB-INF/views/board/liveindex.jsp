@@ -9,7 +9,10 @@
 		} else {
 			$("#horse_hair").val(val); // 파라미터를 폼안에 있는 히든에 넣어주기(말머리+검색어까지 같이 사용하기위해)
 		}
-		
+		if($("#sido1").val() == "시/도 선택"){
+			
+			$('#sido1').val(null);
+		}
 		$("#minisrch_form").submit(); // 폼을 전송
 	}
 	
@@ -90,10 +93,10 @@
 			
 			
 				<fieldset>
-				<div class="selectSi_gu">
-					<select name="sido1" id="sido1"></select>
-					<select name="gugun1" id="gugun1"<c:if test="${stype eq 'gugun1' }">selected</c:if>></select>
-				</div>
+				<span class="selectSi_gu">
+					<select name="sido1" id="sido1" ></select>
+					<select name="gugun1" id="gugun1"></select>
+				</span>
 				<span>
 				   <select id="stype" name="stype" class="dSelect" title="검색분류 선택">
                        <option value="all">전체</option>
@@ -156,6 +159,7 @@
 						<div class="s21_tour_list_tbox" style="width: 50%; float: left;">
 							<p class="list_content">${vo.title }</p>
 							<p class="list_content">${vo.content}</p>
+							
 						</div>
 						<div style="width: 49%; float: right; text-align: right;">
 							<img style="width: 15px; height: 15px;" src="https://previews.123rf.com/images/captainvector/captainvector1512/captainvector151209976/81535071-%EB%8C%93%EA%B8%80-%EC%95%84%EC%9D%B4%EC%BD%98.jpg">${vo.rep }
