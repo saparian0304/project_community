@@ -11,7 +11,6 @@
     })
     /* 선택대상 */
     var select_no;
-	// 아이디 클릭시 나의 활동 내역 	
 	
     </script> 
 </head>
