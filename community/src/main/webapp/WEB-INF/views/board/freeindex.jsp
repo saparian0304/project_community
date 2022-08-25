@@ -89,7 +89,7 @@
 
 		<!-- 탭 부분 -->		
 		
-				 <table style="margin-top: 30px; width : 707px;  cellspacing : 0; cellpadding : 0; border : 0; align : center;" >
+				 <table style="width: 707px; cellspacing:0; cellpadding:0; border:0; align:center; margin-top: 30px;" >
 				  <tr>
 				  
 				   <td><a href="javascript:horse_hairSearch('');">전체</a></td>
