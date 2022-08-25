@@ -150,6 +150,7 @@
 				UNION
 			SELECT fri_no AS fri_no, i_no AS fri, res_date FROM friend WHERE you_no = #{member_no} and res_date IS NOT NULL) AS a  
 		WHERE member_no = a.fri
+		AND a.fri NOT IN (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)
 		ORDER BY nickname ASC
 		LIMIT #{startIdx}, ${pageRow}
 	</select>
@@ -160,18 +161,21 @@
 				UNION
 			SELECT i_no AS fri FROM friend WHERE you_no = #{member_no} and res_date IS NOT NULL
 		) AS a
+		WHERE a.fri NOT IN (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)
 	</select>
 	
 	<select id="reqList" parameterType="kr.co.pet.mypage.MypageVO" resultType="kr.co.pet.mypage.MypageVO">
 		SELECT * FROM member,
-			(SELECT i_no, req_date, fri_no FROM friend WHERE you_no = #{member_no} AND res_date IS NULL) AS a
-		WHERE member_no = a.i_no AND member_no not in (SELECT you_no FROM follow WHERE i_no = #{member_no}  AND relation = 1)
+			(SELECT * FROM friend WHERE you_no = #{member_no} AND res_date IS NULL) AS a
+		WHERE member_no = a.i_no
+		AND member_no NOT IN (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)
 		ORDER BY a.req_date DESC
 		LIMIT #{startIdx}, ${pageRow}
 	</select>
 
 	<select id="reqCount" parameterType="kr.co.pet.mypage.MypageVO" resultType="int">
 		SELECT COUNT(*) FROM friend WHERE you_no = #{member_no} AND res_date IS NULL
+		AND i_no NOT IN (SELECT you_no FROM follow WHERE i_no = #{member_no} AND relation = 1)
 	</select> 
 	
 	<insert id="friendReq" parameterType="kr.co.pet.mypage.MypageVO">

@@ -110,4 +110,16 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="memberList" parameterType="kr.co.pet.admin.AdminMemberVO" resultType="kr.co.pet.admin.AdminMemberVO">
+		SELECT *,
+			(SELECT COUNT(*) FROM board WHERE board.member_no = member.member_no AND isdelete = 0) AS board_count,
+			(SELECT COUNT(*) FROM reply WHERE reply.member_no = member.member_no AND isdelete = 0) AS reply_count
+		FROM member
+		Limit #{startIdx},${pageRow}
+	</select>
+	
+	<select id="memberCnt" parameterType="kr.co.pet.admin.AdminMemberVO" resultType="int">
+		SELECT COUNT(*) FROM member
+	</select>
 </mapper>
