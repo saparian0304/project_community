@@ -165,7 +165,7 @@
 	<select id="reqList" parameterType="kr.co.pet.mypage.MypageVO" resultType="kr.co.pet.mypage.MypageVO">
 		SELECT * FROM member,
 			(SELECT i_no, req_date, fri_no FROM friend WHERE you_no = #{member_no} AND res_date IS NULL) AS a
-		WHERE member_no = a.i_no
+		WHERE member_no = a.i_no AND member_no not in (SELECT you_no FROM follow WHERE i_no = #{member_no}  AND relation = 1)
 		ORDER BY a.req_date DESC
 		LIMIT #{startIdx}, ${pageRow}
 	</select>

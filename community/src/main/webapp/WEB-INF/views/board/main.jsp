@@ -85,12 +85,13 @@
 				<div class="swiper mySwiper"  style="margin-bottom: 20px">
 					<h2>< 관광지 TOP 5 ></h2>
 					<div class="swiper-wrapper">
-						<c:forEach var="vo" items="${ldata.list}" varStatus="status">
+						<c:forEach var="vo" items="${ldata.list}" varStatus="status">						
 							<div style="font-size: 20px;">${status.index +1}</div>
-						<div class="swiper-slide">
-							<a href=""><img alt="" src="${vo.filename_real}"></a>
-						</div>
-							
+							<div class="swiper-slide">
+								<a href="">
+								<img alt="" src="${vo.filename_real}">
+								</a>
+							</div>						
 						</c:forEach>
 					</div>
 
