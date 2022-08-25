@@ -89,6 +89,7 @@
 			   <td><a href="javascript:horse_hairSearch('');">전체</a></td>
 			   <td><a href="javascript:horse_hairSearch('4');">여행후기</a></td>
 			   <td><a href="javascript:horse_hairSearch('5');">정보공유</a></td>
+			   <td><a href="javascript:horse_hairSearch('6');">잡담</a></td>
 			   <td><a href="javascript:horse_hairSearch('7');">고민상담</a></td>
 			       
 			  </tr>

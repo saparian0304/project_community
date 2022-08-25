@@ -86,9 +86,12 @@
 					<h2>< 관광지 TOP 5 ></h2>
 					<div class="swiper-wrapper">
 						<c:forEach var="vo" items="${ldata.list}" varStatus="status">
-							<div style="font-size: 20px;">${status.index +1}</div>
+							
 						<div class="swiper-slide">
-							<a href=""><img alt="" src="${vo.filename_real}"></a>
+							<a href="liveview.do?board_no=${vo.board_no }">
+							<img src="${vo.filename_real}">
+							<div style="font-size: 20px;">${status.index +1}. ${vo.title }</div>
+							</a>
 						</div>
 							
 						</c:forEach>
@@ -111,14 +114,13 @@
 							<th>작성자</th>
 						</tr>
 						<c:forEach var="vo" items="${tdata.list }" varStatus="status">
-						<tr>
+						<tr onclick="location.href='liveview.do?board_no=${vo.board_no }';">
 							<td>${vo.title }</td>
 							<td>${vo.nickname }</td>
 						</tr>
 						</c:forEach>
 					</table>
 				</div>
-				
 				<div class="maindiv" style="float: right;">
 					<h2>< 정보공유 ></h2>
 					<table class="maintb">
@@ -131,7 +133,7 @@
 							<th>작성자</th>
 						</tr>
 						<c:forEach var="vo" items="${ddata.list }" varStatus="status">
-						<tr>
+						<tr onclick="location.href='liveview.do?board_no=${vo.board_no }';">
 							<td>${vo.title }</td>
 							<td>${vo.nickname }</td>
 						</tr>
@@ -151,7 +153,7 @@
 							<th>작성자</th>
 						</tr>
 						<c:forEach var="vo" items="${sdata.list }" varStatus="status">
-						<tr>
+						<tr onclick="location.href='liveview.do?board_no=${vo.board_no }';">
 							<td>${vo.title }</td>
 							<td>${vo.nickname }</td>
 						</tr>
@@ -171,7 +173,7 @@
 							<th>작성자</th>
 						</tr>
 						<c:forEach var="vo" items="${wdata.list }" varStatus="status">
-						<tr>
+						<tr onclick="location.href='liveview.do?board_no=${vo.board_no }';">
 							<td>${vo.title }</td>
 							<td>${vo.nickname }</td>
 						</tr>
