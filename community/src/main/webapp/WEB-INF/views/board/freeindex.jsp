@@ -80,8 +80,7 @@
 			<span><strong>총 ${pageMaker.totalCount }개</strong> | ${boardVO.page }/${pageMaker.totalPage }페이지</span>
 		</p>
 
-		<!-- 탭 부분 -->
-
+		<!-- 탭 부분 -->		
 		
 				 <table style="margin-top: 30px; width : 707px;  cellspacing : 0; cellpadding : 0; border : 0; align : center;" >
 				  <tr>
