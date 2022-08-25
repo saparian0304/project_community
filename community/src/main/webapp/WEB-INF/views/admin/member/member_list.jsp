@@ -13,13 +13,11 @@
 	<link rel="stylesheet" href="/pet/css/admin/common.css">
     <link rel="stylesheet" href="/pet/css/reset.css"/>
     <link rel="stylesheet" href="/pet/css/contents.css"/> 
-	<script type="text/javascript" src="/pet/js/util/admin_an.js"></script>
+	<script type="text/javascript" src="/pet/js/util/member_shon.js"></script>
 <script>
 
 $(function () {
 	// 초기 셋팅
-	change_hair('${param.board_name}')
-	$('#horse_hair').val('${param.horse_hair}').prop("selected", true);
 	
 	$('#fromDate, #toDate').datepicker({
 		dateFormat: 'yy-mm-dd' //달력 날짜 형태
@@ -83,7 +81,7 @@ $(function () {
 			</form>
 			<p>
 				<span><strong>총 ${data.totalCount }개</strong> |
-					${adminBoardVO.page }/${pageMaker.totalPage }페이지</span>
+					${adminMemberVO.page }/${pageMaker.totalPage }페이지</span>
 			</p>
 
 			<!-- <div class="btnSet" style="text-align: right;">
@@ -101,57 +99,33 @@ $(function () {
 				<tbody>
 					<c:if test="${empty data.list }">
 						<tr>
-							<td class="first" colspan="11">등록된 글이 없습니다.</td>
+							<td class="first" colspan="12">등록된 회원이 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:forEach var="vo" items="${data.list }" varStatus="status">
 						<tr>
-							<td>${data.totalCount-status.index-(adminBoardVO.page-1)*adminBoardVO.pageRow }<!-- 총개수 - 인덱스-(현재페이지번호-1)*페이지당개수 -->
+							<td>${status.index + 1 + (adminBoardVO.page-1)*adminBoardVO.pageRow}<!-- 총개수 - 인덱스-(현재페이지번호-1)*페이지당개수 -->
+							</td>
+							<td class="writer">
+								${vo.member_id }
 							</td>
 							<td>
-								<c:choose>
-									<c:when test="${vo.board_name == 'free' }">자유</c:when>
-								</c:choose>
-								<c:choose>
-									<c:when test="${vo.board_name == 'live' }">생활</c:when>
-								</c:choose>
-								<c:choose>
-									<c:when test="${vo.board_name == 'center' }">보호센터</c:when>
-								</c:choose>
+								${vo.nickname }
 							</td>
+							<td class="txt_l">${vo.email }</td>
 							<td>
-								<c:choose>
-									<c:when test="${vo.horse_hair == '1' }">식당</c:when>
-								</c:choose>
-								<c:choose>
-									<c:when test="${vo.horse_hair == '2' }">관광지</c:when>
-								</c:choose>
-								<c:choose>
-									<c:when test="${vo.horse_hair == '3' }">병원</c:when>
-								</c:choose>
-								<c:choose>
-									<c:when test="${vo.horse_hair == '4' }">여행후기</c:when>
-								</c:choose>
-								<c:choose>
-									<c:when test="${vo.horse_hair == '5' }">추천</c:when>
-								</c:choose>
-								<c:choose>
-									<c:when test="${vo.horse_hair == '6' }">고민</c:when>
-								</c:choose>
-								<c:choose>
-									<c:when test="${vo.horse_hair == '7' }">보호센터</c:when>
-								</c:choose>
+							<c:if test="${vo.gender == 1}">남자</c:if>
+							<c:if test="${vo.gender == 2}">여자</c:if>
 							</td>
-							<td class="txt_l"><a href="/pet/board/${vo.board_name }view.do?board_no=${vo.board_no }">${vo.title}
-									[${ vo.reply_count}]</a></td>
-							<td>${vo.viewcount }</td>
+							<td>${vo.birthday }</td>
+							<td>${vo.level }</td>
+							<td>${vo.board_count }</td>
 							<td>${vo.reply_count }</td>
-							<td>${vo.rec_count }</td>
-							<td>${vo.book_count }</td>
-							<td>${vo.report_count }</td>
-							<td class="writer">${vo.memb_nickname }</td>
 							<td class="date"><fmt:formatDate value="${vo.regdate }"
-									pattern="yy-MM-dd HH:mm:ss" /></td>
+									pattern="yy-MM-dd" /></td>
+							<td class="date"><fmt:formatDate value="${vo.curr_login }"
+									pattern="yy-MM-dd" /></td>
+							<td>출석수</td>
 						</tr>
 					</c:forEach>
 				</tbody>

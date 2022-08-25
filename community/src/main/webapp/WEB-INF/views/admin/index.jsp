@@ -374,9 +374,9 @@ function test() {
 					<dt id="project" class="gnb_menu">회원 관리</dt>
 					<dd class="gnb_submenu">
 						<ul>	
-							<li id="project1_submenu" onclick="clickMenu('project1', '회원관리 - A', '/admin/member/member_list.do', false)">회원 관리 - A</li>
-							<li id="project2_submenu" onclick="clickMenu('project2', '프로젝트 기획', '/project/plan.do', false)">회원 관리 - B</li>
-							<li id="project3_submenu" onclick="clickMenu('project3', '프로젝트 설계', '/project/architecture.do', false)">회원 관리 - C</li>
+							<li id="project1_submenu" onclick="clickMenu('project1', '회원관리 - 목록', '/admin/member/member_list.do', false)">회원 관리 - 목록</li>
+							<li id="project2_submenu" onclick="clickMenu('project2', '회원 관리 - B', '/project/plan.do', false)">회원 관리 - B</li>
+							<li id="project3_submenu" onclick="clickMenu('project3', '회원 관리 - C', '/project/architecture.do', false)">회원 관리 - C</li>
 						</ul>
 					</dd>
 				</dl>

@@ -42,7 +42,13 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/member/member_list.do")
-	public String memberList(Model model, AdminBoardVO vo) {
+	public String memberList(Model model, AdminMemberVO vo) {
+		model.addAttribute("data", service.memberList(vo));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.memberCnt(vo));
+		model.addAttribute("pageMaker", pageMaker);
 		return "admin/member/member_list";
 	}
 }
