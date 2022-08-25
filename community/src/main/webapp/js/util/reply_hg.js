@@ -38,7 +38,7 @@ function adminSearch(id, sort, order) {
 function makeTh(sort, order) {
 	var arr1 = [ 'horse_hair', 'board_name', 'title', 'content', 'reply_count', 'rec_count', 'report_count', 'member_no', 'regdate'];
 	var arr2 = ['말머리', '게시판', '게시판제목', '댓글 내용', '댓글 수', '좋아요 횟수', '신고 횟수', '작성자', '작성일'];
-	//게시판 제목과 댓글의 내용이 같이 나와야 함... / 작성자(작성자별, 신고많이 당한 작성자별)
+	//게시판 제목과 댓글의 내용이 같이 나와야 함... / 작성자(작성자별, 신고많이 당한 작성자별
 	var str3 = '';
 	for (var i = 0 ; i<arr1.length; i++) {
 		var str1 = '';

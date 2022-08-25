@@ -27,6 +27,7 @@
 		#list figure img {
 			width: 100%;
 			height: 200px;
+			cursor: pointer;
 		}
 		
 		.list_content {
@@ -81,8 +82,6 @@
 			</form>
 			<DIV>
 
-			</fieldset>
-		</form>
 		<p>
 			<span><strong>총 ${pageMaker.totalCount }개</strong> | ${boardVO.page }/${pageMaker.totalPage }페이지</span>
 		</p>

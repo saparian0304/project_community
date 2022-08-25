@@ -28,6 +28,7 @@
 		#list figure img {
 			width: 100%;
 			height: 200px;
+			cursor: pointer;
 		}
 		
 		.list_content {

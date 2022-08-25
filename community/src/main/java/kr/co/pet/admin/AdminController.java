@@ -34,4 +34,19 @@ public class AdminController {
 		model.addAttribute("pageMaker", pageMaker);
 		return "admin/board/board_list";
 	}
+	
+	@RequestMapping("/admin/board/reply_list.do")
+	public String replyIndex(Model model, AdminBoardVO vo) {
+		if(vo.getSort() == null) {
+			vo.setSort("regdate");
+			vo.setOrder("DESC");
+		}
+		model.addAttribute("data", service.list(vo));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount((int)((Map)(model.getAttribute("data"))).get("totalCount"));
+		model.addAttribute("pageMaker", pageMaker);
+		return "admin/board/reply_list";
+	}
 }
