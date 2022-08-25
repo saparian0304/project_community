@@ -88,9 +88,9 @@
 						<c:forEach var="vo" items="${ldata.list}" varStatus="status">
 							
 						<div class="swiper-slide">
-							<a href="liveview.do?board_no=${vo.board_no }">
+							<a style="font-size: 16px;" href="liveview.do?board_no=${vo.board_no }">
 							<img src="${vo.filename_real}">
-							<div style="font-size: 20px;">${status.index +1}. ${vo.title }</div>
+							${status.index +1}. ${vo.title }
 							</a>
 						</div>
 							
@@ -114,9 +114,9 @@
 							<th>작성자</th>
 						</tr>
 						<c:forEach var="vo" items="${tdata.list }" varStatus="status">
-						<tr onclick="location.href='liveview.do?board_no=${vo.board_no }';">
-							<td>${vo.title }</td>
-							<td>${vo.nickname }</td>
+						<tr>
+							<td><a href="freeview.do?board_no=${vo.board_no }">${vo.title }</a></td>
+							<td><a href="javascript:info(gno);">${vo.nickname }</a></td>
 						</tr>
 						</c:forEach>
 					</table>
@@ -133,8 +133,8 @@
 							<th>작성자</th>
 						</tr>
 						<c:forEach var="vo" items="${ddata.list }" varStatus="status">
-						<tr onclick="location.href='liveview.do?board_no=${vo.board_no }';">
-							<td>${vo.title }</td>
+						<tr>
+							<td><a href="freeview.do?board_no=${vo.board_no }">${vo.title }</a></td>
 							<td>${vo.nickname }</td>
 						</tr>
 						</c:forEach>
@@ -153,8 +153,8 @@
 							<th>작성자</th>
 						</tr>
 						<c:forEach var="vo" items="${sdata.list }" varStatus="status">
-						<tr onclick="location.href='liveview.do?board_no=${vo.board_no }';">
-							<td>${vo.title }</td>
+						<tr>
+							<td><a href="freeview.do?board_no=${vo.board_no }">${vo.title }</a></td>
 							<td>${vo.nickname }</td>
 						</tr>
 						</c:forEach>
@@ -173,8 +173,8 @@
 							<th>작성자</th>
 						</tr>
 						<c:forEach var="vo" items="${wdata.list }" varStatus="status">
-						<tr onclick="location.href='liveview.do?board_no=${vo.board_no }';">
-							<td>${vo.title }</td>
+						<tr>
+							<td><a href="freeview.do?board_no=${vo.board_no }">${vo.title }</a></td>
 							<td>${vo.nickname }</td>
 						</tr>
 						</c:forEach>

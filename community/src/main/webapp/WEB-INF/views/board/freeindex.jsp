@@ -28,6 +28,13 @@
 			width: 100%;
 			height: 200px;
 		}
+		
+		.list_content {
+			overflow:hidden;
+			text-overflow:ellipsis;
+			white-space:nowrap;
+			width: 170px;
+		}
 			
 	</style>
 
@@ -126,14 +133,13 @@
 							<img  
 								src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
 						</c:if>
-						<div>${vo.title }</div>
-						<div class="leftArea">
-							<div>${vo.board_no }</div>
-							<div>조회수 : ${vo.viewcount }</div>
-							<div>회원 : ${vo.nickname }</div>
+						<div class="s21_tour_list_tbox" style="width: 50%; float: left;">
+							<p class="list_content">제목 : ${vo.title }</p>
+							<p class="list_content">조회수 : ${vo.viewcount }</p>
 						</div>
-						<div class="rightArea" style="text-align: right">
-							<!-- 좋아요 댓글 이미지 -->
+						<div style="width: 49%; float: right; text-align: right;">
+							<img style="width: 15px; height: 15px;" src="https://previews.123rf.com/images/captainvector/captainvector1512/captainvector151209976/81535071-%EB%8C%93%EA%B8%80-%EC%95%84%EC%9D%B4%EC%BD%98.jpg">${vo.rep }
+							<img style="width: 15px; height: 15px;" src="/pet/img/icon_like_black.png">${vo.rec }
 						</div>
 					</figure>
 				</div>
