@@ -25,25 +25,48 @@
 	</update>
 	
 	<select id="getReportList" parameterType="kr.co.pet.report.ReportVO" resultType="kr.co.pet.report.ReportVO">
-		SELECT *,
+		SELECT 
+			report_no, i_no, you_no, reason, report.content, report_date, 
+			reply_no, report.board_no, stat, resdate, 
+			board_name, horse_hair, title as target_title, regdate, update_date,
 			(SELECT count(*) 
 			FROM report sub 
 			WHERE sub.board_no = report.board_no 
 				AND sub.reply_no = report.reply_no 
-				AND sub.stat != 'reject') sumCnt
-		FROM report 
-		<if test='stat != null'>
-			WHERE stat = #{stat}
- 		</if>
+			) sumCnt,
+			(SELECT nickname FROM member WHERE member.member_no = i_no) i_nickname,
+			(SELECT nickname FROM member WHERE member.member_no = you_no) you_nickname,
+			(SELECT content FROM reply WHERE reply.reply_no = report.reply_no) target_reply
+		FROM report left join board
+		ON report.board_no = board.board_no
+		<where>
+			<if test="reply_no == 0">
+				report.reply_no = 0
+			</if>
+			<if test="reply_no != 0">
+				report.reply_no = #{reply_no}
+			</if>
+			<if test='stat != null'>
+				AND stat = #{stat}
+	 		</if>
+		</where>
 		ORDER BY report_no DESC
 	</select>
 	
 	<select id="getCount" parameterType="kr.co.pet.report.ReportVO" resultType="int">
 		SELECT COUNT(*)
 		FROM report 
-		<if test='stat != null'>
-			WHERE stat = #{stat}
- 		</if>
+		<where>
+			<if test="reply_no == 0">
+				report.reply_no = 0
+			</if>
+			<if test="reply_no != 0">
+				report.reply_no = #{reply_no}
+			</if>
+			<if test='stat != null'>
+				AND stat = #{stat}
+	 		</if>
+		</where>
 		ORDER BY report_no DESC
 	</select>
 	
@@ -53,7 +76,11 @@
 			FROM report sub 
 			WHERE sub.board_no = report.board_no 
 				AND sub.reply_no = report.reply_no 
-				AND sub.stat != 'reject') sumCnt
+			) sumCnt,
+			(SELECT nickname FROM member WHERE member.member_no = i_no) i_nickname,
+			(SELECT nickname FROM member WHERE member.member_no = you_no) you_nickname,
+			(SELECT title FROM board WHERE board.board_no = report.board_no) target_title,
+			(SELECT content FROM reply WHERE reply.reply_no = report.reply_no) target_reply
 		FROM report 
 		WHERE report_no = #{report_no}
 		<if test='stat != null'>
@@ -85,4 +112,15 @@
  		</if>
 	</select>
 	
+	<update id="adminDeleteB" parameterType="kr.co.pet.report.ReportVO" >
+		UPDATE board SET
+		isdelete = 2
+		WHERE board_no = #{board_no}
+	</update>
+	
+	<update id="adminDeleteR" parameterType="kr.co.pet.report.ReportVO" >
+		UPDATE reply SET
+		isdelete = 2
+		WHERE reply_no = #{reply_no}
+	</update>
 </mapper>

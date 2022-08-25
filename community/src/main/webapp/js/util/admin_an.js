@@ -58,3 +58,9 @@ function makeTh(sort, order) {
 	}
 	$('tr > th[scope="col"]').after(str3);
 }
+
+
+// 윈도우창 닫기
+function winClose(){
+	  window.open('','_self').close(); 
+};

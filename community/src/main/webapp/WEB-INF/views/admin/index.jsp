@@ -62,7 +62,7 @@ $(document).ready(function(){
         $(this).next(".gnb_submenu").slideToggle();
     });
     
-    clickMenu('main1', 'Main', '/main/index.do', true);
+    clickMenu('main1', 'Main', '/admin/main/index.do', true);
     
     $("#pass").bind("keydown", function(e) {
 		if (e.keyCode == 13) { // enter key
@@ -368,7 +368,7 @@ function test() {
 						<ul>	
 							<li id="board1_submenu" onclick="clickMenu('board1', '게시판 관리', '/admin/board/board_list.do', false)">게시판 관리</li>
 							<li id="board2_submenu" onclick="clickMenu('board2', '댓글 관리', '/admin/board/comment.do', false)">댓글 관리</li>
-							<li id="board3_submenu" onclick="clickMenu('board3', '신고 관리', '/admin/board/report.do', false)">신고 관리</li>
+							<li id="board3_submenu" onclick="clickMenu('board3', '신고 관리', '/admin/board/report_board.do', false)">신고 관리</li>
 						</ul>
 					</dd>
 					<dt id="project" class="gnb_menu">회원 관리</dt>

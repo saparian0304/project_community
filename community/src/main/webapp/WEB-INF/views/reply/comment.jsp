@@ -177,10 +177,13 @@ function friinsert(member_no){
 					</c:choose>
                    </button>
                    
-                   <c:if test="${vo.isdelete == true }">
+                   <c:if test="${vo.isdelete == 2 }">
+                       &emsp;&emsp; 관리자에 의해 삭제된 댓글입니다.
+                   </c:if>
+                   <c:if test="${vo.isdelete == 1 }">
                        &emsp;&emsp; 삭제된 댓글입니다.
                    </c:if>
-                   <c:if test="${vo.isdelete == false }">
+                   <c:if test="${vo.isdelete == 0 }">
                     &emsp;&emsp; ${vo.content} &nbsp;&nbsp;
                     	<c:choose>
                     		<c:when test="${loginInfo.member_no == vo.member_no }">

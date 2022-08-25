@@ -39,7 +39,7 @@ public class ReportController {
 		}
 		
 		if (service.report(vo)>0) {
-			model.addAttribute("url", "/pet/board/main.do");	// 접수 후 이동할 url 입력 필요
+			model.addAttribute("url", "/pet/report/view.do?close_=true");	// 접수 후 이동할 url 입력 필요
 			model.addAttribute("msg", "신고가 정상적으로 접수되었습니다.");
 		} else {
 			model.addAttribute("msg", "접수 중에 오류가 발생하였습니다. 잠시 후에 다시 시도해주십시오.");
@@ -52,11 +52,10 @@ public class ReportController {
 	 * @param vo ReportVO - report_no, stat
 	 * @return 신고처리 후 페이지 이동
 	 */
-	@ResponseBody
 	@RequestMapping("report/handle.do")
-	public String handle(@RequestBody ReportVO vo, Model model) {
+	public String handle(ReportVO vo, Model model) {
 		if (service.handle(vo)>0) {
-			model.addAttribute("url", "");	// 접수 후 이동할 url 입력 필요
+			model.addAttribute("url", "/pet/admin/board/report_board.do");	// 접수 후 이동할 url 입력 필요
 			model.addAttribute("msg", "정상 처리되었습니다.");
 		} else {
 			model.addAttribute("msg", "처리 중에 오류가 발생하였습니다.");
