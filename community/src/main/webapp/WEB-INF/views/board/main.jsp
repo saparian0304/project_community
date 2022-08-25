@@ -116,7 +116,7 @@
 						<c:forEach var="vo" items="${tdata.list }" varStatus="status">
 						<tr>
 							<td><a href="freeview.do?board_no=${vo.board_no }">${vo.title }</a></td>
-							<td>${vo.nickname }</td>
+							<td><a href="javascript:info(gno);">${vo.nickname }</a></td>
 						</tr>
 						</c:forEach>
 					</table>
