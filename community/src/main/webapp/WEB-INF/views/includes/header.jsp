@@ -38,10 +38,8 @@
 				board_no : board_no					
 			},
 			success : function(){
-				alret("성공");
 			},
 			error : function(){
-				alert("실패");
 			}
 		})
 	}
@@ -57,6 +55,9 @@
 				type : 'get',
 				success : function(res){
 					$('div.socketAlert').html(res);
+					if ($('div.socketAlert').val().trim() != null){
+						$('img.socketAlert').attr("src", "/pet/img/isalram.png");
+					}					
 				}
 			})
 		
