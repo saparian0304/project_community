@@ -146,7 +146,9 @@ public class HandlerAlram extends TextWebSocketHandler {
 						boardWriterSession.sendMessage(tmpMsg);	
 					}
 					vo.setLink(str);
-					mapper.insert(vo);
+					if(str.trim() != "") {
+						mapper.insert(vo);
+					}
 				}
 			}
 		}

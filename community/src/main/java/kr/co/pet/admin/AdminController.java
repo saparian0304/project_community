@@ -24,8 +24,10 @@ public class AdminController {
 	public String index() {
 		return "admin/index";
 	}
+	
+	// 메인 들어가자 마자 보이게
 	@RequestMapping("/admin/main/index.do")
-	public String mainIndex() {
+	public String mainindex() {
 		return "admin/main/index";
 	}
 	
@@ -58,5 +60,16 @@ public class AdminController {
 		pageMaker.setTotalCount((int)((Map)(model.getAttribute("data"))).get("totalCount"));
 		model.addAttribute("pageMaker", pageMaker);
 		return "admin/board/report_board";
+	}
+	
+	@RequestMapping("/admin/member/member_list.do")
+	public String memberList(Model model, AdminMemberVO vo) {
+		model.addAttribute("data", service.memberList(vo));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(vo);
+		pageMaker.setTotalCount(service.memberCnt(vo));
+		model.addAttribute("pageMaker", pageMaker);
+		return "admin/member/member_list";
 	}
 }

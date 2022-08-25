@@ -335,7 +335,7 @@ header{
 	position: absolute; left: 0; top: 0;
 	z-index: 100;
 	width: 100%; height: 113px;
-	background: rgba(0,0,0,0.5);
+	background: rgb(81, 97, 100, 0.7);
 }
 
 header .header_area{
@@ -856,11 +856,10 @@ v h3 em{
 .location_area h2.tit_page{
 	padding: 250px 0 0 0;
 	margin: 0 50px;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 2px solid black;
 	font-size: 30px;
-	font-family: 'Arial Narrow';
-	letter-spacing: 3px;
-	color: #fff;
+	font-style: black;
+	font-family: 'Jua', sans-serif;
 }
 
 .location_area h2.tit_page .in{
