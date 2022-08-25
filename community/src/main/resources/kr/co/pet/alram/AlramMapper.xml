@@ -25,7 +25,9 @@
 		WHERE read_no = #{member_no}
 		AND send_no != #{member_no}
 		AND isread = 0
+		AND link IS NOT null
 		ORDER BY alram_no desc
+		LIMIT 10
 	</select>
 	
 	<update id="isRead" parameterType="kr.co.pet.alram.AlramVO">

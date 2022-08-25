@@ -55,9 +55,9 @@
 				type : 'get',
 				success : function(res){
 					$('div.socketAlert').html(res);
-					if ($('div.socketAlert').val().trim() != null){
+					if ($('div.alrList').val() != null){
 						$('img.socketAlert').attr("src", "/pet/img/isalram.png");
-					}					
+					}	
 				}
 			})
 		
