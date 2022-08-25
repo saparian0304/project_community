@@ -112,6 +112,7 @@ function block(member_no){
 	}
 </c:if>
 } 
+// 친구요청
 function friinsert(member_no){
 	<c:if test="${empty loginInfo}">
 	 	alert('로그인 후 사용해 주세요');

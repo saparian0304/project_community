@@ -122,9 +122,9 @@
 		from board WHERE board_no = #{board_no}
 	</select>
 	
-	<delete id="delete" parameterType="int">
-		DELETE FROM board WHERE board_no = #{board_no} 
-	</delete>
+	<update id="delete" parameterType="int">
+		update board set isdelete = 1 WHERE board_no = #{board_no} 
+	</update>
 	
 	<update id="update" parameterType="kr.co.pet.board.BoardVO" >
 		UPDATE board SET
