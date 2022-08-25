@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="/pet/css/contents.css"/> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script type="text/javascript" src="/pet/js/location.js"></script>
+	<style>
+	@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+	</style>
 </head>
 	<%@ include file="/WEB-INF/views/includes/alram.jsp" %>   
 <script>
@@ -38,10 +41,8 @@
 				board_no : board_no					
 			},
 			success : function(){
-				alret("성공");
 			},
 			error : function(){
-				alert("실패");
 			}
 		})
 	}
@@ -57,6 +58,9 @@
 				type : 'get',
 				success : function(res){
 					$('div.socketAlert').html(res);
+					if ($('div.alrList').val() != null){
+						$('img.socketAlert').attr("src", "/pet/img/isalram.png");
+					}	
 				}
 			})
 		

@@ -86,9 +86,12 @@
 					<h2>< 관광지 TOP 5 ></h2>
 					<div class="swiper-wrapper">
 						<c:forEach var="vo" items="${ldata.list}" varStatus="status">
-							<div style="font-size: 20px;">${status.index +1}</div>
+							
 						<div class="swiper-slide">
-							<a href=""><img alt="" src="${vo.filename_real}"></a>
+							<a style="font-size: 16px;" href="liveview.do?board_no=${vo.board_no }">
+							<img src="${vo.filename_real}">
+							${status.index +1}. ${vo.title }
+							</a>
 						</div>
 							
 						</c:forEach>
@@ -112,13 +115,12 @@
 						</tr>
 						<c:forEach var="vo" items="${tdata.list }" varStatus="status">
 						<tr>
-							<td>${vo.title }</td>
-							<td>${vo.nickname }</td>
+							<td><a href="freeview.do?board_no=${vo.board_no }">${vo.title }</a></td>
+							<td><a href="javascript:info(gno);">${vo.nickname }</a></td>
 						</tr>
 						</c:forEach>
 					</table>
 				</div>
-				
 				<div class="maindiv" style="float: right;">
 					<h2>< 정보공유 ></h2>
 					<table class="maintb">
@@ -132,7 +134,7 @@
 						</tr>
 						<c:forEach var="vo" items="${ddata.list }" varStatus="status">
 						<tr>
-							<td>${vo.title }</td>
+							<td><a href="freeview.do?board_no=${vo.board_no }">${vo.title }</a></td>
 							<td>${vo.nickname }</td>
 						</tr>
 						</c:forEach>
@@ -152,7 +154,7 @@
 						</tr>
 						<c:forEach var="vo" items="${sdata.list }" varStatus="status">
 						<tr>
-							<td>${vo.title }</td>
+							<td><a href="freeview.do?board_no=${vo.board_no }">${vo.title }</a></td>
 							<td>${vo.nickname }</td>
 						</tr>
 						</c:forEach>
@@ -172,7 +174,7 @@
 						</tr>
 						<c:forEach var="vo" items="${wdata.list }" varStatus="status">
 						<tr>
-							<td>${vo.title }</td>
+							<td><a href="freeview.do?board_no=${vo.board_no }">${vo.title }</a></td>
 							<td>${vo.nickname }</td>
 						</tr>
 						</c:forEach>
