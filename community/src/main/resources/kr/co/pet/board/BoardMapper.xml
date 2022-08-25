@@ -34,13 +34,13 @@
 		
 		<!-- 말머리가없을때(전체) 검색결과 나오게 위 코드와 따로 분리 -->
 		
-		<if test="sido1 != null and sido1 !=''"> <!--     test="vo"에 들어있는 변수명" -->
-			and addr LIKE '%${sido1}%'           <!--   'addr'은 db에있는 컬럼명, '%${sido1}%'은 받아온 파라미터 값(vo에 있는 변수명) -->
+		<if test="sido1 != null and sido1 !=''">    <!-- test="vo"에 들어있는 변수명" -->
+			and addr LIKE '%${sido1}%'             <!-- 'addr'은 db에있는 컬럼명, '%${sido1}%'은 받아온 파라미터 값(vo에 있는 변수명) -->
 		</if> 
 		
 		<if test="gugun1 != null and gugun1 !=''">
 			and addr2 LIKE '%${gugun1}%'
-		</if> 
+		</if>
 		
 		<if test="stype != null and stype != ''">
 			<if test="stype != 'all'">

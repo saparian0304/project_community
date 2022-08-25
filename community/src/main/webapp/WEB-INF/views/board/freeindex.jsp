@@ -50,10 +50,6 @@
 		<form action="#" id="minisrch_form" method="get" class="minisrch_form">
 			<input type="hidden" name="horse_hair" id="horse_hair" value="">
 			<fieldset>
-				<div class="selectSi_gu">
-					<select name="sido1" id="sido1"></select>
-					<select name="gugun1" id="gugun1"></select>
-				</div>
 			
 				<span> 
 				<select id="stype" name="stype" class="dSelect" title="검색분류 선택">
@@ -83,7 +79,7 @@
 		<!-- 탭 부분 -->
 
 		
-				 <table width="707px" cellspacing="0" cellpadding="0" border="0" align="center" style="margin-top: 30px;" >
+				 <table style="width: 707px; cellspacing:0; cellpadding:0; border:0; align:center; margin-top: 30px;" >
 				  <tr>
 				  
 				   <td><a href="javascript:horse_hairSearch('');">전체</a></td>
