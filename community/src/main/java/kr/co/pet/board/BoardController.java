@@ -57,7 +57,13 @@ public class BoardController {
 	MemberService mService;
 
 	@GetMapping("/board/main.do")
-	public String index(Model model, BoardVO vo) {
+	public String index(Model model, BoardVO vo, HttpSession sess) {
+		System.out.println("############################");
+		System.out.println("############################");
+		System.out.println("############################");
+		System.out.println(sess.getAttribute("userid"));
+		System.out.println("############################");
+		System.out.println("############################");
 		vo.setMain("main");
 		vo.setHorse_hair("2");
 		vo.setPageRow(5);
