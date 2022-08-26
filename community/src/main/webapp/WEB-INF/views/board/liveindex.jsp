@@ -1,25 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<script>
+var loc = "${param.sido1}";
+var loc_gugun ="${param.gugun1}";
+</script>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
     <script src="/pet/js/function.js"></script>
+    <!-- header에 js파일 있음. 확인해보고 script 쓰기!!!! -->
 <script>
-
+	$(function() {
+		$("select[name=sido1]").trigger("change");
+	})
 	function total_search(val) {
-		/* if(val == '') {
-			$("#horse_hair").val('');
-		} else {
-			$("#horse_hair").val(val); */ // 파라미터를 폼안에 있는 히든에 넣어주기(말머리+검색어까지 같이 사용하기위해)
+		
 		if(val ==''){
 			$("#search_str").val('');
 		} else {
-			$("#search_str").val(val);
+			$("#search_str").val(val);   // 파라미터를 폼안에 있는 히든에 넣어주기(말머리+검색어까지 같이 사용하기위해)
 		}
 		
 		if($("#sido1").val() == "시/도 선택"){
 			
 			$('#sido1').val("");
 		}
+		if($("#gugun1").val() == "구/군 선택"){
+			
+			$('#gugun1').val("");
+		}
 		$("#minisrch_form").submit(); // 폼을 전송
 	}
+	
 	
 
 	
@@ -43,7 +52,7 @@
 			overflow:hidden;
 			text-overflow:ellipsis;
 			white-space:nowrap;
-			width: 170px;
+			width: 250px;
 		}
 		ul.tabs{
 			margin: 0px;
@@ -109,9 +118,9 @@
 				
 					<select id="horse_hair" name="horse_hair" class="hSelect" title="말머리검색">
 						<option value="">전체</option>
-						<option value="1"<c:if test="${place eq '1' }">selected</c:if>>음식점</option>
-						<option value="2"<c:if test="${place eq '2' }">selected</c:if>>관광지</option>
-						<option value="3"<c:if test="${place eq '3' }">selected</c:if>>병원</option>
+						<option value='1'<c:if test="${param.horse_hair eq '1' }">selected</c:if>>음식점</option>
+						<option value='2'<c:if test="${param.horse_hair eq '2' }">selected</c:if>>관광지</option>
+						<option value='3'<c:if test="${param.horse_hair eq '3' }">selected</c:if>>병원</option>
 					</select>
                    
 				   <select id="stype" name="stype" class="dSelect" title="검색분류 선택">
@@ -196,22 +205,22 @@
           	 <a style="cursor:pointer" class="firstpage pbtn">
           	 	<img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 ">
           	 </a>
-				<c:if test="${pageMaker.prev == true }">
-					<a class="prevpage pbtn" href="liveindex.do?horse_hair=${param.horse_hair}&page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}"><</a>
-					<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
-				</c:if>
-				<c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage}">
-					<a href='liveindex.do?horse_hair=${param.horse_hair}&page=${p }&stype=${param.stype}&sword=${param.sword}'
-						class='pagenum <c:if test="${boardVO.page ==p }">currentpage</c:if>'>${p }</a>
-				</c:forEach>
-				<c:if test="${pageMaker.next == true }">
-					<a class="nextpage pbtn" href="liveindex.do?horse_hair=${param.horse_hair}&page=${pageMaker.endPage +1}">
-					<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
-					</a>
-				</c:if>
-				<a style="cursor: pointer" class="lastpage pbtn">
-			        <img src="/pet/img/btn_lastpage.png" alt="마지막 페이지로 ">
-   				</a>
+			 <c:if test="${pageMaker.prev == true }">
+				<a class="prevpage pbtn" href="liveindex.do?horse_hair=${param.horse_hair}&page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}"><</a>
+				<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
+			</c:if>
+			<c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage}">
+				<a href='liveindex.do?horse_hair=${param.horse_hair}&page=${p }&stype=${param.stype}&sword=${param.sword}'
+					class='pagenum <c:if test="${boardVO.page ==p }">currentpage</c:if>'>${p }</a>
+			</c:forEach>
+			<c:if test="${pageMaker.next == true }">
+				<a class="nextpage pbtn" href="liveindex.do?horse_hair=${param.horse_hair}&page=${pageMaker.endPage +1}">
+				<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
+				</a>
+			</c:if>
+			<a style="cursor: pointer" class="lastpage pbtn">
+			    <img src="/pet/img/btn_lastpage.png" alt="마지막 페이지로 ">
+	  		</a>
 		   </div>
 		</div>
 	</div>
