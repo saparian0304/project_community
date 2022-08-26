@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import kr.co.pet.file.FileMapper;
 import kr.co.pet.loc.LocMapper;
 import kr.co.pet.loc.LocVO;
+import kr.co.pet.member.MemberMapper;
+import kr.co.pet.member.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -27,6 +29,7 @@ public class BoardServiceImpl implements BoardService{
 		
 		// 총 게시물
 		int totalCount = mapper.count(vo);
+		
 				
 		//게시물 리스트
 		List list = mapper.list(vo);

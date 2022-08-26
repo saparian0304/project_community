@@ -71,12 +71,19 @@ public class MemberServiceImpl implements MemberService {
 		boolean l = false;
 		MemberVO loginInfo = mapper.loginCheck(vo);
 		
+		int v = mapper.visitUpdate(vo) > 0 ? 1 : 0; // visit_count 
+		
 		if (loginInfo != null) {
 			l = true;
 			// 로그인 성공하면 세션에 저장. 로그인 한 홈페이지안에서 돌아다녀도 로그인상태 계속 유지되도록.
 			sess.setAttribute("loginInfo", loginInfo);
 			
-			mapper.updateCurr(loginInfo); // 로그인했을때 방문날짜 update			
+			mapper.updateCurr(loginInfo); // 로그인했을때 방문날짜 update	
+			
+			if( v != 1 ) {
+				mapper.visit(loginInfo);
+				
+			}			
 		}
 		return l;
 	}

@@ -24,9 +24,8 @@
 		if ($("#member_id").val().trim() == ''){
 			   alert('아이디를 입력해주세요.');
 			   $("#member_id").focus();
-			   return;   
-	   	
-	   	}
+			   return; 
+		}
 		
 		if ($("#pwd").val().trim() == ''){
 			   alert('비번을 입력해주세요.');
@@ -69,11 +68,21 @@
 			   return;   
 	   	
 	   	}
+		
+		if ($("#nickname").val().trim() == ''){
+			   alert('닉네임을 입력해주세요.');
+			   $("#nickname").focus();
+			   return;   
+	   	
+	   	}
+		
 
 		/* console.log("member_id : "+ member_id);
 		console.log("email : "+ email);
 		console.log("name : "+ name);
 		console.log("pwd : "+ pwd); */
+		
+		
 		$('#frm').submit();
 	}
 	function checkemail(){
@@ -112,6 +121,7 @@
 		} 
 	}
     function checkId(){
+    	
     	var member_id = $('#member_id').val();
     	if ($("#member_id").val().trim() == ''){
     		//alert('아이디 입력하셈.');
@@ -133,16 +143,19 @@
                 } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
                     $('.id_already').css("display","inline-block");
                     $('.id_ok').css("display", "none");
+                    $('#member_id').val(''); 
                     //alert("아이디를 다시 입력해주세요");
-                    //$('#member_id').val('');
+                    
                 }
+            
             },
             error:function(){
                 alert("에러입니다");
             }
         });
+     
+        }
         
-    };
     function checkNick(){
     	if ($("#nickname").val().trim() == ''){
     		$('.nick_ok').css("display","none"); 
@@ -162,6 +175,8 @@
                	 } else { // cnt가 1일 경우 -> 이미 존재하는 닉네임
                     $('.nick_already').css("display","inline-block");
                     $('.nick_ok').css("display", "none");
+                    $('#nickname').val('');
+                    $("#nickname").focus();
                 }
             },
             error:function(){
@@ -354,7 +369,7 @@
 					<tbody>
 						<tr>
 							<th>*아이디</th>
-							<td><input type="text" name="member_id" id="member_id" oninput="checkId()" style="float: left;">
+							<td><input type="text" name="member_id" id="member_id" onfocusout="checkId()" style="float: left;">
 							<span class="id_ok">사용 가능한 아이디입니다.</span>
 							<span class="id_already">누군가 이 아이디를 사용하고 있어요.</span>
 							</td>

@@ -116,10 +116,28 @@
 			(SELECT COUNT(*) FROM board WHERE board.member_no = member.member_no AND isdelete = 0) AS board_count,
 			(SELECT COUNT(*) FROM reply WHERE reply.member_no = member.member_no AND isdelete = 0) AS reply_count
 		FROM member
-		Limit #{startIdx},${pageRow}
+		<if test="stype1 == 'member_id'">
+		WHERE member_id = #{sword1}
+		</if>
+		<if test="stype1 == 'nickname'">
+		WHERE nickname = #{sword1}
+		</if>
+		ORDER BY ${sort} ${order}
+		LIMIT #{startIdx},${pageRow}
 	</select>
 	
 	<select id="memberCnt" parameterType="kr.co.pet.admin.AdminMemberVO" resultType="int">
 		SELECT COUNT(*) FROM member
+	</select>
+	
+	<select id="replyList" parameterType="kr.co.pet.admin.AdminReplyVO" resultType="kr.co.pet.admin.AdminReplyVO">
+		SELECT
+			reply.content, reply.member_no, reply.regdate, reply.gno,
+			board.horse_hair, board.board_name, board.title,
+			(SELECT count(*) FROM recommend WHERE recommend.reply_no = reply.reply_no) rec_count,
+			(SELECT count(*) FROM report WHERE report.reply_no = reply.reply_no) rep_count
+		FROM reply LEFT JOIN board
+		ON board.board_no = reply.board_no; 
+				
 	</select>
 </mapper>

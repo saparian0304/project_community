@@ -143,14 +143,14 @@ $(function () {
 								</c:choose>
 							</td>
 							<td class="txt_l"><a href="/pet/board/${vo.board_name }view.do?board_no=${vo.board_no }">${vo.title}
-									[${ vo.reply_count}]</a></td>
-							<td>${vo.viewcount }</td>
-							<td>${vo.reply_count }</td>
-							<td>${vo.rec_count }</td>
-							<td>${vo.book_count }</td>
-							<td>${vo.reply_count }</td>
-							<td>${vo.report_count }</td>
-							<td class="writer">${vo.memb_nickname }</td>
+									</a></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td class="writer"></td>
 							<td class="date"><fmt:formatDate value="${vo.regdate }"
 									pattern="yy-MM-dd HH:mm:ss" /></td>
 						</tr>
