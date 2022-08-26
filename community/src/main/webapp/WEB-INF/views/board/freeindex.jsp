@@ -42,7 +42,7 @@
 	<ul class="skipnavi">
 		<li><a href="#container">본문내용</a></li>
 	</ul>
-	<div id="wrap">
+<div id="wrap">
 	<div class="container">
 		<!-- 위치(페이지 제목)영역 -->
 		<div class="location_area customer">
@@ -54,67 +54,55 @@
 		</div>
 	
 		<!--  목록영역 -->
-	<div class="bodytext_area box_inner" style="width:80%">
-		<form action="#" id="minisrch_form" method="get" class="minisrch_form">
-			<input type="hidden" name="horse_hair" id="horse_hair" value="">
-			<fieldset>
-				<span> 
-				<select id="stype" name="stype" class="dSelect" title="검색분류 선택">
-						<option value="all">전체</option>
-						<option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
-						<option value="content"<c:if test="${stype eq 'content' }">selected</c:if>>내용</option>
-				</select> 
-				<legend> 검색 </legend> 
-				<input type="text" class="tbox" id="sval" name="sword" value="${sword }"
-					onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');"
-					title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
-				<a href="javascript:horse_hairSearch('${param.horse_hair }')" class="btn_srch">검색</a>
-				</span>
-
-				</fieldset>
-				
-				
+		<div  style="width:1280px; margin:20px auto;">
+			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
+				<input type="hidden" name="horse_hair" id="horse_hair" value="">
+				<fieldset>
+					<span> 
+						<select id="stype" name="stype" class="dSelect" title="검색분류 선택">
+							<option value="all">전체</option>
+							<option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
+							<option value="content"<c:if test="${stype eq 'content' }">selected</c:if>>내용</option>
+						</select> 
+						<legend> 검색 </legend> 
+						<input type="text" class="tbox" id="sval" name="sword" value="${sword }"
+								onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');"
+								title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
+						<a href="javascript:horse_hairSearch('${param.horse_hair }')" class="btn_srch">검색</a>
+					</span>	
+				</fieldset>					
 			</form>
-			<DIV>
-<<<<<<< HEAD
-
-=======
-
-			</fieldset>
-		</form>
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
-		<p>
-			<span><strong>총 ${pageMaker.totalCount }개</strong> | ${boardVO.page }/${pageMaker.totalPage }페이지</span>
-		</p>
-
-		<!-- 탭 부분 -->		
-		
-				 <table style="width: 707px; cellspacing:0; cellpadding:0; border:0; align:center; margin-top: 30px;" >
-				  <tr>
-				  
-				   <td><a href="javascript:horse_hairSearch('');">전체</a></td>
-				   <td><a href="javascript:horse_hairSearch('6');">여행후기</a></td>
-				   <td><a href="javascript:horse_hairSearch('5');">정보공유</a></td>
-				   <td><a href="javascript:horse_hairSearch('7');">고민상담</a></td>
-				   <td><a href="javascript:horse_hairSearch('4');">잡담</a></td>
-				       
-				  </tr>
-				  <tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>
-				</table>
-			</DIV>
-
-		<c:if test="${empty loginInfo }">
-			<div class="btnSet" style="text-align: right;">
-				<a class="btn" href="/pet/member/login.do">글작성 </a>
-			</div>
-		</c:if>
-
-		<c:if test="${!empty loginInfo }">
-			<div class="btnSet" style="text-align: right;">
-				<a class="btn" href="/pet/board/freewrite.do">글작성 </a>
-			</div>
-		</c:if>
-	<c:if test="${empty data.list }">
+		</div>
+		<div style="width:1280px; margin: 0 auto;">
+			<div>
+				<p>
+					<span><strong>총 ${pageMaker.totalCount }개</strong> | ${boardVO.page }/${pageMaker.totalPage }페이지</span>
+				</p>
+				<!-- 탭 부분 -->			
+				<table style="width: 707px; cellspacing:0; cellpadding:0; border:0; align:center; margin-top: 30px;" >
+					<tr>				  
+						 <td><a href="javascript:horse_hairSearch('');">전체</a></td>
+						 <td><a href="javascript:horse_hairSearch('6');">여행후기</a></td>
+						 <td><a href="javascript:horse_hairSearch('5');">정보공유</a></td>
+						 <td><a href="javascript:horse_hairSearch('7');">고민상담</a></td>
+						 <td><a href="javascript:horse_hairSearch('4');">잡담</a></td>				       
+					</tr>
+					<tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>
+				</table>			
+	
+				<c:if test="${empty loginInfo }">
+					<div class="btnSet" style="text-align: right;">
+						<a class="btn" href="/pet/member/login.do">글작성 </a>
+					</div>
+			</c:if>
+	
+			<c:if test="${!empty loginInfo }">
+					<div class="btnSet" style="text-align: right;">
+						<a class="btn" href="/pet/board/freewrite.do">글작성 </a>
+					</div>
+			</c:if>
+			</div>	
+			<c:if test="${empty data.list }">
 				<tr>
 					<td class="first" colspan="5">등록된 글이 없습니다.</td>
 				</tr>
@@ -145,6 +133,7 @@
 				</div>
 			</c:forEach>
 		</div>
+		<!-- 페이지처리 -->
 		<div class="pagenation" style="clear: left">
 			<a style="cursor: pointer" class="firstpage pbtn">
 		        <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
@@ -169,11 +158,5 @@
 		</div>
 	</div>
 </div>
-
-<!-- 페이지처리 -->
-
-
-<!-- -->
-
 </body>
 </html>

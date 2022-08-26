@@ -64,11 +64,15 @@ public class AdminController {
 	
 	@RequestMapping("/admin/member/member_list.do")
 	public String memberList(Model model, AdminMemberVO vo) {
+		if(vo.getSort() == null) {
+			vo.setSort("member_no");
+			vo.setOrder("ASC");
+		}
 		model.addAttribute("data", service.memberList(vo));
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(vo);
-		pageMaker.setTotalCount(service.memberCnt(vo));
+		pageMaker.setTotalCount((int)((Map)(model.getAttribute("data"))).get("totalCount"));
 		model.addAttribute("pageMaker", pageMaker);
 		return "admin/member/member_list";
 	}
