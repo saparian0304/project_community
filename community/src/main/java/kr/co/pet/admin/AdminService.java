@@ -8,4 +8,7 @@ public interface AdminService {
 	
 	Map memberList(AdminMemberVO vo);
 	int memberCnt(AdminMemberVO vo);
+	
+	//댓글관리 - 박 -
+	Map replyList(AdminReplyVO vo);
 }

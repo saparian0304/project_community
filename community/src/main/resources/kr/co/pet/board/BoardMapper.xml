@@ -70,10 +70,10 @@
 			) as filename_real,
 			(select count(*) from recommend
 				where recommend.board_no = board.board_no and reply_no = '0'
-			) as rec,
+			) as rec_count,
 			(select count(*) from reply
 				where reply.board_no = board.board_no
-			) as rep
+			) as reply_count
 		from board left join location
 		ON board.board_no = location.board_no
 		where board_name = #{board_name}
@@ -106,7 +106,7 @@
 			</if>
 		</if>
 		<if test="main != null">
-			order by rec desc, viewcount desc
+			order by rec_count desc, viewcount desc
 		</if>
 		<if test="main == null">
 		order by regdate desc

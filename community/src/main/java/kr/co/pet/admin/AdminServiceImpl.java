@@ -46,4 +46,20 @@ public class AdminServiceImpl implements AdminService {
 	public int memberCnt(AdminMemberVO vo) {
 		return mapper.memberCnt(vo);
 	}
+
+
+	@Override
+	public Map replyList(AdminReplyVO vo) {
+		Map map = new HashMap();
+		List list = mapper.replyList(vo);
+		
+		int totalCount = mapper.replyCnt(vo);
+
+		map.put("totalCount", totalCount);
+		map.put("page", vo.getPage());
+		map.put("list", list);
+
+		return map;
+		
+	}
 }

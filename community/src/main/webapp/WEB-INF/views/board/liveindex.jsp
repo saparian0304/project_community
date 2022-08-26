@@ -183,8 +183,8 @@
 							
 						</div>
 						<div style="width: 49%; float: right; text-align: right;">
-							<img style="width: 15px; height: 15px;" src="https://previews.123rf.com/images/captainvector/captainvector1512/captainvector151209976/81535071-%EB%8C%93%EA%B8%80-%EC%95%84%EC%9D%B4%EC%BD%98.jpg">${vo.rep }
-							<img style="width: 15px; height: 15px;" src="/pet/img/icon_like_black.png">${vo.rec }
+							<img style="width: 15px; height: 15px;" src="https://previews.123rf.com/images/captainvector/captainvector1512/captainvector151209976/81535071-%EB%8C%93%EA%B8%80-%EC%95%84%EC%9D%B4%EC%BD%98.jpg">${vo.reply_count }
+							<img style="width: 15px; height: 15px;" src="/pet/img/icon_like_black.png">${vo.rec_count }
 						</div>
 					</figure>
 				</div>			

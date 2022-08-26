@@ -40,7 +40,7 @@
 			,(SELECT COUNT(*) FROM reply WHERE reply_no = #{gno} AND gno = #{gno} ) AS reply_count
 			,(SELECT COUNT(*) FROM recommend rec 
 				WHERE board_no = #{board_no} AND rec.reply_no = rp.reply_no) AS recommendCount
-			<if test="member_no != null">
+			<if test="member_no != 0">
 				,(SELECT relation FROM follow WHERE follow.i_no=#{member_no} AND follow.you_no = rp.member_no AND follow.relation != 1) AS relation
 				,(SELECT count(*) FROM recommend reco
 				WHERE member_no = #{member_no} AND board_no = #{board_no} AND reco.reply_no = rp.reply_no) AS recommended		

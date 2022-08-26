@@ -74,12 +74,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/board/reply_list.do")
-	public String replyIndex(Model model, AdminBoardVO vo) {
+	public String replyIndex(Model model, AdminReplyVO vo) {
 		if(vo.getSort() == null) {
 			vo.setSort("regdate");
 			vo.setOrder("DESC");
 		}
-		model.addAttribute("data", service.list(vo));
+		model.addAttribute("data", service.replyList(vo));
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(vo);

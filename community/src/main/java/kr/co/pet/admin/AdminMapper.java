@@ -16,4 +16,8 @@ public interface AdminMapper {
 	// 회원관리
 	List memberList(AdminMemberVO vo);
 	int memberCnt(AdminMemberVO vo);
+	
+	//댓글관리 - 박 -
+	List replyList(AdminReplyVO vo);
+	int replyCnt(AdminReplyVO vo);
 }
