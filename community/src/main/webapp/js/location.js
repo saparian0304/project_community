@@ -27,28 +27,31 @@ $('document').ready(function() {
 	
   $select_sido = $(this);
   $.each(eval(area0), function() {
-   $select_sido.append("<option value='"+this+"'>"+this+"</option>");
+	var selectedText = loc == this ? "selected" : "";
+   $select_sido.append("<option value='"+this+"' "+selectedText+">"+this+"</option>");
   });
   $select_sido.next().append("<option value=''>구/군 선택</option>");
  });
 
 
 
+
  // 시/도 선택시 구/군 설정
 
  $("select[name=sido1]").change(function() {
-  var area = "area"+$("option",$(this)).index($("option:selected",$(this))); // 선택지역의 구군 Array
-  var $gugun = $(this).next(); // 선택영역 군구 객체
-  $("option",$gugun).remove(); // 구군 초기화
-
-  if(area == "area0")
-   $gugun.append("<option value=''>구/군 선택</option>");
-  else {
-   $.each(eval(area), function() {
-    $gugun.append("<option value='"+this+"'>"+this+"</option>");
-   });
-  }
+	  var area = "area"+$("option",$(this)).index($("option:selected",$(this))); // 선택지역의 구군 Array
+	  var $gugun = $(this).next(); // 선택영역 군구 객체
+	  $("option",$gugun).remove(); // 구군 초기화
+	
+	  if(area == "area0"){
+	   $gugun.append("<option value=''>구/군 선택</option>");
+	  } else {
+		$gugun.append("<option value='' >전체</option>");
+	   $.each(eval(area), function() {
+		var selectedGugun = loc_gugun == this ? "selected" : "";
+	    $gugun.append("<option value='"+this+"' "+selectedGugun+">"+this+"</option>");
+	   });
+	  }
  });
-
 
 });

@@ -41,7 +41,6 @@ public class AdminServiceImpl implements AdminService {
 		return map;
 	}
 
-
 	@Override
 	public int memberCnt(AdminMemberVO vo) {
 		return mapper.memberCnt(vo);
@@ -62,4 +61,5 @@ public class AdminServiceImpl implements AdminService {
 		return map;
 		
 	}
+
 }

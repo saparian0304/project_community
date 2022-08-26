@@ -49,7 +49,7 @@ public class AdminController {
 	
 	@RequestMapping("/admin/board/report_board.do")
 	public String report_board(Model model, ReportVO vo) {
-		if(vo.getSort() == null) {
+		if(vo.getSort() == null || "".equals(vo.getSort())) {
 			vo.setSort("regdate");
 			vo.setOrder("DESC");
 		}
@@ -64,11 +64,15 @@ public class AdminController {
 	
 	@RequestMapping("/admin/member/member_list.do")
 	public String memberList(Model model, AdminMemberVO vo) {
+		if(vo.getSort() == null) {
+			vo.setSort("member_no");
+			vo.setOrder("ASC");
+		}
 		model.addAttribute("data", service.memberList(vo));
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(vo);
-		pageMaker.setTotalCount(service.memberCnt(vo));
+		pageMaker.setTotalCount((int)((Map)(model.getAttribute("data"))).get("totalCount"));
 		model.addAttribute("pageMaker", pageMaker);
 		return "admin/member/member_list";
 	}
@@ -76,7 +80,7 @@ public class AdminController {
 	@RequestMapping("/admin/board/reply_list.do")
 	public String replyIndex(Model model, AdminReplyVO vo) {
 		if(vo.getSort() == null) {
-			vo.setSort("regdate");
+			vo.setSort("report_date");
 			vo.setOrder("DESC");
 		}
 		model.addAttribute("data", service.replyList(vo));

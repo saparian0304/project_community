@@ -14,12 +14,32 @@
     <link rel="stylesheet" href="/pet/css/reset.css"/>
     <link rel="stylesheet" href="/pet/css/contents.css"/> 
 	<script type="text/javascript" src="/pet/js/util/admin_an.js"></script>
+	<style>
+	input[type='text']{
+		width : 150px;
+	}
+	
+	select {
+		border:1px solid #cccccc;
+		height:32px;
+		box-sizing:border-box;
+	}
+	th, td {
+	white-space : nowrap;
+	text-overflow: ellipsis;
+	}
+	</style>
 <script>
 
 $(function () {
 	// 초기 셋팅
 	change_hair('${param.board_name}')
 	$('#horse_hair').val('${param.horse_hair}').prop("selected", true);
+	
+	var arrColName = [ 'horse_hair', 'board_name', 'title', 'viewcount', 'reply_count', 'rec_count', 'book_count', 'report_count', 'member_no', 'regdate'];
+	var arrHeadName = ['말머리', '게시판', '제목', '조회수', '댓글 수', '좋아요 횟수', '북마크 횟수', '신고 횟수', '작성자', '작성일'];
+	makeTh(arrColName, arrHeadName, '#boardSearch', '${param.sort}', '${param.order}');
+
 	
 	$('#fromDate, #toDate').datepicker({
 		dateFormat: 'yy-mm-dd' //달력 날짜 형태
@@ -37,7 +57,7 @@ $(function () {
        ,minDate: "-5Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
        ,maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
 	});
-	makeTh('${param.sort}', '${param.order}');
+	
 })
 </script>
 </head>
@@ -142,7 +162,7 @@ $(function () {
 									<c:when test="${vo.horse_hair == '7' }">보호센터</c:when>
 								</c:choose>
 							</td>
-							<td class="txt_l"><a href="/pet/board/${vo.board_name }view.do?board_no=${vo.board_no }">${vo.title}
+							<td class="txt_l"><a href="javascript: window.open('/pet/board/${vo.board_name }view.do?board_no=${vo.board_no }', '상세내용', 'width = 800, height = 600, top = 100, left = 100')">${vo.title}
 									[${ vo.reply_count}]</a></td>
 							<td>${vo.viewcount }</td>
 							<td>${vo.reply_count }</td>

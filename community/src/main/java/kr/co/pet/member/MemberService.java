@@ -19,5 +19,8 @@ public interface MemberService {
 	int insertSns(HttpSession sess, String nickname);
 	String getAccessToken(String authorize_code);
 	MemberVO getUserInfo(String access_Token);
+	
+	
+	
 }
 

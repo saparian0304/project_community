@@ -28,5 +28,9 @@ public interface MemberMapper {
 	int insertSns(MemberVO userInfo);
 	
 	int updateCurr(MemberVO vo); // 방문날짜 update
+	
+	int visit(MemberVO vo); // 방문 insert
+	
+	int visitUpdate(MemberVO vo); // 방문 update
 
 }

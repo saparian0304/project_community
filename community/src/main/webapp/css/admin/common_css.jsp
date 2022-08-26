@@ -7,12 +7,12 @@ a:hover{transition: 0.5s !important;}
 /* ==================================================
 	공통레이아웃
 ================================================== */
-#wrap{width:100%; position:relative; width:1200px; margin:0; height:100%; }
+#wrap{width:100%; position:relative; width:1600px; margin:0; height:100%; }
 
 /* ==================================================
 	header
 ================================================== */
-#header{width:100%; position:relative; z-index:99; width:1200px; margin:0; padding:0; height:60px;  border-bottom:2px solid <%=util.Property.color%>;}
+#header{width:100%; position:relative; z-index:99; width:1500px; margin:0; padding:0; height:60px;  border-bottom:2px solid <%=util.Property.color%>;}
 #header h1{position:absolute; left:10px; top:5px;}
 #header .topmenu{position:absolute; right:10px; top:20px;}
 #header .topmenu > li{float:left; width:auto; position:relative; margin-left:20px; }
@@ -24,9 +24,9 @@ a:hover{transition: 0.5s !important;}
 /* ==================================================
 	contents
 ================================================== */
-#container{clear:both; position:relative; width:1200px; height:100%;  margin-top:-62px; padding-top:62px; }
+#container{clear:both; position:relative; width:1500px; height:100%;  margin-top:-62px; padding-top:62px; }
 #menuWrap{position:relative; width:220px; float:left; min-height:100%; background:#f5f5f5; border-right:1px solid #dddddd; position:relative;}
-#contentsWrap{position:relative; float:left; height:100%; padding-left:25px; /*width:955px*/}
+#contentsWrap{position:relative; float:left; height:100%; padding-left:25px; width:1280px;}
 #menuWrap .allmenu{background:#484b56 url(<%=util.Property.contextPath%>/img/admin/ico_allmenu.png) no-repeat 20px center; height:58px; line-height:58px;color:#fff; font-size:16px; padding-left:50px; position:relative;}
 #menuWrap .allmenu .allmenu_con{position:absolute; left:0; width:1200px; top:58px; background:#545762; z-index:99; display:none; padding:20px 30px 40px 50px;}
 #menuWrap .allmenu .allmenu_con dl{float:left; /*width:15.666%;*/ margin-right:2%;}
@@ -57,7 +57,7 @@ a:hover{transition: 0.5s !important;}
 #menuWrap .menuclose{position:absolute; left:219px; top:50%; margin-top:-67px; z-index:2; cursor:pointer;}
 #menuWrap  .copy{color:#74767b; font-size:12px; font-weight:100; padding:20px;}
 
-.tabWrap{position:relative; width:980px; height:58px; border-bottom:1px solid #cccccc; background:#e6e6e6; padding:7px 7px 0; overflow:hidden; margin-left:-25px; }
+.tabWrap{position:relative; width:1280px; height:58px; border-bottom:1px solid #cccccc; background:#e6e6e6; padding:7px 7px 0; overflow:hidden; margin-left:-25px; }
 .tabWrap .tab{float:left; position:relative; width:900px; height:50px; overflow:hidden; }
 .tabWrap .tab li{float:left; width:auto; padding:8px 22px 8px 8px; height:50px; border:1px solid #dddddd; color:#74767b; background:#fff; font-size:13px; margin:0;  border-bottom:0;border-radius:10px 10px 0 0; position:relative; line-height:16px; cursor:pointer;}
 

@@ -70,10 +70,18 @@
 			) as filename_real,
 			(select count(*) from recommend
 				where recommend.board_no = board.board_no and reply_no = '0'
+<<<<<<< HEAD
 			) as rec_count,
+=======
+			) as recommend,
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 			(select count(*) from reply
 				where reply.board_no = board.board_no
+<<<<<<< HEAD
 			) as reply_count
+=======
+			) as reply
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 		from board left join location
 		ON board.board_no = location.board_no
 		where board_name = #{board_name}
@@ -82,8 +90,6 @@
 			AND board.member_no not in (SELECT you_no FROM follow WHERE i_no = #{loginNO} AND relation = 1)
 		</if>
 		
-		
-<!-- 		<if test="" -->
 		
 		<if test="sido1 != null and sido1 !=''">
 			and addr LIKE '%${sido1}%'
@@ -105,6 +111,9 @@
 				and (title Like '%${sword}%' or content Like '%${sword}%')
 			</if>
 		</if>
+		<!-- <if test="rec != null">
+			order by
+		</if> -->
 		<if test="main != null">
 			order by rec_count desc, viewcount desc
 		</if>

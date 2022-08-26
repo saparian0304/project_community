@@ -22,9 +22,14 @@ public class ReportVO extends SearchVO {
 	private int reply_no;
 	private String stat;	// wait | accept | reject
 	private Timestamp resdate;
+	private String resFromDate;
+	private String resToDate;
 	
 	private int sumCnt;
 	private int isReply;
+	
+	// 검색조건
+	private String targetType;
 	
 	// 게시글 정보
 	private String board_name;
