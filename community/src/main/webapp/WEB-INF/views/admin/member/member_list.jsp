@@ -135,7 +135,7 @@ $(function () {
 			        <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
 			    </a>
 				<c:if test="${pageMaker.prev == true }">
-					<a class="prevpage pbtn" href="/pet/admin/board/board_list.do?page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}">
+					<a class="prevpage pbtn" href="/pet/admin/member/member_list.do?page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}">
 					<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
 					</a>
 				</c:if>
