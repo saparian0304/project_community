@@ -116,8 +116,14 @@
 			(SELECT COUNT(*) FROM board WHERE board.member_no = member.member_no AND isdelete = 0) AS board_count,
 			(SELECT COUNT(*) FROM reply WHERE reply.member_no = member.member_no AND isdelete = 0) AS reply_count
 		FROM member
+		<if test="stype1 == 'member_id'">
+		WHERE member_id = #{sword1}
+		</if>
+		<if test="stype1 == 'nickname'">
+		WHERE nickname = #{sword1}
+		</if>
 		ORDER BY ${sort} ${order}
-		Limit #{startIdx},${pageRow}
+		LIMIT #{startIdx},${pageRow}
 	</select>
 	
 	<select id="memberCnt" parameterType="kr.co.pet.admin.AdminMemberVO" resultType="int">
