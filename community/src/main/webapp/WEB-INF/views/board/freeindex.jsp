@@ -57,11 +57,6 @@
 		<form action="#" id="minisrch_form" method="get" class="minisrch_form">
 			<input type="hidden" name="horse_hair" id="horse_hair" value="">
 			<fieldset>
-				<div class="selectSi_gu">
-					<select name="sido1" id="sido1"></select>
-					<select name="gugun1" id="gugun1"></select>
-				</div>
-			
 				<span> 
 				<select id="stype" name="stype" class="dSelect" title="검색분류 선택">
 						<option value="all">전체</option>
