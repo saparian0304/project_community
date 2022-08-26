@@ -18,7 +18,6 @@
 
 $(function () {
 	// 초기 셋팅
-	
 	$('#fromDate, #toDate').datepicker({
 		dateFormat: 'yy-mm-dd' //달력 날짜 형태
        ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
@@ -45,7 +44,7 @@ $(function () {
 	<div id="container">
 		<!-- 공지사항 목록영역 -->
 		<div class="bodytext_area box_inner" style="width: 100%">
-			<form action="/pet/admin/board/board_list.do" method="post"  id="boardSearch" class="minisrch_form">
+			<form action="/pet/admin/member/member_list.do" method="post"  id="boardSearch" class="minisrch_form">
 				<input type="hidden" id="sort" name="sort" value="${param.sort }">
 				<input type="hidden" id="order" name="order" value="${param.order }">
 				<input type="text" id="fromDate" name="fromDate" value="${param.fromDate }" placeholder="시작일자" autocomplete="off">
@@ -90,9 +89,23 @@ $(function () {
 			<!-- **** -->
 			<table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
 				<caption class="hdd">공지사항 목록</caption>
+				<colgroup>
+					<col width="45px" />
+                    <col width="85px" />
+                    <col width="60px" />
+                    <col width="140px" />
+                    <col width="45px" />
+                    <col width="85px" />
+                    <col width="*" />
+                    <col width="70px" />
+                    <col width="60px" />
+                    <col width="75px" />
+                    <col width="75px" />
+                    <col width="60px" />
+				</colgroup>
 				<thead>
 					<tr>
-						<th scope="col"><a href="javascript:;">번호</a></th>
+						<th scope="col"><a href="javascript:;">선택</a></th>
 						<!-- 테이블 헤더 makeTh()로 작성 -->
 					</tr>
 				</thead>
@@ -104,7 +117,7 @@ $(function () {
 					</c:if>
 					<c:forEach var="vo" items="${data.list }" varStatus="status">
 						<tr>
-							<td>${status.index + 1 + (adminBoardVO.page-1)*adminBoardVO.pageRow}<!-- 총개수 - 인덱스-(현재페이지번호-1)*페이지당개수 -->
+							<td><input type="checkbox" name="select_no" value="${vo.member_no}"><!-- 총개수 - 인덱스-(현재페이지번호-1)*페이지당개수 -->
 							</td>
 							<td class="writer">
 								${vo.member_id }
@@ -140,11 +153,11 @@ $(function () {
 					</a>
 				</c:if>
 				<c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage}">
-					<a href='/pet/admin/board/board_list.do?page=${p }&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}'
+					<a href='/pet/admin/member/member_list.do?page=${p }&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}'
 						class='pagenum <c:if test="${boardVO.page == p }"> currentpage</c:if>'>${p }</a>
 				</c:forEach>
 				<c:if test="${pageMaker.next == true }">
-					<a class="nextpage pbtn" href="/pet/admin/board/board_list.do?page=${pageMaker.endPage +1}&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}">
+					<a class="nextpage pbtn" href="/pet/admin/member/member_list.do?page=${pageMaker.endPage +1}&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}">
 					<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
 					</a>
 				</c:if>

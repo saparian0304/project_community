@@ -1,3 +1,10 @@
+// 게시글 정렬
+function adminSearch(id, sort, order) {
+	$('#sort').val(sort);
+	$('#order').val(order);
+	$(id).submit();
+}
+
 // 관리자 게시판관리 테이블 헤더 작성 함수
 function makeTh(sort, order) {
 	var arr1 = ['member_id', 'nickname', 'email', 'gender', 'birthday', 'level', 'board_count', 'reply_count', 'regdate', 'curr_login', '출석수'];

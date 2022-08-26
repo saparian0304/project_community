@@ -3,10 +3,9 @@ package kr.co.pet.admin;
 import java.sql.Timestamp;
 
 import lombok.Data;
-import util.Criteria;
 
 @Data
-public class AdminMemberVO extends Criteria{
+public class AdminMemberVO extends SearchVO{
 
 	
 	private int member_no;
