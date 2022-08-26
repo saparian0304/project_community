@@ -10,7 +10,7 @@ import util.Criteria;
 @Data
 @Setter
 @Getter
-public class AdminBoardVO extends Criteria {
+public class AdminBoardVO extends SearchVO {
 	//board
 	private int board_no;
 	private String board_name;
@@ -33,17 +33,6 @@ public class AdminBoardVO extends Criteria {
 	private String nickname;
 	private String[] imageList;
 	private String image;
-	
-	
-	
-	private String stype;//검색타입
-	private String sword;//검색어
-	private String fromDate;	// 검색시작일자
-	private String toDate;	//검색종료일자
-	private String reply_content;
-	private String sort;
-	private String order;
-	
 	
 	private String filename_org;
 	private String filename_real;

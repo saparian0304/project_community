@@ -11,4 +11,9 @@ public interface AdminMapper {
 	
 	List<BoardVO> list(AdminBoardVO vo);
 	int count(AdminBoardVO vo);
+	
+	
+	// 회원관리
+	List memberList(AdminMemberVO vo);
+	int memberCnt(AdminMemberVO vo);
 }

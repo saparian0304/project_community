@@ -41,7 +41,18 @@ public class ReportServiceImpl implements ReportService {
 	 */
 	@Override
 	public int handle(ReportVO vo) {
-		return mapper.handleReport(vo);
+		int result = 0;
+		if (vo.getReply_no() == 0) {
+			mapper.adminDeleteB(vo);
+			mapper.handleReport(vo);
+			result++;
+		} else {
+			mapper.adminDeleteR(vo);
+			mapper.handleReport(vo);
+			result++;
+		}
+		
+		return result;
 	}
 
 	/**
@@ -71,7 +82,8 @@ public class ReportServiceImpl implements ReportService {
 	public Map getReportedList(ReportVO vo) {
 		Map<String, Object> map = new HashMap();
 		map.put("list", mapper.getReportList(vo));
-		map.put("totalCnt", mapper.getCount(vo));
+		map.put("page", vo.getPage());
+		map.put("totalCount", mapper.getCount(vo));
 		return map;
 	}
 

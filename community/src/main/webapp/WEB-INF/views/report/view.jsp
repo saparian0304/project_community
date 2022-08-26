@@ -13,18 +13,23 @@
 	<link rel="stylesheet" href="/pet/css/reset.css"/>
 	<link rel="stylesheet" href="/pet/css/contents.css"/> 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/pet/js/util/admin_an.js"></script>
 <script>
+var close_ = '${param.close_}';
+
+$(function() {
+	
+	// close_ 값이 있으면 창 종료
+	if(close_ == 'true') {
+		winClose();	
+	}
+})
+
 function goSave() {
 	<c:if test="${empty loginInfo}">
 		alert('로그인후 댓글작성해주세요');
 	 	return;
 	</c:if>
-	
-	if ($('#content').val() == '' || $('#reason').val() == 0){
-		alert('적절한 작성양식에 맞춰 신청해주세요');
- 		return;
-	}
-	
 	$('#frm').submit();
 }
 </script>
@@ -67,7 +72,6 @@ function goSave() {
                 <h3 class="sub_title">회원 신고</h3>
                 <div class="bbs">
 	                <form method="post" name="frm" id="frm" action="report.do" enctype="multipart/form-data" >
-	                	<input type="hidden" name="i_no" value="${loginInfo.member_no }">
 	                	<input type="hidden" name="you_no" value="${param.you_no }">
 	                	<input type="hidden" name="reply_no" value="${param.reply_no }">
 	                	<input type="hidden" name="board_no" value="${param.board_no }">
@@ -80,39 +84,39 @@ function goSave() {
 		                    <tr>
 		                    	<th>신고사유</th>
 		                    	<td>
-		                    		<select class="reason" name="reason" id="reason" style="heigth:30px">
+		                    		<select class="reason" name="reason" disabled="disabled" style="heigth:30px">
 		                    			<option value="0">--------신고사유--------</option>
-		                    			<option value="1">욕설</option>
-		                    			<option value="2">비방</option>
-		                    			<option value="3">광고</option>
-		                    			<option value="4">허위</option>
-		                    			<option value="5">기타</option>
+		                    			<option value="1" <c:if test="${data.reason == 1 }">selected</c:if>>욕설</option>
+		                    			<option value="2" <c:if test="${data.reason == 2 }">selected</c:if>>비방</option>
+		                    			<option value="3" <c:if test="${data.reason == 3 }">selected</c:if>>광고</option>
+		                    			<option value="4" <c:if test="${data.reason == 4 }">selected</c:if>>허위</option>
+		                    			<option value="5" <c:if test="${data.reason == 5 }">selected</c:if>>기타</option>
 		                    		</select>
 		                    	</td>
 		                    </tr> 
 		                    <tr>
 		                        <th>신고 유저 닉네임</th>
 		                        <td>
-		                            ${data.member.nickname }
+		                            ${data.i_nickname }
 		                        </td>
 		                    </tr>
 		                    <tr>
 		                        <th>신고 대상</th>
 		                        <td>
-		                            <c:if test="${!data.isReply }">${data.board.title }</c:if>
-		                            <c:if test="${data.isReply }">${data.reply.content }</c:if>
+		                            <c:if test="${data.reply_no == 0 }">${data.target_title }</c:if>
+		                            <c:if test="${data.reply_no != 0 }">${data.target_reply }</c:if>
 		                        </td>
 		                    </tr>
 		                    <tr>
 		                        <th>내용</th>
 		                    	<td>
-		                            <textarea name="content" id="content"></textarea>
+		                            <textarea name="content" id="content" readonly="readonly">${data.content }</textarea>
 		                    	</td>
 		                    </tr>
 			                </tbody>
 			            </table>
 			            <div class="btnSet"  style="text-align:right;">
-			                <a class="btn" href="javascript:goSave();">저장 </a>
+			                <a class="btn" href="javascript:;">닫기 </a>
 			            </div>
 		            </form>
 	        </div>    

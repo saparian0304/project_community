@@ -70,10 +70,13 @@ public class MemberServiceImpl implements MemberService {
 	public boolean loginCheck(MemberVO vo, HttpSession sess) {
 		boolean l = false;
 		MemberVO loginInfo = mapper.loginCheck(vo);
+		
 		if (loginInfo != null) {
 			l = true;
 			// 로그인 성공하면 세션에 저장. 로그인 한 홈페이지안에서 돌아다녀도 로그인상태 계속 유지되도록.
 			sess.setAttribute("loginInfo", loginInfo);
+			
+			mapper.updateCurr(loginInfo); // 로그인했을때 방문날짜 update			
 		}
 		return l;
 	}

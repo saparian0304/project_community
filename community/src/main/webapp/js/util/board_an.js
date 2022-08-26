@@ -97,3 +97,8 @@ function bookmark(board_no, member_no) {
 		}	
 	})
 }
+
+// 윈도우창 닫기
+function winClose(){
+	  window.open('','_self').close(); 
+};

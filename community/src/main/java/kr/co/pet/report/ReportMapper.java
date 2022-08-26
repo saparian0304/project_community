@@ -79,4 +79,18 @@ public interface ReportMapper {
 	 */
 	ReportVO getMemberReportCnt(ReportVO vo); // -> select
 	
+	/**
+	 * 신고글 삭제 처리
+	 * @param vo
+	 * @return
+	 */
+	int adminDeleteB(ReportVO vo);
+	
+	/**
+	 * 신고 댓글 삭제 처리
+	 * @param vo
+	 * @return
+	 */
+	int adminDeleteR(ReportVO vo);
+	
 }

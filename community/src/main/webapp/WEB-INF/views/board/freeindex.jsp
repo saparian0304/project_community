@@ -27,6 +27,7 @@
 		#list figure img {
 			width: 100%;
 			height: 200px;
+			cursor: pointer;
 		}
 		
 		.list_content {
@@ -75,9 +76,13 @@
 				
 			</form>
 			<DIV>
+<<<<<<< HEAD
+
+=======
 
 			</fieldset>
 		</form>
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 		<p>
 			<span><strong>총 ${pageMaker.totalCount }개</strong> | ${boardVO.page }/${pageMaker.totalPage }페이지</span>
 		</p>

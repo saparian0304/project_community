@@ -62,7 +62,7 @@ $(document).ready(function(){
         $(this).next(".gnb_submenu").slideToggle();
     });
     
-    clickMenu('main1', 'Main', '/main/index.do', true);
+    clickMenu('main1', 'Main', '/admin/main/index.do', true);
     
     $("#pass").bind("keydown", function(e) {
 		if (e.keyCode == 13) { // enter key
@@ -301,10 +301,10 @@ function test() {
 <body>
 <div id="wrap">
 	<div id="header">
-		<h1><a href="<%=util.Property.contextPath%>/index.do">관리자 페이지</a><a href="javascript:;" onclick="test()">&nbsp;&nbsp;&nbsp;</a></h1>
+		<h1><a href="index.do"><img src="/pet/img/logo.png"> PET - 관리자 페이지 </a><a href="javascript:;" onclick="test()">&nbsp;&nbsp;&nbsp;</a></h1>
 		<ul class="topmenu">
 			<li class="logout"></li>
-			<li class="homepage"><a href="http://gdu.co.kr" target="_blank">팀프로젝트</a></li>
+			<li class="homepage"><a href="/pet/board/main.do" target="_blank">PET - 커뮤니티</a></li>
 		</ul>
 	</div>
 	<!--//header-->
@@ -367,16 +367,16 @@ function test() {
 					<dd class="gnb_submenu">
 						<ul>	
 							<li id="board1_submenu" onclick="clickMenu('board1', '게시판 관리', '/admin/board/board_list.do', false)">게시판 관리</li>
-							<li id="board2_submenu" onclick="clickMenu('board2', '댓글 관리', '/admin/board/comment.do', false)">댓글 관리</li>
-							<li id="board3_submenu" onclick="clickMenu('board3', '신고 관리', '/admin/board/report.do', false)">신고 관리</li>
+							<li id="board2_submenu" onclick="clickMenu('board2', '댓글 관리', '/admin/board/reply_list.do', false)">댓글 관리</li>
+							<li id="board3_submenu" onclick="clickMenu('board3', '신고 관리', '/admin/board/report_board.do', false)">신고 관리</li>
 						</ul>
 					</dd>
 					<dt id="project" class="gnb_menu">회원 관리</dt>
 					<dd class="gnb_submenu">
 						<ul>	
-							<li id="project1_submenu" onclick="clickMenu('project1', '프로젝트 소개', '/project/index.do', false)">회원 관리 - A</li>
-							<li id="project2_submenu" onclick="clickMenu('project2', '프로젝트 기획', '/project/plan.do', false)">회원 관리 - B</li>
-							<li id="project3_submenu" onclick="clickMenu('project3', '프로젝트 설계', '/project/architecture.do', false)">회원 관리 - C</li>
+							<li id="project1_submenu" onclick="clickMenu('project1', '회원관리 - 목록', '/admin/member/member_list.do', false)">회원 관리 - 목록</li>
+							<li id="project2_submenu" onclick="clickMenu('project2', '회원 관리 - B', '/project/plan.do', false)">회원 관리 - B</li>
+							<li id="project3_submenu" onclick="clickMenu('project3', '회원 관리 - C', '/project/architecture.do', false)">회원 관리 - C</li>
 						</ul>
 					</dd>
 				</dl>

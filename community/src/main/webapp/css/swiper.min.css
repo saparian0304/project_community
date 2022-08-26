@@ -60,13 +60,13 @@
 	transform: translate3d(0, 0, 0)
 }
 
-.swiper-container-multirow>.swiper-wrapper {
+/* .swiper-container-multirow>.swiper-wrapper {
 	-webkit-box-lines: multiple;
 	-moz-box-lines: multiple;
 	-ms-flex-wrap: wrap;
 	-webkit-flex-wrap: wrap;
 	flex-wrap: wrap
-}
+} */
 
 .swiper-container-free-mode>.swiper-wrapper {
 	-webkit-transition-timing-function: ease-out;

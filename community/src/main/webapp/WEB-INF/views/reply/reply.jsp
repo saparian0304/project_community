@@ -94,10 +94,13 @@ function unfollow(member_no){
                    </button>
                 </td>
                 <td class="txt_l">
-	                <c:if test="${vo.isdelete == true }">
+	                <c:if test="${vo.isdelete == 2 }">
+	                       관리자에 의해 삭제된 댓글입니다.
+	                </c:if>
+	                <c:if test="${vo.isdelete == 1 }">
 	                       삭제된 댓글입니다.
 	                </c:if>
-	                <c:if test="${vo.isdelete == false}"> 
+	                <c:if test="${vo.isdelete == 0}"> 
 	                   ${vo.content}&nbsp;&nbsp;
 	                   
 	                <input type="hidden" value="${vo.member_no}" id="no${vo.reply_no }">

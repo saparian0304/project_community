@@ -16,7 +16,7 @@ public class ReplyVO extends Criteria {
 	private int member_no;
 	private Timestamp regdate;
 	private Timestamp update_date;
-	private boolean isdelete;
+	private int isdelete;
 	private int gno;
 	private int ono;
 	private int recommendCount;
