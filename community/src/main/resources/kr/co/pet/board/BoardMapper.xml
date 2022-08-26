@@ -70,18 +70,14 @@
 			) as filename_real,
 			(select count(*) from recommend
 				where recommend.board_no = board.board_no and reply_no = '0'
-<<<<<<< HEAD
+
 			) as rec_count,
-=======
-			) as recommend,
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
+
+		
 			(select count(*) from reply
 				where reply.board_no = board.board_no
-<<<<<<< HEAD
+
 			) as reply_count
-=======
-			) as reply
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 		from board left join location
 		ON board.board_no = location.board_no
 		where board_name = #{board_name}
