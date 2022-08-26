@@ -72,6 +72,7 @@
 					</span>	
 				</fieldset>					
 			</form>
+<<<<<<< HEAD
 		</div>
 		<div style="width:1280px; margin: 0 auto;">
 			<div>
@@ -103,6 +104,41 @@
 			</c:if>
 			</div>	
 			<c:if test="${empty data.list }">
+=======
+			<DIV>
+		<p>
+			<span><strong>총 ${pageMaker.totalCount }개</strong> | ${boardVO.page }/${pageMaker.totalPage }페이지</span>
+		</p>
+
+		<!-- 탭 부분 -->		
+		
+				 <table style="width: 707px; cellspacing:0; cellpadding:0; border:0; align:center; margin-top: 30px;" >
+				  <tr>
+				  
+				   <td><a href="javascript:horse_hairSearch('');">전체</a></td>
+				   <td><a href="javascript:horse_hairSearch('6');">여행후기</a></td>
+				   <td><a href="javascript:horse_hairSearch('5');">정보공유</a></td>
+				   <td><a href="javascript:horse_hairSearch('7');">고민상담</a></td>
+				   <td><a href="javascript:horse_hairSearch('4');">잡담</a></td>
+				       
+				  </tr>
+				  <tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>
+				</table>
+			</DIV>
+
+		<c:if test="${empty loginInfo }">
+			<div class="btnSet" style="text-align: right;">
+				<a class="btn" href="/pet/member/login.do">글작성 </a>
+			</div>
+		</c:if>
+
+		<c:if test="${!empty loginInfo }">
+			<div class="btnSet" style="text-align: right;">
+				<a class="btn" href="/pet/board/freewrite.do">글작성 </a>
+			</div>
+		</c:if>
+	<c:if test="${empty data.list }">
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 				<tr>
 					<td class="first" colspan="5">등록된 글이 없습니다.</td>
 				</tr>
