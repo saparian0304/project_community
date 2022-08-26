@@ -28,7 +28,7 @@
 	<style>
 		#list {
 			border-style : block;
-			width: 320px;
+			width: 300px;
 			margin: 10px;
 			float: left;
 		}
@@ -73,19 +73,29 @@
 		}
 		.selectAll>select{
 		margin-right: 10px;
-		width:100px;
+		width:100px; height:30px;
 		border-radius: 20px;
+		text-align: center;
 		}
-	
+		#search_str{
+		width: 200px; height: 50px;
+		margin-top: 10px;
+		}
+		#search_str>a{
+		width: 40px; height: 50px;
+		margin-top:20px;
+		padding:5px;
+		}
+		
 	</style>
 	
 	</head>
 	
-	<ul class="skipnavi">
+	<!-- <ul class="skipnavi">
 		<li><a href="#container">본문내용</a></li>
-	</ul>
-	<div id="wrap">
-	</div>
+	</ul> -->
+<div id="wrap">
+	
 	<div class="container">
 		<!-- 위치(페이지 제목)영역 -->
 		<div class="location_area customer">
@@ -97,48 +107,48 @@
 		</div>
 
 		<!-- 검색영역 -->
-		<div class="bodytext_area box_inner" style="width:80%">
+		<div  style="width:1280px; margin:20px auto;"><!-- class="bodytext_area box_inner" -->
 			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
-			<input type="hidden" name="total_search" id="total_search" value="">
-			
-			
+				<input type="hidden" name="total_search" id="total_search" value="">			
 				<fieldset>
-				<span class="selectAll">
-					<select name="sido1" id="sido1" title="시/도"></select>
-					<select name="gugun1" id="gugun1" title="구/군"></select>
-				
-					<select id="horse_hair" name="horse_hair" class="hSelect" title="말머리검색">
-						<option value="">전체</option>
-						<option value="1"<c:if test="${place eq '1' }">selected</c:if>>음식점</option>
+					<span class="selectAll">
+						<select name="sido1" id="sido1" title="시/도"></select>
+						<select name="gugun1" id="gugun1" title="구/군"></select>
+						
+						<select id="horse_hair" name="horse_hair" class="hSelect" title="말머리검색">
+							<option value="">전체</option>
+							<option value="1"<c:if test="${place eq '1' }">selected</c:if>>음식점</option>
 						<option value="2"<c:if test="${place eq '2' }">selected</c:if>>관광지</option>
 						<option value="3"<c:if test="${place eq '3' }">selected</c:if>>병원</option>
-					</select>
-                   
-				   <select id="stype" name="stype" class="dSelect" title="검색분류 선택">
-                       <option value="all">전체</option>
-                       <option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
-					   <option value="content"<c:if test="${stype eq 'content' }">selected</c:if>>내용</option>
-                   </select>
-				
-				 <legend> 검색 </legend>
-				 <input type="text" class="tbox" id="sval" name="sword" value="${sword }" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
-				 <a href="javascript:total_search('${param.search_str }')" class="btn_srch">검색</a>
-                </span>
+						</select>
+						              
+					  	<select id="stype" name="stype" class="dSelect" title="검색분류 선택">
+							<option value="all">전체</option>
+							<option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
+							<option value="content"<c:if test="${stype eq 'content' }">selected</c:if>>내용</option>
+		              	</select>
+						
+						<legend> 검색 </legend>
+						<input type="text" class="tbox" id="sval" name="sword" value="${sword }" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
+						<a href="javascript:total_search('${param.search_str }')" class="btn_srch">검색</a>
+	                </span>
 				</fieldset>
 			</form>
-			<p>
-				<span><strong>총 ${pageMaker.totalCount }개</strong> |
-					${boardVO.page }/${pageMaker.totalPage }페이지</span>
-			</p>
+		</div>
+		<div style="width:1280px; margin: 0 auto;">	
+			<div>
+				<p>
+					<span><strong>총 ${pageMaker.totalCount }개</strong> |
+						${boardVO.page }/${pageMaker.totalPage }페이지</span>
+				</p>			
 			
-
-			<c:if test="${!empty loginInfo }">
-			</c:if>
-			<c:if test="${loginInfo.member_no == 1}">
-			<div class="btnSet"  style="text-align:right;">
-           		<a class="btn" href="livewrite.do">글작성 </a>
-            </div>
-			
+				<c:if test="${!empty loginInfo }">
+				</c:if>
+				<c:if test="${loginInfo.member_no == 1}">
+					<div class="btnSet"  style="text-align:right;">
+		           		<a class="btn" href="livewrite.do">글작성 </a>
+		            </div>
+			</div>
 			</c:if>
 			<!-- 탭 부분 -->
 			
@@ -189,6 +199,7 @@
 					</figure>
 				</div>			
 			</c:forEach>
+	</div>		
 			
 			<!-- 페이징처리  -->
             

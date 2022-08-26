@@ -58,6 +58,7 @@ public class BoardController {
 
 	@GetMapping("/board/main.do")
 	public String index(Model model, BoardVO vo) {
+		
 		vo.setMain("main");
 		vo.setHorse_hair("2");
 		vo.setPageRow(5);
