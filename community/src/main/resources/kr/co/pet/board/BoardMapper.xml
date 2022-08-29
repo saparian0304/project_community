@@ -111,16 +111,11 @@
 			order by
 		</if> -->
 		<if test="main != null">
-			order by rec_count desc, viewcount desc,
-			<if test= "reply_content != null and reply_content != ''">
-				order by 
-			</if>
-			
+			order by rec_count desc, viewcount desc
 		</if>
 		<if test="main == null">
 		order by regdate desc
 		</if>
-	
 		Limit #{startIdx},${pageRow}
 	</select>
 	
