@@ -20,6 +20,8 @@ public interface MemberService {
 	String getAccessToken(String authorize_code);
 	MemberVO getUserInfo(String access_Token);
 	
+	/* int visitUpdate(); */
+	int visitNonmUpdate();
 	
 	
 }

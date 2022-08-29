@@ -150,4 +150,8 @@
 		SELECT COUNT(*) FROM reply
 	</select>
 	
+	<select id= "visitCnt" parameterType="kr.co.pet.admin.AdminReplyVO">
+		SELECT visit_count FROM visit where visit_date = curdate();
+	</select>
+	
 </mapper>
