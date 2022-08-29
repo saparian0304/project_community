@@ -57,7 +57,7 @@
 					SELECT distinct reply.board_no 
 				    FROM reply 
 				    WHERE board.board_no = reply.board_no
-				    AND reply.content LIKE '%댓글%'
+				    AND reply.content LIKE '%${reply_content}%'
 				)
 			</if>
 		</where>
@@ -105,7 +105,7 @@
 					SELECT distinct reply.board_no 
 				    FROM reply 
 				    WHERE board.board_no = reply.board_no
-				    AND reply.content LIKE '%댓글%'
+				    AND reply.content LIKE '%${reply_content}%'
 				)
 			</if>
 		</where>

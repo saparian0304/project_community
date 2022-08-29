@@ -33,7 +33,7 @@ public class AdminController {
 	
 	@RequestMapping("/admin/board/board_list.do")
 	public String myinfoIndex(Model model, AdminBoardVO vo) {
-		if(vo.getSort() == null) {
+		if(vo.getSort() == null || vo.getSort().equals("")) {
 			vo.setSort("regdate");
 			vo.setOrder("DESC");
 		}
