@@ -134,10 +134,10 @@
 		SELECT
 			r.content, r.member_no, r.regdate, r.gno, r.reply_no,
 			board.horse_hair, board.board_name, board.title, board.board_no,
-			(SELECT count(*) FROM reply WHERE r.reply_no = reply.gno AND reply.ono != 0) gno_count,   
+			(SELECT count(*) FROM reply WHERE r.reply_no = reply.gno AND reply.ono != 0) reply_count,   
 			(SELECT count(*) FROM recommend WHERE recommend.reply_no = r.reply_no) rec_count,
-			(SELECT count(*) FROM report WHERE report.reply_no = r.reply_no) reply_count,
-			member.nickname
+			(SELECT count(*) FROM report WHERE report.reply_no = r.reply_no) report_count,
+			(SELECT nickname FROM member WHERE member.member_no = r.member_no) nickname
 		FROM reply AS r LEFT JOIN board
 		ON board.board_no = r.board_no
 		LEFT JOIN member 
