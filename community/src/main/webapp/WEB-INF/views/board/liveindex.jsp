@@ -119,13 +119,8 @@
 		<div  style="width:1280px; margin:20px auto;"><!-- class="bodytext_area box_inner" -->
 			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
 				<input type="hidden" name="total_search" id="total_search" value="">			
-<<<<<<< HEAD
 			<fieldset>
-				<span class="selectAll">
-=======
-				<fieldset>
 				<span class="select_all">
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 					<select name="sido1" id="sido1" title="시/도"></select>
 					<select name="gugun1" id="gugun1" title="구/군"></select>
 				
@@ -145,14 +140,8 @@
 				 <legend> 검색 </legend>
 				 <input type="text" class="tbox" id="sval" name="sword" value="${sword }" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
 				 <a href="javascript:total_search('${param.search_str }')" class="btn_srch">검색</a>
-<<<<<<< HEAD
                 </span>					
 			</fieldset>
-=======
-                </span>
-
-				</fieldset>
->>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 			</form>
 		</div>
 		<div style="width:1280px; margin: 0 auto;">	
