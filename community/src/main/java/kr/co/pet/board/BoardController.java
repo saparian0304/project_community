@@ -67,7 +67,6 @@ public class BoardController {
 		//좋아요순
 		vo.setHorse_hair("4");//여행후기
 		model.addAttribute("tdata", service.freeindex(vo));
-		
 		vo.setHorse_hair("5");// 정보공유
 		model.addAttribute("ddata", service.freeindex(vo));
 		

@@ -27,7 +27,7 @@
 	<select id="getReportList" parameterType="kr.co.pet.report.ReportVO" resultType="kr.co.pet.report.ReportVO">
 		SELECT 
 			report_no, i_no, you_no, reason, report.content, report_date, 
-			reply_no, report.board_no, stat, resdate, 
+			report.reply_no, report.board_no, stat, resdate, 
 			board_name, horse_hair, title as target_title, regdate, update_date,
 			(SELECT count(*) 
 			FROM report sub 
@@ -37,35 +37,118 @@
 			(SELECT nickname FROM member WHERE member.member_no = i_no) i_nickname,
 			(SELECT nickname FROM member WHERE member.member_no = you_no) you_nickname,
 			(SELECT content FROM reply WHERE reply.reply_no = report.reply_no) target_reply
-		FROM report left join board
-		ON report.board_no = board.board_no
+		FROM report left join (
+		<if test="targetType == null or targetType == ''">
+			select board_no, board_name, horse_hair, title, regdate, update_date, IFNULL('0', '0') reply_no 
+			FROM board
+			union
+			select board_no, 
+				(SELECT board_name FROM board WHERE board.board_no = reply.board_no) board_name,
+				(SELECT horse_hair FROM board WHERE board.board_no = reply.board_no) horse_hair,
+				content as title, regdate, update_date, reply_no
+			FROM reply
+		</if>
+		<if test="targetType == 'board'">
+			select board_no, board_name, horse_hair, title, regdate, update_date, IFNULL('0', '0') reply_no 
+			FROM board
+			
+		</if>
+		<if test="targetType == 'reply'">
+			select board_no, 
+				(SELECT board_name FROM board WHERE board.board_no = reply.board_no) board_name,
+				(SELECT horse_hair FROM board WHERE board.board_no = reply.board_no) horse_hair,
+				content as title, regdate, update_date, reply_no
+			FROM reply
+		</if>
+		) b1
+		ON report.board_no = b1.board_no AND report.reply_no = b1.reply_no
 		<where>
-			<if test="reply_no == 0">
+			<if test="targetType == 'board'">
 				report.reply_no = 0
 			</if>
-			<if test="reply_no != 0">
-				report.reply_no = #{reply_no}
+			<if test="targetType == 'reply'">
+				report.reply_no != 0
 			</if>
-			<if test='stat != null'>
+			<if test="stat != null and stat !=''">
 				AND stat = #{stat}
 	 		</if>
+	 		<if test="reason != 0 ">
+				AND reason = #{reason}
+	 		</if>
+	 		<if test="i_nickname != null and i_nickname != ''" >
+	 			and report.i_no = (SELECT member.member_no FROM member WHERE nickname = #{i_nickname})
+	 		</if>
+	 		<if test="you_nickname != null and you_nickname != ''" >
+	 			and report.you_no = (SELECT member.member_no FROM member WHERE nickname = #{you_nickname})
+	 		</if>
+	 		<if test="fromDate != null and fromDate != '' 
+					and toDate != null and toDate != ''">
+				and report.report_date between #{fromDate} and #{toDate}
+			</if>
+	 		<if test="resFromDate != null and resFromDate != '' 
+					and resToDate != null and resToDate != ''">
+				and report.report_date between #{resFromDate} and #{resToDate}
+			</if>
+	 		
 		</where>
-		ORDER BY report_no DESC
+		ORDER BY ${sort} ${order}
+		Limit #{startIdx},${pageRow}
 	</select>
 	
 	<select id="getCount" parameterType="kr.co.pet.report.ReportVO" resultType="int">
 		SELECT COUNT(*)
-		FROM report 
+		FROM report left join (
+		<if test="targetType == null or targetType == ''">
+			select board_no, board_name, horse_hair, title, regdate, update_date, IFNULL('0', '0') reply_no 
+			FROM board
+			union
+			select board_no, 
+				(SELECT board_name FROM board WHERE board.board_no = reply.board_no) board_name,
+				(SELECT horse_hair FROM board WHERE board.board_no = reply.board_no) horse_hair,
+				content as title, regdate, update_date, reply_no
+			FROM reply
+		</if>
+		<if test="targetType == 'board'">
+			select board_no, board_name, horse_hair, title, regdate, update_date, IFNULL('0', '0') reply_no 
+			FROM board
+			
+		</if>
+		<if test="targetType == 'reply'">
+			select board_no, 
+				(SELECT board_name FROM board WHERE board.board_no = reply.board_no) board_name,
+				(SELECT horse_hair FROM board WHERE board.board_no = reply.board_no) horse_hair,
+				content as title, regdate, update_date, reply_no
+			FROM reply
+		</if>
+		) b1
+		ON report.board_no = b1.board_no AND report.reply_no = b1.reply_no 
 		<where>
-			<if test="reply_no == 0">
+			<if test="targetType == 'board'">
 				report.reply_no = 0
 			</if>
-			<if test="reply_no != 0">
-				report.reply_no = #{reply_no}
+			<if test="targetType == 'reply'">
+				report.reply_no != 0
 			</if>
-			<if test='stat != null'>
+			<if test="stat != null and stat !=''">
 				AND stat = #{stat}
 	 		</if>
+	 		<if test="reason != 0 ">
+				AND reason = #{reason}
+	 		</if>
+	 		<if test="i_nickname != null and i_nickname != ''" >
+	 			and report.i_no = (SELECT member.member_no FROM member WHERE nickname = #{i_nickname})
+	 		</if>
+	 		<if test="you_nickname != null and you_nickname != ''" >
+	 			and report.you_no = (SELECT member.member_no FROM member WHERE nickname = #{you_nickname})
+	 		</if>
+	 		<if test="fromDate != null and fromDate != '' 
+					and toDate != null and toDate != ''">
+				and report.report_date between #{fromDate} and #{toDate}
+			</if>
+	 		<if test="resFromDate != null and resFromDate != '' 
+					and resToDate != null and resToDate != ''">
+				and report.report_date between #{resFromDate} and #{resToDate}
+			</if>
 		</where>
 		ORDER BY report_no DESC
 	</select>

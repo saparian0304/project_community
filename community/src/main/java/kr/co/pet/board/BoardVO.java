@@ -19,7 +19,10 @@ public class BoardVO extends Criteria {
 	private String memb_nickname;
 	private Timestamp regdate;
 	private int viewcount;
-	private int reply_count;
+	
+	private int reply_count;//댓글
+	private int rec_count;//추천
+	
 	private String content;
 	private String tel;
 	private String link;
@@ -41,9 +44,6 @@ public class BoardVO extends Criteria {
 	
 	private String filename_org;
 	private String filename_real;
-	
-	private int rec;//추천
-	private int rep;//댓글
 	
 	private int loginNO; // 로그인한 멤버no
 	

@@ -18,9 +18,6 @@
 
 $(function () {
 	// 초기 셋팅
-	change_hair('${param.board_name}')
-	$('#horse_hair').val('${param.horse_hair}').prop("selected", true);
-	
 	$('#fromDate, #toDate').datepicker({
 		dateFormat: 'yy-mm-dd' //달력 날짜 형태
        ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
@@ -47,7 +44,7 @@ $(function () {
 	<div id="container">
 		<!-- 공지사항 목록영역 -->
 		<div class="bodytext_area box_inner" style="width: 100%">
-			<form action="/pet/admin/board/board_list.do" method="post"  id="boardSearch" class="minisrch_form">
+			<form action="/pet/admin/board/reply_list.do" method="post"  id="boardSearch" class="minisrch_form">
 				<input type="hidden" id="sort" name="sort" value="${param.sort }">
 				<input type="hidden" id="order" name="order" value="${param.order }">
 				<input type="text" id="fromDate" name="fromDate" value="${param.fromDate }" placeholder="시작일자" autocomplete="off">
@@ -60,15 +57,17 @@ $(function () {
 				<br>
 				 <p style="font-size: 15px; display: inline;">댓글 내용 : </p> &emsp;
 				<input type="text" name="reply_content" value="${param.reply_content }" placeholder="댓글내용 입력">
-				<select id="board_name" name="board_name" onchange="javascript:change_hair(this.value);">
-					<option value="" <c:if test="${param.board_name == ''}">selected="selected"</c:if>>전체 게시판</option>
-					<option value="live" <c:if test="${param.board_name == 'live'}">selected="selected"</c:if>>생활</option>
-					<option value="free" <c:if test="${param.board_name == 'free'}">selected="selected"</c:if>>자유</option>
-					<option value="center" <c:if test="${param.board_name == 'center'}">selected="selected"</c:if>>보호센터</option>
-				</select>
 				&emsp;
 				<select id="horse_hair" name="horse_hair">
-					<option value="">말머리</option>
+					<option value="">전체</option>
+					<option value="1">식당</option>
+					<option value="2">관광지</option>
+					<option value="3">병원</option>
+					<option value="4">잡담</option>
+					<option value="5">정보공유</option>
+					<option value="6">여행후기</option>
+					<option value="7">고민상담</option>
+					<option value="9">보호센터</option>
 				</select>
 				&emsp;
 				<select name="stype">
@@ -110,17 +109,6 @@ $(function () {
 							</td>
 							<td>
 								<c:choose>
-									<c:when test="${vo.board_name == 'free' }">자유</c:when>
-								</c:choose>
-								<c:choose>
-									<c:when test="${vo.board_name == 'live' }">생활</c:when>
-								</c:choose>
-								<c:choose>
-									<c:when test="${vo.board_name == 'center' }">보호센터</c:when>
-								</c:choose>
-							</td>
-							<td>
-								<c:choose>
 									<c:when test="${vo.horse_hair == '1' }">식당</c:when>
 								</c:choose>
 								<c:choose>
@@ -144,13 +132,11 @@ $(function () {
 							</td>
 							<td class="txt_l"><a href="/pet/board/${vo.board_name }view.do?board_no=${vo.board_no }">${vo.title}
 									</a></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td class="writer"></td>
+							<td><a href="/pet/board/${vo.board_name }view.do?board_no=${vo.board_no }">${vo.content }</a></td>
+							<td>${vo.gno_count }</td>
+							<td>${vo.rec_count }</td>
+							<td>${vo.rep_count }</td>
+							<td>${vo.nickname }</td>
 							<td class="date"><fmt:formatDate value="${vo.regdate }"
 									pattern="yy-MM-dd HH:mm:ss" /></td>
 						</tr>
@@ -162,16 +148,16 @@ $(function () {
 			        <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
 			    </a>
 				<c:if test="${pageMaker.prev == true }">
-					<a class="prevpage pbtn" href="/pet/admin/board/board_list.do?page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}">
+					<a class="prevpage pbtn" href="/pet/admin/board/reply_list.do?page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}">
 					<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
 					</a>
 				</c:if>
 				<c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage}">
-					<a href='/pet/admin/board/board_list.do?page=${p }&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}'
+					<a href='/pet/admin/board/reply_list.do?page=${p }&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}'
 						class='pagenum <c:if test="${boardVO.page == p }"> currentpage</c:if>'>${p }</a>
 				</c:forEach>
 				<c:if test="${pageMaker.next == true }">
-					<a class="nextpage pbtn" href="/pet/admin/board/board_list.do?page=${pageMaker.endPage +1}&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}">
+					<a class="nextpage pbtn" href="/pet/admin/board/reply_list.do?page=${pageMaker.endPage +1}&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}">
 					<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
 					</a>
 				</c:if>
