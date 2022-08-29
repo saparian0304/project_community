@@ -62,6 +62,16 @@ public class ReportController {
 		}
 		return "common/alert";
 	}
+	/**
+	 * 
+	 * @param vo ReportVO - report_no, stat
+	 * @return 신고처리 후 페이지 이동
+	 */
+	@RequestMapping("report/multiHandle.do")
+	public @ResponseBody String multiHandle(ReportVO vo, Model model) {
+		
+		return service.handle(vo) + "";
+	}
 	
 	/**
 	 * 

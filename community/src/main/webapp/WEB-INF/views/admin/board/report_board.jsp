@@ -36,7 +36,7 @@ th, td {
 $(
 	function() {
 		var arrColName = [ 'reason', 'content', 'i_nickname', 'horse_hair', 'target_title', 'you_nickname', 'report_date', 'resdate', 'sumCnt', 'stat'];
-		var arrHeadName = [ '신고구분', '신고사유', '신고자', '게시판 구분', '글 제목', '피신고자', '신고일자', '처리일자', '누적신고수', '처리구분'];
+		var arrHeadName = [ '신고구분', '신고사유', '신고자', '게시판 구분', '게시물', '피신고자', '신고일자', '처리일자', '누적신고수', '처리구분'];
 		makeTh(arrColName, arrHeadName, '#reportSearch','${param.sort}', '${param.order}');
 		
 		
@@ -58,10 +58,32 @@ $(
 		});
 	})
 	
-function setTargetType(targetType) {
-	$('#targetType').val(targetType);
-	$('#reportSearch').submit();
-} 
+function multiReport(stat) {
+	$("input[name=select_no]:checked").each(function(){
+		var isWait = $(this).closest('tr').find('td:last').text().trim();
+		if( !(isWait == 'accept' || isWait == 'reject')){
+			report_no = parseInt($(this).val());
+			
+			$.ajax({
+				url : '/pet/report/multiHandle.do',
+				data : {
+					report_no : report_no,
+					stat : stat
+				},
+				async: false,
+				success : function(res) {
+					if(res == 0) {
+						alert('에러 발생');
+						return;
+					}
+				}
+			})
+		}
+		
+	
+	})
+	location.reload();
+}
 </script>
 </head>
 <body>
@@ -125,6 +147,9 @@ function setTargetType(targetType) {
 				
 				<p>
 					<span><strong>총 ${data.totalCount }개</strong> | ${data.page }/${pageMaker.totalPage }페이지</span>
+					<span style="float: right; margin-right: 20px;"><a class="reqbtn danger" href="javascript:multiReport('reject');">거절</a></span>
+					<span style="float: right; margin-right: 7px;"><a class="reqbtn success" href="javascript:multiReport('accept');">승인</a></span>
+					<span style="float: right;"> 체크박스 : &emsp;</span>
 				</p>
 
 				<!-- <div class="btnSet" style="text-align: right;">
@@ -135,6 +160,7 @@ function setTargetType(targetType) {
 					<caption class="hdd">공지사항 목록</caption>
 					<thead>
 						<tr>
+							<th><label><input type="checkbox" name="allChk" onclick="selectAll(this)" ></label></th>
 							<th scope="col"><a href="javascript:;">번호</a></th>
 							<!-- 테이블 헤더 makeTh1()로 작성 -->
 						</tr>
@@ -142,11 +168,12 @@ function setTargetType(targetType) {
 					<tbody>
 						<c:if test="${empty data.list }">
 							<tr>
-								<td class="first" colspan="9">등록된 글이 없습니다.</td>
+								<td class="first" colspan="12">등록된 글이 없습니다.</td>
 							</tr>
 						</c:if>
 						<c:forEach var="vo" items="${data.list }" varStatus="status">
 							<tr>
+								<td><label><input type="checkbox" name="select_no" value="${vo.report_no }"></label></td>
 								<td>${data.totalCount-status.index-(reportVO.page-1)*reportVO.pageRow }<!-- 총개수 - 인덱스-(현재페이지번호-1)*페이지당개수 -->
 								</td>
 
@@ -208,12 +235,12 @@ function setTargetType(targetType) {
 					<c:forEach var="p" begin="${pageMaker.startPage }"
 						end="${pageMaker.endPage}">
 						<a
-							href='/pet/admin/board/report_board.do?page=${p }&targetType=${param.targetType}&reason=${param.reason}&i_nickname=${param.i_nickname}&you_nickname=${param.you_nickname}&stat=${param.stat}&resFromDate=${param.resFromDate}&resToDate=${param.resToDate}&fromDate=${param.fromDate}&toDate=${param.toDate}'
+							href='/pet/admin/board/report_board.do?page=${p }&targetType=${param.targetType}&reason=${empty param.reason ? 0 : param.reason}&i_nickname=${param.i_nickname}&you_nickname=${param.you_nickname}&stat=${param.stat}&resFromDate=${param.resFromDate}&resToDate=${param.resToDate}&fromDate=${param.fromDate}&toDate=${param.toDate}'
 							class='pagenum <c:if test="${boardVO.page == p }"> currentpage</c:if>'>${p }</a>
 					</c:forEach>
 					<c:if test="${pageMaker.next == true }">
 						<a class="nextpage pbtn"
-							href="/pet/admin/board/report_board.do?page=${pageMaker.endPage +1}&targetType=${param.targetType}&reason=${param.reason}&i_nickname=${param.i_nickname}&you_nickname=${param.you_nickname}&stat=${param.stat}&resFromDate=${param.resFromDate}&resToDate=${param.resToDate}&fromDate=${param.fromDate}&toDate=${param.toDate}">
+							href="/pet/admin/board/report_board.do?page=${pageMaker.endPage +1}&targetType=${param.targetType}&reason=${empty param.reason ? 0 : param.reason}&i_nickname=${param.i_nickname}&you_nickname=${param.you_nickname}&stat=${param.stat}&resFromDate=${param.resFromDate}&resToDate=${param.resToDate}&fromDate=${param.fromDate}&toDate=${param.toDate}">
 							<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
 						</a>
 					</c:if>

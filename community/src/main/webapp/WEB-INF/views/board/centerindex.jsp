@@ -1,16 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script>
+	var loc = "${param.sido1}";
+	var loc_gugun = "${param.gugun1}";
+</script>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 	<script src="/pet/js/function.js"></script>
+	 <!-- header에 js파일 있음. 확인해보고 script 쓰기!!!! -->
 <script>
 
-/* 	function loc_search(val){
-		if(val == ''){
-			$("#sido1").val('');
-		}else{
-			$("#sodo1").val(val);	
+ 	$(function() {
+ 		$("select[name=sido1]").trigger("change"); //   '구/군' 선택시, 선택값 유지되게
+ 	})
+ 	
+ 	function total_search(val){
+ 		
+ 		if(val==''){
+ 			$("#search_str").val('');
+ 		}else{
+ 			$("#search_str").val(val);
+ 		}
+ 		
+		if($("#sido1").val() == "시/도 선택"){
+			
+			$('#sido1').val("");
 		}
-	} */
+		if($("#gugun1").val() == "구/군 선택"){
+			
+			$('#gugun1').val("");
+		}
+		$("#minisrch_form").submit(); // 폼을 전송
+ 	}
 </script>
     <ul class="skipnavi">
         <li><a href="#container">본문내용</a></li>
@@ -27,38 +47,53 @@
 			</div>
 		</div>
 		<!-- 목록영역 -->
-		<div class="bodytext_area box_inner" style="width: 70%">
+		<div style="width:1280px; margin:20px auto;">
 			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
+				<input type="hidden" name="total_search" id="total_search" value="">
 				<fieldset>
-					<div class="selectSi_gu">
-						<select name="sido1" id="sido1"></select>
-						<select name="gugun1" id="gugun1"></select>
-					</div>
-					<span>
+					<span class="select_all">
+						<select name="sido1" id="sido1" title="시/도"></select>
+						<select name="gugun1" id="gugun1" title="구/군"></select>
+					
 					<select id="stype" name="stype" class="dSelect" title="검색분류 선택">
 						<option value="all">전체</option>
 						<option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
 						<option value="content"<c:if test="${stype eq 'content' }">selected</c:if>>내용</option>
 					</select> 
+					
 					<legend> 검색 </legend>
 					<input type="text" class="tbox" id="sval" name="sword" value="${sword }" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
-					<a href="#" class="btn_srch">검색</a>
+					<a href="javascript:total_search('${param.search_str }')" class="btn_srch">검색</a>
 					</span>
 				</fieldset>
 			</form>
-			<p>
-				<span><strong>총 ${pageMaker.totalCount }개</strong> |
-					${boardVO.page }/${pageMaker.totalPage }페이지</span>
-			</p>
-
-			<c:if test="${empty loginInfo }" >
-			</c:if>
-			<c:if test="${!empty loginInfo }" >
-			<div class="btnSet" style="text-align: right;">
-				<a class="btn" href="centerwrite.do">글작성 </a>
 			</div>
-			</c:if>
+			<div style="width:1280px; margin: 0 auto;">
+				<div style="width:1260px;">	
+					<p>
+						<span><strong>총 ${pageMaker.totalCount }개</strong> |
+							${boardVO.page }/${pageMaker.totalPage }페이지</span>
+					</p>
+				</div>
+			<!-- 순 -->
+			<div class="s21_tour_sun">
+				<!-- 검색란 체크시 출력-->
+				<p id="search_str" >
+					<a id="date_desc" onclick="total_search('date_desc', 'on')" >최신순</a>
+					<a id="rec_count" onclick="total_search('rec_count', 'on')" >추천순</a>
+					<a id="reply_count" onclick="total_search('reply_count', 'on')" >댓글많은순</a>
+				</p>
 			
+				<!--// 순 -->
+				
+				<c:if test="${empty loginInfo }" >
+				</c:if>
+				<c:if test="${!empty loginInfo }" >
+				<div class="btnSet" style="float: right;">
+					<a class="btn" href="centerwrite.do">글작성 </a>
+				</div>
+				</c:if>
+			</div>
 			<!-- **** -->
 			<table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
 				<caption class="hdd">공지사항 목록</caption>

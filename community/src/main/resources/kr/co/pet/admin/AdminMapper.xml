@@ -57,7 +57,7 @@
 					SELECT distinct reply.board_no 
 				    FROM reply 
 				    WHERE board.board_no = reply.board_no
-				    AND reply.content LIKE '%댓글%'
+				    AND reply.content LIKE '%${reply_content}%'
 				)
 			</if>
 		</where>
@@ -105,7 +105,7 @@
 					SELECT distinct reply.board_no 
 				    FROM reply 
 				    WHERE board.board_no = reply.board_no
-				    AND reply.content LIKE '%댓글%'
+				    AND reply.content LIKE '%${reply_content}%'
 				)
 			</if>
 		</where>
@@ -182,6 +182,10 @@
 	
 	<select id="replyCnt" parameterType="kr.co.pet.admin.AdminReplyVO" resultType="int">
 		SELECT COUNT(*) FROM reply
+	</select>
+	
+	<select id= "visitCnt" parameterType="kr.co.pet.admin.AdminReplyVO">
+		SELECT visit_count FROM visit where visit_date = curdate();
 	</select>
 	
 </mapper>

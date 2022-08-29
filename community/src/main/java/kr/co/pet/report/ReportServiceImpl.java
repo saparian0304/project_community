@@ -42,6 +42,9 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public int handle(ReportVO vo) {
 		int result = 0;
+		String tempStat = vo.getStat();
+		vo = mapper.getReportInfo(vo);
+		vo.setStat(tempStat);
 		if (vo.getReply_no() == 0) {
 			mapper.adminDeleteB(vo);
 			mapper.handleReport(vo);
@@ -50,6 +53,11 @@ public class ReportServiceImpl implements ReportService {
 			mapper.adminDeleteR(vo);
 			mapper.handleReport(vo);
 			result++;
+		}
+		if ("accept".equals(tempStat)) {
+			vo.setContent("관리자에 의해 게시물이 삭제되었습니다.");
+			vo.setAdmin_no(1);	// 관리자번호 구현 전까지 1로 설정
+			mapper.sendAdminMsg(vo);
 		}
 		
 		return result;

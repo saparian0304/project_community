@@ -38,6 +38,10 @@ public interface ReportMapper {
 	 */
 	int report(ReportVO vo); // -> insert
 	
+	
+	ReportVO getReportInfo(ReportVO vo);
+	
+	
 	/**
 	 * 신고 상태 처리 (stat 값 업데이트)
 	 * @param vo ReportVO - report_no, stat
@@ -92,5 +96,13 @@ public interface ReportMapper {
 	 * @return
 	 */
 	int adminDeleteR(ReportVO vo);
+	
+	
+	/**
+	 * 피신고자에게 쪽지 발송
+	 * @param vo
+	 * @return
+	 */
+	int sendAdminMsg(ReportVO vo);
 	
 }

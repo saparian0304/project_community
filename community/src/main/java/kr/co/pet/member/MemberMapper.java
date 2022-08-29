@@ -29,8 +29,12 @@ public interface MemberMapper {
 	
 	int updateCurr(MemberVO vo); // 방문날짜 update
 	
-	int visit(MemberVO vo); // 방문 insert
+	int visitMember(MemberVO vo); // 방문 insert
 	
-	int visitUpdate(MemberVO vo); // 방문 update
+	int visitMupdate(); // 방문 update
+
+	int visitNonmember(MemberVO vo); // 방문 insert
+	
+	int visitNonmUpdate(); // 방문 update
 
 }

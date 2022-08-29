@@ -202,6 +202,30 @@ select{
 	border: 1px solid #ccc;
 }
 
+/*liveindex, centerindex, 검색*/
+.select_all>select{
+	margin-right: 10px;
+	width:100px; height:30px;
+	border-radius: 20px;
+	text-align: center;
+}
+
+.s21_tour_sun{
+	width:1280px; height:80px;
+}
+
+#search_str{
+	width: 200px; height: 50px; line-height: 50px;
+	margin-top: 10px;
+	float:left;
+}
+
+#search_str>a{
+	width: 40px; height: 50px;
+	margin-top:20px;
+	padding:5px;
+}
+		
 
 /*select_common*/
 
@@ -210,7 +234,7 @@ select{
 	display: inline-block;
 	width: 158px; height: 35px;
 	border: 1px solid #ccc;
-	background: url('../img/ico_selectArr.png')no-repeat 100% 50%;
+	background: url('../img/ico_selectArr.png') no-repeat 100% 50%;
 
 	overflow: hidden;
 	position: relative;
@@ -771,7 +795,7 @@ v h3 em{
 	text-indent: -9999px;
 	border-left: 1px solid #a3a3a3;
 	border-bottom: 1px solid #a3a3a3;
-	background: url('../img/ico_totop.png')no-repeat center;
+	background: url('../img/ico_totop.png') no-repeat center;
 	background-size: 50%;
 	overflow: hidden;
 }
@@ -944,7 +968,7 @@ v h3 em{
 
 /*pagenation*/
 .pagenation{
-	padding: 40px 0 0;
+	padding: 40px 0;
 	text-align: center;
 }
 .pagenation a{
@@ -1025,10 +1049,10 @@ v h3 em{
 	padding: 0 0 0 50px;
 	font-size: 15px;
 
-	background: url('../img/ico_nearNext.png')no-repeat 12px 50%;
+	background: url('../img/ico_nearNext.png') no-repeat 12px 50%;
 }
 .near_list li h4.next{
-	background: url('../img/ico_nearPrev.png')no-repeat 12px 50%;
+	background: url('../img/ico_nearPrev.png') no-repeat 12px 50%;
 
 }
 
@@ -1399,7 +1423,7 @@ h1.loginTit a img{
 	}
 
 	.to_top a{
-		background: url('../img/ico_totop_mo.png')no-repeat center;
+		background: url('../img/ico_totop_mo.png') no-repeat center;
 		background-size: 45px ;
 		width: 45px; height: 45px;
 		border-left: none; border-bottom: none;
@@ -2180,3 +2204,4 @@ h1.loginTit a img{
 @media screen and (max-width: 320px){
 	body{background: orange;
 }
+
