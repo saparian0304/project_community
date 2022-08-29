@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <script>
-var loc = "${param.sido1}";
-var loc_gugun ="${param.gugun1}";
+	var loc = "${param.sido1}";  //지역 selectbox에서 선택값 유지
+	var loc_gugun ="${param.gugun1}";  //지역 selectbox에서 선택값 유지
 </script>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
     <script src="/pet/js/function.js"></script>
     <!-- header에 js파일 있음. 확인해보고 script 쓰기!!!! -->
 <script>
 	$(function() {
-		$("select[name=sido1]").trigger("change");
+		$("select[name=sido1]").trigger("change"); // '구/군'선택값 유지하기위해 강제로 '시/도'바꿔주는 역할.
 	})
 	function total_search(val) {
 		
@@ -80,7 +80,7 @@ var loc_gugun ="${param.gugun1}";
 		.tab-content.current{
 		  display: inherit;
 		}
-		.selectAll>select{
+		.select_all>select{
 		margin-right: 10px;
 		width:100px; height:30px;
 		border-radius: 20px;
@@ -119,8 +119,13 @@ var loc_gugun ="${param.gugun1}";
 		<div  style="width:1280px; margin:20px auto;"><!-- class="bodytext_area box_inner" -->
 			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
 				<input type="hidden" name="total_search" id="total_search" value="">			
+<<<<<<< HEAD
 			<fieldset>
 				<span class="selectAll">
+=======
+				<fieldset>
+				<span class="select_all">
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 					<select name="sido1" id="sido1" title="시/도"></select>
 					<select name="gugun1" id="gugun1" title="구/군"></select>
 				
@@ -140,8 +145,14 @@ var loc_gugun ="${param.gugun1}";
 				 <legend> 검색 </legend>
 				 <input type="text" class="tbox" id="sval" name="sword" value="${sword }" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
 				 <a href="javascript:total_search('${param.search_str }')" class="btn_srch">검색</a>
+<<<<<<< HEAD
                 </span>					
 			</fieldset>
+=======
+                </span>
+
+				</fieldset>
+>>>>>>> branch 'master' of https://github.com/saparian0304/project_community.git
 			</form>
 		</div>
 		<div style="width:1280px; margin: 0 auto;">	
@@ -166,8 +177,8 @@ var loc_gugun ="${param.gugun1}";
 				<!-- 검색란 체크시 출력-->
 				<p id="search_str" >
 					<a id="date_desc" onclick="total_search('date_desc', 'on')" >최신순</a>
-					<a id="cnt_rec" onclick="total_search('rec_desc', 'on')" >추천순</a>
-					<a id="cnt_rep" onclick="total_search('cnt_rep', 'on')" >댓글많은순</a>
+					<a id="rec_count" onclick="total_search('rec_count', 'on')" >추천순</a>
+					<a id="reply_count" onclick="total_search('reply_count', 'on')" >댓글많은순</a>
 				</p>
 			</div>
 			<!--// 순 -->
@@ -208,7 +219,7 @@ var loc_gugun ="${param.gugun1}";
 					</figure>
 				</div>			
 			</c:forEach>
-	</div>		
+		</div>		
 			
 			<!-- 페이징처리  -->
             
