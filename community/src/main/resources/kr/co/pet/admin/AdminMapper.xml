@@ -150,8 +150,28 @@
 		SELECT COUNT(*) FROM reply
 	</select>
 	
-	<select id= "visitCnt" parameterType="kr.co.pet.admin.AdminReplyVO">
-		SELECT visit_count FROM visit where visit_date = curdate();
+	<select id= "visitToday" parameterType="kr.co.pet.admin.AdminBoardVO">
+		SELECT 
+			visit_date 
+				,visit_mcount AS mtoday
+				,visit_nonmcount AS nonmtoday 
+				,visit_mcount  + visit_nonmcount AS todaytotal 
+		FROM visit 
+		WHERE visit_date = curdate()
+	</select>
+	
+	<select id= "boardToday" parameterType="kr.co.pet.admin.AdminBoardVO">
+		SELECT 
+			count(*) AS board_today 
+		FROM board 
+		WHERE date_format(regdate,'%Y-%m-%d') = curdate()
+	</select>
+	
+	<select id= "replyToday" parameterType="kr.co.pet.admin.AdminBoardVO">
+		SELECT 
+			count(*) AS reply_today 
+		FROM reply 
+		WHERE date_format(regdate,'%Y-%m-%d') = curdate()
 	</select>
 	
 </mapper>
