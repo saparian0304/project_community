@@ -49,14 +49,26 @@
 	</update>
 	
 	<!-- 방문 카운드  -->
-	<insert id="visit" parameterType="kr.co.pet.member.MemberVO">
-		INSERT INTO visit (visit_date , visit_count) 
-		VALUES (curdate(), 1)
+	<insert id="visitMember" parameterType="kr.co.pet.member.MemberVO">
+		INSERT INTO visit (visit_date, visit_mcount, visit_nonmcount ) 
+		VALUES (curdate(), 0, 0)
 	</insert>
 	
-	<update id="visitUpdate" parameterType="kr.co.pet.member.MemberVO">
+	<update id="visitMupdate" parameterType="kr.co.pet.member.MemberVO">
 		UPDATE visit SET 
-            visit_count =  visit_count+1
+            visit_mcount =  visit_mcount+1
 		WHERE DATE_FORMAT(visit_date,'%Y-%m-%d') = curdate()
 	</update>
+	
+	<!-- <insert id="visitNonmember" parameterType="kr.co.pet.member.MemberVO">
+		INSERT INTO visit (visit_date , visit_nonmcount) 
+		VALUES (curdate(), 1)
+	</insert> -->
+	
+	<update id="visitNonmUpdate" parameterType="kr.co.pet.member.MemberVO">
+		UPDATE visit SET 
+            visit_nonmcount =  visit_nonmcount+1
+		WHERE DATE_FORMAT(visit_date,'%Y-%m-%d') = curdate()
+	</update>
+	
 </mapper>

@@ -80,21 +80,9 @@
 		.tab-content.current{
 		  display: inherit;
 		}
-		.select_all>select{
-		margin-right: 10px;
-		width:100px; height:30px;
-		border-radius: 20px;
-		text-align: center;
-		}
-		#search_str{
-		width: 200px; height: 50px;
-		margin-top: 10px;
-		}
-		#search_str>a{
-		width: 40px; height: 50px;
-		margin-top:20px;
-		padding:5px;
-		}
+		
+		
+		
 		
 	</style>
 	
@@ -119,56 +107,66 @@
 		<div  style="width:1280px; margin:20px auto;"><!-- class="bodytext_area box_inner" -->
 			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
 				<input type="hidden" name="total_search" id="total_search" value="">			
-			<fieldset>
-				<span class="select_all">
-					<select name="sido1" id="sido1" title="시/도"></select>
-					<select name="gugun1" id="gugun1" title="구/군"></select>
-				
-					<select id="horse_hair" name="horse_hair" class="hSelect" title="말머리검색">
-						<option value="">전체</option>
-						<option value='1'<c:if test="${param.horse_hair eq '1' }">selected</c:if>>음식점</option>
-						<option value='2'<c:if test="${param.horse_hair eq '2' }">selected</c:if>>관광지</option>
-						<option value='3'<c:if test="${param.horse_hair eq '3' }">selected</c:if>>병원</option>
-					</select>
-                   
-				   <select id="stype" name="stype" class="dSelect" title="검색분류 선택">
-                       <option value="all">전체</option>
-                       <option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
-					   <option value="content"<c:if test="${stype eq 'content' }">selected</c:if>>내용</option>
-                   </select>
-				
-				 <legend> 검색 </legend>
-				 <input type="text" class="tbox" id="sval" name="sword" value="${sword }" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
-				 <a href="javascript:total_search('${param.search_str }')" class="btn_srch">검색</a>
-                </span>					
-			</fieldset>
+				<fieldset>
+					<span class="select_all">
+						<select name="sido1" id="sido1" title="시/도"></select>
+						<select name="gugun1" id="gugun1" title="구/군"></select>
+					
+						<select id="horse_hair" name="horse_hair" class="hSelect" title="말머리검색">
+							<option value="">전체</option>
+							<option value='1'<c:if test="${param.horse_hair eq '1' }">selected</c:if>>음식점</option>
+							<option value='2'<c:if test="${param.horse_hair eq '2' }">selected</c:if>>관광지</option>
+							<option value='3'<c:if test="${param.horse_hair eq '3' }">selected</c:if>>병원</option>
+						</select>
+	                   
+					   <select id="stype" name="stype" class="dSelect" title="검색분류 선택">
+	                       <option value="all">전체</option>
+	                       <option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
+						   <option value="content"<c:if test="${stype eq 'content' }">selected</c:if>>내용</option>
+	                   </select>
+					
+					 <legend> 검색 </legend>
+					 <input type="text" class="tbox" id="sval" name="sword" value="${sword }" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
+					 <a href="javascript:total_search('${param.search_str }')" class="btn_srch">검색</a>
+	                </span>					
+				</fieldset>
 			</form>
 		</div>
 		<div style="width:1280px; margin: 0 auto;">	
-			<div>
+			<div  style="width:1260px;">
 				<p>
 					<span><strong>총 ${pageMaker.totalCount }개</strong> |
 						${boardVO.page }/${pageMaker.totalPage }페이지</span>
 				</p>			
-			
-				<c:if test="${!empty loginInfo }">
+			</div>
+				<%-- <c:if test="${!empty loginInfo }">
 				</c:if>
 				<c:if test="${loginInfo.member_no == 1}">
 					<div class="btnSet"  style="text-align:right;">
 		           		<a class="btn" href="livewrite.do">글작성 </a>
 		            </div>
-			</div>
-			</c:if>
+		        </c:if>  --%>   
+			
+			
 			<!-- 탭 부분 -->
 			
 			<!-- 순 -->
-			<div class="s21_tour_sun">
-				<!-- 검색란 체크시 출력-->
-				<p id="search_str" >
-					<a id="date_desc" onclick="total_search('date_desc', 'on')" >최신순</a>
-					<a id="rec_count" onclick="total_search('rec_count', 'on')" >추천순</a>
-					<a id="reply_count" onclick="total_search('reply_count', 'on')" >댓글많은순</a>
-				</p>
+			<div class="s21_tour_sun" >
+					<!-- 검색란 체크시 출력-->
+					<p id="search_str" >
+						<a id="date_desc" onclick="total_search('date_desc', 'on')" >최신순</a>
+						<a id="rec_count" onclick="total_search('rec_count', 'on')" >추천순</a>
+						<a id="reply_count" onclick="total_search('reply_count', 'on')" >댓글많은순</a>
+					</p>
+				
+					<c:if test="${!empty loginInfo }">
+					</c:if>
+					<c:if test="${loginInfo.member_no == 1}">
+						<div class="btnSet"  style="float:right;">
+			           		<a class="btn" href="livewrite.do">글작성 </a>
+			            </div>
+			        </c:if>
+		        
 			</div>
 			<!--// 순 -->
 			
@@ -179,35 +177,36 @@
 					<a id="cnt_rep" onclick="list_order('cnt_rep', 'on')" class>댓글많은순</a>
 				   		  
 			</div> -->
-		
-            <c:if test="${empty data.list }">
-                <tr>
-                    <td class="first" colspan="5">등록된 글이 없습니다.</td>
-                </tr>
-            </c:if>
-			<c:forEach var="vo" items="${data.list}" varStatus="status">
-				<div id="list">
-					<figure id="figure" onclick="location.href='liveview.do?board_no=${vo.board_no }';">
-						<c:if test="${!empty vo.filename_real }">
-							<img src="${vo.filename_real}" 
-								onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
-						</c:if> 
-					    <c:if test="${empty vo.filename_real}">
-							<img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
-						</c:if>
-
-						<div class="s21_tour_list_tbox" style="width: 50%; float: left;">
-							<p class="list_content">${vo.title }</p>
-							<p class="list_content">${vo.content}</p>
-							
-						</div>
-						<div style="width: 49%; float: right; text-align: right;">
-							<img style="width: 15px; height: 15px;" src="https://previews.123rf.com/images/captainvector/captainvector1512/captainvector151209976/81535071-%EB%8C%93%EA%B8%80-%EC%95%84%EC%9D%B4%EC%BD%98.jpg">${vo.reply_count }
-							<img style="width: 15px; height: 15px;" src="/pet/img/icon_like_black.png">${vo.rec_count }
-						</div>
-					</figure>
-				</div>			
-			</c:forEach>
+			<div style="clear:both;">
+	            <c:if test="${empty data.list }">
+	                <tr>
+	                    <td class="first" colspan="5">등록된 글이 없습니다.</td>
+	                </tr>
+	            </c:if>
+				<c:forEach var="vo" items="${data.list}" varStatus="status">
+					<div id="list">
+						<figure id="figure" onclick="location.href='liveview.do?board_no=${vo.board_no }';">
+							<c:if test="${!empty vo.filename_real }">
+								<img src="${vo.filename_real}" 
+									onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
+							</c:if> 
+						    <c:if test="${empty vo.filename_real}">
+								<img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
+							</c:if>
+	
+							<div class="s21_tour_list_tbox" style="width: 50%; float: left;">
+								<p class="list_content">${vo.title }</p>
+								<p class="list_content">${vo.content}</p>
+								
+							</div>
+							<div style="width: 49%; float: right; text-align: right;">
+								<img style="width: 15px; height: 15px;" src="https://previews.123rf.com/images/captainvector/captainvector1512/captainvector151209976/81535071-%EB%8C%93%EA%B8%80-%EC%95%84%EC%9D%B4%EC%BD%98.jpg">${vo.reply_count }
+								<img style="width: 15px; height: 15px;" src="/pet/img/icon_like_black.png">${vo.rec_count }
+							</div>
+						</figure>
+					</div>			
+				</c:forEach>
+			</div>
 		</div>		
 			
 			<!-- 페이징처리  -->

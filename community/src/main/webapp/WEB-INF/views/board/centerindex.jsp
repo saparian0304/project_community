@@ -47,15 +47,14 @@
 			</div>
 		</div>
 		<!-- 목록영역 -->
-		<div class="bodytext_area box_inner" style="width: 70%">
+		<div style="width:1280px; margin:20px auto;">
 			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
-			<input type="hidden" name="total_search" id="total_search" value="">
+				<input type="hidden" name="total_search" id="total_search" value="">
 				<fieldset>
 					<span class="select_all">
 						<select name="sido1" id="sido1" title="시/도"></select>
 						<select name="gugun1" id="gugun1" title="구/군"></select>
-					</span>
-					<span>
+					
 					<select id="stype" name="stype" class="dSelect" title="검색분류 선택">
 						<option value="all">전체</option>
 						<option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
@@ -68,11 +67,14 @@
 					</span>
 				</fieldset>
 			</form>
-			<p>
-				<span><strong>총 ${pageMaker.totalCount }개</strong> |
-					${boardVO.page }/${pageMaker.totalPage }페이지</span>
-			</p>
-			
+			</div>
+			<div style="width:1280px; margin: 0 auto;">
+				<div style="width:1260px;">	
+					<p>
+						<span><strong>총 ${pageMaker.totalCount }개</strong> |
+							${boardVO.page }/${pageMaker.totalPage }페이지</span>
+					</p>
+				</div>
 			<!-- 순 -->
 			<div class="s21_tour_sun">
 				<!-- 검색란 체크시 출력-->
@@ -81,17 +83,17 @@
 					<a id="rec_count" onclick="total_search('rec_count', 'on')" >추천순</a>
 					<a id="reply_count" onclick="total_search('reply_count', 'on')" >댓글많은순</a>
 				</p>
-			</div>
-			<!--// 순 -->
 			
-			<c:if test="${empty loginInfo }" >
-			</c:if>
-			<c:if test="${!empty loginInfo }" >
-			<div class="btnSet" style="text-align: right;">
-				<a class="btn" href="centerwrite.do">글작성 </a>
+				<!--// 순 -->
+				
+				<c:if test="${empty loginInfo }" >
+				</c:if>
+				<c:if test="${!empty loginInfo }" >
+				<div class="btnSet" style="float: right;">
+					<a class="btn" href="centerwrite.do">글작성 </a>
+				</div>
+				</c:if>
 			</div>
-			</c:if>
-			
 			<!-- **** -->
 			<table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
 				<caption class="hdd">공지사항 목록</caption>

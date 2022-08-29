@@ -202,6 +202,30 @@ select{
 	border: 1px solid #ccc;
 }
 
+/*liveindex, centerindex, 검색*/
+.select_all>select{
+	margin-right: 10px;
+	width:100px; height:30px;
+	border-radius: 20px;
+	text-align: center;
+}
+
+.s21_tour_sun{
+	width:1280px; height:80px;
+}
+
+#search_str{
+	width: 200px; height: 50px; line-height: 50px;
+	margin-top: 10px;
+	float:left;
+}
+
+#search_str>a{
+	width: 40px; height: 50px;
+	margin-top:20px;
+	padding:5px;
+}
+		
 
 /*select_common*/
 
