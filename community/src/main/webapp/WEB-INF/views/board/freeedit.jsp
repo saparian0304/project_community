@@ -33,7 +33,7 @@
             <div class="size">
     
                 <div class="bbs">
-                <form method="post" name="frm" id="frm" action="update.do">
+                <form method="post" name="frm" id="frm" action="freeupdate.do">
                 <input type="hidden" name="board_no" value="${data.board_no }">
                     <table class="board_write">
                         <tbody>

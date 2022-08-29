@@ -118,17 +118,17 @@
 							<option value='2'<c:if test="${param.horse_hair eq '2' }">selected</c:if>>관광지</option>
 							<option value='3'<c:if test="${param.horse_hair eq '3' }">selected</c:if>>병원</option>
 						</select>
-	                   
-					   <select id="stype" name="stype" class="dSelect" title="검색분류 선택">
-	                       <option value="all">전체</option>
-	                       <option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
-						   <option value="content"<c:if test="${stype eq 'content' }">selected</c:if>>내용</option>
-	                   </select>
-					
-					 <legend> 검색 </legend>
-					 <input type="text" class="tbox" id="sval" name="sword" value="${sword }" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
-					 <a href="javascript:total_search('${param.search_str }')" class="btn_srch">검색</a>
-	                </span>					
+						              
+					  	<select id="stype" name="stype" class="dSelect" title="검색분류 선택">
+							<option value="all">전체</option>
+							<option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
+							<option value="content"<c:if test="${stype eq 'content' }">selected</c:if>>내용</option>
+		              	</select>
+						
+						<legend> 검색 </legend>
+						<input type="text" class="tbox" id="sval" name="sword" value="${sword }" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
+						<a href="javascript:total_search('${param.search_str }')" class="btn_srch">검색</a>
+	                </span>
 				</fieldset>
 			</form>
 		</div>

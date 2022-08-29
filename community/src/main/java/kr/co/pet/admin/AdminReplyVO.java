@@ -22,7 +22,8 @@ public class AdminReplyVO extends SearchVO {
 	
 	//count
 	private int rec_count;
-	private int rep_count;
+	private int report_count;
+	private int reply_count;
 	private int gno_count;
 	
 	

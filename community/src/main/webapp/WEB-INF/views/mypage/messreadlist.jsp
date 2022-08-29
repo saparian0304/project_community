@@ -97,7 +97,7 @@
 	                    		</td>
 	                    		<td></td>
 	                    		<td class="tit_notice" style="text-align : center;">
-	                    			${list.send_nick }
+	                    			${empty list.send_nick ? '관리자' : list.send_nick }
 	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
 	                    			<a href="javascript:listRead(${list.send_member },'${list.send_nick }', '${list.content}')">
@@ -108,7 +108,9 @@
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.senddate }"/>
 	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
+	                    			<c:if test="${!empty list.send_nick }">
 			                    	<a class="reqbtn mymess" href="javascript:message(${list.send_member },'${list.send_nick }')">답장</a>
+	                    			</c:if>
 		                    	</td>
 	                    	</tr>
 	                    	</c:forEach>                    

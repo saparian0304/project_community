@@ -19,6 +19,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import kr.co.pet.center.CenterMapper;
+import kr.co.pet.center.CenterVO;
 import kr.co.pet.file.FileMapper;
 import kr.co.pet.file.FileVO;
 import kr.co.pet.hos.HosMapper;
@@ -39,7 +41,8 @@ public class apiMapperTest {
 	private HosMapper hmapper;
 	@Autowired
 	private FileMapper fmapper;
-	
+	@Autowired
+	private CenterMapper cmapper;
 	
 	
 	@Test
@@ -67,6 +70,7 @@ public class apiMapperTest {
 			LocVO lvo = new LocVO();
 			HosVO hvo = new HosVO();
 			FileVO fvo = new FileVO();
+			CenterVO cvo = new CenterVO();
 	//		for(int i=0; i<vo.getImageList().length; i++) {
 	//		vo.setImage(vo.getImageList()[i]);
 	//		}
@@ -94,6 +98,7 @@ public class apiMapperTest {
 				vo.setLink(row1.get("homePage").getAsString());
 				vo.setContent(row1.get("content").getAsString());
 				hvo.setPark(row1.get("parkingFlag").getAsBoolean());
+				cvo.setPark(row1.get("parkingFlag").getAsBoolean());
 				hvo.setHurry(row1.get("emergencyFlag").getAsBoolean());
 				lvo.setGps_x(row1.get("latitude").getAsString());
 				lvo.setGps_y(row1.get("longitude").getAsString());
@@ -102,8 +107,11 @@ public class apiMapperTest {
 				lvo.setBoard_no(vo.getBoard_no());
 				hvo.setBoard_no(vo.getBoard_no());
 				fvo.setBoard_no(vo.getBoard_no());
+				cvo.setBoard_no(vo.getBoard_no());
 				lmapper.insert(lvo);
 				hmapper.insert(hvo);
+				cmapper.insert(cvo);
+				fmapper.insert(fvo);
 				
 				JsonArray row2 = (JsonArray)row1.get("imageList");
 				for (int i=0; i<row2.size(); i++) {
@@ -134,7 +142,6 @@ public class apiMapperTest {
 				System.out.println("주차 : " +  row1.get("parkingLog").getAsString());
 				System.out.println("응급 : " +  row1.get("emergencyResponse").getAsString());
 				System.out.println("이미지 : " +  row1.get("imageList").getAsJsonArray());
-				
 				
 				
 			} catch (Exception e) {

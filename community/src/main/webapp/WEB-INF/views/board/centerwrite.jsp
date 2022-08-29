@@ -27,6 +27,7 @@
     	$(function() {
 			editor = setEditor('content');
 		});
+    	
     </script>
    </head>
 <body>
@@ -63,9 +64,9 @@
                         <tr>
                             <th>종류</th>
                             <td>
-                                <input type="radio" class="radio_value" name="ani_type" value="1">강아지
-                                <input type="radio" class="radio_value" name="ani_type" value="2">고양이
-                                <input type="radio" class="radio_value" name="ani_type" value="3">기타
+                                <input type="checkbox" id="check_value" name="ani_type" value="1">강아지
+                                <input type="checkbox" id="check_value" name="ani_type" value="2">고양이
+                                <input type="checkbox" id="check_value" name="ani_type" value="3">기타
                             </td>
                         </tr>
                         <tr>

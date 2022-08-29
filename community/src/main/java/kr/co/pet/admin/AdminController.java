@@ -33,7 +33,7 @@ public class AdminController {
 	
 	@RequestMapping("/admin/board/board_list.do")
 	public String myinfoIndex(Model model, AdminBoardVO vo) {
-		if(vo.getSort() == null) {
+		if(vo.getSort() == null || vo.getSort().equals("")) {
 			vo.setSort("regdate");
 			vo.setOrder("DESC");
 		}
@@ -80,7 +80,7 @@ public class AdminController {
 	@RequestMapping("/admin/board/reply_list.do")
 	public String replyIndex(Model model, AdminReplyVO vo) {
 		if(vo.getSort() == null) {
-			vo.setSort("report_date");
+			vo.setSort("reply_no");
 			vo.setOrder("DESC");
 		}
 		model.addAttribute("data", service.replyList(vo));

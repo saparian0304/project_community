@@ -15,7 +15,7 @@ var login_no = "";
 /* 삭제 할거임 */
 function del(no) {
 	if(confirm('삭제하시겠습니까?')){
-		location.href='delete.do?board_no='+no;
+		location.href='livedelete.do?board_no='+no;
 	}
 }
 
