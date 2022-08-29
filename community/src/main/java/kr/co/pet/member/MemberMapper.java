@@ -31,6 +31,6 @@ public interface MemberMapper {
 	
 	int visit(MemberVO vo); // 방문 insert
 	
-	int visitUpdate(MemberVO vo); // 방문 update
+	int visitUpdate(); // 방문 update
 
 }

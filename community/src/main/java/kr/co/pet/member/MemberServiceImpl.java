@@ -71,7 +71,7 @@ public class MemberServiceImpl implements MemberService {
 		boolean l = false;
 		MemberVO loginInfo = mapper.loginCheck(vo);
 		
-		int v = mapper.visitUpdate(vo) > 0 ? 1 : 0; // visit_count 
+		int v = mapper.visitUpdate() > 0 ? 1 : 0; // visit_count 
 		
 		if (loginInfo != null) {
 			l = true;
@@ -80,14 +80,29 @@ public class MemberServiceImpl implements MemberService {
 			
 			mapper.updateCurr(loginInfo); // 로그인했을때 방문날짜 update	
 			
-			if( v != 1 ) {
-				mapper.visit(loginInfo);
-				
-			}			
+			 if( v != 1 ) { 				 
+				 mapper.visit(loginInfo); // visit insert 
+			 }
+			 			
 		}
 		return l;
 	}
-
+	
+	
+	// boardController 방문수 update count 하기위해
+	@Override
+	public int visitUpdate() {
+		MemberVO vo = new MemberVO();
+		
+		int i = mapper.visitUpdate() > 0 ? 1: 0;			
+			
+		if(i != 1) {			
+				mapper.visit(vo); // visit insert
+			}		
+		return i;	
+	}
+	
+	
 	@Override
 	public int idCheck(String id) {
 		int cnt = mapper.idCheck(id);
@@ -298,5 +313,9 @@ public class MemberServiceImpl implements MemberService {
 		System.out.println("###############nickname : "+ vo.getNickname());
 		return mapper.insertSns(vo);
 	}
+
+	
+
+	
 
 }

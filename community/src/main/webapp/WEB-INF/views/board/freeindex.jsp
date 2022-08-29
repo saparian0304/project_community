@@ -134,7 +134,7 @@
 			</c:forEach>
 		</div>
 		<!-- 페이지처리 -->
-		<div class="pagenation" style="clear: left">
+		<div class="pagenation" style="clear: left;">
 			<a style="cursor: pointer" class="firstpage pbtn">
 		        <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
 		    </a>
