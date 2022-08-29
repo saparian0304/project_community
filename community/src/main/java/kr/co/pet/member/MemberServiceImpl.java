@@ -81,7 +81,8 @@ public class MemberServiceImpl implements MemberService {
 			mapper.updateCurr(loginInfo); // 로그인했을때 방문날짜 update	
 			
 			 if( v != 1 ) { 				 
-				 mapper.visitMember(loginInfo); // visit insert 
+				 mapper.visitMember(loginInfo);
+				 mapper.visitMupdate();// visit insert 
 			 }
 			 			
 		}
@@ -98,6 +99,7 @@ public class MemberServiceImpl implements MemberService {
 			
 		if(i !=1) {			
 				mapper.visitMember(vo); // visit insert
+				mapper.visitNonmUpdate();
 			}		
 		return i;	
 	}

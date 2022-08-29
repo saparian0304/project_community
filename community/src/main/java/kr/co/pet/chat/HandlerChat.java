@@ -1,6 +1,7 @@
 package kr.co.pet.chat;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -92,7 +93,11 @@ public class HandlerChat extends TextWebSocketHandler {
 						mapToSend.put("cmd", "CMD_MSG_SEND");
 						// ${map.nickname }: ${map.content } ( ${map.regdate }) (회원번호 : ${map.member_no } )
 						Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-						mapToSend.put("content", mapReceive.get("nickname") + " : " + mapReceive.get("content") + " ( " + timestamp + " )");
+						SimpleDateFormat  simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm");
+						String strNowDate = simpleDateFormat.format(timestamp);
+						mapToSend.put("content", mapReceive.get("nickname") + " : " + mapReceive.get("content"));
+						mapToSend.put("date",  strNowDate);
+						mapToSend.put("member_no", (String)mapReceive.get("member_no"));
 						
 						String jsonStr = objectMapper.writeValueAsString(mapToSend);
 						sess.sendMessage(new TextMessage(jsonStr));
