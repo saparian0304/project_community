@@ -136,14 +136,48 @@
 			board.horse_hair, board.board_name, board.title, board.board_no,
 			(SELECT count(*) FROM reply WHERE r.reply_no = reply.gno AND reply.ono != 0) gno_count,   
 			(SELECT count(*) FROM recommend WHERE recommend.reply_no = r.reply_no) rec_count,
-			(SELECT count(*) FROM report WHERE report.reply_no = r.reply_no) rep_count,
+			(SELECT count(*) FROM report WHERE report.reply_no = r.reply_no) reply_count,
 			member.nickname
 		FROM reply AS r LEFT JOIN board
 		ON board.board_no = r.board_no
 		LEFT JOIN member 
 		ON r.member_no = member.member_no
-		ORDER BY gno ASC, ono ASC
-		LIMIT #{startIdx},${pageRow}
+		<where>
+			<if test="sword != null and sword != ''">
+				<if test="stype == 'all'">
+					(title LIKE '%${sword}%' OR board.content LIKE '%${sword}%' )
+				</if>
+				<if test="stype == 'title'">
+					title LIKE '%${sword}%'
+				</if>
+				<if test="stype == 'content'">
+					board.content LIKE '%${sword}%'
+				</if>
+			</if>
+			<if test="nickname != null and nickname != ''">
+				and nickname = #{nickname}
+			</if>
+			<if test="board_name != null and board_name != ''">
+				and board_name = #{board_name}
+				<if test="horse_hair != null and horse_hair !=''">
+				and horse_hair = #{horse_hair}
+				</if>
+			</if>
+			<if test="fromDate != null and fromDate != '' 
+					and toDate != null and toDate != ''">
+				and board.regdate between #{fromDate} and #{toDate}
+			</if>
+			<if test="reply_content != null and reply_content != ''">
+				and board.board_no = (
+					SELECT distinct reply.board_no 
+				    FROM reply 
+				    WHERE board.board_no = reply.board_no
+				    AND reply.content LIKE '%댓글%'
+				)
+			</if>
+		</where>
+		ORDER BY ${sort} ${order}
+		Limit #{startIdx},${pageRow}
 	</select>
 	
 	<select id="replyCnt" parameterType="kr.co.pet.admin.AdminReplyVO" resultType="int">

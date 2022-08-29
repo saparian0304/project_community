@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.pet.board.api.ApiService;
 import kr.co.pet.bookmark.BookmarkService;
+import kr.co.pet.center.CenterService;
+import kr.co.pet.center.CenterVO;
 import kr.co.pet.file.FileService;
 import kr.co.pet.file.FileVO;
 import kr.co.pet.hos.HosService;
@@ -37,6 +39,9 @@ public class BoardController {
 	
 	@Autowired
 	LocService lservice;
+	
+	@Autowired
+	CenterService cservice;
 	
 	@Autowired
 	HosService hservice;
@@ -246,9 +251,9 @@ public class BoardController {
 		}
 	
 		//member_no 저장 로그인
-//		HttpSession sess = req.getSession();
-//		MemberVO mv = (MemberVO)sess.getAttribute("loginInfo");
-//		vo.setMember_no(mv.getNo());
+		HttpSession sess2 = req.getSession();
+		MemberVO mv = (MemberVO)sess2.getAttribute("loginInfo");
+		vo.setMember_no(mv.getMember_no());
 		
 		if(in) {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
@@ -304,9 +309,9 @@ public class BoardController {
 		}
 		
 		//member_no 저장 로그인
-//		HttpSession sess = req.getSession();
-//		MemberVO mv = (MemberVO)sess.getAttribute("loginInfo");
-//		vo.setMember_no(mv.getNo());
+		HttpSession sess2 = req.getSession();
+		MemberVO mv = (MemberVO)sess2.getAttribute("loginInfo");
+		vo.setMember_no(mv.getMember_no());
 		
 		if(in) {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
@@ -320,20 +325,28 @@ public class BoardController {
 	}
 
 	@PostMapping(value = "/board/centerinsert.do", consumes = "multipart/form-data")
-	public String centerinsert(BoardVO vo, FileVO fvo, LocVO lvo, Model model, @RequestParam MultipartFile filename,
-			HttpServletRequest req) {
+	public String centerinsert(BoardVO vo, FileVO fvo, LocVO lvo, CenterVO cvo,Model model, @RequestParam MultipartFile filename,
+			HttpServletRequest req, HttpSession sess) {
 		//게시글 저장 board테이블
 		//LocVO lvo = new LocVO();
 		vo.setBoard_name("center");
+
 		boolean in = service.insert(vo);
 		String st =  vo.getContent();
 		st.replaceAll("<p>", "");
 		st.replaceAll("</p>", "");
 		vo.setContent(st);
 		service.update(vo);
+		
 		lvo.setBoard_no(vo.getBoard_no());
 		fvo.setBoard_no(vo.getBoard_no());
+		cvo.setBoard_no(vo.getBoard_no());
 		lservice.insert(lvo);
+		cservice.insert(cvo);
+		
+		
+		
+		
 		//첨부파일 처리file테이블
 		if(!filename.isEmpty()) {
 			//파일명 구하기
@@ -361,9 +374,9 @@ public class BoardController {
 		}
 		
 		//member_no 저장 로그인
-//		HttpSession sess = req.getSession();
-//		MemberVO mv = (MemberVO)sess.getAttribute("loginInfo");
-//		vo.setMember_no(mv.getNo());
+			HttpSession sess2 = req.getSession();
+			MemberVO mv = (MemberVO)sess2.getAttribute("loginInfo");
+			vo.setMember_no(mv.getMember_no());
 		
 		if(in) {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
@@ -451,11 +464,33 @@ public class BoardController {
 		}
 	}
 	
-	@GetMapping("/board/delete.do")
+	@GetMapping("/board/livedelete.do")
+	public String livedelete(BoardVO vo, Model model) {
+		if(service.delete(vo.getBoard_no())) {
+			model.addAttribute("msg", "정상적으로 삭제되었습니다.");
+			model.addAttribute("url", "liveindex.do");
+			return "common/alert";
+		}else {
+			model.addAttribute("msg", "삭제실패");
+			return "common/alert";
+		}
+	}
+	@GetMapping("/board/freedelete.do")
+	public String freedelete(BoardVO vo, Model model) {
+		if(service.delete(vo.getBoard_no())) {
+			model.addAttribute("msg", "정상적으로 삭제되었습니다.");
+			model.addAttribute("url", "freeindex.do");
+			return "common/alert";
+		}else {
+			model.addAttribute("msg", "삭제실패");
+			return "common/alert";
+		}
+	}
+	@GetMapping("/board/centerdelete.do")
 	public String delete(BoardVO vo, Model model) {
 		if(service.delete(vo.getBoard_no())) {
 			model.addAttribute("msg", "정상적으로 삭제되었습니다.");
-			model.addAttribute("url", "index.do");
+			model.addAttribute("url", "centerindex.do");
 			return "common/alert";
 		}else {
 			model.addAttribute("msg", "삭제실패");

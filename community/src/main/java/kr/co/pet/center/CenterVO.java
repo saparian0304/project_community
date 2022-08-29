@@ -9,7 +9,7 @@ public class CenterVO {
 	private int board_no;
 	private String shelter_no;
 	private boolean park;
-	private int ani_tpe;
+	private int ani_type;
 	
 	private String nickname;
 	
