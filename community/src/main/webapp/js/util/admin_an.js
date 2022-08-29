@@ -62,3 +62,17 @@ function makeTh(arrColName, arrHeadName, Formid, sort, order) {
 function winClose(){
 	  window.open('','_self').close(); 
 };
+
+// 게시글, 댓글 구분
+function setTargetType(targetType) {
+	$('#targetType').val(targetType);
+	$('#reportSearch').submit();
+} 
+
+// 체크박스 전체 체크
+function selectAll(selectAll)  {
+	var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+	checkboxes.forEach((checkbox) => {
+	   checkbox.checked = selectAll.checked
+	})
+}

@@ -51,7 +51,7 @@ function messageWrite() {
 				<td>보낸 사람</td>		
 				<td>  
 					<input type="hidden" name="read_member" id="read_member" value="${param.member_no}">
-					<input type="text" name="read" id="read" value=" ${param.nickname}"> 				
+					<input type="text" name="read" id="read" value=" ${empty param.nickname ? '관리자' : param.nickname}"> 				
 				<td>							 
 			</tr>			
 			<tr>
@@ -68,9 +68,11 @@ function messageWrite() {
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align: center;">
+					<c:if test="${!empty param.nickname }">
 					<button style="width : 80px; height : 30px; position: center; margin-top:5px;" class="reqbtn mymess">
 						<input type="submit" name="" value="답장하기" ; style="background-color:transparent; border:0px transparent solid;">
 					</button>
+					</c:if>
 				</td>
 			</tr>
 		</table>

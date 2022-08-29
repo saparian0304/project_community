@@ -20,6 +20,11 @@
 		VALUES ( #{i_no}, #{you_no}, #{reason}, #{content}, now(), #{reply_no}, #{board_no})
 	</insert>
 	
+	<select id="getReportInfo" parameterType="kr.co.pet.report.ReportVO" resultType="kr.co.pet.report.ReportVO">
+		SELECT report_no, board_no, reply_no, you_no FROM report WHERE report_no = #{report_no};
+	</select>
+	
+	
 	<update id="handleReport" parameterType="kr.co.pet.report.ReportVO">
 		UPDATE report SET stat = #{stat}, resdate = now() WHERE report_no = #{report_no}
 	</update>
@@ -206,4 +211,15 @@
 		isdelete = 2
 		WHERE reply_no = #{reply_no}
 	</update>
+	
+	<insert id = "sendAdminMsg" parameterType="kr.co.pet.report.ReportVO">
+		INSERT INTO message (
+			content, send_member, read_member,  senddate, readdate, isdelete, from_admin
+			) VALUES (
+				#{content}, 0, #{you_no}, NOW(), NOW(), 0, #{admin_no}
+			)			
+	</insert>
+	
+	
+	
 </mapper>

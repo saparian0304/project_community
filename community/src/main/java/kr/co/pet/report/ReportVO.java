@@ -39,4 +39,6 @@ public class ReportVO extends SearchVO {
 	private Timestamp regdate;
 	private Timestamp update_date;
 	
+	// 신고처리시 메시지
+	private int admin_no;
 }
