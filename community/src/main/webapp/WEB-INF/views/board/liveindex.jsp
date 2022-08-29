@@ -10,12 +10,12 @@
 	$(function() {
 		$("select[name=sido1]").trigger("change"); // '구/군'선택값 유지하기위해 강제로 '시/도'바꿔주는 역할.
 	})
-	function total_search(val) {
+	function horse_hairSearch(val) {
 		
 		if(val ==''){
-			$("#search_str").val('');
+			$("#horse_hair").val('');
 		} else {
-			$("#search_str").val(val);   // 파라미터를 폼안에 있는 히든에 넣어주기(말머리+검색어까지 같이 사용하기위해)
+			$("#horse_hair").val(val);   // 파라미터를 폼안에 있는 히든에 넣어주기(말머리+검색어까지 같이 사용하기위해)
 		}
 		
 		if($("#sido1").val() == "시/도 선택"){
@@ -106,34 +106,12 @@
 		<!-- 검색영역 -->
 		<div  style="width:1280px; margin:20px auto;"><!-- class="bodytext_area box_inner" -->
 			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
-				<input type="hidden" name="total_search" id="total_search" value="">			
+				<input type="hidden" name="horese_hair" id="horese_hair" value="">			
 				<fieldset>
-				<span class="selectAll">
-					<select name="sido1" id="sido1" title="시/도"></select>
-					<select name="gugun1" id="gugun1" title="구/군"></select>
-				
-					<select id="horse_hair" name="horse_hair" class="hSelect" title="말머리검색">
-						<option value="">전체</option>
-						<option value='1'<c:if test="${param.horse_hair eq '1' }">selected</c:if>>음식점</option>
-						<option value='2'<c:if test="${param.horse_hair eq '2' }">selected</c:if>>관광지</option>
-						<option value='3'<c:if test="${param.horse_hair eq '3' }">selected</c:if>>병원</option>
-					</select>
-                   
-				   <select id="stype" name="stype" class="dSelect" title="검색분류 선택">
-                       <option value="all">전체</option>
-                       <option value="title"<c:if test="${stype eq 'title' }">selected</c:if>>제목</option>
-					   <option value="content"<c:if test="${stype eq 'content' }">selected</c:if>>내용</option>
-                   </select>
-				
-				 <legend> 검색 </legend>
-				 <input type="text" class="tbox" id="sval" name="sword" value="${sword }" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
-				 <a href="javascript:total_search('${param.search_str }')" class="btn_srch">검색</a>
-                </span>
-					<span class="selectAll">
 					<span class="select_all">
 						<select name="sido1" id="sido1" title="시/도"></select>
 						<select name="gugun1" id="gugun1" title="구/군"></select>
-					
+				 	
 						<select id="horse_hair" name="horse_hair" class="hSelect" title="말머리검색">
 							<option value="">전체</option>
 							<option value='1'<c:if test="${param.horse_hair eq '1' }">selected</c:if>>음식점</option>
@@ -148,8 +126,10 @@
 		              	</select>
 						
 						<legend> 검색 </legend>
-						<input type="text" class="tbox" id="sval" name="sword" value="${sword }" onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
-						<a href="javascript:total_search('${param.search_str }')" class="btn_srch">검색</a>
+						<input type="text" class="tbox" id="sval" name="sword" value="${sword }"
+								onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');"
+								title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name="">  
+						<a href="javascript:horse_hairSearch('${param.horse_hair }')" class="btn_srch">검색</a>
 	                </span>
 				</fieldset>
 			</form>

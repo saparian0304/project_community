@@ -22,6 +22,7 @@
 		select count(*) from board left join location
 		ON board.board_no = location.board_no
 		where board_name = #{board_name}
+		AND isdelete = 0 <!-- 김 추가 -->
 		<if test="loginNO != null and loginNO !=''"> <!-- 차단 사람 글 count 안하게 WHERE 추가-->
 			AND board.member_no not in (SELECT you_no FROM follow WHERE i_no = #{loginNO} AND relation = 1)
 		</if>
@@ -33,7 +34,7 @@
 		<!-- 최신순, 추천순, 댓글순 검색결과  -->
 		
 		<if test="horse_hair != null and horse_hair !=''">
-			and horse_hair = ${horse_hair}
+			and horse_hair = #{horse_hair}
 		</if>
 		
 		

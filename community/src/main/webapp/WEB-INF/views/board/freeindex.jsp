@@ -4,14 +4,16 @@
     <script src="/pet/js/function.js"></script>
 	<script>
 
-		function total_search(val) {
-			if(val == '') {
-				$("#search_str").val('');
+		function horse_hairSearch(val) {
+			console.log(val);
+			if(val =='') {
+				$("#horse_hair").val('');
 			} else {
-				$("#search_str").val(val); // 파라미터를 폼안에 있는 히든에 넣어주기(말머리+검색어까지 같이 사용하기위해)
+				$("#horse_hair").val(val); // 파라미터를 폼안에 있는 히든에 넣어주기(말머리+검색어까지 같이 사용하기위해)
 			}
-			
+			console.log("horse_hair : "+$('#param.horse_hair').val() );
 			$("#minisrch_form").submit(); // 폼을 전송
+			
 		}
 		
 	</script>
@@ -56,16 +58,19 @@
 		<!--  검색영역 -->
 		<div  style="width:1280px; margin:20px auto;">
 			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
-				<input type="hidden" name="total_search" id="total_search" value="">
+				 
+				<!-- <input type="hidden" name="horse_hair" id="horse_hair" value="">
+				  -->
 				<fieldset>
 					<span class="select_all"> 
 						
 						<select id="horse_hair" name="horse_hair" class="hSelect" title="말머리검색">
 							<option value="">전체</option>
-							<option value='5'<c:if test="${param.horse_hair eq '5' }">selected</c:if>>정보공유</option>
+ 							<option value='5'<c:if test="${param.horse_hair eq '5' }">selected</c:if>>정보공유</option>
 							<option value='6'<c:if test="${param.horse_hair eq '6' }">selected</c:if>>여행후기</option>
 							<option value='7'<c:if test="${param.horse_hair eq '7' }">selected</c:if>>고민상담</option>
 							<option value='4'<c:if test="${param.horse_hair eq '4' }">selected</c:if>>잡담</option>
+							
 						</select>
 					
 						<select id="stype" name="stype" class="dSelect" title="검색분류 선택">
@@ -75,9 +80,9 @@
 						</select> 
 						<legend> 검색 </legend> 
 						<input type="text" class="tbox" id="sval" name="sword" value="${sword }"
-								onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');"
+								onkeypress="if (event.keyCode==13) horse_hairSearch('$('#horse_hair').val()');"
 								title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
-						<a href="javascript:total_search('${param.search_str }')" class="btn_srch">검색</a>
+						<a href="javascript:horse_hairSearch($('#horse_hair').val())" class="btn_srch">검색</a>
 					</span>	
 				</fieldset>					
 			</form>
@@ -88,16 +93,6 @@
 					<span><strong>총 ${pageMaker.totalCount }개</strong> | ${boardVO.page }/${pageMaker.totalPage }페이지</span>
 				</p>
 			</div>			
-				<!-- <table style="width: 707px; cellspacing:0; cellpadding:0; border:0; align:center; margin-top: 30px;" >
-					<tr>				  
-						 <td><a href="javascript:horse_hairSearch('');">전체</a></td>
-						 <td><a href="javascript:horse_hairSearch('6');">여행후기</a></td>
-						 <td><a href="javascript:horse_hairSearch('5');">정보공유</a></td>
-						 <td><a href="javascript:horse_hairSearch('7');">고민상담</a></td>
-						 <td><a href="javascript:horse_hairSearch('4');">잡담</a></td>				       
-					</tr>
-					<tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>
-				</table>	 -->				
 				
 				<div class="s21_tour_sun">
 				<!-- 검색란 체크시 출력-->
