@@ -84,7 +84,32 @@ function multiReport(stat) {
 	})
 	location.reload();
 }
+
+function dis(){
+    if($('.detail').css('display') == 'none'){
+        $('.detail').show();
+    }else{
+        $('.detail').hide();
+    }
+}
 </script>
+<style>
+.detail {
+	display : none;
+	clear : both;
+	margin-top: 15px;
+	padding : 15px 5px;
+	border: 2px solid #2a293e;
+	border-radius: 5px;
+}
+
+.detailbtn {
+	width : 100px; 
+	height : 30px; 
+	text-align : center;
+	cursor : pointer;
+}
+</style>
 </head>
 <body>
 	<div id="wrap">
@@ -97,6 +122,11 @@ function multiReport(stat) {
 					<input type="hidden" id="sort" name="sort" value="${param.sort }">
 					<input type="hidden" id="order" name="order" value="${param.order }"> 
 					<input type="hidden" id="targetType" name="targetType" value="${param.targetType }"> 
+					
+					<div>
+					<input type="button" class="detailbtn" onclick="javascript:dis();" value="상세 조건">
+					</div>
+					<div class="detail">
 					<select id="reason" name="reason">
 						<option value="0"
 							<c:if test="${param.reason == '0'}">selected="selected"</c:if>>신고구분</option>
@@ -118,8 +148,11 @@ function multiReport(stat) {
 						placeholder="종료일자" autocomplete="off"> &emsp;
 					<p style="font-size: 15px; display: inline;">신고자 :</p>
 					&emsp;&emsp; <input type="text" name="i_nickname"
-						value="${param.i_nickname }" placeholder="신고자 닉네임 입력"> <br>
-					<br> <select name="stat">
+						value="${param.i_nickname }" placeholder="신고자 닉네임 입력"> 
+					&emsp;&emsp;&emsp;&emsp;&nbsp;
+					<br>
+					<br> 
+					<select name="stat">
 						<option value="">처리구분</option>
 						<option value="wait"
 							<c:if test="${param.stat == 'wait'}">selected</c:if>>wait</option>
@@ -131,13 +164,14 @@ function multiReport(stat) {
 					<input type="text" id="resFromDate"
 						name="resFromDate" value="${param.resFromDate }"
 						placeholder="시작일자" autocomplete="off"> &emsp;~&emsp; 
-						<input	type="text" id="resToDate" name="resToDate"
+					<input	type="text" id="resToDate" name="resToDate"
 						value="${param.resToDate }" placeholder="종료일자" autocomplete="off">
 					&emsp;
 					<p style="font-size: 15px; display: inline;">피신고자 :</p>
-					&emsp; <input type="text" name="you_nickname"
-						value="${param.you_nickname }" placeholder="피신고자 닉네임 입력">
-					<br> <br> &emsp; <input type="submit" value="검색">
+					&emsp; 
+					<input type="text" name="you_nickname" value="${param.you_nickname }" placeholder="피신고자 닉네임 입력">
+					&emsp; <input type="submit" value="검색">
+					</div>
 				</form>
 				
 				

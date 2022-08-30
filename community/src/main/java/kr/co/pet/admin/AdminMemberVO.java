@@ -9,8 +9,10 @@ public class AdminMemberVO extends SearchVO{
 
 	
 	private int member_no;
+	private int admin_no;
 	private String name;
 	private String member_id;
+	private String admin_id;
 	private String pwd;
 	private String email; 
 	private String nickname;

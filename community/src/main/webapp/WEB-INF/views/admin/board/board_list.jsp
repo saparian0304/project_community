@@ -59,7 +59,32 @@ $(function () {
 	});
 	
 })
+
+function dis(){
+    if($('.detail').css('display') == 'none'){
+        $('.detail').show();
+    }else{
+        $('.detail').hide();
+    }
+}
 </script>
+<style>
+.detail {
+	display : none;
+	clear : both;
+	margin-top: 15px;
+	padding : 15px 5px;
+	border: 2px solid #2a293e;
+	border-radius: 5px;
+}
+
+.detailbtn {
+	width : 100px; 
+	height : 30px; 
+	text-align : center;
+	cursor : pointer;
+}
+</style>
 </head>
 <body>
 <div id="wrap">
@@ -70,16 +95,22 @@ $(function () {
 			<form action="/pet/admin/board/board_list.do" method="post"  id="boardSearch" class="minisrch_form">
 				<input type="hidden" id="sort" name="sort" value="${param.sort }">
 				<input type="hidden" id="order" name="order" value="${param.order }">
-				<input type="text" id="fromDate" name="fromDate" value="${param.fromDate }" placeholder="시작일자" autocomplete="off">
-				&emsp;~&emsp;
-				<input type="text" id="toDate" name="toDate" value="${param.toDate }" placeholder="종료일자" autocomplete="off">
-				 &emsp;
-				 <p style="font-size: 15px; display: inline;">작성자 닉네임 : </p> &emsp;
-				<input type="text" name="nickname" value="${param.nickname }" placeholder="작성자 닉네임 입력">
-				<br>
-				<br>
-				 <p style="font-size: 15px; display: inline;">댓글 내용 : </p> &emsp;
-				<input type="text" name="reply_content" value="${param.reply_content }" placeholder="댓글내용 입력">
+				
+				<div>
+				
+				<input type="button" class="detailbtn" onclick="javascript:dis();" value="상세 조건">
+				&emsp;&emsp;
+				<select name="stype">
+					<option value="all" <c:if test="${param.stype == 'all'}">selected</c:if>>all</option>
+					<option value="title" <c:if test="${param.stype == 'title'}">selected</c:if>>제목</option>
+					<option value="content" <c:if test="${param.stype == 'content'}">selected</c:if>>내용</option>
+				</select>
+				&emsp;
+				<input type="text" name="sword" value="${param.sword }" placeholder="검색어 입력">
+				&emsp;
+				<input type="submit" value="검색">
+				</div>
+				<div class="detail">
 				<select id="board_name" name="board_name" onchange="javascript:change_hair(this.value);">
 					<option value="" <c:if test="${param.board_name == ''}">selected="selected"</c:if>>전체 게시판</option>
 					<option value="live" <c:if test="${param.board_name == 'live'}">selected="selected"</c:if>>생활</option>
@@ -91,15 +122,17 @@ $(function () {
 					<option value="">말머리</option>
 				</select>
 				&emsp;
-				<select name="stype">
-					<option value="all" <c:if test="${param.stype == 'all'}">selected</c:if>>all</option>
-					<option value="title" <c:if test="${param.stype == 'title'}">selected</c:if>>제목</option>
-					<option value="content" <c:if test="${param.stype == 'content'}">selected</c:if>>내용</option>
-				</select>
-				&emsp;
-				<input type="text" name="sword" value="${param.sword }" placeholder="검색어 입력">
-				&emsp;
-				<input type="submit" value="검색">
+				<input type="text" id="fromDate" name="fromDate" value="${param.fromDate }" placeholder="시작일자" autocomplete="off">
+				&emsp;~&emsp;
+				<input type="text" id="toDate" name="toDate" value="${param.toDate }" placeholder="종료일자" autocomplete="off">
+				<br>
+				<br>
+				 <p style="font-size: 15px; display: inline;">작성자 닉네임 : </p> &emsp;
+				<input type="text" name="nickname" value="${param.nickname }" placeholder="작성자 닉네임 입력">
+				 &emsp;
+				 <p style="font-size: 15px; display: inline;">댓글 내용 : </p> &emsp;
+				<input type="text" name="reply_content" value="${param.reply_content }" placeholder="댓글내용 입력">
+				</div>
 			</form>
 			<p>
 				<span><strong>총 ${data.totalCount }개</strong> |

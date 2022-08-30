@@ -6,6 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 <link rel="stylesheet" href="/pet/css/tab.css"/>
+<script type="text/javascript" src="/pet/js/util/board_an.js"></script>
 <script>
 var login_no = "";
 <c:if test="${!empty loginInfo.member_no}">

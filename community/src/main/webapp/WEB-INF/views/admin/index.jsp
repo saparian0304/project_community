@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="util.*" %>
 <!doctype html>
 <html lang="ko">
@@ -303,7 +304,11 @@ function test() {
 	<div id="header">
 		<h1><a href="index.do"><img src="/pet/img/logo.png"> PET - 관리자 페이지 </a><a href="javascript:;" onclick="test()">&nbsp;&nbsp;&nbsp;</a></h1>
 		<ul class="topmenu">
-			<li class="logout"></li>
+			<li class="logout">
+			<c:if test="${!empty adminInfo }">
+				<li><a href="/pet/admin/logout.do">로그아웃</a></li>
+			</c:if>
+			</li>
 			<li class="homepage"><a href="/pet/board/main.do" target="_blank">PET - 커뮤니티</a></li>
 		</ul>
 	</div>
@@ -312,45 +317,21 @@ function test() {
 		<div id="menuWrap">
 			<div class="allmenu">전체메뉴
 				<div class="allmenu_con">
-					<dl style="width:13.666%;">
-						<dt><a href="javascript:;">나의 정보</a></dt>
-						<dd class="frist"><a href="javascript:;" onclick="clickMenu('myinfo1', '프로필', '/myinfo/index.do', false)">프로필</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('myinfo2', '자기소개', '/myinfo/myinfo.do', false)">자기소개</a></dd>
+					<dl style="width:30%;">
+						<dt><a href="javascript:;">통계</a></dt>
+						<dd class="frist"><a href="javascript:;" onclick="clickMenu('main1', '메인', '/main/index.do', false)">일일 통계</a></dd>
+						<dd><a href="javascript:;" onclick="clickMenu('main1', '메인', '/main/index.do', false)">시각화</a></dd>
 					</dl>
-					<dl style="width:13.666%;">
-						<dt><a href="javascript:;">팀프로젝트</a></dt>
-						<dd class="frist"><a href="javascript:;" onclick="clickMenu('project1', '프로젝트 소개', '/project/index.do', false)">프로젝트 소개</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('project2', '프로젝트 기획', '/project/plan.do', false)">프로젝트 기획</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('project3', '프로젝트 설계', '/project/architecture.do', false)">프로젝트 설계</a></dd>
+					<dl style="width:30%;">
+						<dt><a href="javascript:;">게시판 관리</a></dt>
+						<dd class="frist"><a href="javascript:;" onclick="clickMenu('board1', '게시판 관리', '/admin/board/board_list.do', false)">게시판 관리</a></dd>
+						<dd><a href="javascript:;" onclick="clickMenu('board2', '댓글 관리', '/admin/board/reply_list.do', false)">댓글 관리</a></dd>
+						<dd><a href="javascript:;" onclick="clickMenu('board3', '신고 관리', '/admin/board/report_board.do', false)">신고 관리</a></dd>
 					</dl>
-					<dl style="width:13.666%;">
-						<dt><a href="javascript:;">Front-End</a></dt>
-						<dd class="frist"><a href="javascript:;" onclick="clickMenu('front1', 'HTML', '/front/html.do', false)">HTML</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('front2', 'CSS', '/front/css.do', false)">CSS</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('front3', 'JavaScript', '/front/javascript.do', false)">JavaScript</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('front4', 'Jquery', '/front/jquery.do', false)">Jquery</a></dd>
-					</dl>
-					<dl style="width:14.666%;">
-						<dt><a href="javascript:;">Back-End</a></dt>
-						<dd class="frist"><a href="javascript:;" onclick="clickMenu('back1', 'Java', '/back/java.do', false)">Java</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('back2', 'Servlet/JSP', '/back/jsp.do', false)">Servlet/JSP</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('back3', 'Spring', '/back/spring.do', false)">Spring</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('back4', 'DB', '/back/db.do', false)">DB</a></dd>
-					</dl>
-					<dl style="width:16.666%;">
-						<dt><a href="javascript:;">BigData</a></dt>
-						<dd class="frist"><a href="javascript:;" onclick="clickMenu('bigdata1', 'BigData', '/bigdata/bigdata.do', false)">BigData</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('bigdata2', 'Hadoop', '/bigdata/hadoop.do', false)">Hadoop</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('bigdata3', '데이터분석', '/bigdata/analysis.do', false)">데이터분석</a></dd>
-					</dl>
-					<dl style="width:15.666%;">
-						<dt><a href="javascript:;">개인 프로젝트</a></dt>
-						<dd class="frist"><a href="javascript:;" onclick="clickMenu('portfolio1', '공지사항', '/portfolio/notice/index.do', false)">공지사항</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('portfolio2', '갤러리', '/portfolio/gallery/index.do', false)">갤러리</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('portfolio3', 'Q&A', '/portfolio/qna/index.do', false)">Q&A</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('portfolio4', '답변게시판', '/portfolio/reply/index.do', false)">답변게시판</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('portfolio5', '댓글게시판', '/portfolio/comment/index.do', false)">댓글게시판</a></dd>
-						<dd><a href="javascript:;" onclick="clickMenu('portfolio6', '회원관리', '/portfolio/member/index.do', false)">회원관리</a></dd>
+					<dl style="width:30%;">
+						<dt><a href="javascript:;">회원 관리</a></dt>
+						<dd class="frist"><a href="javascript:;" onclick="clickMenu('project1', '회원관리 - 목록', '/admin/member/member_list.do', false)">회원 관리 - 목록</a></dd>
+						<dd><a href="javascript:;" onclick="clickMenu('project2', '관리자 목록', '/admin/member/admin_list.do', false)">관리자 목록</a></dd>
 					</dl>
 				</div>
 			</div>
@@ -375,8 +356,7 @@ function test() {
 					<dd class="gnb_submenu">
 						<ul>	
 							<li id="project1_submenu" onclick="clickMenu('project1', '회원관리 - 목록', '/admin/member/member_list.do', false)">회원 관리 - 목록</li>
-							<li id="project2_submenu" onclick="clickMenu('project2', '회원 관리 - B', '/project/plan.do', false)">회원 관리 - B</li>
-							<li id="project3_submenu" onclick="clickMenu('project3', '회원 관리 - C', '/project/architecture.do', false)">회원 관리 - C</li>
+							<li id="project2_submenu" onclick="clickMenu('project2', '관리자 목록', '/admin/member/admin_list.do', false)">관리자 목록</li>
 						</ul>
 					</dd>
 				</dl>
