@@ -142,8 +142,6 @@ public class BoardController {
 		}
 		
 		vo.setPageRow(12);
-		model.addAttribute("data", service.liveindex(vo));
-		
 		model.addAttribute("data", service.centerindex(vo));
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(vo);

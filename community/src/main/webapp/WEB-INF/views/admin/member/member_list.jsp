@@ -13,13 +13,13 @@
 	<link rel="stylesheet" href="/pet/css/admin/common.css">
     <link rel="stylesheet" href="/pet/css/reset.css"/>
     <link rel="stylesheet" href="/pet/css/contents.css"/> 
-	<script type="text/javascript" src="/pet/js/util/member_shon.js"></script>
+	<script type="text/javascript" src="/pet/js/util/member_shon.js?ver=2"></script>
 <style>
 .detail {
 	display : none;
 	clear : both;
 	padding : 15px 5px;
-	border: 2px solid #2a293e;
+	border: 2px solid #2a293e; /* 위치 확인용 */
 	border-radius: 5px;
 }
 
@@ -29,7 +29,17 @@
 	float : right;
 	text-align : center;
 	cursor : pointer;
+	margin : 7px 0;
 }
+input[type="number"] {
+	width : 100px;
+	height : 32px;
+	display : none;
+}
+.dateSelf {
+	display : none;
+}
+
 </style>
 <script>
 
@@ -54,13 +64,6 @@ $(function () {
 	makeTh('${param.sort}', '${param.order}');
 })
 
-function dis(){
-    if($('.detail').css('display') == 'none'){
-        $('.detail').show();
-    }else{
-        $('.detail').hide();
-    }
-}
 </script>
 </head>
 <body>
@@ -69,57 +72,103 @@ function dis(){
 	<div id="container">
 		<!-- 공지사항 목록영역 -->
 		<div class="bodytext_area box_inner" style="width: 100%">
-			<form action="/pet/admin/member/member_list.do" method="post"  id="boardSearch" class="minisrch_form">
+			<form action="/pet/admin/member/member_list.do" method="post"  id="memberSearch" class="minisrch_form">
 				<input type="hidden" id="sort" name="sort" value="${param.sort }">
 				<input type="hidden" id="order" name="order" value="${param.order }">
-				<div style="float : left;">
-				<select name="stype1" >
+				<div style="float : right;">
+				<select name="stype" >
 					<option value="">전체</option>
 					<option value="member_id">ID</option>
 					<option value="nickname">닉네임</option>
+					<option value="email">이메일</option>
 				</select>
 				&emsp;
-				<input type="text" name="sword1" value="" placeholder="search" >
-				<input type="submit" value="검색">
+				<input type="text" name="sword" value="${param.sword }" placeholder="search" >
+				<input type="button" onclick="javascript:gosearch();" value="검색">
+				<br>
+				<input type="button" class="detailbtn" onclick="javascript:dis();" value="상세 조건">
 				</div>
-				<input type="button" class="detailbtn" onclick="javascript:dis();" value="상세 검색">
 				<br>
 				<br>
 				<div class="detail">
-				<input type="text" id="fromDate" name="fromDate" value="${param.fromDate }" placeholder="시작일자" autocomplete="off">
-				&emsp;~&emsp;
-				<input type="text" id="toDate" name="toDate" value="${param.toDate }" placeholder="종료일자" autocomplete="off">
-				 &emsp;
-				 
-				 <p style="font-size: 15px; display: inline;">회원 닉네임 : </p> &emsp;
-				<input type="text" name="nickname" value="${param.nickname }" placeholder="회원 닉네임 입력">
+				<p style="font-size: 15px; display: inline;">성별 : </p>&emsp;
+				<select id="gender" name="gender">
+					<option value="0">전체</option>
+					<option value="1">남자</option>
+					<option value="2">여자</option>
+				</select>
+				&emsp;&emsp;
+				<p style="font-size: 15px; display: inline;">등급 : </p>&emsp;
+				<select class="updown" id="level" name="level">
+					<option value="999">전체</option>
+					<option value="0">일반회원</option>
+				</select>
+				<select id="level_order" name="level_order">
+					<option value="">--</option>
+				</select>
+				&emsp;&emsp;
+				<p style="font-size: 15px; display: inline;">회원상태 : </p>&emsp;
+				<select id="out" name="out">
+					<option value="999">전체</option>
+					<option value="0">활동중</option>
+					<option value="1">탈퇴</option>
+					<option value="2">활동중지</option>
+				</select>
+				<br><br>
+				
+				<p style="font-size: 15px; display: inline;">기간 설정 : </p>&emsp;
+				<select id="dateType" name="dateType">
+					<option value="">------선택------</option>
+					<option value="birthday">생년월일</option>
+					<option value="regdate">가입일</option>
+					<option value="curr_login">최근 방문일</option>
+					<option value="leavedate">탈퇴/활동중지</option>
+				</select>
+				&emsp;
+				<select id="fromDate" name="fromDate">
+					<option value="">---</option>
+				</select>
+				<p class="dateSelf" >
+				&emsp;&emsp;
+					<input type="text" name="fromDate2" value="${param.fromDate }" placeholder="시작일자" autocomplete="off">
+					&emsp;~&emsp;
+					<input type="text" name="toDate" value="${param.toDate }" placeholder="종료일자" autocomplete="off">
+					 &emsp;
+				</p>
 				<br>
 				<br>
-				 <p style="font-size: 15px; display: inline;">댓글 내용 : </p> &emsp;
-				<input type="text" name="reply_content" value="${param.reply_content }" placeholder="댓글내용 입력">
-				<select id="board_name" name="board_name">
-					<option value="" <c:if test="${param.board_name == ''}">selected="selected"</c:if>>전체 게시판</option>
-					<option value="live" <c:if test="${param.board_name == 'live'}">selected="selected"</c:if>>생활</option>
-					<option value="free" <c:if test="${param.board_name == 'free'}">selected="selected"</c:if>>자유</option>
-					<option value="center" <c:if test="${param.board_name == 'center'}">selected="selected"</c:if>>보호센터</option>
+				<p style="font-size: 15px; display: inline;">게시글 수 : </p> &emsp;
+				<select class="updown" id="board_count" name="board_count">
+					<option value="0">---</option>
+					<option value="50">50개</option>
+					<option value="100">100개</option>
+					<option value="200">200개</option>
+					<option value="500">500개</option>
+					<option value="self">직접입력</option>
 				</select>
-				&emsp;
-				<select id="horse_hair" name="horse_hair">
-					<option value="">말머리</option>
+				<input type="number" min="0" step="10" name="board_count2" value="${param.board_count }">		
+				<select id="board_order" name="board_order">
+					<option value="">--</option>
 				</select>
-				&emsp;
-				<select name="stype">
-					<option value="all" <c:if test="${param.stype == 'all'}">selected</c:if>>all</option>
-					<option value="title" <c:if test="${param.stype == 'title'}">selected</c:if>>제목</option>
-					<option value="content" <c:if test="${param.stype == 'content'}">selected</c:if>>내용</option>
+				&emsp;&emsp;
+				<p style="font-size: 15px; display: inline;">댓글 수 : </p> &emsp;
+				<select class="updown" id="reply_count" name="reply_count">
+					<option value="0">---</option>
+					<option value="50">50개</option>
+					<option value="100">100개</option>
+					<option value="200">200개</option>
+					<option value="500">500개</option>
+					<option value="self">직접입력</option>
 				</select>
-				&emsp;
-				<input type="text" name="sword" value="${param.sword }" placeholder="검색어 입력">
+				<input type="number" min="0" step="10" name="reply_count2" value="${param.reply_count }">
+				<select id="reply_order" name="reply_order">
+					<option value="">--</option>
+				</select>
 				&emsp;
 				</div>
 			</form>
 			
-			<button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:;">활동정지</button>
+			<button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:;">활동중지</button>
 			<button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:;">쪽지</button>
 			<br>
 			<br>
@@ -136,11 +185,12 @@ function dis(){
 				<caption class="hdd">목록</caption>
 				<colgroup>
 					<col width="45px" />
-                    <col width="85px" />
-                    <col width="60px" />
-                    <col width="140px" />
+                    <col width="110px" />
+                    <col width="130px" />
+                    <col width="150px" />
                     <col width="45px" />
-                    <col width="85px" />
+                    <col width="100px" />
+                    <col width="100px" />
                     <col width="*" />
                     <col width="70px" />
                     <col width="60px" />
@@ -157,7 +207,7 @@ function dis(){
 				<tbody>
 					<c:if test="${empty data.list }">
 						<tr>
-							<td class="first" colspan="12">등록된 회원이 없습니다.</td>
+							<td class="first" colspan="13">등록된 회원이 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:forEach var="vo" items="${data.list }" varStatus="status">
@@ -177,9 +227,14 @@ function dis(){
 							</td>
 							<td>${vo.birthday }</td>
 							<td>
-							<c:if test="${vo.out == 1}"></c:if>
-							<c:if test="${vo.out == 2}"></c:if>
-							<c:if test="${vo.leavedate == null}">${vo.level }</c:if>
+							<c:choose>
+								<c:when test="${vo.level == 0 }">일반회원</c:when>
+							</c:choose>
+							</td>
+							<td>
+							<c:if test="${vo.out == 0}">활동중</c:if>
+							<c:if test="${vo.out == 1}">탈퇴</c:if>
+							<c:if test="${vo.out == 2}">활동 중지</c:if>
 							</td>
 							<td>${vo.board_count }</td>
 							<td>${vo.reply_count }</td>
@@ -193,25 +248,27 @@ function dis(){
 				</tbody>
 			</table>
 			<div class="pagenation" style="clear: left">
-				<a style="cursor: pointer" class="firstpage pbtn">
+				<a style="cursor: pointer" class="firstpage pbtn"
+				 href="/pet/admin/member/member_list.do?page=1&stype=${param.stype}&sword=${param.sword}&gender=${param.gender}&level=${param.level}&level_order=${param.level_order}&out=${param.out}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}">
 			        <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
 			    </a>
 				<c:if test="${pageMaker.prev == true }">
-					<a class="prevpage pbtn" href="/pet/admin/member/member_list.do?page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}">
+					<a class="prevpage pbtn" href="/pet/admin/member/member_list.do?page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&gender=${param.gender}&level=${param.level}&level_order=${param.level_order}&out=${param.out}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}">
 					<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
 					</a>
 				</c:if>
 				<c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage}">
-					<a href='/pet/admin/member/member_list.do?page=${p }&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}'
+					<a href='/pet/admin/member/member_list.do?page=${p }&stype=${param.stype}&sword=${param.sword}&gender=${param.gender}&level=${param.level}&level_order=${param.level_order}&out=${param.out}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}'
 						class='pagenum <c:if test="${boardVO.page == p }"> currentpage</c:if>'>${p }</a>
 				</c:forEach>
 				<c:if test="${pageMaker.next == true }">
-					<a class="nextpage pbtn" href="/pet/admin/member/member_list.do?page=${pageMaker.endPage +1}&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}">
+					<a class="nextpage pbtn" href="/pet/admin/member/member_list.do?page=${pageMaker.endPage +1}&stype=${param.stype}&sword=${param.sword}&gender=${param.gender}&level=${param.level}&level_order=${param.level_order}&out=${param.out}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}">
 					<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
 					</a>
 				</c:if>
 				<a style="cursor: pointer"  
-			    	class="lastpage pbtn">
+			    	class="lastpage pbtn" 
+			    	 href="/pet/admin/member/member_list.do?page=${pageMaker.totalPage}&stype=${param.stype}&sword=${param.sword}&gender=${param.gender}&level=${param.level}&level_order=${param.level_order}&out=${param.out}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}">
 			        <img src="/pet/img/btn_lastpage.png" alt="마지막 페이지 이동">
 			    </a>
 			</div>
