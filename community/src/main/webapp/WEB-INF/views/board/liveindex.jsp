@@ -127,9 +127,9 @@
 						
 						<legend> 검색 </legend>
 						<input type="text" class="tbox" id="sval" name="sword" value="${sword }"
-								onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');"
+								onkeypress="if (event.keyCode==13) horse_hairSearch('$('#horse_hair').val()');"
 								title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name="">  
-						<a href="javascript:horse_hairSearch('${param.horse_hair }')" class="btn_srch">검색</a>
+						<a href="javascript:horse_hairSearch('$('#horse_hair').val()')" class="btn_srch">검색</a>
 	                </span>
 				</fieldset>
 			</form>
@@ -153,7 +153,7 @@
 			<!-- 탭 부분 -->
 			
 			<!-- 순 -->
-			<div class="s21_tour_sun" >
+			<div class="list_up" >
 					<!-- 검색란 체크시 출력-->
 					<p id="search_str" >
 						<a id="date_desc" onclick="total_search('date_desc', 'on')" >최신순</a>

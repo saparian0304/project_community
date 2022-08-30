@@ -94,7 +94,7 @@
 				</p>
 			</div>			
 				
-				<div class="s21_tour_sun">
+				<div class="list_up">
 				<!-- 검색란 체크시 출력-->
 					<p id="search_str" >
 						<a id="date_desc" onclick="total_search('date_desc', 'on')" >최신순</a>
