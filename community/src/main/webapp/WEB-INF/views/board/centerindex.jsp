@@ -85,15 +85,6 @@
 					<a id="reply_count" onclick="total_search('reply_count', 'desc')" >댓글많은순</a>
 				</p>
 			
-				<!--// 순 -->
-				
-				<c:if test="${empty loginInfo }" >
-				</c:if>
-				<c:if test="${!empty loginInfo }" >
-				<div class="btnSet" style="float: right;">
-					<a class="btn" href="centerwrite.do">글작성 </a>
-				</div>
-				</c:if>
 			</div>
 			<!-- **** -->
 			<table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">

@@ -87,7 +87,7 @@ function clickMenu(id, title, url, reload) {
 	}
 	if ($("#"+id+"_tab").length == 0) {
 		$(".tab > ul:last").append("<li style='width:"+tabWidth+"px;' id=\""+id+"_tab\" onclick=\"activeTab('"+id+"');\" "+nl+">"+title+"<span><img id=\""+id+"_closeImg\" src=\"/img/admin/tab_close_on.png\" onclick=\"delTab(event,'"+id+"')\"/></span></li>");
-		$(".contents:last").append("<iframe src="+url+" id=\""+id+"_ifrm\" onload=\"calcHeight('"+id+"_ifrm');\" name=\"WrittenPublic\" title=\"\" frameborder=\"0\" scrolling=\"no\" style=\"overflow-x:hidden; width:100%; min-height:500px; \"></iframe>");
+		$(".contents:last").append("<iframe src="+url+" id=\""+id+"_ifrm\" onload=\"calcHeight('"+id+"_ifrm');\" name=\"WrittenPublic\" title=\"\" frameborder=\"0\" scrolling=\"yes\" style=\"overflow-x:hidden; width:100%; min-height:500px; \"></iframe>");
 	} else {
 		if (reload) $("#"+id+"_ifrm").attr("src",url);
 	}

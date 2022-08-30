@@ -62,4 +62,19 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
+	// 방문자
+	@Override
+	public Map todayTotalCnt(AdminBoardVO vo) {
+		Map map = new HashMap();
+		
+		AdminBoardVO vt =mapper.visitToday(vo);		
+		Integer boardToday = mapper.boardToday(vo);
+		Integer replyToday = mapper.replyToday(vo);
+		
+		map.put("boardToday", boardToday);
+		map.put("replyToday", replyToday);
+		map.put("vt",vt);
+		return map;
+	}
+
 }

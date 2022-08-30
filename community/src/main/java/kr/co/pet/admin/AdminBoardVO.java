@@ -37,4 +37,14 @@ public class AdminBoardVO extends SearchVO {
 	private String filename_org;
 	private String filename_real;
 	
+	
+	// 통계 count
+	private Timestamp visit_date;
+	private int mtoday;
+	private int nonmtoday;
+	private int todaytotal;
+	private int board_today; 
+	private int reply_today;
+	
+	
 }

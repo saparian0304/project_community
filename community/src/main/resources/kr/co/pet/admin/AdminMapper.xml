@@ -145,35 +145,30 @@
 		<where>
 			<if test="sword != null and sword != ''">
 				<if test="stype == 'all'">
-					(title LIKE '%${sword}%' OR board.content LIKE '%${sword}%' )
+					 title LIKE '%${sword}%' OR board.content LIKE '%${sword}%'
 				</if>
 				<if test="stype == 'title'">
-					title LIKE '%${sword}%'
+					 title LIKE '%${sword}%'
 				</if>
 				<if test="stype == 'content'">
-					board.content LIKE '%${sword}%'
+					 board.content LIKE '%${sword}%'
 				</if>
 			</if>
 			<if test="nickname != null and nickname != ''">
-				and nickname = #{nickname}
+				 nickname = #{nickname} AND
 			</if>
 			<if test="board_name != null and board_name != ''">
-				and board_name = #{board_name}
+				board_name = #{board_name}
 				<if test="horse_hair != null and horse_hair !=''">
-				and horse_hair = #{horse_hair}
+				AND horse_hair = #{horse_hair}
 				</if>
 			</if>
 			<if test="fromDate != null and fromDate != '' 
 					and toDate != null and toDate != ''">
-				and board.regdate between #{fromDate} and #{toDate}
+				 board.regdate between #{fromDate} and #{toDate}
 			</if>
-			<if test="reply_content != null and reply_content != ''">
-				and board.board_no = (
-					SELECT distinct reply.board_no 
-				    FROM reply 
-				    WHERE board.board_no = reply.board_no
-				    AND reply.content LIKE '%댓글%'
-				)
+			<if test="content != null and content != ''">
+			    r.content LIKE '%${content}%'
 			</if>
 		</where>
 		ORDER BY ${sort} ${order}
@@ -181,27 +176,67 @@
 	</select>
 	
 	<select id="replyCnt" parameterType="kr.co.pet.admin.AdminReplyVO" resultType="int">
-		SELECT COUNT(*) FROM reply
+		SELECT COUNT(*) FROM reply AS r LEFT JOIN board
+		ON board.board_no = r.board_no
+		LEFT JOIN member 
+		ON r.member_no = member.member_no
+		<where>
+			<if test="sword != null and sword != ''">
+				<if test="stype == 'all'">
+					 title LIKE '%${sword}%' OR board.content LIKE '%${sword}%'
+				</if>
+				<if test="stype == 'title'">
+					 title LIKE '%${sword}%'
+				</if>
+				<if test="stype == 'content'">
+					 board.content LIKE '%${sword}%'
+				</if>
+			</if>
+			<if test="nickname != null and nickname != ''">
+				 nickname = #{nickname} AND
+			</if>
+			<if test="board_name != null and board_name != ''">
+				board_name = #{board_name}
+				<if test="horse_hair != null and horse_hair !=''">
+				AND horse_hair = #{horse_hair}
+				</if>
+			</if>
+			<if test="fromDate != null and fromDate != '' 
+					and toDate != null and toDate != ''">
+				 board.regdate between #{fromDate} and #{toDate}
+			</if>
+			<if test="content != null and content != ''">
+				 <!-- board.board_no = (
+					SELECT reply.board_no 
+				    FROM reply 
+				    WHERE board.board_no = reply.board_no
+				    AND  -->
+				    r.content LIKE '%${content}%'
+			</if>
+		</where>
 	</select>
 	
-	<select id= "visitToday" parameterType="kr.co.pet.admin.AdminBoardVO">
+	<!-- 방문자 -->
+	<select id= "visitToday" parameterType="kr.co.pet.admin.AdminBoardVO" resultType="kr.co.pet.admin.AdminBoardVO">
 		SELECT 
 			visit_date 
-				,visit_mcount AS mtoday
-				,visit_nonmcount AS nonmtoday 
+				,visit_mcount mtoday
+				,visit_nonmcount nonmtoday 
 				,visit_mcount  + visit_nonmcount AS todaytotal 
 		FROM visit 
 		WHERE visit_date = curdate()
 	</select>
 	
-	<select id= "boardToday" parameterType="kr.co.pet.admin.AdminBoardVO">
+	<!-- today 게시글  -->
+	<select id= "boardToday" parameterType="kr.co.pet.admin.AdminBoardVO" resultType="Integer">
 		SELECT 
 			count(*) AS board_today 
 		FROM board 
 		WHERE date_format(regdate,'%Y-%m-%d') = curdate()
 	</select>
 	
-	<select id= "replyToday" parameterType="kr.co.pet.admin.AdminBoardVO">
+	<!-- today 댓글 -->
+	<select id= "replyToday" parameterType="kr.co.pet.admin.AdminBoardVO" resultType="Integer">
 		SELECT 
 			count(*) AS reply_today 
 		FROM reply 

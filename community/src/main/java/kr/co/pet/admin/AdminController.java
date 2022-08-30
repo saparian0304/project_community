@@ -27,7 +27,9 @@ public class AdminController {
 	
 	// 메인 들어가자 마자 보이게
 	@RequestMapping("/admin/main/index.do")
-	public String mainindex() {
+	public String mainindex(Model model, AdminBoardVO vo) {
+		model.addAttribute("total", service.todayTotalCnt(vo)); // 방문자 
+		
 		return "admin/main/index";
 	}
 	
@@ -64,7 +66,7 @@ public class AdminController {
 	
 	@RequestMapping("/admin/member/member_list.do")
 	public String memberList(Model model, AdminMemberVO vo) {
-		if(vo.getSort() == null) {
+		if(vo.getSort() == null || "".equals(vo.getSort())) {
 			vo.setSort("member_no");
 			vo.setOrder("ASC");
 		}
@@ -79,12 +81,11 @@ public class AdminController {
 	
 	@RequestMapping("/admin/board/reply_list.do")
 	public String replyIndex(Model model, AdminReplyVO vo) {
-		if(vo.getSort() == null) {
+		if(vo.getSort() == null || "".equals(vo.getSort())) {
 			vo.setSort("reply_no");
 			vo.setOrder("DESC");
 		}
 		model.addAttribute("data", service.replyList(vo));
-		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(vo);
 		pageMaker.setTotalCount((int)((Map)(model.getAttribute("data"))).get("totalCount"));
