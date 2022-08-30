@@ -99,7 +99,10 @@ public class BoardController {
 		if(loginInfo !=null) {
 			vo.setLoginNO(loginInfo.getMember_no());
 		}
-		
+		if (vo.getSort() == null || "".equals(vo.getSort())) {
+			vo.setSort("regdate");
+			vo.setOrder("desc");
+		}
 		vo.setPageRow(12);
 		model.addAttribute("data", service.freeindex(vo));
 		PageMaker pageMaker = new PageMaker();
@@ -120,8 +123,14 @@ public class BoardController {
 			vo.setLoginNO(loginInfo.getMember_no());
 		}
 		
+		if (vo.getSort() == null || "".equals(vo.getSort())) {
+			vo.setSort("regdate");
+			vo.setOrder("desc");
+		}
+		
 		vo.setPageRow(12);
 		model.addAttribute("data", service.liveindex(vo));
+		
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(vo);
@@ -139,6 +148,10 @@ public class BoardController {
 		MemberVO loginInfo = (MemberVO)sess.getAttribute("loginInfo");		
 		if(loginInfo !=null) {
 			vo.setLoginNO(loginInfo.getMember_no());
+		}
+		if (vo.getSort() == null || "".equals(vo.getSort())) {
+			vo.setSort("regdate");
+			vo.setOrder("desc");
 		}
 		
 		vo.setPageRow(12);

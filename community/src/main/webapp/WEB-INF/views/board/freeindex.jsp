@@ -5,19 +5,16 @@
     <script src="/pet/js/function.js"></script>
 	<script>
 
-		function horse_hairSearch(val) {
-			console.log(val);
-			if(val =='') {
-				$("#horse_hair").val('');
-			} else {
-				$("#horse_hair").val(val); // 파라미터를 폼안에 있는 히든에 넣어주기(말머리+검색어까지 같이 사용하기위해)
-			}
-			console.log("horse_hair : "+$('#param.horse_hair').val() );
-			$("#minisrch_form").submit(); // 폼을 전송
+		
+		
+		function total_search(sort, order) {
+			
+			$('#sort').val(sort);
+			$('#order').val(order);
+			
+			$("#minisrch_form").submit();  //form태그만 submit 가능.
 			
 		}
-		
-	
 		
 	</script>
 	
@@ -64,6 +61,8 @@
 				 
 				<!-- <input type="hidden" name="horse_hair" id="horse_hair" value="">
 				  -->
+				<input type="hidden" name="sort" id="sort" value="">
+				<input type="hidden" name="order" id="order" value="">
 				<fieldset>
 					<span class="select_all"> 
 						
@@ -83,9 +82,9 @@
 						</select> 
 						<legend> 검색 </legend> 
 						<input type="text" class="tbox" id="sval" name="sword" value="${sword }"
-								onkeypress="if (event.keyCode==13) horse_hairSearch('$('#horse_hair').val()');"
+								onkeypress="if (event.keyCode==13) submit();"
 								title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
-						<a href="javascript:horse_hairSearch($('#horse_hair').val())" class="btn_srch">검색</a>
+						<a href="javascript:total_search($('#horse_hair').val())" class="btn_srch">검색</a>
 					</span>	
 				</fieldset>					
 			</form>
@@ -100,9 +99,9 @@
 				<div class="list_up">
 				<!-- 검색란 체크시 출력-->
 					<p id="search_str" >
-						<a id="date_desc" onclick="total_search('date_desc', 'on')" >최신순</a>
-						<a id="rec_count" onclick="total_search('rec_count', 'on')" >추천순</a>
-						<a id="reply_count" onclick="total_search('reply_count', 'on')" >댓글많은순</a>
+						<a id="date_desc" onclick="total_search('regdate', 'desc')" >최신순</a>
+						<a id="rec_count" onclick="total_search('rec_count', 'desc')" >추천순</a>
+						<a id="reply_count" onclick="total_search('reply_count', 'desc')" >댓글많은순</a>
 					</p>
 					
 				<c:if test="${empty loginInfo }">
@@ -139,12 +138,11 @@
 							</c:if>
 							<div class="s21_tour_list_tbox" style="width: 50%; float: left;">
 								<p class="list_content">제목 : ${vo.title }</p>
-								<p class="list_content">조회수 : ${vo.viewcount }</p>
 							</div>
 							<div style="width: 49%; float: right; text-align: right;">
 								<i class='fas fa-eye'> ${vo.viewcount }</i>
 								<img style="width: 15px; height: 15px;" src="https://previews.123rf.com/images/captainvector/captainvector1512/captainvector151209976/81535071-%EB%8C%93%EA%B8%80-%EC%95%84%EC%9D%B4%EC%BD%98.jpg">${vo.reply_count }
-								<img style="width: 15px; height: 15px;" src="/pet/img/icon_like_black.png">${vo.rec_count }
+								<img style="width: 15px; height: 15px;" src="/pet/img/icon_like_black.png"> ${vo.rec_count }
 							</div>
 						</figure>
 					</div>
@@ -157,16 +155,16 @@
 		        <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
 		    </a>
 			<c:if test="${pageMaker.prev == true }">
-				<a class="prevpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}">
+				<a class="prevpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}">
 				<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
 				</a>
 			</c:if>
 			<c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage}">
-				<a href='freeindex.do?horse_hair=${param.horse_hair }&page=${p }&stype=${param.stype}&sword=${param.sword}'
+				<a href='freeindex.do?horse_hair=${param.horse_hair }&page=${p }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}'
 					class='pagenum <c:if test="${boardVO.page == p }"> currentpage</c:if>'>${p }</a>
 			</c:forEach>
 			<c:if test="${pageMaker.next == true }">
-				<a class="nextpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.endPage +1}">
+				<a class="nextpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.endPage +1}&sort=${param.sort}&order=${param.order}">
 				<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
 				</a>
 			</c:if>

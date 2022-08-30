@@ -47,4 +47,7 @@ public class BoardVO extends Criteria {
 	
 	private int loginNO; // 로그인한 멤버no
 	
+	private String sort;
+	private String order;
+	
 }

@@ -19,7 +19,8 @@
 	</select>
 	
 	<select id="count" parameterType="kr.co.pet.board.BoardVO" resultType="java.lang.Integer">
-		select count(*) from board left join location
+		select count(*)
+		 from board left join location
 		ON board.board_no = location.board_no
 		where board_name = #{board_name}
 		AND isdelete = 0 <!-- 김 추가 -->
@@ -87,6 +88,10 @@
 			AND board.member_no not in (SELECT you_no FROM follow WHERE i_no = #{loginNO} AND relation = 1)
 		</if>
 		
+	 	
+		<if test="nickname != null and nickname !=''">
+			and nickname = '%${nickname}%'
+		</if> 
 		
 		<if test="sido1 != null and sido1 !=''">
 			and addr LIKE '%${sido1}%'
@@ -115,7 +120,7 @@
 			order by rec_count desc, viewcount desc
 		</if>
 		<if test="main == null">
-		order by regdate desc
+		order by ${sort} ${order}
 		</if>
 		Limit #{startIdx},${pageRow}
 	</select>
