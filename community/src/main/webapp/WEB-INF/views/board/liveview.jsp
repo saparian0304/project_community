@@ -7,10 +7,10 @@
 <link rel="stylesheet" href="/pet/css/tab.css"/>
 <script type="text/javascript" src="/pet/js/util/board_an.js"></script>
 <script>
-var login_no = "";
+/* var login_no = "";
 <c:if test="${!empty loginInfo.member_no}">
 	login_no = ${loginInfo.member_no};
-</c:if>
+</c:if> */
 
 /* 삭제 할거임 */
 function del(no) {
@@ -228,7 +228,8 @@ $(document).ready(function(){
 	                        <div class="title">
 	                            <dl>
 	                                <dt>${data.title } </dt>
-	                                <dd class="date">작성일 : ${data.regdate } </dd>
+	                                <dd class="date">작성일 : ${data.regdate } </dd><br>
+	                                <dd class="viewcount">조회수 : ${data.viewcount }</dd>
 	                            </dl>
 	                        </div>
 	                        <div class="leftArea">
@@ -378,8 +379,8 @@ $(document).ready(function(){
 	                            <div class="fl_l">
 		                            <a href="liveindex.do" class="btn">목록으로</a>
 		                            
-		                            <c:if test="${data.member_no == loginInfo.member_no }">
-			                            <a href="/pet/board/liveedit.do?board_no=${data.board_no }" class="btn">수정</a>
+		                            <c:if test="${data.member_no == 0 }">
+			                            <a href="/pet/admin/board/liveedit.do?board_no=${data.board_no }" class="btn">수정</a>
 			                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
 		                            </c:if>
 	                            </div>
