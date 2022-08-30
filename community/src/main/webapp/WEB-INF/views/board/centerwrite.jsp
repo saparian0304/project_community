@@ -31,66 +31,64 @@
     </script>
    </head>
 <body>
-    
-        <div class="sub">
-            <div class="size">
-                <h3 class="sub_title">게시판</h3>
-    
-                <div class="bbs">
-                <form method="post" name="frm" id="frm" action="centerinsert.do" enctype="multipart/form-data">
-                    <table class="board_write">
-                        <tbody>
-                        <tr>
-                            <th>말머리</th>
-                            <td>
-								<input type="radio" class="radio_value" name="horse_hair" value="9" checked="checked">보호센터
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>주소</th>
-                            <td>
-                                <%-- 주소1(구군), 주소2(입력한 상세주소), 위도, 경도 --%>
-						        주소 : <input type = "text" name = "addr" />
-						        상세주소 : <input type = "text" name = "addr2" /> 
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <th>제목</th>
-                            <td>
-                                <input type="text" name="title" id="title" class="wid100" value=""/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>종류</th>
-                            <td>
-                                <input type="checkbox" id="check_value" name="ani_type" value="1">강아지
-                                <input type="checkbox" id="check_value" name="ani_type" value="2">고양이
-                                <input type="checkbox" id="check_value" name="ani_type" value="3">기타
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>내용</th>
-                            <td>
-                                <textarea style="width: 90%" name="content" id="content"></textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                        	<th>첨부파일</th>
-                        	<td>
-                        		<input type="file" name="filename">
-                        	</td>
-                        </tr>
-                        
-                        </tbody>
-                    </table>
-	                    <div class="btnSet"  style="text-align:right;">
-	                        <a class="btn" href="javascript:goSave();">저장 </a>
-	                    </div>
-                    </form>
+   <div class="sub">
+       <div class="size">
+           <h3 class="sub_title">게시판</h3>
+
+           <div class="bbs">
+           <form method="post" name="frm" id="frm" action="centerinsert.do" enctype="multipart/form-data">
+               <table class="board_write">
+                   <tbody>
+                   <tr>
+                       <th>말머리</th>
+                       <td>
+			<input type="radio" class="radio_value" name="horse_hair" value="9" checked="checked">보호센터
+                       </td>
+                   </tr>
+                   <tr>
+                       <th>주소</th>
+                       <td>
+                           <%-- 주소1(구군), 주소2(입력한 상세주소), 위도, 경도 --%>
+	        주소 : <input type = "text" name = "addr" />
+	        상세주소 : <input type = "text" name = "addr2" /> 
+                       </td>
+                   </tr>
+                   
+                   <tr>
+                       <th>제목</th>
+                       <td>
+                           <input type="text" name="title" id="title" class="wid100" value=""/>
+                       </td>
+                   </tr>
+                   <tr>
+                       <th>종류</th>
+                       <td>
+                           <input type="checkbox" id="check_value" name="ani_type" value="1">강아지
+                           <input type="checkbox" id="check_value" name="ani_type" value="2">고양이
+                           <input type="checkbox" id="check_value" name="ani_type" value="3">기타
+                       </td>
+                   </tr>
+                   <tr>
+                       <th>내용</th>
+                       <td>
+                           <textarea style="width: 90%" name="content" id="content"></textarea>
+                       </td>
+                   </tr>
+                   <tr>
+                   	<th>첨부파일</th>
+                   	<td>
+                   		<input type="file" name="filename">
+                   	</td>
+                   </tr>
+                   
+                   </tbody>
+               </table>
+                <div class="btnSet"  style="text-align:right;">
+                    <a class="btn" href="javascript:goSave();">저장 </a>
                 </div>
-            </div>
-        </div>
-        
+               </form>
+           </div>
+       </div>
+   </div>
 </body>
 </html>

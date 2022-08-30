@@ -6,7 +6,7 @@
 		INSERT INTO hospital (
 			license_no, ani_type, hurry, room, board_no
 		) VALUES (
-			#{license_no}, #{ani_type}, #{hurry}, #{room}, (SELECT board_no FROM board WHERE board_no = #{board_no})
+			#{license_no}, #{ani_type}, #{hurry}, #{room}, #{board_no}
 		)
 	</insert>
 	

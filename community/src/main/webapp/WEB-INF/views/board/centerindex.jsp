@@ -13,13 +13,7 @@
  		$("select[name=sido1]").trigger("change"); //   '구/군' 선택시, 선택값 유지되게
  	})
  	
- 	function total_search(val){
- 		
- 		if(val==''){
- 			$("#search_str").val('');
- 		}else{
- 			$("#search_str").val(val);
- 		}
+ 	function total_search(sort, order){
  		
 		if($("#sido1").val() == "시/도 선택"){
 			
@@ -29,6 +23,9 @@
 			
 			$('#gugun1').val("");
 		}
+		$('#sort').val(sort);
+		$('#order').val(order);
+		
 		$("#minisrch_form").submit(); // 폼을 전송
  	}
 </script>
@@ -49,7 +46,9 @@
 		<!-- 목록영역 -->
 		<div style="width:1280px; margin:20px auto;">
 			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
-				<input type="hidden" name="total_search" id="total_search" value="">
+				<!-- <input type="hidden" name="total_search" id="total_search" value=""> -->
+				<input type="hidden" name="sort" id="sort" value="">
+				<input type="hidden" name="order" id="order" value="">
 				<fieldset>
 					<span class="select_all">
 						<select name="sido1" id="sido1" title="시/도"></select>
@@ -62,7 +61,9 @@
 					</select> 
 					
 					<legend> 검색 </legend>
-					<input type="text" class="tbox" id="sval" name="sword" value="${sword }" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
+					<input type="text" class="tbox" id="sval" name="sword" value="${sword }" 
+						   onkeypress="if (event.keyCode==13) total_search();"
+						   title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
 					<a href="javascript:total_search('${param.search_str }')" class="btn_srch">검색</a>
 					</span>
 				</fieldset>
@@ -76,23 +77,14 @@
 					</p>
 				</div>
 			<!-- 순 -->
-			<div class="s21_tour_sun">
+			<div class="list_up">
 				<!-- 검색란 체크시 출력-->
 				<p id="search_str" >
-					<a id="date_desc" onclick="total_search('date_desc', 'on')" >최신순</a>
-					<a id="rec_count" onclick="total_search('rec_count', 'on')" >추천순</a>
-					<a id="reply_count" onclick="total_search('reply_count', 'on')" >댓글많은순</a>
+					<a id="date_desc" onclick="total_search('regdate', 'desc')" >최신순</a>
+					<a id="rec_count" onclick="total_search('rec_count', 'desc')" >추천순</a>
+					<a id="reply_count" onclick="total_search('reply_count', 'desc')" >댓글많은순</a>
 				</p>
 			
-				<!--// 순 -->
-				
-				<c:if test="${empty loginInfo }" >
-				</c:if>
-				<c:if test="${!empty loginInfo }" >
-				<div class="btnSet" style="float: right;">
-					<a class="btn" href="centerwrite.do">글작성 </a>
-				</div>
-				</c:if>
 			</div>
 			<!-- **** -->
 			<table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
@@ -102,6 +94,7 @@
 						<th scope="col">번호</th>
 						<th scope="col">제목</th>
 						<th scope="col">조회수</th>
+						<th scope="col">추천수</th>
 						<th scope="col">작성자</th>
 						<th scope="col">작성일</th>
 					</tr>
@@ -116,14 +109,11 @@
 						<tr>
 							<td>${data.totalCount-status.index-(boardVO.page-1)*boardVO.pageRow }<!-- 총개수 - 인덱스-(현재페이지번호-1)*페이지당개수 -->
 							</td>
-							<td class="txt_l"><a href="centerview.do?board_no=${vo.board_no }">${vo.title}
-									[${ vo.reply_count}]</a></td>
+							<td class="txt_l"><a href="centerview.do?board_no=${vo.board_no }">${vo.title} [${ vo.reply_count}]</a></td>
 							<td>${vo.viewcount }</td>
+							<td>${vo.rec_count }</td>
 							<td>${vo.nickname }</td>
-							<%-- <td class="writer">${vo.memb_nickname }</td> --%>
-
-							<td class="date"><fmt:formatDate value="${vo.regdate }"
-									pattern="yyyy-MM-dd HH:mm:ss" /></td>
+							<td class="date"><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -133,16 +123,16 @@
 			        <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
 			    </a>
 				<c:if test="${pageMaker.prev == true }">
-					<a class="prevpage pbtn" href="centerindex.do?page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}">
+					<a class="prevpage pbtn" href="centerindex.do?page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}">
 					<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
 					</a>
 				</c:if>
 				<c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage}">
-					<a href='centerindex.do?page=${p }&stype=${param.stype}&sword=${param.sword}'
+					<a href='centerindex.do?page=${p }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}'
 						class='pagenum <c:if test="${boardVO.page == p }"> currentpage</c:if>'>${p }</a>
 				</c:forEach>
 				<c:if test="${pageMaker.next == true }">
-					<a class="nextpage pbtn" href="centerindex.do?page=${pageMaker.endPage +1}">
+					<a class="nextpage pbtn" href="centerindex.do?page=${pageMaker.endPage +1}&sort=${param.sort}&order=${param.order}">
 					<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
 					</a>
 				</c:if>

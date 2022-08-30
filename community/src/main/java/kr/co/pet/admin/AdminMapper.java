@@ -28,4 +28,10 @@ public interface AdminMapper {
 	//댓글관리 - 박 -
 	List replyList(AdminReplyVO vo);
 	int replyCnt(AdminReplyVO vo);
+	
+	// 통계 count
+	AdminBoardVO visitToday(AdminBoardVO vo);
+	Integer boardToday(AdminBoardVO vo);
+	Integer replyToday(AdminBoardVO vo);
+	
 }

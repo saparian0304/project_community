@@ -92,6 +92,10 @@ function dis(){
 	<div id="container">
 		<!-- 공지사항 목록영역 -->
 		<div class="bodytext_area box_inner" style="width: 100%">
+			<div class="btnSet"  style="float:left;">
+           		<a class="btn" href="livewrite.do">생활게시판 글작성 </a>
+           		<a class="btn" href="centerwrite.do">보호소게시판 글작성 </a>
+            </div>
 			<form action="/pet/admin/board/board_list.do" method="post"  id="boardSearch" class="minisrch_form">
 				<input type="hidden" id="sort" name="sort" value="${param.sort }">
 				<input type="hidden" id="order" name="order" value="${param.order }">

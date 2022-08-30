@@ -24,5 +24,8 @@ public interface AdminService {
 	
 	//댓글관리 - 박 -
 	Map replyList(AdminReplyVO vo);
+	
+	// 방문자
+	Map todayTotalCnt(AdminBoardVO vo);
 
 }

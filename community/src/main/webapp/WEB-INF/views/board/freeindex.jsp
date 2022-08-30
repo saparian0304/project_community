@@ -1,17 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <script src="/pet/js/function.js"></script>
 	<script>
 
-		function total_search(val) {
-			if(val == '') {
-				$("#search_str").val('');
-			} else {
-				$("#search_str").val(val); // 파라미터를 폼안에 있는 히든에 넣어주기(말머리+검색어까지 같이 사용하기위해)
-			}
+		
+		
+		function total_search(sort, order) {
 			
-			$("#minisrch_form").submit(); // 폼을 전송
+			$('#sort').val(sort);
+			$('#order').val(order);
+			
+			$("#minisrch_form").submit();  //form태그만 submit 가능.
+			
 		}
 		
 	</script>
@@ -56,16 +58,21 @@
 		<!--  검색영역 -->
 		<div  style="width:1280px; margin:20px auto;">
 			<form action="#" id="minisrch_form" method="get" class="minisrch_form">
-				<input type="hidden" name="total_search" id="total_search" value="">
+				 
+				<!-- <input type="hidden" name="horse_hair" id="horse_hair" value="">
+				  -->
+				<input type="hidden" name="sort" id="sort" value="">
+				<input type="hidden" name="order" id="order" value="">
 				<fieldset>
 					<span class="select_all"> 
 						
 						<select id="horse_hair" name="horse_hair" class="hSelect" title="말머리검색">
 							<option value="">전체</option>
-							<option value='5'<c:if test="${param.horse_hair eq '5' }">selected</c:if>>정보공유</option>
+ 							<option value='5'<c:if test="${param.horse_hair eq '5' }">selected</c:if>>정보공유</option>
 							<option value='6'<c:if test="${param.horse_hair eq '6' }">selected</c:if>>여행후기</option>
 							<option value='7'<c:if test="${param.horse_hair eq '7' }">selected</c:if>>고민상담</option>
 							<option value='4'<c:if test="${param.horse_hair eq '4' }">selected</c:if>>잡담</option>
+							
 						</select>
 					
 						<select id="stype" name="stype" class="dSelect" title="검색분류 선택">
@@ -75,9 +82,9 @@
 						</select> 
 						<legend> 검색 </legend> 
 						<input type="text" class="tbox" id="sval" name="sword" value="${sword }"
-								onkeypress="if (event.keyCode==13) horse_hairSearch('${param.horse_hair }');"
+								onkeypress="if (event.keyCode==13) submit();"
 								title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
-						<a href="javascript:total_search('${param.search_str }')" class="btn_srch">검색</a>
+						<a href="javascript:total_search($('#horse_hair').val())" class="btn_srch">검색</a>
 					</span>	
 				</fieldset>					
 			</form>
@@ -88,23 +95,13 @@
 					<span><strong>총 ${pageMaker.totalCount }개</strong> | ${boardVO.page }/${pageMaker.totalPage }페이지</span>
 				</p>
 			</div>			
-				<!-- <table style="width: 707px; cellspacing:0; cellpadding:0; border:0; align:center; margin-top: 30px;" >
-					<tr>				  
-						 <td><a href="javascript:horse_hairSearch('');">전체</a></td>
-						 <td><a href="javascript:horse_hairSearch('6');">여행후기</a></td>
-						 <td><a href="javascript:horse_hairSearch('5');">정보공유</a></td>
-						 <td><a href="javascript:horse_hairSearch('7');">고민상담</a></td>
-						 <td><a href="javascript:horse_hairSearch('4');">잡담</a></td>				       
-					</tr>
-					<tr><td  colspan=4 align=center style='padding-top:20px;'></td></tr>
-				</table>	 -->				
 				
-				<div class="s21_tour_sun">
+				<div class="list_up">
 				<!-- 검색란 체크시 출력-->
 					<p id="search_str" >
-						<a id="date_desc" onclick="total_search('date_desc', 'on')" >최신순</a>
-						<a id="rec_count" onclick="total_search('rec_count', 'on')" >추천순</a>
-						<a id="reply_count" onclick="total_search('reply_count', 'on')" >댓글많은순</a>
+						<a id="date_desc" onclick="total_search('regdate', 'desc')" >최신순</a>
+						<a id="rec_count" onclick="total_search('rec_count', 'desc')" >추천순</a>
+						<a id="reply_count" onclick="total_search('reply_count', 'desc')" >댓글많은순</a>
 					</p>
 					
 				<c:if test="${empty loginInfo }">
@@ -140,12 +137,15 @@
 									src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
 							</c:if>
 							<div class="s21_tour_list_tbox" style="width: 50%; float: left;">
-								<p class="list_content">제목 : ${vo.title }</p>
-								<p class="list_content">조회수 : ${vo.viewcount }</p>
+								<p class="list_content"><c:if test="${vo.horse_hair eq '4'}">[잡담]</c:if>
+								<c:if test="${vo.horse_hair eq '5'}">[정보공유]</c:if>
+								<c:if test="${vo.horse_hair eq '6'}">[여행후기]</c:if>
+								<c:if test="${vo.horse_hair eq '7'}">[고민상담]</c:if>  ${vo.title }</p>
 							</div>
 							<div style="width: 49%; float: right; text-align: right;">
+								<i class='fas fa-eye'> ${vo.viewcount }</i>
 								<img style="width: 15px; height: 15px;" src="https://previews.123rf.com/images/captainvector/captainvector1512/captainvector151209976/81535071-%EB%8C%93%EA%B8%80-%EC%95%84%EC%9D%B4%EC%BD%98.jpg">${vo.reply_count }
-								<img style="width: 15px; height: 15px;" src="/pet/img/icon_like_black.png">${vo.rec_count }
+								<img style="width: 15px; height: 15px;" src="/pet/img/icon_like_black.png"> ${vo.rec_count }
 							</div>
 						</figure>
 					</div>
@@ -158,16 +158,16 @@
 		        <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
 		    </a>
 			<c:if test="${pageMaker.prev == true }">
-				<a class="prevpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}">
+				<a class="prevpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&rec_count=${param.rec_count}&reply_count=${param.reply_count}">
 				<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
 				</a>
 			</c:if>
 			<c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage}">
-				<a href='freeindex.do?horse_hair=${param.horse_hair }&page=${p }&stype=${param.stype}&sword=${param.sword}'
+				<a href='freeindex.do?horse_hair=${param.horse_hair }&page=${p }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.reply_count}'
 					class='pagenum <c:if test="${boardVO.page == p }"> currentpage</c:if>'>${p }</a>
 			</c:forEach>
 			<c:if test="${pageMaker.next == true }">
-				<a class="nextpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.endPage +1}">
+				<a class="nextpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.endPage +1}&rec_count=${param.rec_count}&reply_count=${param.reply_count}">
 				<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
 				</a>
 			</c:if>

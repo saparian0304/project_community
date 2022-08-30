@@ -114,7 +114,7 @@ $(function () {
 			<table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
 				<caption class="hdd">공지사항 목록</caption>
 				<thead>
-					<tr>
+					<tr>	
 						<th scope="col"><a href="javascript:;">번호</a></th>
 						<!-- 테이블 헤더 makeTh()로 작성 -->
 					</tr>

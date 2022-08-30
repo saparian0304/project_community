@@ -227,7 +227,8 @@ $(document).ready(function(){
 	                            <dl>
 	                                <dt>${data.title } </dt>
 	                                <dd class="date">작성일 : ${data.regdate } </dd>
-	                                <dd>작성자 : ${data.nickname }</dd>
+	                                <dd>작성자 : ${data.nickname }</dd><br>
+	                                <dd class="viewcount">조회수 : ${data.viewcount }</dd>
 	                            </dl>
 	                        </div>
 	                        <div style="height:40px; margin : 10px 10px 0 0;">

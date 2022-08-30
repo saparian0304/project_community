@@ -56,6 +56,8 @@ public class MemberController {
 	@PostMapping("/member/login.do")
 	public String login(MemberVO vo, HttpSession sess, Model model) {
 		if(service.loginCheck(vo, sess)) {
+			
+			
 			return "redirect:/board/main.do"; //notice라는 메서드가 매핑돼있는 곳으로 감. notice라는 이름의 파일을 여는게 아님.
 		}else {
 			model.addAttribute("msg", "아이디/비번을 확인해주세요.");
