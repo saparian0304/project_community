@@ -66,7 +66,7 @@ public class AdminController {
 	
 	@RequestMapping("/admin/member/member_list.do")
 	public String memberList(Model model, AdminMemberVO vo) {
-		if(vo.getSort() == null) {
+		if(vo.getSort() == null || "".equals(vo.getSort())) {
 			vo.setSort("member_no");
 			vo.setOrder("ASC");
 		}
@@ -81,12 +81,11 @@ public class AdminController {
 	
 	@RequestMapping("/admin/board/reply_list.do")
 	public String replyIndex(Model model, AdminReplyVO vo) {
-		if(vo.getSort() == null) {
+		if(vo.getSort() == null || "".equals(vo.getSort())) {
 			vo.setSort("reply_no");
 			vo.setOrder("DESC");
 		}
 		model.addAttribute("data", service.replyList(vo));
-		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(vo);
 		pageMaker.setTotalCount((int)((Map)(model.getAttribute("data"))).get("totalCount"));
