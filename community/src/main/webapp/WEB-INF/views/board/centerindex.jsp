@@ -116,8 +116,7 @@
 						<tr>
 							<td>${data.totalCount-status.index-(boardVO.page-1)*boardVO.pageRow }<!-- 총개수 - 인덱스-(현재페이지번호-1)*페이지당개수 -->
 							</td>
-							<td class="txt_l"><a href="centerview.do?board_no=${vo.board_no }">${vo.title}
-									[${ vo.reply_count}]</a></td>
+							<td class="txt_l"><a href="centerview.do?board_no=${vo.board_no }">${vo.title} [${ vo.reply_count}]</a></td>
 							<td>${vo.viewcount }</td>
 							<td>${vo.nickname }</td>
 							<%-- <td class="writer">${vo.memb_nickname }</td> --%>
