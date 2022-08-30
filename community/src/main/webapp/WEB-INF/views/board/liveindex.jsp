@@ -161,13 +161,13 @@
 						<a id="reply_count" onclick="total_search('reply_count', 'on')" >댓글많은순</a>
 					</p>
 				
-					<c:if test="${!empty loginInfo }">
+					<%-- <c:if test="${!empty loginInfo }">
 					</c:if>
 					<c:if test="${loginInfo.member_no == 1}">
 						<div class="btnSet"  style="float:right;">
 			           		<a class="btn" href="livewrite.do">글작성 </a>
 			            </div>
-			        </c:if>
+			        </c:if> --%>
 		        
 			</div>
 			<!--// 순 -->
@@ -193,7 +193,8 @@
 									onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
 							</c:if> 
 						    <c:if test="${empty vo.filename_real}">
-								<img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
+								<img src="/pet/upload/${vo.filename_real }"
+									onerror='this.onerror=null; this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
 							</c:if>
 	
 							<div class="s21_tour_list_tbox" style="width: 50%; float: left;">

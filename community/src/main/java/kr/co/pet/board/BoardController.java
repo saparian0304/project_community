@@ -60,7 +60,7 @@ public class BoardController {
 	
 	@Autowired
 	MemberService mService;
-
+	
 	@GetMapping("/board/main.do")
 	public String index(Model model, BoardVO vo, HttpSession sess) {
 		// main.do 방문수 count 
@@ -142,7 +142,6 @@ public class BoardController {
 		}
 		
 		vo.setPageRow(12);
-		model.addAttribute("data", service.liveindex(vo));
 		
 		model.addAttribute("data", service.centerindex(vo));
 		PageMaker pageMaker = new PageMaker();
@@ -155,7 +154,7 @@ public class BoardController {
 		return "board/centerindex";
 	}
 	
-	@GetMapping("/board/livewrite.do")
+	@GetMapping("/admin/board/livewrite.do")
 	public String livewrite() {
 		return "board/livewrite";
 	}
@@ -165,7 +164,7 @@ public class BoardController {
 		return "board/freewrite";
 	}
 	
-	@GetMapping("/board/centerwrite.do")
+	@GetMapping("/admin/board/centerwrite.do")
 	public String centerwrite() {
 		return "board/centerwrite";
 	}
@@ -207,14 +206,15 @@ public class BoardController {
 		return "board/centerview";
 	}
 	
-	@PostMapping(value = "/board/liveinsert.do", consumes = "multipart/form-data")
+	@PostMapping(value = "/admin/board/liveinsert.do", consumes = "multipart/form-data")
 	public String liveinsert(BoardVO vo, FileVO fvo, LocVO lvo, Model model, @RequestParam MultipartFile filename,
 			HttpServletRequest req, HttpSession sess) {
 		//게시글 저장 board테이블
 		//LocVO lvo = new LocVO();
 		vo.setBoard_name("live");
-		MemberVO mno =(MemberVO)(sess.getAttribute("loginInfo"));
-		vo.setMember_no(mno.getMember_no());
+		//member_no가 필요없어졌음
+//		MemberVO mno =(MemberVO)(sess.getAttribute("loginInfo"));
+//		vo.setMember_no(mno.getMember_no());
 		
 //		vo.setMember_no(((MemberVO)sess.getAttribute("loginInfo")).getMember_no());
 		
@@ -244,7 +244,7 @@ public class BoardController {
 			fvo.setFilename_real(real);
 			if(fservice.insert(fvo)){
 				model.addAttribute("msg", "정상적으로 저장되었습니다.");
-				model.addAttribute("url", "liveview.do?board_no="+vo.getBoard_no());
+				model.addAttribute("url", "/pet/board/liveview.do?board_no="+vo.getBoard_no());
 				
 				return "common/alert";
 				
@@ -255,14 +255,9 @@ public class BoardController {
 			}
 		}
 	
-		//member_no 저장 로그인
-		HttpSession sess2 = req.getSession();
-		MemberVO mv = (MemberVO)sess2.getAttribute("loginInfo");
-		vo.setMember_no(mv.getMember_no());
-		
 		if(in) {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
-			model.addAttribute("url", "liveindex.do");
+			model.addAttribute("url", "/pet/board/liveindex.do");
 			
 			return "common/alert";
 		}  else {
@@ -329,12 +324,19 @@ public class BoardController {
 		}
 	}
 
-	@PostMapping(value = "/board/centerinsert.do", consumes = "multipart/form-data")
+	@PostMapping(value = "/admin/board/centerinsert.do", consumes = "multipart/form-data")
 	public String centerinsert(BoardVO vo, FileVO fvo, LocVO lvo, CenterVO cvo,Model model, @RequestParam MultipartFile filename,
 			HttpServletRequest req, HttpSession sess) {
 		//게시글 저장 board테이블
 		//LocVO lvo = new LocVO();
 		vo.setBoard_name("center");
+		
+		//member_no 저장 로그인
+//		HttpSession sess2 = req.getSession();
+//		MemberVO mv = (MemberVO)sess2.getAttribute("loginInfo");
+//		
+//		
+//		vo.setMember_no(mv.getMember_no());
 
 		boolean in = service.insert(vo);
 		String st =  vo.getContent();
@@ -378,14 +380,9 @@ public class BoardController {
 			}
 		}
 		
-		//member_no 저장 로그인
-			HttpSession sess2 = req.getSession();
-			MemberVO mv = (MemberVO)sess2.getAttribute("loginInfo");
-			vo.setMember_no(mv.getMember_no());
-		
 		if(in) {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
-			model.addAttribute("url", "centerindex.do");
+			model.addAttribute("url", "/pet/board/centerindex.do");
 			
 			return "common/alert";
 		}  else {
@@ -394,7 +391,7 @@ public class BoardController {
 		}
 	}
 	
-	@GetMapping("/board/liveedit.do")
+	@GetMapping("/admin/board/liveedit.do")
 	public String liveedit(BoardVO vo, FileVO fvo, LocVO lvo, Model model) {
 		BoardVO data = service.edit(vo.getBoard_no());
 		model.addAttribute("data", data);
@@ -420,7 +417,7 @@ public class BoardController {
 		return "board/freeedit";
 	}
 	
-	@GetMapping("/board/centeredit.do")
+	@GetMapping("/admin/board/centeredit.do")
 	public String centeredit(BoardVO vo, FileVO fvo, LocVO lvo, Model model) {
 		BoardVO data = service.edit(vo.getBoard_no());
 		model.addAttribute("data", data);
@@ -433,11 +430,11 @@ public class BoardController {
 		return "board/centeredit";
 	}
 	
-	@PostMapping("/board/liveupdate.do")
+	@PostMapping("/admin/board/liveupdate.do")
 	public String liveupdate(BoardVO vo, Model model) {
 		if(service.update(vo)) {
 			model.addAttribute("msg", "정상적으로 수정되었습니다.");
-			model.addAttribute("url", "liveview.do?board_no="+vo.getBoard_no());
+			model.addAttribute("url", "/pet/board/liveview.do?board_no="+vo.getBoard_no());
 			return "common/alert";
 		}else {
 			model.addAttribute("msg", "수정실패");
@@ -457,11 +454,11 @@ public class BoardController {
 		}
 	}
 	
-	@PostMapping("/board/centerupdate.do")
+	@PostMapping("/admin/board/centerupdate.do")
 	public String update(BoardVO vo, Model model) {
 		if(service.update(vo)) {
 			model.addAttribute("msg", "정상적으로 수정되었습니다.");
-			model.addAttribute("url", "centerview.do?board_no="+vo.getBoard_no());
+			model.addAttribute("url", "/pet/board/centerview.do?board_no="+vo.getBoard_no());
 			return "common/alert";
 		}else {
 			model.addAttribute("msg", "수정실패");
@@ -469,7 +466,7 @@ public class BoardController {
 		}
 	}
 	
-	@GetMapping("/board/livedelete.do")
+	@GetMapping("/admin/board/livedelete.do")
 	public String livedelete(BoardVO vo, Model model) {
 		if(service.delete(vo.getBoard_no())) {
 			model.addAttribute("msg", "정상적으로 삭제되었습니다.");

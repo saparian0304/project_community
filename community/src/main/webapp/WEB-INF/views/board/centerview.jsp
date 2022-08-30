@@ -7,10 +7,10 @@
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 <link rel="stylesheet" href="/pet/css/tab.css"/>
 <script>
-var login_no = "";
+/* var login_no = "";
 <c:if test="${!empty loginInfo.member_no}">
 	login_no = ${loginInfo.member_no};
-</c:if>
+</c:if> */
 /* 삭제 할거임 */
 function del(no) {
 	if(confirm('삭제하시겠습니까?')){
@@ -274,8 +274,9 @@ $(document).ready(function(){
 	                        <div class="btnSet clear" style="clear:both">
 	                            <div class="fl_l">
 		                            <a href="centerindex.do" class="btn">목록으로</a>
-		                            <c:if test="${data.member_no == loginInfo.member_no }">
-		                            <a href="/pet/board/centeredit.do?board_no=${data.board_no }" class="btn">수정</a>
+		                            <%-- <c:if test="${data.member_no == loginInfo.member_no }"> --%>
+		                            <c:if test="${data.member_no == 0 }">
+		                            <a href="/pet/admin/board/centeredit.do?board_no=${data.board_no }" class="btn">수정</a>
 		                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
 		                            </c:if>
 	                            </div>
