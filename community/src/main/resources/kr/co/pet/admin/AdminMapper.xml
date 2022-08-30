@@ -184,24 +184,27 @@
 		SELECT COUNT(*) FROM reply
 	</select>
 	
-	<select id= "visitToday" parameterType="kr.co.pet.admin.AdminBoardVO">
+	<!-- 방문자 -->
+	<select id= "visitToday" parameterType="kr.co.pet.admin.AdminBoardVO" resultType="kr.co.pet.admin.AdminBoardVO">
 		SELECT 
 			visit_date 
-				,visit_mcount AS mtoday
-				,visit_nonmcount AS nonmtoday 
+				,visit_mcount mtoday
+				,visit_nonmcount nonmtoday 
 				,visit_mcount  + visit_nonmcount AS todaytotal 
 		FROM visit 
 		WHERE visit_date = curdate()
 	</select>
 	
-	<select id= "boardToday" parameterType="kr.co.pet.admin.AdminBoardVO">
+	<!-- today 게시글  -->
+	<select id= "boardToday" parameterType="kr.co.pet.admin.AdminBoardVO" resultType="Integer">
 		SELECT 
 			count(*) AS board_today 
 		FROM board 
 		WHERE date_format(regdate,'%Y-%m-%d') = curdate()
 	</select>
 	
-	<select id= "replyToday" parameterType="kr.co.pet.admin.AdminBoardVO">
+	<!-- today 댓글 -->
+	<select id= "replyToday" parameterType="kr.co.pet.admin.AdminBoardVO" resultType="Integer">
 		SELECT 
 			count(*) AS reply_today 
 		FROM reply 

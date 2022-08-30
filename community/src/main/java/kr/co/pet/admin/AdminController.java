@@ -27,7 +27,9 @@ public class AdminController {
 	
 	// 메인 들어가자 마자 보이게
 	@RequestMapping("/admin/main/index.do")
-	public String mainindex() {
+	public String mainindex(Model model, AdminBoardVO vo) {
+		model.addAttribute("total", service.todayTotalCnt(vo)); // 방문자 
+		
 		return "admin/main/index";
 	}
 	

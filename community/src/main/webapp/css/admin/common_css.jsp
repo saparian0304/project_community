@@ -86,8 +86,8 @@ a:hover{transition: 0.5s !important;}
 	main
 ================================================== */
 .main {position:relative; width:100%; overflow:hidden; margin-top:22px; }
-.main .box{border:1px solid #dddddd; padding:15px 25px 20px; margin-bottom:30px; position:relative; width:100%; }
-.main .box h2{color:<%=util.Property.color%> !important; font-size:18px; font-weight:600;}
+.main .box{border:1px solid #dddddd; padding:15px 25px 20px; margin-bottom:30px; position:relative; width:100%; height:450px; } /* height 추가 수정 */
+.main .box h2{color:<%-- <%=util.Property.color%> --%>#778899 !important; font-size:25px; font-weight:600; padding-left:15px;} /* font-size:18px; 수정 padding-left 추가 */
 
 .scheduleSearch > div{padding-top:10px; clear:both;}
 .scheduleSearch .date input[type=text]{width:160px;}
@@ -151,7 +151,7 @@ input[type=button] {cursor:pointer !important;}
 .wid30{width:30% !important;}
 .wid39{width:39% !important;}
 .wid40{width:40% !important;}
-.wid48{width:48.5% !important;}
+.wid48{width:100% !important;} /* .wid48{width:48.5% !important;} 수정함 */
 .wid49{width:49% !important;}
 .wid50{width:50% !important;}
 .wid59{width:59% !important;}

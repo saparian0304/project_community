@@ -68,7 +68,12 @@ public class BoardController {
 			model.addAttribute("visit", mService.visitNonmUpdate());
 			sess.setAttribute("Nonmembers", 1);
 		}
-		
+		// 차단한 사람 글 안보이게 로그인했을때! 로그인 멤버no 파라미터  
+		MemberVO loginInfo = (MemberVO)sess.getAttribute("loginInfo");		
+		if(loginInfo !=null) {
+			vo.setLoginNO(loginInfo.getMember_no());
+		}
+				
 		vo.setMain("main");
 		vo.setHorse_hair("2");
 		vo.setPageRow(5);
