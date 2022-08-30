@@ -82,6 +82,8 @@ public class BoardController {
 		
 		//최신순
 		vo.setMain(null);
+		vo.setSort("regdate");
+		vo.setOrder("desc");
 		vo.setHorse_hair("6");//잡담
 		model.addAttribute("sdata", service.freeindex(vo));
 		

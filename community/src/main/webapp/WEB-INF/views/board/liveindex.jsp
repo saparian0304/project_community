@@ -139,13 +139,6 @@
 						${boardVO.page }/${pageMaker.totalPage }페이지</span>
 				</p>			
 			</div>
-				<%-- <c:if test="${!empty loginInfo }">
-				</c:if>
-				<c:if test="${loginInfo.member_no == 1}">
-					<div class="btnSet"  style="text-align:right;">
-		           		<a class="btn" href="livewrite.do">글작성 </a>
-		            </div>
-		        </c:if>  --%>   
 			
 			
 			<!-- 탭 부분 -->
@@ -186,7 +179,11 @@
 							</c:if>
 	
 							<div class="s21_tour_list_tbox" style="width: 50%; float: left;">
-								<p class="list_content">${vo.title }</p>
+								<p class="list_content"><c:if test="${vo.horse_hair eq '1'}">[음식점]</c:if>
+								<c:if test="${vo.horse_hair eq '2'}">[관광지]</c:if>
+								<c:if test="${vo.horse_hair eq '3'}">[병원]</c:if>  ${vo.title }</p>
+							<%-- 	<p class="list_content"><c:if test="${vo.horse_hair eq '2'}">[관광지]</c:if>${vo.title }</p>
+								<p class="list_content"><c:if test="${vo.horse_hair eq '3'}">[병원]</c:if>${vo.title }</p> --%>
 								<p class="list_content">${vo.content}</p>
 								
 							</div>
@@ -205,25 +202,27 @@
 			<!-- 페이징처리  -->
             
           <div class="pagenation" style="clear: left;">
-          	 <a style="cursor:pointer" class="firstpage pbtn">
+          <c:if test ="${!empty data.list }">
+          	 <a style="cursor:pointer" onclick='javascript: total_search( ${pageMaker.startPage});' class="firstpage pbtn">
           	 	<img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 ">
           	 </a>
 			 <c:if test="${pageMaker.prev == true }">
-				<a class="prevpage pbtn" href="liveindex.do?horse_hair=${param.horse_hair}&page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}"><</a>
-				<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
+				<a class="prevpage pbtn" href="liveindex.do?horse_hair=${param.horse_hair}&page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}"></a>
+				<img src="/pet/img/btn_prevpage.png" alt="이전 페이지로 이동">
 			</c:if>
 			<c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage}">
 				<a href='liveindex.do?horse_hair=${param.horse_hair}&page=${p }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}'
 					class='pagenum <c:if test="${boardVO.page ==p }">currentpage</c:if>'>${p }</a>
 			</c:forEach>
 			<c:if test="${pageMaker.next == true }">
-				<a class="nextpage pbtn" href="liveindex.do?horse_hair=${param.horse_hair}&page=${pageMaker.endPage +1}&sort=${param.sort}&order=${param.order}">
+				<a class="nextpage pbtn" href="liveindex.do?horse_hair=${param.horse_hair}&page=${pageMaker.endPage}&sort=${param.sort}&order=${param.order}">
 				<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
 				</a>
 			</c:if>
-			<a style="cursor: pointer" class="lastpage pbtn">
+			<a style="cursor: pointer" onclick='javascript: total_search(${pageMaker.endPage+1 });' class="lastpage pbtn">
 			    <img src="/pet/img/btn_lastpage.png" alt="마지막 페이지로 ">
 	  		</a>
+	  	   </c:if>
 		   </div>
 		</div>
 	</div>

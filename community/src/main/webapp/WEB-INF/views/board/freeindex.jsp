@@ -137,7 +137,10 @@
 									src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
 							</c:if>
 							<div class="s21_tour_list_tbox" style="width: 50%; float: left;">
-								<p class="list_content">제목 : ${vo.title }</p>
+								<p class="list_content"><c:if test="${vo.horse_hair eq '4'}">[잡담]</c:if>
+								<c:if test="${vo.horse_hair eq '5'}">[정보공유]</c:if>
+								<c:if test="${vo.horse_hair eq '6'}">[여행후기]</c:if>
+								<c:if test="${vo.horse_hair eq '7'}">[고민상담]</c:if>  ${vo.title }</p>
 							</div>
 							<div style="width: 49%; float: right; text-align: right;">
 								<i class='fas fa-eye'> ${vo.viewcount }</i>
@@ -155,16 +158,16 @@
 		        <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
 		    </a>
 			<c:if test="${pageMaker.prev == true }">
-				<a class="prevpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}">
+				<a class="prevpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&rec_count=${param.rec_count}&reply_count=${param.reply_count}">
 				<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
 				</a>
 			</c:if>
 			<c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage}">
-				<a href='freeindex.do?horse_hair=${param.horse_hair }&page=${p }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}'
+				<a href='freeindex.do?horse_hair=${param.horse_hair }&page=${p }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.reply_count}'
 					class='pagenum <c:if test="${boardVO.page == p }"> currentpage</c:if>'>${p }</a>
 			</c:forEach>
 			<c:if test="${pageMaker.next == true }">
-				<a class="nextpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.endPage +1}&sort=${param.sort}&order=${param.order}">
+				<a class="nextpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.endPage +1}&rec_count=${param.rec_count}&reply_count=${param.reply_count}">
 				<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
 				</a>
 			</c:if>
