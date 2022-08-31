@@ -42,7 +42,7 @@
                             <td>
                                 <!-- <form id="aaa"> -->
 	                                <%-- 1.식당, 2. 관광지, 3. 병원 --%>
-	                                <input type="radio" class="radio_value" name="horse_hair" value="1">식당
+	                                <input type="radio" class="radio_value" name="horse_hair" value="1"checked="checked" required="required">식당
 									<input type="radio" class="radio_value" name="horse_hair" value="2">관광지
 									<input type="radio" class="radio_value" name="horse_hair" value="3">병원
                             	<!-- </form> -->

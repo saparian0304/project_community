@@ -112,7 +112,12 @@
 							<td class="txt_l"><a href="centerview.do?board_no=${vo.board_no }">${vo.title} [${ vo.reply_count}]</a></td>
 							<td>${vo.viewcount }</td>
 							<td>${vo.rec_count }</td>
+							<c:if test="${vo.member_no == 0 }">
+							<td>관리자</td>
+							</c:if>
+							<c:if test="${vo.member_no != 0 }">
 							<td>${vo.nickname }</td>
+							</c:if>
 							<td class="date"><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						</tr>
 					</c:forEach>
