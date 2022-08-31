@@ -160,13 +160,13 @@
 		<where>
 			<if test="sword != null and sword != ''">
 				<if test="stype == 'all'">
-					 title LIKE '%${sword}%' OR board.content LIKE '%${sword}%'
+					 board.title LIKE '%${sword}%' OR r.content LIKE '%${sword}%'
 				</if>
 				<if test="stype == 'title'">
-					 title LIKE '%${sword}%'
+					 board.title LIKE '%${sword}%'
 				</if>
 				<if test="stype == 'content'">
-					 board.content LIKE '%${sword}%'
+					 r.content LIKE '%${sword}%'
 				</if>
 			</if>
 			<if test="nickname != null and nickname != ''">
@@ -180,10 +180,7 @@
 			</if>
 			<if test="fromDate != null and fromDate != '' 
 					and toDate != null and toDate != ''">
-				 AND board.regdate between #{fromDate} AND #{toDate}
-			</if>
-			<if test="content != null and content != ''">
-			    AND r.content LIKE '%${content}%'
+				 AND date_format(r.regdate,'%Y-%m-%d') between #{fromDate} AND #{toDate}
 			</if>
 		</where>
 		ORDER BY ${sort} ${order}
@@ -198,17 +195,17 @@
 		<where>
 			<if test="sword != null and sword != ''">
 				<if test="stype == 'all'">
-					 title LIKE '%${sword}%' OR board.content LIKE '%${sword}%'
+					 board.title LIKE '%${sword}%' OR r.content LIKE '%${sword}%'
 				</if>
 				<if test="stype == 'title'">
-					 title LIKE '%${sword}%'
+					 board.title LIKE '%${sword}%'
 				</if>
 				<if test="stype == 'content'">
-					 board.content LIKE '%${sword}%'
+					 r.content LIKE '%${sword}%'
 				</if>
 			</if>
 			<if test="nickname != null and nickname != ''">
-				AND nickname = #{nickname}
+				 AND nickname = #{nickname}
 			</if>
 			<if test="board_name != null and board_name != ''">
 				AND board_name = #{board_name}
@@ -218,10 +215,7 @@
 			</if>
 			<if test="fromDate != null and fromDate != '' 
 					and toDate != null and toDate != ''">
-				AND board.regdate between #{fromDate} and #{toDate}
-			</if>
-			<if test="content != null and content != ''">
-				   AND r.content LIKE '%${content}%'
+				 AND date_format(r.regdate,'%Y-%m-%d') between #{fromDate} AND #{toDate}
 			</if>
 		</where>
 	</select>

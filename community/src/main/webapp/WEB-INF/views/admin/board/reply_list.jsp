@@ -40,7 +40,7 @@ $(function () {
 	$('#horse_hair').val('${param.horse_hair}').prop("selected", true);
 	
 	var arrColName = ['board_name', 'horse_hair', 'title', 'content', 'reply_count', 'rec_count', 'report_count', 'nickname', 'regdate'];
-	var arrHeadName = ['게시판', '말머리', '게시판제목', '댓글 내용', '댓글 수', '좋아요 횟수', '신고 횟수', '작성자', '작성일'];
+	var arrHeadName = ['게시판', '말머리', '게시글제목', '댓글 내용', '댓글 수', '좋아요 횟수', '신고 횟수', '작성자', '작성일'];
 	makeTh(arrColName, arrHeadName, '#boardSearch', '${param.sort}', '${param.order}');
 	
 	
@@ -105,7 +105,7 @@ function dis(){
 				&emsp;&emsp;
 				<select name="stype">
 					<option value="all" <c:if test="${param.stype == 'all'}">selected</c:if>>all</option>
-					<option value="title" <c:if test="${param.stype == 'title'}">selected</c:if>>제목</option>
+					<option value="title" <c:if test="${param.stype == 'title'}">selected</c:if>>게시글제목</option>
 					<option value="content" <c:if test="${param.stype == 'content'}">selected</c:if>>내용</option>
 				</select>
 				&emsp;
@@ -133,8 +133,6 @@ function dis(){
 				 <p style="font-size: 15px; display: inline;">작성자 닉네임 : </p> &emsp;
 				<input type="text" name="nickname" value="${param.nickname }" placeholder="작성자 닉네임 입력">
 				 &emsp;
-				 <p style="font-size: 15px; display: inline;">댓글 내용 : </p> &emsp;
-				<input type="text" name="content" value="${param.content }" placeholder="댓글내용 입력">
 				</div>
 			</form>
 			<p>
