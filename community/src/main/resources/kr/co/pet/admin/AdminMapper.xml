@@ -2,6 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.pet.admin.AdminMapper">
 	
+<sql id="list_where">
+	<where>
+		<if test="sword != null and sword != ''">
+			<if test="stype == 'all'">
+				(title LIKE '%${sword}%' OR board.content LIKE '%${sword}%' )
+			</if>
+			<if test="stype == 'title'">
+				title LIKE '%${sword}%'
+			</if>
+			<if test="stype == 'content'">
+				board.content LIKE '%${sword}%'
+			</if>
+		</if>
+		<if test="nickname != null and nickname != ''">
+			and nickname = #{nickname}
+		</if>
+		<if test="board_name != null and board_name != ''">
+			and board_name = #{board_name}
+			<if test="horse_hair != null and horse_hair !=''">
+			and horse_hair = #{horse_hair}
+			</if>
+		</if>
+		<if test="fromDate != null and fromDate != '' 
+				and toDate != null and toDate != ''">
+			and board.regdate between #{fromDate} and #{toDate}
+		</if>
+		<if test="reply_content != null and reply_content != ''">
+			and board.board_no = (
+				SELECT distinct reply.board_no 
+			    FROM reply 
+			    WHERE board.board_no = reply.board_no
+			    AND reply.content LIKE '%${reply_content}%'
+			)
+		</if>
+	</where>
+</sql>
+
 	<select id="list" parameterType="kr.co.pet.admin.AdminBoardVO" resultType="kr.co.pet.admin.AdminBoardVO">
 		SELECT 
 			board.board_no,	board_name,	horse_hair,	title, board.member_no, viewcount,	
@@ -27,40 +64,7 @@
 			ON board.board_no = center.board_no
 			LEFT JOIN member
 			ON board.member_no = member.member_no
-		<where>
-			<if test="sword != null and sword != ''">
-				<if test="stype == 'all'">
-					(title LIKE '%${sword}%' OR board.content LIKE '%${sword}%' )
-				</if>
-				<if test="stype == 'title'">
-					title LIKE '%${sword}%'
-				</if>
-				<if test="stype == 'content'">
-					board.content LIKE '%${sword}%'
-				</if>
-			</if>
-			<if test="nickname != null and nickname != ''">
-				and nickname = #{nickname}
-			</if>
-			<if test="board_name != null and board_name != ''">
-				and board_name = #{board_name}
-				<if test="horse_hair != null and horse_hair !=''">
-				and horse_hair = #{horse_hair}
-				</if>
-			</if>
-			<if test="fromDate != null and fromDate != '' 
-					and toDate != null and toDate != ''">
-				and board.regdate between #{fromDate} and #{toDate}
-			</if>
-			<if test="reply_content != null and reply_content != ''">
-				and board.board_no = (
-					SELECT distinct reply.board_no 
-				    FROM reply 
-				    WHERE board.board_no = reply.board_no
-				    AND reply.content LIKE '%${reply_content}%'
-				)
-			</if>
-		</where>
+		<include refid="list_where"></include>
 		ORDER BY ${sort} ${order}
 		Limit #{startIdx},${pageRow}
 	</select>
@@ -75,40 +79,7 @@
 			ON board.board_no = center.board_no
 			LEFT JOIN member
 			ON board.member_no = member.member_no
-		<where>
-			<if test="sword != null and sword != ''">
-				<if test="stype == 'all'">
-					(title LIKE '%${sword}%' OR board.content LIKE '%${sword}%' )
-				</if>
-				<if test="stype == 'title'">
-					title LIKE '%${sword}%'
-				</if>
-				<if test="stype == 'content'">
-					board.content LIKE '%${sword}%'
-				</if>
-			</if>
-			<if test="nickname != null and nickname != ''">
-				and nickname = #{nickname}
-			</if>
-			<if test="board_name != null and board_name != ''">
-				and board_name = #{board_name}
-				<if test="horse_hair != null and horse_hair !=''">
-				and horse_hair = #{horse_hair}
-				</if>
-			</if>
-			<if test="fromDate != null and fromDate != '' 
-					and toDate != null and toDate != ''">
-				and board.regdate between #{fromDate} and #{toDate}
-			</if>
-			<if test="reply_content != null and reply_content != ''">
-				and board.board_no = (
-					SELECT distinct reply.board_no 
-				    FROM reply 
-				    WHERE board.board_no = reply.board_no
-				    AND reply.content LIKE '%${reply_content}%'
-				)
-			</if>
-		</where>
+		<include refid="list_where"></include>
 	</select>
 	
 	<select id="adminList" parameterType="kr.co.pet.admin.AdminMemberVO" resultType="kr.co.pet.admin.AdminMemberVO">

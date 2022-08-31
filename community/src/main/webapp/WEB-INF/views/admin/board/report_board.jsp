@@ -35,6 +35,8 @@ th, td {
 <script>
 $(
 	function() {
+		if(${!empty param}) dis();
+		
 		var arrColName = [ 'reason', 'content', 'i_nickname', 'horse_hair', 'target_title', 'you_nickname', 'report_date', 'resdate', 'sumCnt', 'stat'];
 		var arrHeadName = [ '신고구분', '신고사유', '신고자', '게시판 구분', '게시물', '피신고자', '신고일자', '처리일자', '누적신고수', '처리구분'];
 		makeTh(arrColName, arrHeadName, '#reportSearch','${param.sort}', '${param.order}');

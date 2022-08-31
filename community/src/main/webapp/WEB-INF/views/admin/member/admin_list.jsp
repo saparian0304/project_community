@@ -23,6 +23,12 @@
 	border-radius: 5px;
 }
 
+select {
+		border:1px solid #cccccc;
+		height:32px;
+		box-sizing:border-box;
+	}
+
 .detailbtn {
 	width : 100px; 
 	height : 30px; 
@@ -75,22 +81,29 @@ function dis(){
 			<form action="/pet/admin/member/admin_list.do" method="post"  id="adminList_form" class="adminList_form">
 				<input type="hidden" id="sort" name="sort" value="${param.sort }">
 				<input type="hidden" id="order" name="order" value="${param.order }">
-				<select name="stype">
-					<option value="all" <c:if test="${param.stype == 'all'}">selected</c:if>>all</option>
-					<option value="admin_id" <c:if test="${param.stype == 'admin_id'}">selected</c:if>>아이디</option>
-					<option value="name" <c:if test="${param.stype == 'name'}">selected</c:if>>이름</option>
-				</select>
-				&emsp;
-				<input type="text" name="sword" value="${param.sword }" placeholder="검색어 입력">
-				&emsp;
-				<input type="submit" value="검색">
+				<div style="float:right;">
+					<select name="stype">
+						<option value="all" <c:if test="${param.stype == 'all'}">selected</c:if>>all</option>
+						<option value="admin_id" <c:if test="${param.stype == 'admin_id'}">selected</c:if>>아이디</option>
+						<option value="name" <c:if test="${param.stype == 'name'}">selected</c:if>>이름</option>
+					</select>
+					&emsp;
+					<input type="text" name="sword" value="${param.sword }" placeholder="검색어 입력">
+					&emsp;
+					<input type="submit" value="검색">
+				</div>
 			</form>
 			<br>
 			<br>
-			<p>
-				<span><strong>총 ${data.totalCount }개</strong> |
+			<div>
+		        <p style="float:left;">
+					<span><strong>총 ${data.totalCount }개</strong> |
 					${adminMemberVO.page }/${pageMaker.totalPage }페이지</span>
-			</p>
+				</p>
+			    <div class="btnSet clear" >
+			        <a href="/pet/admin/join.do" class="btn" style="float:right;">관리자 생성</a> 
+			    </div>
+			</div>
 
 			<!-- <div class="btnSet" style="text-align: right;">
 				<a class="btn" href="freewrite.do">글작성 </a>

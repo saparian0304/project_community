@@ -44,6 +44,8 @@ input[type="number"] {
 <script>
 
 $(function () {
+	if(${!empty param}) dis();
+	
 	// 초기 셋팅
 	$('#fromDate, #toDate').datepicker({
 		dateFormat: 'yy-mm-dd' //달력 날짜 형태
