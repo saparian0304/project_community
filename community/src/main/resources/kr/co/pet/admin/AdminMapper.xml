@@ -231,6 +231,14 @@
 		WHERE visit_date = curdate()
 	</select>
 	
+	<!-- 가입수, 멤버 방문 -->
+	<select id="current" parameterType="kr.co.pet.admin.AdminBoardVO" resultType="kr.co.pet.admin.AdminBoardVO">
+		SELECT 
+			COUNT(CASE WHEN ( DATE_FORMAT(regdate, "%Y-%m-%d") = curdate() ) THEN 1 END) rdate,
+			COUNT(CASE WHEN (DATE_FORMAT(curr_login, "%Y-%m-%d") = curdate() ) THEN 1 END) clogin
+		FROM member
+	</select>	
+	
 	<!-- today 게시글  -->
 	<select id= "boardToday" parameterType="kr.co.pet.admin.AdminBoardVO" resultType="Integer">
 		SELECT 

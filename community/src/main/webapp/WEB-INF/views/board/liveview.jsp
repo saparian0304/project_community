@@ -6,6 +6,7 @@
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 <link rel="stylesheet" href="/pet/css/tab.css"/>
 <script type="text/javascript" src="/pet/js/util/board_an.js"></script>
+<script type="text/javascript" src="/pet/js/reply.js"></script>
 <script>
 /* var login_no = "";
 <c:if test="${!empty loginInfo.member_no}">
@@ -19,168 +20,14 @@ function del(no) {
 	}
 }
 
-/* 댓글 스크립트  */
+/* 댓글 스크립트 변수  */ 
+var boardWriter = "${data.member_no}";
+var board_no = "${data.board_no}";
+var member_no = "${data.member_no}";
+var data_tit = "${data.title}";
 
- 
-var boardWriter = ${data.member_no};
-function getComment(page){
-	$.ajax({    			
-		url : "/pet/reply/list.do",
-			data : {
-				board_no : ${data.board_no},
-				member_no : ${data.member_no},
-				page: page				
-			},			
-			success : function(res) {
-				$("#commentArea").html(res);				
-			}
-	});
-}
-
-
- 
-$(function(){
-	getComment(1);
-	
-});
-
-
-function goSave(){
-	<c:if test="${empty loginInfo}">
-		 alert('로그인후 댓글작성해주세요');
-	</c:if>
-	<c:if test="${!empty loginInfo}"> 
-	if (confirm('댓글을 저장하시겠습니까?')){
-		$.ajax({			
-			url : "/pet/reply/insert.do",
-			data : {
-				board_no : ${data.board_no},
-				content : $("#content").val(),
-				member_no : ${loginInfo.member_no}
-			},
-			success : function(res) {
-				if (res.trim() == "1") {
-					alert('정상적으로 댓글이 등록되었습니다.');
-					$("#content").val('');
-					getComment(1);
-				}
-				if(socket){
-				 socket.send("reply,"+${loginInfo.member_no}+","+boardWriter+","+${data.board_no}+","+'${data.title}');
-				}
-			}
-		});
-	}
-	</c:if>
-}
-
-// 댓글수정
-function replyEdit(reply_no, content){
-	$.ajax({    			
-		url : "/pet/reply/list.do",
-		data : {
-			board_no : ${data.board_no},
-			reply_no : reply_no,
-			content : content
-			
-		},			
-		success : function() {
-			$("#redit"+reply_no).html('<tr><td colspan="5"><textarea name="content" id="recon" style="width:800px; height:70px;">'+content+'</textarea></td><td><div class="btnSet"><a href="javascript:replyEditgo(' + reply_no + ');"  style="  text-align: center;" >&nbsp;&nbsp;수정</a></div></td></tr>');				
-		}
-	});
-	$("#redit"+reply_no).toggle();
-}
-
-function replyEditgo(reply_no){
-<c:if test="${!empty loginInfo}">
-	if (confirm('댓글을 수정하시겠습니까?')){
-		$.ajax({			
-			url : "/pet/reply/replyEdit.do",
-			data : {
-				board_no: ${data.board_no},
-				reply_no : reply_no,
-				content : $("#recon").val(),
-				member_no : ${loginInfo.member_no}
-			},
-			success : function(res) {
-				if (res.trim() == "1") {
-					alert('정상적으로 댓글이 수정되었습니다.');
-					$("#recon").val('');
-					getComment(1);
-				}
-				
-			}
-		});
-	}
-</c:if>
-}
-
-// 대댓글작성
-function replySave(gno){
-	<c:if test="${empty loginInfo}">
-		 alert('로그인후 댓글작성해주세요');
-	</c:if>
-	<c:if test="${!empty loginInfo}">
-	if (confirm('댓글을 저장하시겠습니까?')){
-		$.ajax({			
-			url : "/pet/reply/reply.do",
-			data : {
-				board_no: ${data.board_no},
-				gno : gno,				
-				content : $("#contents").val(),
-				member_no : ${loginInfo.member_no}
-			},
-			success : function(res) {
-				if (res.trim() == "1") {
-					alert('정상적으로 댓글이 등록되었습니다.');
-					$("#contents").val('');
-					getComment(1);
-				}
-				if(socket){
-					socket.send("rereply,"+${loginInfo.member_no}+","+$("#no"+gno).val()+","+${data.board_no}+","+$("#content"+gno).val());
-				}
-			}
-		});
-		
-	}
-	</c:if>
-} 
-
-// 대댓글 리스트
-function replyForm(gno){	
-	$.ajax({    			
-		url : "/pet/reply/replylist.do",
-			data : {
-				board_no : ${data.board_no},
-				member_no : ${data.member_no},
-				gno : gno,
-				page: 1				
-			},			
-			success : function(res) {
-				$(".rbox"+gno).html(res);
-				
-		}
-	});
-	$(".replyshow").hide();
-	$(".rbox"+gno).toggle();	
-}   
-
-// 댓글삭제
-function commentDel(reply_no) {
-	
-	if(confirm("댓글을 삭제하시겠습니까?")) {
-		$.ajax({
-			url : '/pet/reply/update.do?reply_no='+reply_no,
-			success : function(res)	{
-				if(res.trim() == '1') {
-					alert('댓글이 정상적으로 삭제되었습니다.');
-					getComment(1);		
-				
-				}
-			}	
-		})
-	}
-}
-
+var loginCon = "${loginInfo}";
+var loginMem = "${loginInfo.member_no}";
 
 
 //탭
@@ -194,9 +41,9 @@ $(document).ready(function(){
 	 
 	    $(this).addClass('current');
 	    $("#"+tab_id).addClass('current');
-	  })
-	 
-	})
+	  });	 
+	});
+	
 </script>
     
     <ul class="skipnavi">
