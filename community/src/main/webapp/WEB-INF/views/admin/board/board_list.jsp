@@ -32,6 +32,9 @@
 <script>
 
 $(function () {
+	if(${!empty param}) dis();
+	
+	
 	// 초기 셋팅
 	change_hair('${param.board_name}')
 	$('#horse_hair').val('${param.horse_hair}').prop("selected", true);
@@ -138,7 +141,7 @@ function dis(){
 				<input type="text" name="reply_content" value="${param.reply_content }" placeholder="댓글내용 입력">
 				</div>
 			</form>
-			<p>
+			<p style="clear: both;">
 				<span><strong>총 ${data.totalCount }개</strong> |
 					${adminBoardVO.page }/${pageMaker.totalPage }페이지</span>
 			</p>
