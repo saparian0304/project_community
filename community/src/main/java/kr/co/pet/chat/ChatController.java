@@ -129,7 +129,8 @@ public class ChatController {
 		openChatInfo.put("master_no", vo.getMember_no()+"");
 		
 		service.creatOpenChat(openChatInfo);
-		service.joinChannel(Integer.valueOf(openChatInfo.get("channel_no")), vo.getMember_no());
+		int channel_no = Integer.valueOf(String.valueOf(openChatInfo.get("channel_no")));
+		service.joinChannel(channel_no, vo.getMember_no());
 		
 		
 		model.addAttribute("list", service.openChatList());
