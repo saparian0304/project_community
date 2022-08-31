@@ -40,7 +40,7 @@
                         <tr>
                             <th>말머리</th>
                             <td>
-                                <input type="radio" class="radio_value" name="horse_hair" value="4">여행후기
+                                <input type="radio" class="radio_value" name="horse_hair" value="4" checked="checked" required="required">여행후기
 								<input type="radio" class="radio_value" name="horse_hair" value="5">정보공유
 								<input type="radio" class="radio_value" name="horse_hair" value="6">잡담
 								<input type="radio" class="radio_value" name="horse_hair" value="7">고민
@@ -68,7 +68,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>첨부파일</th>
+                            <th>썸네일</th>
                             <td>
                                 <input type="file" name="filename_real" value="${fdata.filename_real}"/><!-- 데이터는 남아있는데 글자로는 안뜸 -->
                             </td>
