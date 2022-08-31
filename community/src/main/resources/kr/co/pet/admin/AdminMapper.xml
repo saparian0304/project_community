@@ -190,20 +190,20 @@
 				</if>
 			</if>
 			<if test="nickname != null and nickname != ''">
-				 nickname = #{nickname} AND
+				 AND nickname = #{nickname}
 			</if>
 			<if test="board_name != null and board_name != ''">
-				board_name = #{board_name}
+				AND board_name = #{board_name}
 				<if test="horse_hair != null and horse_hair !=''">
 				AND horse_hair = #{horse_hair}
 				</if>
 			</if>
 			<if test="fromDate != null and fromDate != '' 
 					and toDate != null and toDate != ''">
-				 board.regdate between #{fromDate} and #{toDate}
+				 AND board.regdate between #{fromDate} AND #{toDate}
 			</if>
 			<if test="content != null and content != ''">
-			    r.content LIKE '%${content}%'
+			    AND r.content LIKE '%${content}%'
 			</if>
 		</where>
 		ORDER BY ${sort} ${order}
@@ -228,25 +228,20 @@
 				</if>
 			</if>
 			<if test="nickname != null and nickname != ''">
-				 nickname = #{nickname} AND
+				AND nickname = #{nickname}
 			</if>
 			<if test="board_name != null and board_name != ''">
-				board_name = #{board_name}
+				AND board_name = #{board_name}
 				<if test="horse_hair != null and horse_hair !=''">
 				AND horse_hair = #{horse_hair}
 				</if>
 			</if>
 			<if test="fromDate != null and fromDate != '' 
 					and toDate != null and toDate != ''">
-				 board.regdate between #{fromDate} and #{toDate}
+				AND board.regdate between #{fromDate} and #{toDate}
 			</if>
 			<if test="content != null and content != ''">
-				 <!-- board.board_no = (
-					SELECT reply.board_no 
-				    FROM reply 
-				    WHERE board.board_no = reply.board_no
-				    AND  -->
-				    r.content LIKE '%${content}%'
+				   AND r.content LIKE '%${content}%'
 			</if>
 		</where>
 	</select>

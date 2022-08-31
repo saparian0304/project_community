@@ -27,6 +27,10 @@
     	$(function() {
 			editor = setEditor('content');
 		});
+    	
+    	if(!$('input[name=horse_hair]:checked').val()) {   
+    			   alert("1개 이상 선택해 주세요.");
+    				return false;
     </script>
    </head>
 <body>
