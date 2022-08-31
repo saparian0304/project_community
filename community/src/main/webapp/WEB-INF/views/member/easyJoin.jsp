@@ -42,7 +42,7 @@
 	        })
 	    });
 	    
-	    $("#joinBtn").click(function() {
+	    function ez_join(){
 	    	
 	    	var join_form = document.easy_join;
 	    	if(!join_form.agree_chk.checked){
@@ -51,6 +51,9 @@
 	    		alert('약관에 동의하지 않았습니다');
 	    		return;
 	    	}
+	    }
+	    
+	    $("#joinBtn").click(function(ez_join()) {
 	    	
 	    	if ($("#nickname").val().trim() == ''){
 				   alert('닉네임을 입력해 주세요.');
@@ -70,6 +73,7 @@
 	                    
 	               	 } else { // cnt가 1일 경우 -> 이미 존재하는 닉네임
 	                    alert('이미 존재하는 닉네임입니다.');
+	               	 return;
 	                }
 	            },
 	            error:function(){
@@ -84,8 +88,6 @@
     });
     
     //function goeasy(){
-    	
-   		
     	//간편가입창에 입력한 닉네임 받기
     	//$(".btn").attr("href", "/pet/member/easyJoin.do?nickname="+$('#nickname').val()); 
     //}
@@ -120,11 +122,11 @@
                            			<br>
                             	
                             	<div scope="row">닉네임은 필수입력사항입니다</div>
-									<td><input type="text" name="nickname" id="nickname" style="float: left;">
+									<td><input type="text" name="nickname" id="nickname" style="float: left;" onkeypress="if (event.keyCode==13) ez_join()" >
 										<span class="nick_ok">사용가능한 닉네임입니다.</span>
 									 	<span class="nick_already">이미 사용중인 닉네임입니다.</span>
 									</td><br>
-                               <div><a href="#" class="btn" id="joinBtn">회원가입</a></div>
+                               <div><a href="javascript: ez_join()" class="btn" id="joinBtn" >회원가입</a></div> <!-- a태그는 이미지태그. 커서를 두고 입력할 수 없음. -->
                              </fieldset>
 						</div>
                      </div>	

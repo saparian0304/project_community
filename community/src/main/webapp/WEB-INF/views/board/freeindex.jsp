@@ -82,7 +82,7 @@
 						</select> 
 						<legend> 검색 </legend> 
 						<input type="text" class="tbox" id="sval" name="sword" value="${sword }"
-								onkeypress="if (event.keyCode==13) submit();"
+								onkeypress="if (event.keyCode==13) total_search();"
 								title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name=""> 
 						<a href="javascript:total_search($('#horse_hair').val())" class="btn_srch">검색</a>
 					</span>	
@@ -154,24 +154,24 @@
 		</div>
 		<!-- 페이지처리 -->
 		<div class="pagenation" style="clear: left;">
-			<a style="cursor: pointer" class="firstpage pbtn">
-		        <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
+			<a style="cursor: pointer" class="firstpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.startPage}&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}">
+		        <img src="/pet/img/btn_firstpage.png" alt="제일 페이지로">
 		    </a>
-			<c:if test="${pageMaker.prev == true }">
+			<c:if test="${pageMaker.prev == true}">
 				<a class="prevpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&rec_count=${param.rec_count}&reply_count=${param.reply_count}">
-				<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
+				<img src="/pet/img/btn_prevpage.png" alt="앞 페이지로 이동">
 				</a>
 			</c:if>
 			<c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage}">
-				<a href='freeindex.do?horse_hair=${param.horse_hair }&page=${p }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.reply_count}'
+				<a href='freeindex.do?horse_hair=${param.horse_hair }&page=${p }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}'
 					class='pagenum <c:if test="${boardVO.page == p }"> currentpage</c:if>'>${p }</a>
 			</c:forEach>
-			<c:if test="${pageMaker.next == true }">
-				<a class="nextpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.endPage +1}&rec_count=${param.rec_count}&reply_count=${param.reply_count}">
+			<c:if test="${pageMaker.next == true}">
+				<a class="nextpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.endPage +1}&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}">
 				<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
 				</a>
 			</c:if>
-			<a style="cursor: pointer" class="lastpage pbtn">
+			<a style="cursor: pointer" class="lastpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.totalPage}&stype=${param.stype}&sword=${param.sword}">
 		        <img src="/pet/img/btn_lastpage.png" alt="마지막 페이지 이동">
 		    </a>
 		</div>

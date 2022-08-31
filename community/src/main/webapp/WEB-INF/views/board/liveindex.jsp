@@ -204,7 +204,7 @@
             
           <div class="pagenation" style="clear: left;">
           <c:if test ="${!empty data.list }">
-          	 <a style="cursor:pointer" onclick='javascript: total_search( ${pageMaker.startPage});' class="firstpage pbtn">
+          	 <a style="cursor:pointer" href="liveindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.startPage}&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}" class="firstpage pbtn">
           	 	<img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 ">
           	 </a>
 			 <c:if test="${pageMaker.prev == true }">

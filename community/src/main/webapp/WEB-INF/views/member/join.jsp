@@ -76,12 +76,6 @@
 	   	
 	   	}
 		
-
-		/* console.log("member_id : "+ member_id);
-		console.log("email : "+ email);
-		console.log("name : "+ name);
-		console.log("pwd : "+ pwd); */
-		
 		
 		$('#frm').submit();
 	}
@@ -122,14 +116,7 @@
 	}
     function checkId(){
     	
-    	var member_id = $('#member_id').val();
-    	if ($("#member_id").val().trim() == ''){
-    		//alert('아이디 입력하셈.');
-    		$('.id_ok').css("display","none"); 
-            $('.id_already').css("display", "none");
-			$("#member_id").focus();
-			return;
-    	}
+    	 var member_id = $('#member_id').val();
     	
          //id값이 "id"인 값을 받아와서 저장
         $.ajax({
@@ -157,13 +144,8 @@
         }
         
     function checkNick(){
-    	if ($("#nickname").val().trim() == ''){
-    		$('.nick_ok').css("display","none"); 
-            $('.nick_already').css("display", "none");
-			$("#nickname").focus();
-			return;
-    	}
-        var nickname = $('#nickname').val(); //id값이 "id"인 입력란의 값을 저장
+
+    	var nickname = $('#nickname').val(); //id값이 "id"인 입력란의 값을 저장
         $.ajax({
             url:'nickname.do', //Controller에서 요청 받을 주소
             method:'post', //POST 방식으로 전달
@@ -186,13 +168,14 @@
     }
     
     function certification(){
+    	
     	var certi = $('#certi_num').val();
-		console.log("certi_num : "+ certi);
+		/* console.log("certi_num : "+ certi);
 		if ($("#certi_num").val().trim() == '') {
 			alert('인증번호를 입력해주세요.');
 			$("#certi_num").focus();
 			return;
-		}
+		} */
 		$.ajax({
 			url : 'Certification.do',
 			method : 'get',
@@ -405,8 +388,8 @@
 								style="float: left;"></td>
 						</tr>
 						<tr>
-							<th>닉네임</th>
-							<td><input type="text" name="nickname" id="nickname" oninput="checkNick()"style="float: left;">
+							<th>*닉네임</th>
+							<td><input type="text" name="nickname" id="nickname" onfocusout="checkNick()"style="float: left;">
 								<span class="nick_ok">사용가능한 닉네임입니다.</span>
 							 	<span class="nick_already">이미 사용중인 닉네임입니다.</span>
 							</td>
