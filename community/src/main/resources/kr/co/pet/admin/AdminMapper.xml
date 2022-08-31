@@ -111,6 +111,41 @@
 		</where>
 	</select>
 	
+	<select id="adminList" parameterType="kr.co.pet.admin.AdminMemberVO" resultType="kr.co.pet.admin.AdminMemberVO">
+		SELECT *
+		FROM admin
+		<where>
+		<if test="sword != null and sword != ''">
+			<if test="stype == 'all'">
+			admin_id LIKE '%${sword}%' OR name LIKE '%${sword}%'
+			</if>
+			<if test="stype != 'all'">
+			and ${stype} LIKE '%${sword}%'
+			</if>
+		</if>
+		</where>
+		ORDER BY ${sort} ${order}
+		LIMIT #{startIdx},${pageRow}
+	</select>
+	
+	<select id="adminCnt" parameterType="kr.co.pet.admin.AdminMemberVO" resultType="int">
+		SELECT COUNT(*) FROM admin 
+		<where>
+		<if test="sword != null and sword != ''">
+			<if test="stype == 'all'">
+			admin_id LIKE '%${sword}%' OR name LIKE '%${sword}%'
+			</if>
+			<if test="stype != 'all'">
+			and ${stype} LIKE '%${sword}%'
+			</if>
+		</if>
+		</where>
+	</select>
+	
+	<update id="defalutPwd" parameterType="kr.co.pet.admin.AdminMemberVO">
+		UPDATE admin SET pwd = md5('admin1234!') WHERE admin_no = #{admin_no}
+	</update>
+	
 	<select id="memberList" parameterType="kr.co.pet.admin.AdminMemberVO" resultType="kr.co.pet.admin.AdminMemberVO">
 		SELECT *,
 			(SELECT COUNT(*) FROM board WHERE board.member_no = member.member_no AND isdelete = 0) AS board_count,
@@ -243,4 +278,16 @@
 		WHERE date_format(regdate,'%Y-%m-%d') = curdate()
 	</select>
 	
+	<select id="loginCheck" parameterType="kr.co.pet.admin.AdminMemberVO" resultType="kr.co.pet.admin.AdminMemberVO">
+		select * from admin where admin_id = '${admin_id}' and pwd = md5('${pwd}')
+	</select>
+	
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(admin_id) from admin where admin_id = #{admin_id}
+	</select>
+	
+	<insert id = "insert" parameterType="kr.co.pet.admin.AdminMemberVO">
+		insert into admin ( name, admin_id, pwd )
+		values ( #{name}, #{admin_id}, md5(#{pwd}))
+	</insert>
 </mapper>

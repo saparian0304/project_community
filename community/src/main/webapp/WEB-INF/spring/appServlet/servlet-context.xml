@@ -35,5 +35,11 @@
 		<beans:property name="maxInMemorySize" value="10485756"></beans:property>
 	</beans:bean>
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/index.do"/>			
+			<beans:bean class="interceptor.AdminInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>

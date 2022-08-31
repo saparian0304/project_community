@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>내 오픈채팅목록</title>
+<link rel="stylesheet" href="/pet/css/chat.css"/> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
 <script type="text/javascript">
@@ -92,18 +93,25 @@
 </script>
 </head>
 <body>
-	<span style="margin: 0 0 0 10px;"><a href='/pet/chat/index.do' >친구</a></span>
-	<span style="margin: 0 0 0 10px; "><a href='/pet/chat/myOpenChat.do' >참여 중인 오픈채팅방</a></span>
-	<span style="margin: 0 0 0 10px; "><a href='/pet/chat/openChat.do' >오픈채팅방</a></span>
-	
-	<div style="overflow-y:auto; ">
+	<div class="box">
+		<div class="list">
+			<span style="margin: 0 0 0 10px; line-height: 50px;"><a href='/pet/chat/index.do' >친구</a></span>
+		</div>
+		<div class="list">
+			<span style="margin: 0 0 0 10px; line-height: 25px;"><a href='/pet/chat/myOpenChat.do' >참여 중인&nbsp;<br>오픈채팅방</a></span>
+		</div>
+		<div class="list">	
+			<span style="margin: 0 0 0 10px; line-height: 50px;"><a href='/pet/chat/openChat.do' >오픈채팅방</a></span>
+		</div>
+	</div>
+	<div style="overflow-y:auto; clear: both; overflow:hidden;">
 		<c:forEach var="list" items="${list }">
 		<!-- 
 		친구 회원번호 : ${list.friend_no }<br>
 		친구 채팅방 번호 : ${list.channel_no }
 		 -->
-		<div>
-			<div style="height: 50px; border-bottom-style: dotted; border-bottom-width: 0.5px;">
+		<div class="chat_channel">
+			<div style="height: 50px;">
 				<a href="javascript:popup('o/${list.channel_no }', '채팅 - ${list.nickname }')">
 				${list.title }
 				</a>

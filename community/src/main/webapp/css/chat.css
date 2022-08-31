@@ -1,0 +1,141 @@
+@charset "UTF-8";
+@import url('layout_base.css');
+
+/*/*초기화*태크이름이 우선순위/*/
+html, body, div, span,
+h1,h2,h3,h4,h5,h6,p,pre,
+a,address,
+em,img,
+strong,
+b,i,
+dl,dt,dd,ol,ul,li,
+fieldset,form,label,legend,button,
+table,caption,tbody,thead,tr,th,td,
+article,aside,
+figure,figcaption,footer,header,hgroup,
+nav,section,
+audio,video{
+	margin: 0;padding: 0;
+}
+h1,h2,h3,h4,h5,h6{
+	font-weight: normal;
+	font-size: inherit;
+}
+article,aside,details,figcaption,figure,footer,
+header,hgroup,nav,section{
+	display: block;
+}
+body{
+	line-height: 1;
+}
+blockquote,q{ quotes: none; }
+blockquote:before,blockquote:after,q:before,q:after
+{
+	content: '';content: none;
+}
+img,fieldset,a{
+	border: none;
+}
+img{
+	vertical-align: middle;
+}
+table,thead,tbody,tfoot{
+	border-collapse: collapse;
+	border-spacing:0 ;
+	border: none;
+}
+ul,ol,li{
+	list-style: none;
+}
+address,em{ font-style: normal; }
+input,select,textarea,button,form img, label{
+	vertical-align: middle;
+}
+/*skipnavi 건너뛰기 링크*/
+.skipnavi{
+	text-indent: -9999px;
+	font-size: 0;
+	position: absolute;left: 0; top: -50px;
+	width: 100%; z-index: 999;
+}
+.skipnavi li a:focus,
+.skipnavi li a:active{
+	position: absolute;left: 0;top: 50px;
+	display: block; width: 100% ;padding: 5px 0;
+	text-align: center; text-indent: 0px;
+	font-size: 12px; font-weight: bold;
+	background: #f2f2f2;
+}
+
+/*a:ancher*/
+a{text-decoration: none;}
+a:link{color:#444;}
+a:visited{color:#444;}
+a:hover{color:#444;}
+a:focus{color:#444;}
+
+/*checkbox radio*/
+
+/* input[type=checkbox].checkbox{
+		position: absolute;left: -1000px;
+		width: 1px;height: 1px;
+
+		overflow: hidden;
+	} */
+
+body {
+	background-color: #ede6cc;
+}
+.box {
+	width: 390px;
+}
+.list {
+	width: 120px;
+	height: 50px;
+	float: left;
+	text-align: center;
+	line-height: 20px;
+	border: 1px solid;
+	border-radius: 10px;
+	background-color: #b7cae2;
+}
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.chat_channel {
+	height: 60px;
+	border: 1px solid;
+	border-radius: 10px;
+	margin: 5px 0;
+	padding: 10px;
+	background-color: #cfffe5;
+}
+
+
+#chatbox, .inputBox{
+	background-color: #fcd7d6  ;
+
+}
+.msg {
+	width: 220px;
+	height: auto;
+	margin-bottom: 15px;
+	border-radius: 20px;
+	background-color: #8dcdcc;
+	
+	padding : 10px;
+	float:left;
+}
+.msgDate {
+	float: right;
+}
+.myMsg {
+	background-color: #ffff49;
+	float: right;
+}
+.space {
+	height : 5px;
+}
+

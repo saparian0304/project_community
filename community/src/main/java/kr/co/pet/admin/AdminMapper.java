@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.pet.board.BoardVO;
+import kr.co.pet.member.MemberVO;
 
 @Mapper
 public interface AdminMapper {
@@ -12,6 +13,13 @@ public interface AdminMapper {
 	List<BoardVO> list(AdminBoardVO vo);
 	int count(AdminBoardVO vo);
 	
+	// admin 로그인
+	AdminMemberVO loginCheck(AdminMemberVO vo);
+	int idCheck(String id);
+	int insert(AdminMemberVO vo);
+	List adminList(AdminMemberVO vo);
+	int adminCnt(AdminMemberVO vo);
+	int defalutPwd(AdminMemberVO vo);
 	
 	// 회원관리
 	List memberList(AdminMemberVO vo);
