@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import kr.co.pet.board.api.ApiService;
 import kr.co.pet.bookmark.BookmarkService;
@@ -80,7 +84,7 @@ public class BoardController {
 		model.addAttribute("ldata", service.liveindex(vo));
 		
 		//좋아요순
-		vo.setHorse_hair("4");//여행후기
+		vo.setHorse_hair("4");//잡담
 		model.addAttribute("tdata", service.freeindex(vo));
 		vo.setHorse_hair("5");// 정보공유
 		model.addAttribute("ddata", service.freeindex(vo));
@@ -89,7 +93,7 @@ public class BoardController {
 		vo.setMain(null);
 		vo.setSort("regdate");
 		vo.setOrder("desc");
-		vo.setHorse_hair("6");//잡담
+		vo.setHorse_hair("6");//여행후기
 		model.addAttribute("sdata", service.freeindex(vo));
 		
 		vo.setHorse_hair("7");//고민상담
@@ -175,7 +179,11 @@ public class BoardController {
 	}
 	
 	@GetMapping("/admin/board/livewrite.do")
-	public String livewrite() {
+	public String livewrite(BoardVO vo, MemberVO mvo) {
+		vo.setMember_no(mvo.getMember_no());
+		if(vo.getMember_no() == 0) {
+			mvo.setMember_id("관리자");
+		}
 		return "board/livewrite";
 	}
 	
@@ -346,11 +354,10 @@ public class BoardController {
 
 	@PostMapping(value = "/admin/board/centerinsert.do", consumes = "multipart/form-data")
 	public String centerinsert(BoardVO vo, FileVO fvo, LocVO lvo, CenterVO cvo,Model model, @RequestParam MultipartFile filename,
-			HttpServletRequest req, HttpSession sess) {
+			HttpServletRequest req, HttpSession sess, HttpServlet hs) {
 		//게시글 저장 board테이블
 		//LocVO lvo = new LocVO();
 		vo.setBoard_name("center");
-		
 		//member_no 저장 로그인
 //		HttpSession sess2 = req.getSession();
 //		MemberVO mv = (MemberVO)sess2.getAttribute("loginInfo");

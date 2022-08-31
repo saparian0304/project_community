@@ -27,6 +27,7 @@
     	$(function() {
 			editor = setEditor('content');
 		});
+    	
     </script>
    </head>
 <body>
@@ -42,21 +43,12 @@
                         <tr>
                             <th>말머리</th>
                             <td>
-								<input type="radio" class="radio_value" name="horse_hair" value="4">여행후기
+								<input type="radio" class="radio_value" name="horse_hair" value="4" checked="checked" required="required">잡담
 								<input type="radio" class="radio_value" name="horse_hair" value="5">정보공유
-								<input type="radio" class="radio_value" name="horse_hair" value="6">잡담
-								<input type="radio" class="radio_value" name="horse_hair" value="7">고민
+								<input type="radio" class="radio_value" name="horse_hair" value="6">여행후기
+								<input type="radio" class="radio_value" name="horse_hair" value="7">고민상담
                             </td>
                         </tr>
-                        <tr>
-                            <th>주소</th>
-                            <td>
-                                <%-- 주소1(구군), 주소2(입력한 상세주소), 위도, 경도 --%>
-						        주소 : <input type = "text" name = "addr" />
-						        상세주소 : <input type = "text" name = "addr2" /> 
-                            </td>
-                        </tr>
-                        
                         <tr>
                             <th>제목</th>
                             <td>
@@ -70,7 +62,7 @@
                             </td>
                         </tr>
                         <tr>
-                        	<th>첨부파일</th>
+                        	<th>썸네일</th>
                         	<td>
                         		<input type="file" name="filename">
                         	</td>
@@ -81,7 +73,6 @@
 	                    <div class="btnSet"  style="text-align:right;">
 	                        <a class="btn" href="javascript:goSave();">저장 </a>
 	                    </div>
-	                    <%-- <input type="hidden" name="member_no" value="${loginInfo.member_no }"> --%>
                     </form>
                 </div>
             </div>

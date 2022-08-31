@@ -55,6 +55,9 @@ input[type="number"] {
 <script>
 
 $(function () {
+
+	if(${!empty param}) dis();
+
 	
 	// 초기 셋팅
 	$('#fromDate2, #toDate').datepicker({
