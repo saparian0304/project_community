@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<script type="text/javascript" src="/pet/js/infomation.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <%@ include file="/WEB-INF/views/includes/alram.jsp" %> 
 <script>
@@ -9,137 +10,17 @@ var login_no = "";
 <c:if test="${!empty loginInfo.member_no}">
 	login_no = ${loginInfo.member_no};
 </c:if>
-// 닉네임 눌렀을때 정보 열림
-function info(gno){	
-	<c:if test="${empty loginInfo}">
-	 alert('로그인 후 사용해 주세요');
-	</c:if>
-	<c:if test="${!empty loginInfo}">
-	if($(".activityForm"+gno).css("display")=="none"){
-		$(".activityForm").hide();
-		$(".activityForm2").hide();
-		$(".activityForm"+gno).toggle();
-	} else{
-		$(".activityForm"+gno).hide();
+
+
+//쪽지보내고 나면 닫힘
+var close1 = "${off}";
+	
+$(function(){
+	if (close1 == "yes"){
+		winclose();
 	}
-	</c:if>
-}
+});
 
-// 쪽지보내기 팝업
-function popmessage(member_no, member_nickname){
-    var url = "/pet/message/send.do?member_no="+member_no+"&nickname="+member_nickname;
-  	var name = "popup message"; 
-    var option = "width = 600, height = 500, top = 100, left = 200, location = no"
-    window.open(url, name, option);   
-}
-
-// 쪽지보내고 나면 닫힘
-	var close1 = "${off}";
-	
-	function winclose(){	
-		  window.open('','_self').close();
-		  alert("발송 완료 되었습니다.");
-		  
-	}
-	
-	$(function(){
-		if (close1 == "yes"){
-			winclose();
-		}
-	});
-	
-	
-// 팔로우	
-
-function follow(member_no){
-	<c:if test="${empty loginInfo}">
-	 alert('로그인 후 사용해 주세요');
-	</c:if>
-	var i_no='${loginInfo.member_no}';
-	 $.ajax({
-		url :"/pet/follow/insert.do",
-		data : {
-			you_no : member_no,
-			i_no : i_no
-		},
-		success : function(res){	
-			$(".followGo"+member_no).replaceWith('<p class="followNo'+member_no+'"><button onclick="unfollow(' + member_no + ');">팔로우해제</button></p>');			 
-		}		
-	}); 
-}
-
-//팔로우 해제
- 
-function unfollow(member_no){
-	<c:if test="${empty loginInfo}">
-	 alert('로그인 후 사용해 주세요');
-	</c:if>
-	var i_no='${loginInfo.member_no}';
-	
-	 $.ajax({
-		url :"/pet/follow/insert.do",
-		data : {
-			you_no : member_no,
-			i_no : i_no
-		},
-		success : function(){
-			$(".followNo"+member_no).replaceWith('<p class="followGo'+member_no+'"><button onclick="follow(' + member_no + ');">팔로우</button></p>');
-			
-		}
-		
-	}); 
-} 
-
-// 차단
-function block(member_no){
-	<c:if test="${empty loginInfo}">
-	 	alert('로그인 후 사용해 주세요');
-	</c:if>
-	<c:if test="${!empty loginInfo}">
-		if (confirm('차단 하시겠습니까?')){	
-		var i_no='${loginInfo.member_no}';
-		 $.ajax({
-			url :"/pet/follow/blockinsert.do",
-			data : {
-				you_no : member_no,
-				i_no : i_no
-			},
-			success : function(res){	
-				alert("차단하였습니다.");
-				 document.location.reload();
-			}		
-		});
-	}
-</c:if>
-} 
-// 친구요청
-function friinsert(member_no){
-	<c:if test="${empty loginInfo}">
-	 	alert('로그인 후 사용해 주세요');
-	</c:if>
-	<c:if test="${!empty loginInfo}">
-		if (confirm('친구 요청을 하시겠습니다?')){	
-		var i_no='${loginInfo.member_no}';
-		 $.ajax({
-			url :"/pet/mypage/friinsert.do",
-			data : {
-				you_no : member_no,
-				i_no : i_no
-			},
-			success : function(res){	
-				if (res == 1) {
-				alert("친구요청이 완료되었습니다.");
-				if(socket){
-					socket.send("fri,"+login_no+","+member_no+",0,0");
-				}
-				} else if(res == 0){
-					alert("이미 요청한 사용자입니다.");
-				}
-			}		
-		});
-	}
-</c:if>
-} 
 
 </script>
 
@@ -203,17 +84,17 @@ function friinsert(member_no){
 			<c:when test="${loginInfo.member_no == vo.member_no }">
 				<c:if test="${param.member_no == vo.member_no}">                                            
                 <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
-                	<a href="javascript:info(${vo.gno})"> [글쓴이]&nbsp;&nbsp;${vo.member_nickname}</a>
+                	<a href="javascript:info('${vo.gno}', '${loginInfo}')"> [글쓴이]&nbsp;&nbsp;${vo.member_nickname}</a>
                 	<div class="activityForm${vo.gno} activityForm" style="display:none;">                		                     
-	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList'";>나의 활동내역</button></p>
+	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList';">나의 활동내역</button></p>
                     </div>
                 </td>
          	</c:if> 
             <c:if test="${param.member_no != vo.member_no}">                                                
                 <td class="writer${vo.gno}" style="cursor:pointer;">
-                     <a href="javascript:info(${vo.gno})"> ${vo.member_nickname} </a>
+                     <a href="javascript:info('${vo.gno}', '${loginInfo}')"> ${vo.member_nickname} </a>
                      <div class="activityForm${vo.gno} activityForm" style="display:none;">                                         
-	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList'";>나의 활동내역</button></p>           
+	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList';">나의 활동내역</button></p>           
                      </div>
                 </td>
             </c:if>
@@ -221,33 +102,33 @@ function friinsert(member_no){
 			<c:otherwise> 
     		<c:if test="${param.member_no == vo.member_no}">                                            
                 <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
-                	<a href="javascript:info(${vo.gno})"> [글쓴이]&nbsp;&nbsp;${vo.member_nickname}</a>
+                	<a href="javascript:info('${vo.gno}', '${loginInfo}')"> [글쓴이]&nbsp;&nbsp;${vo.member_nickname}</a>
                 	<div class="activityForm${vo.gno} activityForm" style="display:none;">
 	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>	                      
-	                     <p><button onclick="friinsert(${vo.member_no});">친구신청</button></p>	                      
+	                     <p><button onclick="friinsert('${vo.member_no}', '${loginInfo.member_no}');">친구신청</button></p>	                      
             		<c:if test="${empty vo.relation}">           	                   
-	                     <p class="followGo${vo.member_no}"><button onclick="follow(${vo.member_no});">팔로우</button></p>
+	                     <p class="followGo${vo.member_no}"><button onclick="follow('${vo.member_no}', '${loginInfo.member_no}');">팔로우</button></p>
            			</c:if>        
            			<c:if test="${vo.relation == 0}">        
-	                     <p class="followNo${vo.member_no}"><button onclick="unfollow(${vo.member_no});">팔로우해제</button></p>
+	                     <p class="followNo${vo.member_no}"><button onclick="unfollow('${vo.member_no}', '${loginInfo.member_no}');">팔로우해제</button></p>
            			</c:if>         
-	                     <p><button onclick="block(${vo.member_no});">차단 </button></p>
+	                     <p><button onclick="block('${vo.member_no}', '${loginInfo.member_no}');">차단 </button></p>
                     </div>
                 </td>
          	</c:if> 
             <c:if test="${param.member_no != vo.member_no}">                                                
                 <td class="writer${vo.gno}" style="cursor:pointer;">
-                     <a href="javascript:info(${vo.gno})"> ${vo.member_nickname} </a>
+                     <a href="javascript:info('${vo.gno}', '${loginInfo}')"> ${vo.member_nickname} </a>
                      <div class="activityForm${vo.gno} activityForm" style="display:none;">
 	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
-	                     <p><button onclick="friinsert(${vo.member_no});">친구신청</button></p>
+	                     <p><button onclick="friinsert('${vo.member_no}', '${loginInfo.member_no}');">친구신청</button></p>
 	         		<c:if test="${empty vo.relation}">             
-	                     <p class="followGo${vo.member_no}"><button onclick="follow(${vo.member_no});">팔로우</button></p>
+	                     <p class="followGo${vo.member_no}"><button onclick="follow('${vo.member_no}', '${loginInfo.member_no}');">팔로우</button></p>
 	         		</c:if>             
 	         		<c:if test="${vo.relation == 0}">            
-	                     <p class="followNo${vo.member_no}"><button onclick="unfollow(${vo.member_no});">팔로우해제</button></p>
+	                     <p class="followNo${vo.member_no}"><button onclick="unfollow('${vo.member_no}', '${loginInfo.member_no}');">팔로우해제</button></p>
 	         		</c:if> 
-	                     <p><button onclick="block(${vo.member_no});">차단</button></p>
+	                     <p><button onclick="block('${vo.member_no}', '${loginInfo.member_no}');">차단</button></p>
                      </div>
                 </td>
             </c:if>
