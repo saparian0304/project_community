@@ -221,7 +221,6 @@ $(function () {
                     <col width="60px" />
                     <col width="75px" />
                     <col width="75px" />
-                    <col width="60px" />
 				</colgroup>
 				<thead>
 					<tr>
@@ -232,7 +231,7 @@ $(function () {
 				<tbody>
 					<c:if test="${empty data.list }">
 						<tr>
-							<td class="first" colspan="13">등록된 회원이 없습니다.</td>
+							<td class="first" colspan="12">등록된 회원이 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:forEach var="vo" items="${data.list }" varStatus="status">
@@ -268,7 +267,6 @@ $(function () {
 									pattern="yy-MM-dd" /></td>
 							<td class="date"><fmt:formatDate value="${vo.curr_login }"
 									pattern="yy-MM-dd" /></td>
-							<td>출석수</td>
 						</tr>
 					</c:forEach>
 				</tbody>

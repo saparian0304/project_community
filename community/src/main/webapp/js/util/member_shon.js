@@ -7,8 +7,8 @@ function adminSearch(id, sort, order) {
 
 // 관리자 게시판관리 테이블 헤더 작성 함수
 function makeTh(sort, order) {
-	var arr1 = ['member_id', 'nickname', 'email', 'gender', 'birthday', 'level', 'out', 'board_count', 'reply_count', 'regdate', 'curr_login', '출석수'];
-	var arr2 = ['ID', '닉네임', '이메일', '성별', '생년월일', '등급', '회원상태', '게시글 수', '댓글 수', '가입일', '최근방문일', '출석수'];
+	var arr1 = ['member_id', 'nickname', 'email', 'gender', 'birthday', 'level', 'out', 'board_count', 'reply_count', 'regdate', 'curr_login'];
+	var arr2 = ['ID', '닉네임', '이메일', '성별', '생년월일', '등급', '회원상태', '게시글 수', '댓글 수', '가입일', '최근방문일'];
 	
 	var str3 = '';
 	for (var i = 0 ; i<arr1.length; i++) {
