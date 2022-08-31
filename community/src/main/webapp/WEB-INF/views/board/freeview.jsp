@@ -260,20 +260,26 @@ $(document).ready(function(){
                                			</span>
 	                               		</div>
 	                        <div class="content" style="text-align: center">
+								<c:if test="!empty ${data.filename_real }">
+								<img src="/pet/upload/${data.filename_real }"
+									onerror='this.onerror=null; this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
+								</c:if>
 	                        	<dl>
-	                        		<dt style="height: 200px">${data.content }</dt>
+	                        		<dt style="height: 200px">
+	                        		${data.content }
+	                        		</dt>
 	                        	</dl>
 	                        </div>
 	                        
 	                        	<!-- 첨부파일 -->
-	                        	<dl class="file" style="clear:both">
-	                            <dd>
-	                            <c:forEach var="fo" items="${fdata }">
-	                            <a href="/pet/common/download.jsp?oName=${URLEncoder.encode(fo.filename_org,'UTF-8')}&sName=${fo.filename_real}"  
-	                            target="_blank">${fo.filename_org}</a>
-	                            </c:forEach>
-	                            </dd>
-	                        </dl>			
+                        	<dl class="file" style="clear:both">
+	                           <%-- <dd>
+	                           <c:forEach var="fo" items="${fdata }">
+	                           <a href="/pet/common/download.jsp?oName=${URLEncoder.encode(fo.filename_org,'UTF-8')}&sName=${fo.filename_real}"  
+	                           target="_blank">${fo.filename_org}</a>
+	                           </c:forEach>
+	                           </dd> --%>
+                        	</dl>			
 	                        
 	                        <div class="btnSet clear" style="clear:both">
 	                            <div class="fl_l">

@@ -126,6 +126,7 @@
 					<div id="list">
 						<figure id="figure"
 							onclick="location.href='freeview.do?board_no=${vo.board_no }';">
+							
 							<!-- 이미지가 upload에 들어가 있거나 D:\kdigital\java\workspace1\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\community\upload 여기 경로
 							톰캣clear하면 후자 내용 초기화-->
 							<c:if test="${!empty vo.filename_real }">

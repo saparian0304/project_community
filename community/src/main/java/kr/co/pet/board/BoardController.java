@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import kr.co.pet.board.api.ApiService;
 import kr.co.pet.bookmark.BookmarkService;
@@ -350,11 +354,10 @@ public class BoardController {
 
 	@PostMapping(value = "/admin/board/centerinsert.do", consumes = "multipart/form-data")
 	public String centerinsert(BoardVO vo, FileVO fvo, LocVO lvo, CenterVO cvo,Model model, @RequestParam MultipartFile filename,
-			HttpServletRequest req, HttpSession sess) {
+			HttpServletRequest req, HttpSession sess, HttpServlet hs) {
 		//게시글 저장 board테이블
 		//LocVO lvo = new LocVO();
 		vo.setBoard_name("center");
-		
 		//member_no 저장 로그인
 //		HttpSession sess2 = req.getSession();
 //		MemberVO mv = (MemberVO)sess2.getAttribute("loginInfo");

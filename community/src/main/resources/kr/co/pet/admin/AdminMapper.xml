@@ -2,42 +2,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.pet.admin.AdminMapper">
 	
-<sql id="list_where">
-	<where>
-		<if test="sword != null and sword != ''">
-			<if test="stype == 'all'">
-				(title LIKE '%${sword}%' OR board.content LIKE '%${sword}%' )
+	<sql id="list_where">
+		<where>
+			<if test="sword != null and sword != ''">
+				<if test="stype == 'all'">
+					(title LIKE '%${sword}%' OR board.content LIKE '%${sword}%' )
+				</if>
+				<if test="stype == 'title'">
+					title LIKE '%${sword}%'
+				</if>
+				<if test="stype == 'content'">
+					board.content LIKE '%${sword}%'
+				</if>
 			</if>
-			<if test="stype == 'title'">
-				title LIKE '%${sword}%'
+			<if test="nickname != null and nickname != ''">
+				and nickname = #{nickname}
 			</if>
-			<if test="stype == 'content'">
-				board.content LIKE '%${sword}%'
+			<if test="board_name != null and board_name != ''">
+				and board_name = #{board_name}
+				<if test="horse_hair != null and horse_hair !=''">
+				and horse_hair = #{horse_hair}
+				</if>
 			</if>
-		</if>
-		<if test="nickname != null and nickname != ''">
-			and nickname = #{nickname}
-		</if>
-		<if test="board_name != null and board_name != ''">
-			and board_name = #{board_name}
-			<if test="horse_hair != null and horse_hair !=''">
-			and horse_hair = #{horse_hair}
+			<if test="fromDate != null and fromDate != '' 
+					and toDate != null and toDate != ''">
+				and board.regdate between #{fromDate} and #{toDate}
 			</if>
-		</if>
-		<if test="fromDate != null and fromDate != '' 
-				and toDate != null and toDate != ''">
-			and board.regdate between #{fromDate} and #{toDate}
-		</if>
-		<if test="reply_content != null and reply_content != ''">
-			and board.board_no = (
-				SELECT distinct reply.board_no 
-			    FROM reply 
-			    WHERE board.board_no = reply.board_no
-			    AND reply.content LIKE '%${reply_content}%'
-			)
-		</if>
-	</where>
-</sql>
+			<if test="reply_content != null and reply_content != ''">
+				and board.board_no = (
+					SELECT distinct reply.board_no 
+				    FROM reply 
+				    WHERE board.board_no = reply.board_no
+				    AND reply.content LIKE '%${reply_content}%'
+				)
+			</if>
+		</where>
+	</sql>
 
 	<select id="list" parameterType="kr.co.pet.admin.AdminBoardVO" resultType="kr.co.pet.admin.AdminBoardVO">
 		SELECT 
@@ -122,18 +122,22 @@
 			(SELECT COUNT(*) FROM board WHERE board.member_no = member.member_no AND isdelete = 0) AS board_count,
 			(SELECT COUNT(*) FROM reply WHERE reply.member_no = member.member_no AND isdelete = 0) AS reply_count
 		FROM member
-		<if test="stype1 == 'member_id'">
-		WHERE member_id = #{sword1}
+		<include refid="memberWhere"/>
+		<if test="sort == 'board_count'">
+		ORDER BY (SELECT COUNT(*) FROM board WHERE board.member_no = member.member_no AND isdelete = 0) ${order}
 		</if>
-		<if test="stype1 == 'nickname'">
-		WHERE nickname = #{sword1}
+		<if test="sort == 'reply_count'">
+		ORDER BY (SELECT COUNT(*) FROM reply WHERE reply.member_no = member.member_no AND isdelete = 0) ${order}
 		</if>
+		<if test="sort != 'board_count' and sort != 'reply_count'">
 		ORDER BY ${sort} ${order}
+		</if>
 		LIMIT #{startIdx},${pageRow}
 	</select>
 	
 	<select id="memberCnt" parameterType="kr.co.pet.admin.AdminMemberVO" resultType="int">
 		SELECT COUNT(*) FROM member
+		<include refid="memberWhere"/>
 	</select>
 	
 	<select id="replyList" parameterType="kr.co.pet.admin.AdminReplyVO" resultType="kr.co.pet.admin.AdminReplyVO">
@@ -256,4 +260,85 @@
 		insert into admin ( name, admin_id, pwd )
 		values ( #{name}, #{admin_id}, md5(#{pwd}))
 	</insert>
+	
+	<!-- 회원관리 조건문 -->
+	<sql id="memberWhere">
+		<where>
+			<if test="stype != null and stype != ''">
+				<if test="stype == 'all'">
+					(member_id LIKE '%${sword}%' OR nickname LIKE '%${sword}%' OR email LIKE '%${sword}%')
+				</if>
+				<if test="stype != 'all'">
+					${stype} LIKE '%${sword}%'
+				</if>
+			</if>
+			<if test="gender != 0">
+				AND gender = #{gender}
+			</if>
+			<if test="level != 0">
+				<if test="level_order == 'only'">
+					AND level = #{level}
+				</if>
+				<if test="level_order == 'up'">
+				<![CDATA[
+					AND level >= #{level}
+				]]>
+				</if>
+				<if test="level_order == 'down'">
+				<![CDATA[
+					AND level <= #{level}
+				]]>
+				</if>
+			</if>
+			<if test="out != 0">
+				AND member.out = #{out}
+			</if>
+			<if test="dateType != null and dateType != ''">
+				<choose>
+					<when test="fromDate == '1week'">
+						AND (date_format(${dateType},'%Y-%m-%d') BETWEEN DATE_ADD(date_format(now(),'%Y-%m-%d'), INTERVAL -1 WEEK) AND date_format(now(),'%Y-%m-%d'))
+					</when>
+					<when test="fromDate == '1month'">
+						AND (date_format(${dateType},'%Y-%m-%d') BETWEEN DATE_ADD(date_format(now(),'%Y-%m-%d'), INTERVAL -1 MONTH) AND date_format(now(),'%Y-%m-%d'))
+					</when>
+					<when test="fromDate == '3month'">
+						AND (date_format(${dateType},'%Y-%m-%d') BETWEEN DATE_ADD(date_format(now(),'%Y-%m-%d'), INTERVAL -3 MONTH) AND date_format(now(),'%Y-%m-%d'))
+					</when>
+					<otherwise>
+						AND (date_format(${dateType},'%Y-%m-%d') BETWEEN '${fromDate}' AND '${toDate}')
+					</otherwise>
+				</choose>
+			</if>
+			<if test="board_count != null and board_count != ''">
+				<if test="board_order == 'only'">
+					AND (SELECT COUNT(*) FROM board WHERE board.member_no = member.member_no AND isdelete = 0) = #{board_count}
+				</if>
+				<if test="board_order == 'up'">
+				<![CDATA[
+					AND (SELECT COUNT(*) FROM board WHERE board.member_no = member.member_no AND isdelete = 0) >= #{board_count}
+				]]>
+				</if>
+				<if test="board_order == 'down'">
+				<![CDATA[
+					AND (SELECT COUNT(*) FROM board WHERE board.member_no = member.member_no AND isdelete = 0) <= #{board_count}
+				]]>
+				</if>
+			</if>
+			<if test="reply_count != null and reply_count != ''">
+				<if test="reply_order == 'only'">
+					AND (SELECT COUNT(*) FROM reply WHERE reply.member_no = member.member_no AND isdelete = 0) = #{reply_count}
+				</if>
+				<if test="reply_order == 'up'">
+				<![CDATA[
+					AND (SELECT COUNT(*) FROM reply WHERE reply.member_no = member.member_no AND isdelete = 0) >= #{reply_count}
+				]]>
+				</if>
+				<if test="reply_order == 'down'">
+				<![CDATA[
+					AND (SELECT COUNT(*) FROM reply WHERE reply.member_no = member.member_no AND isdelete = 0) <= #{reply_count}
+				]]>
+				</if>
+			</if>
+		</where>
+	</sql>
 </mapper>
