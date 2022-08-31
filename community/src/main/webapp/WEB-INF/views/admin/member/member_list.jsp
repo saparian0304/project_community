@@ -13,7 +13,18 @@
 	<link rel="stylesheet" href="/pet/css/admin/common.css">
     <link rel="stylesheet" href="/pet/css/reset.css"/>
     <link rel="stylesheet" href="/pet/css/contents.css"/> 
-	<script type="text/javascript" src="/pet/js/util/member_shon.js?ver=3"></script>
+
+<script>
+	var level_order = "${param.level_order}";
+	var board_order = "${param.board_order}";
+	var reply_order = "${param.reply_order}";
+	var fromDate = "${param.fromDate}";
+	if (fromDate.length == 10){
+		fromDate = "self";
+	}
+</script>
+
+	<script type="text/javascript" src="/pet/js/util/member_shon.js?ver=4"></script>
 <style>
 .detail {
 	display : none;
@@ -44,8 +55,9 @@ input[type="number"] {
 <script>
 
 $(function () {
+	
 	// 초기 셋팅
-	$('#fromDate, #toDate').datepicker({
+	$('#fromDate2, #toDate').datepicker({
 		dateFormat: 'yy-mm-dd' //달력 날짜 형태
        ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
        ,showMonthAfterYear:true // 월- 년 순서가아닌 년도 - 월 순서
@@ -62,6 +74,12 @@ $(function () {
        ,maxDate: "+5y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
 	});
 	makeTh('${param.sort}', '${param.order}');
+	$("#level").trigger("change");
+	$("#dateType").trigger("change");
+	$("#fromDate").trigger("change");
+	$("#board_count").trigger("change");
+	$("#reply_count").trigger("change");
+
 })
 
 </script>
@@ -99,9 +117,10 @@ $(function () {
 				</select>
 				&emsp;&emsp;
 				<p style="font-size: 15px; display: inline;">등급 : </p>&emsp;
-				<select class="updown" id="level" name="level">
+				<select id="level" name="level">
 					<option value="0">전체</option>
-					<option value="1">일반회원</option>
+					<option value="1" <c:if test="${param.level == 1 }"> selected</c:if>>일반회원</option>
+					<option value="2" <c:if test="${param.level == 2 }"> selected</c:if>>고급회원</option>
 				</select>
 				<select id="level_order" name="level_order">
 					<option value="">--</option>
@@ -110,57 +129,60 @@ $(function () {
 				<p style="font-size: 15px; display: inline;">회원상태 : </p>&emsp;
 				<select id="out" name="out">
 					<option value="0">전체</option>
-					<option value="1">활동중</option>
-					<option value="2">탈퇴</option>
-					<option value="3">활동중지</option>
+					<option value="1" <c:if test="${param.out == 1 }"> selected</c:if>>활동중</option>
+					<option value="2" <c:if test="${param.out == 2 }"> selected</c:if>>탈퇴</option>
+					<option value="3" <c:if test="${param.out == 3 }"> selected</c:if>>활동중지</option>
 				</select>
 				<br><br>
 				
 				<p style="font-size: 15px; display: inline;">기간 설정 : </p>&emsp;
 				<select id="dateType" name="dateType">
 					<option value="">------선택------</option>
-					<option value="birthday">생년월일</option>
-					<option value="regdate">가입일</option>
-					<option value="curr_login">최근 방문일</option>
-					<option value="leavedate">탈퇴/활동중지</option>
+					<option value="birthday" <c:if test="${param.dateType eq 'birthday' }"> selected</c:if>>생년월일</option>
+					<option value="regdate" <c:if test="${param.dateType eq 'regdate' }"> selected</c:if>>가입일</option>
+					<option value="curr_login" <c:if test="${param.dateType eq 'curr_login' }"> selected</c:if>>최근 방문일</option>
+					<option value="leavedate" <c:if test="${param.dateType eq 'leavedate' }"> selected</c:if>>탈퇴/활동중지</option>
 				</select>
 				&emsp;
-				<select id="fromDate" name="fromDate">
+				<input type="hidden" name="fromDate" value="${param.fromDate }">
+				<select id="fromDate" name="fromDate2">
 					<option value="">---</option>
 				</select>
 				<p class="dateSelf" >
 				&emsp;&emsp;
-					<input type="text" name="fromDate2" value="${param.fromDate }" placeholder="시작일자" autocomplete="off">
+					<input type="text" id="fromDate2" name="fromDate3" value="${param.fromDate }" placeholder="시작일자" autocomplete="off">
 					&emsp;~&emsp;
-					<input type="text" name="toDate" value="${param.toDate }" placeholder="종료일자" autocomplete="off">
+					<input type="text" id="toDate" name="toDate" value="${param.toDate }" placeholder="종료일자" autocomplete="off">
 					 &emsp;
 				</p>
 				<br>
 				<br>
 				<p style="font-size: 15px; display: inline;">게시글 수 : </p> &emsp;
-				<select class="updown" id="board_count" name="board_count">
-					<option value="0">---</option>
-					<option value="50">50개</option>
-					<option value="100">100개</option>
-					<option value="200">200개</option>
-					<option value="500">500개</option>
-					<option value="self">직접입력</option>
+				<input type="hidden" name="board_count" value="${param.board_count }">
+				<select id="board_count" name="board_count2">
+					<option value="">-전체-</option>
+					<option value="50" <c:if test="${param.board_count2 eq '50' }"> selected</c:if>>50개</option>
+					<option value="100" <c:if test="${param.board_count2 eq '100' }"> selected</c:if>>100개</option>
+					<option value="200" <c:if test="${param.board_count2 eq '200' }"> selected</c:if>>200개</option>
+					<option value="500" <c:if test="${param.board_count2 eq '500' }"> selected</c:if>>500개</option>
+					<option value="self" <c:if test="${param.board_count2 eq 'self' }"> selected</c:if>>직접입력</option>
 				</select>
-				<input type="number" min="0" step="10" name="board_count2" value="${param.board_count }">		
+				<input type="number" min="0" step="10" name="board_count3" value="${param.board_count }">		
 				<select id="board_order" name="board_order">
 					<option value="">--</option>
 				</select>
 				&emsp;&emsp;
 				<p style="font-size: 15px; display: inline;">댓글 수 : </p> &emsp;
-				<select class="updown" id="reply_count" name="reply_count">
-					<option value="0">---</option>
-					<option value="50">50개</option>
-					<option value="100">100개</option>
-					<option value="200">200개</option>
-					<option value="500">500개</option>
-					<option value="self">직접입력</option>
+				<input type="hidden" name="reply_count" value="${param.reply_count }">
+				<select id="reply_count" name="reply_count2">
+					<option value="">-전체-</option>
+					<option value="50" <c:if test="${param.reply_count2 eq '50' }"> selected</c:if>>50개</option>
+					<option value="100" <c:if test="${param.reply_count2 eq '100' }"> selected</c:if>>100개</option>
+					<option value="200" <c:if test="${param.reply_count2 eq '200' }"> selected</c:if>>200개</option>
+					<option value="500" <c:if test="${param.reply_count2 eq '500' }"> selected</c:if>>500개</option>
+					<option value="self" <c:if test="${param.reply_count2 eq 'self' }"> selected</c:if>>직접입력</option>
 				</select>
-				<input type="number" min="0" step="10" name="reply_count2" value="${param.reply_count }">
+				<input type="number" min="0" step="10" name="reply_count3" value="${param.reply_count }">
 				<select id="reply_order" name="reply_order">
 					<option value="">--</option>
 				</select>
@@ -229,6 +251,7 @@ $(function () {
 							<td>
 							<c:choose>
 								<c:when test="${vo.level == 1 }">일반회원</c:when>
+								<c:when test="${vo.level == 2 }">고급회원</c:when>
 							</c:choose>
 							</td>
 							<td>
