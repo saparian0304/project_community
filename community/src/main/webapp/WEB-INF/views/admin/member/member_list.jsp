@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="/pet/css/admin/common.css">
     <link rel="stylesheet" href="/pet/css/reset.css"/>
     <link rel="stylesheet" href="/pet/css/contents.css"/> 
-	<script type="text/javascript" src="/pet/js/util/member_shon.js?ver=2"></script>
+	<script type="text/javascript" src="/pet/js/util/member_shon.js?ver=3"></script>
 <style>
 .detail {
 	display : none;
@@ -77,14 +77,14 @@ $(function () {
 				<input type="hidden" id="order" name="order" value="${param.order }">
 				<div style="float : right;">
 				<select name="stype" >
-					<option value="">전체</option>
-					<option value="member_id">ID</option>
-					<option value="nickname">닉네임</option>
-					<option value="email">이메일</option>
+					<option value="all" <c:if test="${param.stype eq 'all' }"> selected</c:if>>전체</option>
+					<option value="member_id" <c:if test="${param.stype eq 'member_id' }"> selected</c:if>>ID</option>
+					<option value="nickname" <c:if test="${param.stype eq 'nickname' }"> selected</c:if>>닉네임</option>
+					<option value="email" <c:if test="${param.stype eq 'email' }"> selected</c:if>>이메일</option>
 				</select>
 				&emsp;
 				<input type="text" name="sword" value="${param.sword }" placeholder="search" >
-				<input type="button" onclick="javascript:gosearch();" value="검색">
+				<input type="submit" onclick="javascript:gosearch();" value="검색">
 				<br>
 				<input type="button" class="detailbtn" onclick="javascript:dis();" value="상세 조건">
 				</div>
@@ -93,15 +93,15 @@ $(function () {
 				<div class="detail">
 				<p style="font-size: 15px; display: inline;">성별 : </p>&emsp;
 				<select id="gender" name="gender">
-					<option value="0">전체</option>
-					<option value="1">남자</option>
-					<option value="2">여자</option>
+					<option value="0" >전체</option>
+					<option value="1" <c:if test="${param.gender == 1 }"> selected</c:if>>남자</option>
+					<option value="2" <c:if test="${param.gender == 2 }"> selected</c:if>>여자</option>
 				</select>
 				&emsp;&emsp;
 				<p style="font-size: 15px; display: inline;">등급 : </p>&emsp;
 				<select class="updown" id="level" name="level">
-					<option value="999">전체</option>
-					<option value="0">일반회원</option>
+					<option value="0">전체</option>
+					<option value="1">일반회원</option>
 				</select>
 				<select id="level_order" name="level_order">
 					<option value="">--</option>
@@ -109,10 +109,10 @@ $(function () {
 				&emsp;&emsp;
 				<p style="font-size: 15px; display: inline;">회원상태 : </p>&emsp;
 				<select id="out" name="out">
-					<option value="999">전체</option>
-					<option value="0">활동중</option>
-					<option value="1">탈퇴</option>
-					<option value="2">활동중지</option>
+					<option value="0">전체</option>
+					<option value="1">활동중</option>
+					<option value="2">탈퇴</option>
+					<option value="3">활동중지</option>
 				</select>
 				<br><br>
 				
@@ -228,13 +228,13 @@ $(function () {
 							<td>${vo.birthday }</td>
 							<td>
 							<c:choose>
-								<c:when test="${vo.level == 0 }">일반회원</c:when>
+								<c:when test="${vo.level == 1 }">일반회원</c:when>
 							</c:choose>
 							</td>
 							<td>
-							<c:if test="${vo.out == 0}">활동중</c:if>
-							<c:if test="${vo.out == 1}">탈퇴</c:if>
-							<c:if test="${vo.out == 2}">활동 중지</c:if>
+							<c:if test="${vo.out == 1}">활동중</c:if>
+							<c:if test="${vo.out == 2}">탈퇴</c:if>
+							<c:if test="${vo.out == 3}">활동 중지</c:if>
 							</td>
 							<td>${vo.board_count }</td>
 							<td>${vo.reply_count }</td>
@@ -247,6 +247,7 @@ $(function () {
 					</c:forEach>
 				</tbody>
 			</table>
+			<c:if test="${!empty data.list }">
 			<div class="pagenation" style="clear: left">
 				<a style="cursor: pointer" class="firstpage pbtn"
 				 href="/pet/admin/member/member_list.do?page=1&stype=${param.stype}&sword=${param.sword}&gender=${param.gender}&level=${param.level}&level_order=${param.level_order}&out=${param.out}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}">
@@ -272,6 +273,7 @@ $(function () {
 			        <img src="/pet/img/btn_lastpage.png" alt="마지막 페이지 이동">
 			    </a>
 			</div>
+			</c:if>
 			<!-- 페이지처리 -->
 
 		</div>

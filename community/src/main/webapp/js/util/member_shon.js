@@ -61,14 +61,22 @@ $(function(){
 	$(".updown").change(function(){
 		var state = $("option:selected", this).val();
 		var str = "<option value=''>--선택--</option>";
+		str += "<option value='all'>해당대상만</option>";
 		str += "<option value='up'>이상</option>";
 		str += "<option value='down'>이하</option>";
-		$("option",$(this).next().next()).remove();
 		
-		if (state != "") {
-			$(this).next().next().append(str);
+		$temp = $(this).next();
+		if ($temp.prop("type") == 'number') {
+			$temp = $(this).next().next();
+		}
+		
+		$("option",$temp).remove();
+		
+		if (state != 0) {
+			$temp.append(str);
 		} else {
-			$(this).next().next().append("<option value=''>--</option>");
+			$("option",$temp).remove();
+			$temp.append("<option value=''>--</option>");
 		}
 	})
 	

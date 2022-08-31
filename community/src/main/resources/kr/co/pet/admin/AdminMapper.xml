@@ -2,6 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.pet.admin.AdminMapper">
 	
+	<sql id="memberWhere">
+		<where>
+			<if test="stype != null and stype != ''">
+				<if test="stype == 'all'">
+					(member_id LIKE '%${sword}%' OR nickname LIKE '%${sword}%' OR email LIKE '%${sword}%')
+				</if>
+				<if test="stype != 'all'">
+					${stype} LIKE '%${sword}%'
+				</if>
+			</if>
+			<if test="gender != 0">
+				AND gender = #{gender}
+			</if>
+			<if test="level != 0">
+				AND level = #{level}
+			</if>
+		</where>
+	</sql>
+	
+	
 	<select id="list" parameterType="kr.co.pet.admin.AdminBoardVO" resultType="kr.co.pet.admin.AdminBoardVO">
 		SELECT 
 			board.board_no,	board_name,	horse_hair,	title, board.member_no, viewcount,	
@@ -151,18 +171,14 @@
 			(SELECT COUNT(*) FROM board WHERE board.member_no = member.member_no AND isdelete = 0) AS board_count,
 			(SELECT COUNT(*) FROM reply WHERE reply.member_no = member.member_no AND isdelete = 0) AS reply_count
 		FROM member
-		<if test="stype1 == 'member_id'">
-		WHERE member_id = #{sword1}
-		</if>
-		<if test="stype1 == 'nickname'">
-		WHERE nickname = #{sword1}
-		</if>
+		<include refid="memberWhere"/>
 		ORDER BY ${sort} ${order}
 		LIMIT #{startIdx},${pageRow}
 	</select>
 	
 	<select id="memberCnt" parameterType="kr.co.pet.admin.AdminMemberVO" resultType="int">
 		SELECT COUNT(*) FROM member
+		<include refid="memberWhere"/>
 	</select>
 	
 	<select id="replyList" parameterType="kr.co.pet.admin.AdminReplyVO" resultType="kr.co.pet.admin.AdminReplyVO">
