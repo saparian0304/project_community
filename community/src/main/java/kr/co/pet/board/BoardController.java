@@ -80,7 +80,7 @@ public class BoardController {
 		model.addAttribute("ldata", service.liveindex(vo));
 		
 		//좋아요순
-		vo.setHorse_hair("4");//여행후기
+		vo.setHorse_hair("4");//잡담
 		model.addAttribute("tdata", service.freeindex(vo));
 		vo.setHorse_hair("5");// 정보공유
 		model.addAttribute("ddata", service.freeindex(vo));
@@ -89,7 +89,7 @@ public class BoardController {
 		vo.setMain(null);
 		vo.setSort("regdate");
 		vo.setOrder("desc");
-		vo.setHorse_hair("6");//잡담
+		vo.setHorse_hair("6");//여행후기
 		model.addAttribute("sdata", service.freeindex(vo));
 		
 		vo.setHorse_hair("7");//고민상담
@@ -175,7 +175,11 @@ public class BoardController {
 	}
 	
 	@GetMapping("/admin/board/livewrite.do")
-	public String livewrite() {
+	public String livewrite(BoardVO vo, MemberVO mvo) {
+		vo.setMember_no(mvo.getMember_no());
+		if(vo.getMember_no() == 0) {
+			mvo.setMember_id("관리자");
+		}
 		return "board/livewrite";
 	}
 	
