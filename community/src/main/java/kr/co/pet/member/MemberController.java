@@ -167,8 +167,8 @@ public class MemberController {
 		
 		if ( certi_num.equals(certi)) {
 		System.out.println("certi_num : "+ certi_num + "certi: "+certi);
-		model.addAttribute("result", "인증확인되었습니다.");
-		
+		model.addAttribute("result", "true");
+//		model.addAttribute("result", "인증확인되었습니다.");
 		}
 //		PrintWriter out = res.getWriter(); => httpservletresponse가 있으면 printwriter사용 가능.
 //		out.print(certi_num);

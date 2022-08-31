@@ -32,6 +32,9 @@
 <script>
 
 $(function () {
+	if(${!empty param}) dis();
+	
+	
 	// 초기 셋팅
 	change_hair('${param.board_name}')
 	$('#horse_hair').val('${param.horse_hair}').prop("selected", true);
@@ -138,7 +141,7 @@ function dis(){
 				<input type="text" name="reply_content" value="${param.reply_content }" placeholder="댓글내용 입력">
 				</div>
 			</form>
-			<p>
+			<p style="clear: both;">
 				<span><strong>총 ${data.totalCount }개</strong> |
 					${adminBoardVO.page }/${pageMaker.totalPage }페이지</span>
 			</p>
@@ -206,7 +209,12 @@ function dis(){
 							<td>${vo.rec_count }</td>
 							<td>${vo.book_count }</td>
 							<td>${vo.report_count }</td>
-							<td class="writer">${vo.memb_nickname }</td>
+							<td class="writer"><!-- 박 -->
+								<c:if test="${vo.member_no == 0}">
+							 	관리자
+							 	</c:if>
+							 	${vo.memb_nickname }
+							</td>
 							<td class="date"><fmt:formatDate value="${vo.regdate }"
 									pattern="yy-MM-dd HH:mm:ss" /></td>
 						</tr>
@@ -218,16 +226,16 @@ function dis(){
 			        <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
 			    </a>
 				<c:if test="${pageMaker.prev == true }">
-					<a class="prevpage pbtn" href="/pet/admin/board/reply_list.do?page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}">
+					<a class="prevpage pbtn" href="/pet/admin/board/board_list.do?page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}">
 					<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
 					</a>
 				</c:if>
 				<c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage}">
-					<a href='/pet/admin/board/reply_list.do?page=${p }&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}'
+					<a href='/pet/admin/board/board_list.do?page=${p }&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}'
 						class='pagenum <c:if test="${boardVO.page == p }"> currentpage</c:if>'>${p }</a>
 				</c:forEach>
 				<c:if test="${pageMaker.next == true }">
-					<a class="nextpage pbtn" href="/pet/admin/board/reply_list.do?page=${pageMaker.endPage +1}&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}">
+					<a class="nextpage pbtn" href="/pet/admin/board/board_list.do?page=${pageMaker.endPage +1}&stype=${param.stype}&sword=${param.sword}&nickname=${param.nickname}&board_name=${param.board_name}&horse_hair=${param.horse_hair}&fromDate=${param.fromDate}&toDate=${param.toDate}&reply_content=${param.reply_content}">
 					<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
 					</a>
 				</c:if>

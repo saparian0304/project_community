@@ -26,6 +26,15 @@
 			   $("#member_id").focus();
 			   return; 
 		}
+		var member_id = $("#member_id").val();
+		var pattern = /\s/g;   // 공백 체크 정규표현식 - 탭, 스페이스
+
+    	// 공백없이 테스트
+    	if( member_id.match(pattern) )
+    	{ 
+    	    alert("아이디에 공백이 존재합니다.");
+    	    return;
+    	}
 		
 		if ($("#pwd").val().trim() == ''){
 			   alert('비번을 입력해주세요.');
@@ -56,18 +65,54 @@
 			return;
 		}
 		
-		if ($("#certi_num").val().trim() == ''){
-			alert('인증번호 입력 필수!');
+		var certi = $('#certi_num').val();
+		if (certi.trim() == '' ){
+			alert('인증번호 확인해주세요!');
 			$("#certi_num").focus();
 			return;
 		}
+		
+		var flag = true;
+		$.ajax({
+			url : 'Certification.do',
+			method : 'get',
+			data : {"certi" : certi}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
+			dataType: "text",
+			async: false,
+			success : function(res) {
+				if(res.trim() == 'true' ){
+						//$("#e_certification").val('');
+						//$("#e_certification").focus();
+						//alert('인증완료');
+				}else{
+					alert('인증번호를 다시 확인해주세요');
+					$("#e_certification").val('');
+					$("#e_certification").focus();
+					console.log("###"+res+"###")
+					flag = false;
+				
+				}
+			},
+			error:function(){
+                alert("에러");
+			}
+		})
+		
+		 if (flag == false) return; 
 		
 		if ($("#name").val().trim() == ''){
 			   alert('이름을 입력해주세요.');
 			   $("#name").focus();
 			   return;   
-	   	
 	   	}
+		var name = $("#name").val();
+		
+    	// 공백없이 테스트
+    	if( name.match(pattern) )
+    	{ 
+    	    alert("이름에 공백이 존재합니다.");
+    	    return;
+    	}
 		
 		if ($("#nickname").val().trim() == ''){
 			   alert('닉네임을 입력해주세요.');
@@ -75,12 +120,30 @@
 			   return;   
 	   	
 	   	}
+		var nickname = $("#nickname").val();
 		
+    	// 공백없이 테스트
+
+    	if( nickname.match(pattern) )
+    	{ 
+    	    alert("닉네임에 공백이 존재합니다.");
+    	    return;
+    	}
+		
+		/* console.log("member_id : "+ member_id);
+		console.log("email : "+ email);
+		console.log("name : "+ name);
+		console.log("pwd : "+ pwd); */
 		
 		$('#frm').submit();
 	}
 	function checkemail(){
+		var regExp = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
 		var email = $('#email').val();
+		if (!regExp.test(email)) {
+			alert("이메일 형식이 아닙니다.");
+			return;
+		}
 		console.log("email : "+ email);
 		
 		$.ajax({
@@ -106,6 +169,7 @@
 			}
 		})
 	}
+	window.history.forward();
 	
 	 function checkPwd(){
 		var reg_pwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
@@ -115,8 +179,28 @@
 		} 
 	}
     function checkId(){
-    	
-    	 var member_id = $('#member_id').val();
+    	var member_id = $('#member_id').val();
+    	var pattern = /\s/g;   // 공백 체크 정규표현식 - 탭, 스페이스
+
+
+    	// 공백없이 테스트
+
+    	if( member_id.match(pattern) )
+    	{ 
+    	    alert("아이디에 공백이 존재합니다.");
+    	    return;
+    	}
+    	 
+    	 console.log("\""+member_id.trim()+"\"");
+    	 
+    	 console.log("\""+member_id+"\"");
+    	if ($("#member_id").val() == ''){
+    		//alert('아이디 입력하셈.');
+    		$('.id_ok').css("display","none"); 
+            $('.id_already').css("display", "none");
+			//$("#member_id").focus();
+			return;
+    	} 
     	
          //id값이 "id"인 값을 받아와서 저장
         $.ajax({
@@ -144,8 +228,24 @@
         }
         
     function checkNick(){
+    	/* var nickname = $('#nickname').val();
+    	var pattern = /\s/g;   // 공백 체크 정규표현식 - 탭, 스페이스
+ */
 
-    	var nickname = $('#nickname').val(); //id값이 "id"인 입력란의 값을 저장
+    	// 공백없이 테스트
+
+    	/* if( nickname.match(pattern) )
+    	{ 
+    	    alert("닉네임에 공백이 존재합니다.");
+    	    return;
+    	} */
+    	 if ($("#nickname").val().trim() == ''){
+    		$('.nick_ok').css("display","none"); 
+            $('.nick_already').css("display", "none");
+			/* $("#nickname").focus(); */
+			return;
+    	} 
+        var nickname = $('#nickname').val(); //id값이 "id"인 입력란의 값을 저장
         $.ajax({
             url:'nickname.do', //Controller에서 요청 받을 주소
             method:'post', //POST 방식으로 전달
@@ -158,7 +258,7 @@
                     $('.nick_already').css("display","inline-block");
                     $('.nick_ok').css("display", "none");
                     $('#nickname').val('');
-                    $("#nickname").focus();
+                   // $("#nickname").focus();
                 }
             },
             error:function(){
@@ -168,24 +268,23 @@
     }
     
     function certification(){
-    	
     	var certi = $('#certi_num').val();
-		/* console.log("certi_num : "+ certi);
+		console.log("certi_num : "+ certi);
 		if ($("#certi_num").val().trim() == '') {
 			alert('인증번호를 입력해주세요.');
 			$("#certi_num").focus();
 			return;
-		} */
+		}
 		$.ajax({
 			url : 'Certification.do',
 			method : 'get',
 			data : {"certi" : certi}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
+			dataType: "text",
 			success : function(res) {
-				if(res.trim() != ''){
+				if(res.trim() == 'true' ){
 						//$("#e_certification").val('');
 						//$("#e_certification").focus();
 						alert('인증완료');
-				
 				}else{
 					alert('인증번호를 다시 확인해주세요');
 					$("#e_certification").val('');

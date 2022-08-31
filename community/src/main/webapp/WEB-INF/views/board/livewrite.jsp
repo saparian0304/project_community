@@ -27,6 +27,7 @@
     	$(function() {
 			editor = setEditor('content');
 		});
+    	
     </script>
    </head>
 <body>
@@ -44,7 +45,7 @@
                             <td>
                                 <!-- <form id="aaa"> -->
 	                                <%-- 1.식당, 2. 관광지, 3. 병원 --%>
-	                                <input type="radio" class="radio_value" name="horse_hair" value="1">식당
+	                                <input type="radio" class="radio_value" name="horse_hair" value="1" checked="checked" required>식당
 									<input type="radio" class="radio_value" name="horse_hair" value="2">관광지
 									<input type="radio" class="radio_value" name="horse_hair" value="3">병원
                             	<!-- </form> -->
@@ -64,13 +65,13 @@
                         <tr>
                             <th>제목</th>
                             <td>
-                                <input type="text" name="title" id="title" class="wid100" value=""/>
+                                <input type="text" name="title" id="title" class="wid100" value="" required/>
                             </td>
                         </tr>
                         <tr>
                             <th>내용</th>
                             <td>
-                                <textarea style="width: 90%" name="content" id="content"></textarea>
+                                <textarea style="width: 90%" name="content" id="content" required></textarea>
                             </td>
                         </tr>
                         <tr>

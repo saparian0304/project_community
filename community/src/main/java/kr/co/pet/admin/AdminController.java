@@ -160,7 +160,7 @@ public class AdminController {
 	public String join(AdminMemberVO vo, Model model) {
 		if (service.insert(vo) > 0) {
 			model.addAttribute("msg", "정상적으로 회원가입되었습니다.");
-			model.addAttribute("url", "login.do");
+			model.addAttribute("url", "index.do");
 			return "/common/alert";
 		}else {
 			model.addAttribute("msg", "회원가입오류");

@@ -27,6 +27,10 @@
     	$(function() {
 			editor = setEditor('content');
 		});
+    	
+    	if(!$('input[name=horse_hair]:checked').val()) {   
+    			   alert("1개 이상 선택해 주세요.");
+    				return false;
     </script>
    </head>
 <body>
@@ -42,10 +46,10 @@
                         <tr>
                             <th>말머리</th>
                             <td>
-								<input type="radio" class="radio_value" name="horse_hair" value="4">여행후기
+								<input type="radio" class="radio_value" name="horse_hair" value="4">잡담
 								<input type="radio" class="radio_value" name="horse_hair" value="5">정보공유
-								<input type="radio" class="radio_value" name="horse_hair" value="6">잡담
-								<input type="radio" class="radio_value" name="horse_hair" value="7">고민
+								<input type="radio" class="radio_value" name="horse_hair" value="6">여행후기
+								<input type="radio" class="radio_value" name="horse_hair" value="7">고민상담
                             </td>
                         </tr>
                         <tr>
