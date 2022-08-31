@@ -123,15 +123,20 @@
 			(SELECT COUNT(*) FROM reply WHERE reply.member_no = member.member_no AND isdelete = 0) AS reply_count
 		FROM member
 		<include refid="memberWhere"/>
-		<if test="sort == 'board_count'">
-		ORDER BY (SELECT COUNT(*) FROM board WHERE board.member_no = member.member_no AND isdelete = 0) ${order}
-		</if>
-		<if test="sort == 'reply_count'">
-		ORDER BY (SELECT COUNT(*) FROM reply WHERE reply.member_no = member.member_no AND isdelete = 0) ${order}
-		</if>
-		<if test="sort != 'board_count' and sort != 'reply_count'">
-		ORDER BY ${sort} ${order}
-		</if>
+		<choose>
+			<when test="sort == 'board_count'">
+			ORDER BY (SELECT COUNT(*) FROM board WHERE board.member_no = member.member_no AND isdelete = 0) ${order}
+			</when>
+			<when test="sort == 'reply_count'">
+			ORDER BY (SELECT COUNT(*) FROM reply WHERE reply.member_no = member.member_no AND isdelete = 0) ${order}
+			</when>
+			<when test="sort == 'out'">
+			ORDER BY member.out ${order}
+			</when>
+			<otherwise>
+			ORDER BY ${sort} ${order}
+			</otherwise>
+		</choose>
 		LIMIT #{startIdx},${pageRow}
 	</select>
 	
