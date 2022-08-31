@@ -26,9 +26,10 @@ public class AdminMemberVO extends SearchVO{
 	private int gender;
 	private boolean online;
 	
-	private int board_count;
-	private int reply_count;
+	private String board_count;
+	private String reply_count;
+	private String board_count2;
+	private String reply_count2;
+	
 
-	private String stype1;
-	private String sword1;
 }

@@ -15,4 +15,10 @@ public class SearchVO extends Criteria {
 	private String reply_content;
 	private String sort;
 	private String order;
+	
+	// member 검색 - shon
+	private String dateType;
+	private String level_order;
+	private String board_order;
+	private String reply_order;
 }
