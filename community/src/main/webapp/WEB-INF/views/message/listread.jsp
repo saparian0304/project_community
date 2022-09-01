@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/pet/css/contents.css"/>
     <script src="/pet/smarteditor/js/HuskyEZCreator.js"></script>
     <script src="/pet/js/function.js"></script>
+    <script type="text/javascript" src="/pet/js/message.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <%@ include file="/WEB-INF/views/includes/alram.jsp" %>  
@@ -30,22 +31,12 @@ function soSend(){
 }
 <% session.setAttribute("plus", "message"); %>
 
-//내용없이 보낼때
-function messageWrite() {
-	 if(!content.value){
-     alert("내용을 입력하세요");  
-     	content.focus();   
-     return false;     
-   }
-}
-
-
 </script>
  
 </head>
 <body>
 <div style="width:500px;margin:40px auto;">
-	<form method="post" name="frm" id="frm" action="resend.do?member_no=${param.member_no}&nickname=${param.nickname}" onsubmit="return messageWrite()">
+	<form method="post" name="frm" id="frm" action="resend.do?member_no=${param.member_no}&nickname=${param.nickname}" onsubmit="return messageWrite1()">
 		<table>
 			<tr>
 				<td>보낸 사람</td>		

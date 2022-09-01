@@ -71,7 +71,6 @@
 					} else {
 						$('#divChatData').append('<div class="msg">' + msgData.content +'<br><span class="msgDate">' +msgData.date + '</span></div>');
 					}
-					$('#divChatData').append('<br><span class="msgDate">' +msgData.date + '</span></div>');
 					$('#divChatData').scrollTop($('#divChatData')[0].scrollHeight);
 				}
 				else if (msgData.cmd == 'CMD_ENTER'){

@@ -22,4 +22,5 @@ public interface ChatService {
 	Map<String, String> creatOpenChat(Map openChatInfo);
 	int exitOpenChat(Map memberInfo);
 	
+	
 }

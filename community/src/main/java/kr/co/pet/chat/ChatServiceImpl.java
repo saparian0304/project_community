@@ -84,7 +84,11 @@ public class ChatServiceImpl implements ChatService {
 
 	@Override
 	public int exitOpenChat(Map memberInfo) {
-		return mapper.exitOpenChat(memberInfo);
+		int result = mapper.exitOpenChat(memberInfo);
+		if (mapper.getMemberCnt(memberInfo) == 0) {
+			mapper.closeChannel(memberInfo);
+		}
+		return result;
 	}
 
 }
