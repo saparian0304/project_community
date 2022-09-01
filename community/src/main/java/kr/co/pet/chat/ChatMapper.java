@@ -31,4 +31,5 @@ public interface ChatMapper {
 	
 	int getMemberCnt(Map channelInfo);
 	int closeChannel(Map channelInfo);
+	int masterUpdate(int channel_no);
 }

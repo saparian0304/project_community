@@ -146,7 +146,6 @@ function isdel(select_no,table_name,rere){
 			table_name : table_name
 		},
 		success : function(res){
-			alert('isdel 성공');
 			if (table_name == 'message') {
 				if (rere == 1){
     				getMessReadList(1, mymember_no);
@@ -164,6 +163,7 @@ function isdel(select_no,table_name,rere){
 function isdelSingle(a, table_name){
 	select_no = parseInt(a);
 	isdel(select_no,table_name);
+	alert('삭제했습니다.');
 } 
 
 // 다중 isdel
@@ -171,7 +171,8 @@ function isdelMulti(table_name,rere){
 	$("input[name=select_no]:checked").each(function(){
 		select_no = parseInt($(this).val());
 		isdel(select_no,table_name,rere);
-	})
+	});
+	alert('삭제했습니다.');
 }  
 
 // 친구 수락하기
@@ -184,7 +185,6 @@ function accept(select_no){
 			table_name : 'friend'
 		},
 		success : function(res){
-			alert("성공");
 		    getFriReq(1, mymember_no);
 		}
 	}) 
@@ -194,6 +194,7 @@ function accept(select_no){
 function acceptSingle(a){
 	select_no = parseInt(a);
 	accept(select_no);
+	alert("수락했습니다.");
 }
 
 // 다중 수락
@@ -202,6 +203,7 @@ function acceptMulti(){
     	select_no = parseInt($(this).val());
 		accept(select_no);    	
     });
+    alert("수락했습니다.");
 }
 
 // 삭제
@@ -214,7 +216,6 @@ function del(select_no, table_name, rere){
 			table_name : table_name
 		},
 		success : function(res){
-			alert("성공");
 			if (rere == 0){
 	    		getFriReq(1, mymember_no);
 			} else if (rere == 1){
@@ -228,6 +229,7 @@ function del(select_no, table_name, rere){
 function delSingle(a, table_name, rere){
 	select_no = parseInt(a);
 	del(select_no, table_name, rere);	
+	alert('삭제했습니다.');
 }
 
 // 다중 삭제
@@ -236,6 +238,7 @@ function delMulti(table_name,rere){
     	select_no = parseInt($(this).val());
     	del(select_no, table_name, rere);	
     });
+    alert('삭제했습니다.');
 }
 
 // 쪽지보내기

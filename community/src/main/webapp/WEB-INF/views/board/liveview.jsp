@@ -235,6 +235,8 @@ $(document).ready(function(){
 			                            <a href="/pet/admin/board/liveedit.do?board_no=${data.board_no }" class="btn">수정</a>
 			                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
 		                            </c:if>
+		                            <c:if test="${data.member_no != 0 }">
+		                            </c:if>
 	                            </div>
 	                        </div>
 	                    </div><!-- view -->

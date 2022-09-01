@@ -90,7 +90,12 @@ public class ChatController {
 			
 			// 없는 경우 입장
 			if (!service.isJoined(channel_no, member_no)) {
-				service.joinChannel(channel_no, member_no);
+				// 제한인원 확인 후 입장
+				if (service.joinOpenChannel(channel_no, member_no) ==0) {
+					model.addAttribute("msg", "채팅방이 꽉 차있습니다.");
+					model.addAttribute("url", "/pet/chat/openChat.do?close_=true");
+					return "common/alert";
+				}
 			}
 	
 			model.addAttribute("data",service.chatHistory(channel_no, member_no));
@@ -130,7 +135,7 @@ public class ChatController {
 		
 		service.creatOpenChat(openChatInfo);
 		int channel_no = Integer.valueOf(String.valueOf(openChatInfo.get("channel_no")));
-		service.joinChannel(channel_no, vo.getMember_no());
+		service.joinOpenChannel(channel_no, vo.getMember_no());
 		
 		
 		model.addAttribute("list", service.openChatList());
