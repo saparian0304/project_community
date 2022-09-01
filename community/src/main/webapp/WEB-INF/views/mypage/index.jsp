@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
-<script type="text/javascript" src="/pet/js/mypage.js"></script>
+<script type="text/javascript" src="/pet/js/mypage.js?ver=1"></script>
     <script>
     var mymember_no = "${loginInfo.member_no}";
     /* ajax로 마이페이지 메인(?)으로 */

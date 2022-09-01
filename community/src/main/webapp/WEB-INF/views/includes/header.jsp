@@ -22,7 +22,7 @@
 	@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 	</style>
 </head>
-	<%@ include file="/WEB-INF/views/includes/alram.jsp" %>   
+	<%@ include file="/WEB-INF/views/includes/alram.jsp" %>  
 <script>
 	function popup() {
 		var url = '/pet/chat/index.do';

@@ -22,7 +22,10 @@
                          </tr>
                          <tr>
                          	<th><fmt:formatDate pattern="yyyy" value="<%=new java.util.Date()%>"/>년 현재 등급</th>
-                         	<td >${mydata.level }</td>
+                         	<td >
+                         	<c:if test="${mydata.level == 1 }">일반회원</c:if>
+                         	<c:if test="${mydata.level == 2 }">고급회원</c:if>
+                         	</td>
                          	<td colspan = "3"></td>
                          </tr>
                          <tr>
