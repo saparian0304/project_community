@@ -110,18 +110,20 @@ public class AdminServiceImpl implements AdminService {
 
 
 	
-	// 방문자
+	// today 방문수 , 게시글 , 가입 , 멤버 출석
 	@Override
 	public Map todayTotalCnt(AdminBoardVO vo) {
 		Map map = new HashMap();
 		
-		AdminBoardVO vt =mapper.visitToday(vo);		
-		Integer boardToday = mapper.boardToday(vo);
-		Integer replyToday = mapper.replyToday(vo);
+		AdminBoardVO vt = mapper.visitToday(vo); 	// 회원, 비회원 방문수
+		AdminBoardVO cur = mapper.current(vo);		// 가입, 방문한 멤버수
+		Integer boardToday = mapper.boardToday(vo); // 게시글 수
+		Integer replyToday = mapper.replyToday(vo); // 댓글 수 
 		
 		map.put("boardToday", boardToday);
 		map.put("replyToday", replyToday);
 		map.put("vt",vt);
+		map.put("cur", cur);
 		return map;
 	}
 

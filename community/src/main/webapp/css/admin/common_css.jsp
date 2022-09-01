@@ -86,7 +86,7 @@ a:hover{transition: 0.5s !important;}
 	main
 ================================================== */
 .main {position:relative; width:100%; overflow:hidden; margin-top:22px; }
-.main .box{border:1px solid #dddddd; padding:15px 25px 20px; margin-bottom:30px; position:relative; width:100%; height:450px; } /* height 추가 수정 */
+.main .box{border:1px solid #dddddd; padding:15px 25px 20px; position:relative; width:100%; height:440px; } /* height 추가 수정 */
 .main .box h2{color:<%-- <%=util.Property.color%> --%>#778899 !important; font-size:25px; font-weight:600; padding-left:15px;} /* font-size:18px; 수정 padding-left 추가 */
 
 .scheduleSearch > div{padding-top:10px; clear:both;}

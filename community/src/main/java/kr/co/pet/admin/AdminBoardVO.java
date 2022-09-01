@@ -46,5 +46,8 @@ public class AdminBoardVO extends SearchVO {
 	private int board_today; 
 	private int reply_today;
 	
+	private int rdate; // 오늘 가입자 count 
+	private int clogin; // 오늘 접속했던 멤버 count
+	
 	
 }
