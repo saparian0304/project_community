@@ -23,19 +23,19 @@ public class ChatServiceImpl implements ChatService {
 		
 		return list;
 	}
-	
+	@Override
 	public int creatChannel(Map membersInfo) {
 		mapper.creatChannel(membersInfo);
 		return (int)membersInfo.get("channel_no");
 	}
-	
+	@Override
 	public Integer getChannel(int member_no, int friend_no) {
 		Map membersInfo = new HashMap();
 		membersInfo.put("member_no", member_no);
 		membersInfo.put("friend_no", friend_no);
 		return mapper.getChannel(membersInfo);
 	}
-	
+	@Override
 	public int joinChannel(int channel_no, int member_no) {
 		Map joinInfo = new HashMap();
 		joinInfo.put("member_no", member_no);
@@ -43,7 +43,7 @@ public class ChatServiceImpl implements ChatService {
 		
 		return mapper.joinChannel(joinInfo);
 	}
-	
+	@Override
 	public int joinOpenChannel(int channel_no, int member_no) {
 		Map joinInfo = new HashMap();
 		joinInfo.put("member_no", member_no);
@@ -59,7 +59,7 @@ public class ChatServiceImpl implements ChatService {
 		
 		return result;
 	}
-	
+	@Override
 	public List<LinkedHashMap> chatHistory(int channel_no, int member_no) {
 		Map channelInfo = new HashMap();
 		channelInfo.put("channel_no", channel_no);
@@ -102,10 +102,23 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public int exitOpenChat(Map memberInfo) {
 		int result = mapper.exitOpenChat(memberInfo);
+		masterUpdate(memberInfo);
 		if (mapper.getMemberCnt(memberInfo) == 0) {
 			mapper.closeChannel(memberInfo);
 		}
 		return result;
 	}
-
+	
+	@Override
+	public int masterUpdate(Map memberInfo) {
+		int result = 0;
+		int channel_no = Integer.valueOf(String.valueOf(memberInfo.get("channel_no")));
+		String master_no = String.valueOf(mapper.channelInfo(channel_no).get("master_no"));
+		System.out.println(master_no);
+		System.out.println(memberInfo.get("member_no"));
+		if (String.valueOf(memberInfo.get("member_no")).equals(master_no)) {
+			result = mapper.masterUpdate(channel_no);
+		}
+		return result;
+	}
 }

@@ -151,6 +151,17 @@
         and channel_no = #{channel_no};
 	</select>
 	
+	<update id="masterUpdate" parameterType="int">
+		UPDATE chat_channel 
+		SET master_no = (
+			SELECT member_no 
+			FROM chat_member 
+			WHERE channel_no = #{channel_no}
+			ORDER BY joindate 
+			LIMIT 1) 
+		WHERE channel_no = #{channel_no}
+	</update>
+	
 	<update id="closeChannel" parameterType="map">
 		UPDATE chat_channel
 		SET closedate = now()
