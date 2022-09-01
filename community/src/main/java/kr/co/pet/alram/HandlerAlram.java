@@ -38,7 +38,10 @@ public class HandlerAlram extends TextWebSocketHandler {
 	private String currentMember(WebSocketSession session) {
 		Map<String, Object> httpSession = session.getAttributes();
 		MemberVO loginMember = (MemberVO)httpSession.get("loginInfo");
-		String tmp = (Math.random()*1000)+ "" +(Math.random()*1000);
+		String tmp ="";
+		if(httpSession.get("plus") != null) {
+			tmp = (String)httpSession.get("plus");
+		}
 		
 		if (loginMember == null) {
 			String mno = session.getId();
