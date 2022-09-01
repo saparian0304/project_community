@@ -154,25 +154,25 @@ $(function(){
     
     
     <div class="pagenation">
-    	<a style="cursor:pointer;" class="firstpage pbtn" href="javascript:getComment(${pageMaker.startPage});">
+    	<a style="cursor:pointer;" class="firstpage pbtn" href="javascript:getComment(${pageMaker.startPage},${replyVO.board_no},${param.member_no});">
     		<img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
     	</a>
 	    <%-- <c:if test="${pageMaker.prev == true}"> --%>
 	    <c:if test="${pageMaker.prev}">
-	        <a href="javascript:getComment(${pageMaker.startPage-1});" class="prevpage pbtn" style="cursor:pointer;">
+	        <a href="javascript:getComment(${pageMaker.startPage-1},${replyVO.board_no},${param.member_no});" class="prevpage pbtn" style="cursor:pointer;">
 	            <img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
 	        </a>
 	    </c:if>
 	     <c:forEach var="p" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">    
 	        <a style="cursor:pointer;" class="pagenum<c:if test="${replyVO.page == p}"> currentpage</c:if>"
-	        href="javascript:getComment(${p});">${p}</a>
+	        href="javascript:getComment(${p},${replyVO.board_no},${param.member_no});">${p}</a>
 	     </c:forEach>  
 	     <c:if test="${pageMaker.next && pageMaker.endPage > 0}">   
-	        <a href="ijavascript:getComment(${pageMaker.endPage+1});" class="nextpage pbtn" style="cursor:pointer;">
+	        <a href="ijavascript:getComment(${pageMaker.endPage+1},${replyVO.board_no},${param.member_no});" class="nextpage pbtn" style="cursor:pointer;">
 	            <img src="/pet/img/btn_nextpage.png" alt="다음 페이지 이동">
 	        </a>
 	     </c:if>
-	     <a style="cursor:poiner;"  href="javascript:getComment(${pageMaker.totalPage});" class="lastpage pbtn">
+	     <a style="cursor:poiner;"  href="javascript:getComment(${pageMaker.totalPage},${replyVO.board_no},${param.member_no});" class="lastpage pbtn">
 	     		<img src="/pet/img/btn_lastpage.png" alt="마지막 페이지 이동">
 	     </a>
     </div>
