@@ -29,6 +29,11 @@ var data_tit = "${data.title}";
 var loginCon = "${loginInfo}";
 var loginMem = "${loginInfo.member_no}";
 
+//댓글 출력
+$(function(){
+	getComment(1, '${data.board_no}', '${data.member_no}');
+	
+});
 
 //탭
 $(document).ready(function(){
@@ -264,7 +269,7 @@ $(document).ready(function(){
 				</c:if>		
 					<td>
 						<div class="btnSet">
-							<a href="javascript:goSave('${loginInfo.member_no}', '${data.board_no}', '${data.title}');"  style="  text-align: center;">저장</a>
+							<a href="javascript:goSave('${loginInfo.member_no}', '${data.board_no}', '${data.title}', '${data.member_no}');"  style="  text-align: center;">저장</a>
 						</div>
 					</td>
 				</tr>

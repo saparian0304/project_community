@@ -14,6 +14,21 @@ function info(gno, loginCon){
 	}
 }
 
+// 닉네임 클릭시 정보 보임
+function info2(ono, loginCon){
+	if(loginCon == null && loginCon == ''){
+		  alert('로그인 후 사용해주세요');
+	}
+	if(loginCon != null && loginCon != ''){
+		if($(".activityForm2"+ono).css("display")=="none"){
+			$(".activityForm2").hide();
+			$(".activityForm").hide();
+			$(".activityForm2"+ono).toggle();
+		} else{
+			$(".activityForm2"+ono).hide();
+		}
+	}
+}
 
 // 쪽지보내기 팝업
 function popmessage(member_no, member_nickname){

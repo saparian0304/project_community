@@ -42,7 +42,7 @@ $(function(){
             <tr style="height:70px;"  class="rbox">
                 <td>${(status.index)+1}</td>
                 <td class="txt_l">               
-                   <button onclick="javascript:replyForm(${vo.gno});" id="recount" style="width:80px; height:20px;border-radius: 5px; background: #b0d0df; color: #fff;">[댓글수:  ${vo.reply_count} ] </button>
+                   <button onclick="javascript:replyForm('${vo.gno}', '${vo.board_no}', '${param.member_no}');" id="recount" style="width:80px; height:20px;border-radius: 5px; background: #b0d0df; color: #fff;">[댓글수:  ${vo.reply_count}] </button>
                    <!-- 실시간 알람용 -->
                    <input type="hidden" value="${vo.member_no}" id="no${vo.gno }">
                    <input type="hidden" value="${vo.content}" id="content${vo.gno }">
@@ -69,8 +69,8 @@ $(function(){
                     &emsp;&emsp; ${vo.content} &nbsp;&nbsp;
                     	<c:choose>
                     		<c:when test="${loginInfo.member_no == vo.member_no }">
-		                    	<a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
-		                    	<a href="javascript:replyEdit(${vo.reply_no}, '${vo.content}' );"> &nbsp;&nbsp;[수정]</a>
+		                    	<a href="javascript:commentDel('${vo.reply_no}', '${vo.board_no}', '${param.member_no}');"> &nbsp;&nbsp;[삭제]</a>
+		                    	<a href="javascript:replyEdit('${vo.reply_no}','${vo.board_no}', '${vo.content}','${loginInfo.member_no}', '${param.member_no}' );"> &nbsp;&nbsp;[수정]</a>
                     		</c:when>
                     		<c:otherwise>
 	                    		<span style="border:1px; background-color: #d3d3d3; border-radius: 3px; text-align: center; line-height: center; color: white;">
@@ -84,7 +84,7 @@ $(function(){
 			<c:when test="${loginInfo.member_no == vo.member_no }">
 				<c:if test="${param.member_no == vo.member_no}">                                            
                 <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
-                	<a href="javascript:info('${vo.gno}', '${loginInfo}')"> [글쓴이]&nbsp;&nbsp;${vo.member_nickname}</a>
+                	<a href="javascript:info('${vo.gno}', '${loginInfo}')"> [글쓴이]&nbsp;&nbsp;</a>
                 	<div class="activityForm${vo.gno} activityForm" style="display:none;">                		                     
 	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList';">나의 활동내역</button></p>
                     </div>

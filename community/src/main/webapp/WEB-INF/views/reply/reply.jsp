@@ -2,69 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="/WEB-INF/views/includes/alram.jsp" %>   
+<%@ include file="/WEB-INF/views/includes/alram.jsp" %> 
+<script type="text/javascript" src="/pet/js/infomation.js"></script>
+<script type="text/javascript" src="/pet/js/reply.js"></script> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
 <script>
 var login_no = "";
 <c:if test="${!empty loginInfo.member_no}">
 	login_no = ${loginInfo.member_no};
 </c:if>
-
-// 닉네임 클릭시 정보 보임
-function info2(ono){
-	<c:if test="${empty loginInfo}">
-	 	alert('로그인 후 사용해 주세요');
-	</c:if>
-	<c:if test="${!empty loginInfo}">
-		if($(".activityForm2"+ono).css("display")=="none"){
-			$(".activityForm2").hide();
-			$(".activityForm").hide();
-			$(".activityForm2"+ono).toggle();
-		} else{
-			$(".activityForm2"+ono).hide();
-		}
-	</c:if>
-}
-
-
-//팔로우
-function follow(member_no){
-	<c:if test="${empty loginInfo}">
-	 alert('로그인 후 사용해 주세요');
-	</c:if>
-	var i_no='${loginInfo.member_no}';
-	 $.ajax({
-		url :"/pet/follow/insert.do",
-		data : {
-			you_no : member_no,
-			i_no : i_no
-		},
-		success : function(res){	
-			$(".followGo"+member_no).replaceWith('<p class="followNo'+member_no+'"><button onclick="unfollow(' + member_no + ');">팔로우해제</button></p>');			 
-			
-		}
-		
-	}); 
-}
-
-//팔로우 해제 
-function unfollow(member_no){
-	<c:if test="${empty loginInfo}">
-	 alert('로그인 후 사용해 주세요');
-	</c:if>
-	var i_no='${loginInfo.member_no}';
-	
-	 $.ajax({
-		url :"/pet/follow/insert.do",
-		data : {
-			you_no : member_no,
-			i_no : i_no
-		},
-		success : function(){
-			$(".followNo"+member_no).replaceWith('<p class="followGo'+member_no+'"><button onclick="follow(' + member_no + ');">팔로우</button></p>');			
-		}		
-	}); 
-} 
 
 </script>
 
@@ -110,8 +56,8 @@ function unfollow(member_no){
 	                   
 	                   <c:choose>
                     		<c:when test="${loginInfo.member_no == vo.member_no }">
-                    			<a href="javascript:commentDel(${vo.reply_no});"> &nbsp;&nbsp;[삭제]</a>
-	                   		 	<a href="javascript:replyEdit(${vo.reply_no}, '${vo.content}')"> &nbsp;&nbsp;[수정]</a>
+                    			<a href="javascript:commentDel('${vo.reply_no}');"> &nbsp;&nbsp;[삭제]</a>
+	                   		 	<a href="javascript:replyEdit(${vo.reply_no}, '${vo.board_no}', '${vo.content}','${loginInfo.member_no}', '${param.member_no}')"> &nbsp;&nbsp;[수정]</a>
                     		</c:when>
 	                  		<c:otherwise>
 			                    <span style="border:1px; background-color: #d3d3d3; border-radius: 3px; text-align: center; line-height: center; color: white;">
@@ -125,7 +71,7 @@ function unfollow(member_no){
 			<c:when test="${loginInfo.member_no == vo.member_no }">       
              <c:if test="${param.member_no == vo.member_no}">                                            
                  <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
-                	<a href="javascript:info2(${vo.ono})">${vo.member_nickname}</a>
+                	<a href="javascript:info2('${vo.ono}', '${loginInfo}')">${vo.member_nickname}</a>
                 	<div class="activityForm2${vo.ono} activityForm2" style="display:none;">	                     
 	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList'";>나의 활동내역</button></p>	                     
                     </div>
@@ -133,7 +79,7 @@ function unfollow(member_no){
          	</c:if> 
             <c:if test="${param.member_no != vo.member_no}">                                                 
                 <td class="writer${vo.gno}" style="cursor:pointer;">
-                     <a href="javascript:info2(${vo.ono})"> ${vo.member_nickname} </a>
+                     <a href="javascript:info2('${vo.ono}', '${loginInfo}')"> ${vo.member_nickname} </a>
                      <div class="activityForm2${vo.ono} activityForm2" style="display:none;">	                    
 	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList'";>나의 활동내역</button></p>
                      </div>
@@ -144,7 +90,7 @@ function unfollow(member_no){
             <c:otherwise>                                                 
              <c:if test="${param.member_no == vo.member_no}">                                            
                  <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
-                	<a href="javascript:info2(${vo.ono})">${vo.member_nickname}</a>
+                	<a href="javascript:info2('${vo.ono}', '${loginInfo}')">${vo.member_nickname}</a>
                 	<!-- 실시간 알람 -->
                 	<input type="hidden" value="${vo.member_no}" id="no${vo.reply_no }">
                 	<input type="hidden" value="${vo.content}" id="content${vo.reply_no }">
@@ -154,29 +100,29 @@ function unfollow(member_no){
 	                     <p><button>활동내역</button></p>
 	                     <p><button>친구신청</button></p>
 	                <c:if test="${empty vo.relation }">           	                   
-	                     <p class="followGo${vo.member_no}"><button onclick="follow(${vo.member_no});">팔로우</button></p>
+	                     <p class="followGo${vo.member_no}"><button onclick="follow('${vo.member_no}', '${loginInfo.member_no}');">팔로우</button></p>
            			</c:if>        
            			<c:if test="${vo.relation == 0}">        
-	                     <p class="followNo${vo.member_no}"><button onclick="unfollow(${vo.member_no});">팔로우해제</button></p>
+	                     <p class="followNo${vo.member_no}"><button onclick="unfollow('${vo.member_no}', '${loginInfo.member_no}');">팔로우해제</button></p>
            			</c:if>     
-	                     <p><button>차단</button></p>
+	                     <p><button onclick="block('${vo.member_no}', '${loginInfo.member_no}');">차단</button></p>
                     </div>
                 </td>
          	</c:if> 
             <c:if test="${param.member_no != vo.member_no}">                                                 
                 <td class="writer${vo.gno}" style="cursor:pointer;">
-                    <a href="javascript:info2(${vo.ono})"> ${vo.member_nickname} </a>
+                    <a href="javascript:info2('${vo.ono}', '${loginInfo}')"> ${vo.member_nickname} </a>
                     <div class="activityForm2${vo.ono} activityForm2" style="display:none;">
 	                     <p><button onclick="popmessage(${vo.member_no},'${vo.member_nickname}');">쪽지</button></p>
 	                     <p><button>활동내역</button></p>
 	                     <p><button>친구신청</button></p>
 	                <c:if test="${empty vo.relation }">             
-	                     <p class="followGo${vo.member_no}"><button onclick="follow(${vo.member_no});">팔로우</button></p>
+	                     <p class="followGo${vo.member_no}"><button onclick="follow('${vo.member_no}', '${loginInfo.member_no}');">팔로우</button></p>
 	         		</c:if>             
 	         		<c:if test="${vo.relation == 0}">            
-	                     <p class="followNo${vo.member_no}"><button onclick="unfollow(${vo.member_no});">팔로우해제</button></p>
+	                     <p class="followNo${vo.member_no}"><button onclick="unfollow('${vo.member_no}', '${loginInfo.member_no}');">팔로우해제</button></p>
 	         		</c:if>     
-	                     <p><button>차단</button></p>
+	                     <p><button onclick="block('${vo.member_no}', '${loginInfo.member_no}');">차단</button></p>
                      </div>
                 </td>
             </c:if>
@@ -214,7 +160,7 @@ function unfollow(member_no){
 	        </c:if>     
 	            <td>
 	                <div class="btnSet">
-	                    <a href="javascript:replySave(${param.gno});"  style="  text-align: center;">저장</a>
+	                    <a href="javascript:replySave('${param.gno}', '${param.board_no}','${loginInfo.member_no}', '${param.member_no}');"  style="  text-align: center;">저장</a>
 	                </div>
 	            </td>
 	        </tr>
