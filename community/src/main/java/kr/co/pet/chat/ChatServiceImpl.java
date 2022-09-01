@@ -40,7 +40,24 @@ public class ChatServiceImpl implements ChatService {
 		Map joinInfo = new HashMap();
 		joinInfo.put("member_no", member_no);
 		joinInfo.put("channel_no", channel_no);
+		
 		return mapper.joinChannel(joinInfo);
+	}
+	
+	public int joinOpenChannel(int channel_no, int member_no) {
+		Map joinInfo = new HashMap();
+		joinInfo.put("member_no", member_no);
+		joinInfo.put("channel_no", channel_no);
+		
+		int limit= Integer.valueOf(String.valueOf(mapper.channelInfo(channel_no).get("limit")));
+		int joinedNum = mapper.getMemberCnt(joinInfo);
+		int result = 0;
+		
+		if (joinedNum < limit) {
+			result = mapper.joinChannel(joinInfo);
+		}
+		
+		return result;
 	}
 	
 	public List<LinkedHashMap> chatHistory(int channel_no, int member_no) {

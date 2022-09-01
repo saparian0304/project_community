@@ -9,6 +9,7 @@
 <title>채팅 - ${param.name }</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+<script type="text/javascript" src="/pet/js/util/chat.js"></script>
 <style>
 #chatbox, .inputBox{
 	background-color: #fcd7d6  ;
@@ -119,9 +120,6 @@
 	}
 	
 	var close_ = '${close_}';
-	function winClose(){
-	  window.open('','_self').close(); 
-	};
 		
 	$(function() {
 		

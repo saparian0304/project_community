@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="/pet/css/chat.css"/> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+<script type="text/javascript" src="/pet/js/util/chat.js"></script>
 <script type="text/javascript">
 	function popup(url, name) {
 		var option = "width = 400, height = 520, top = 100, left = 100";
@@ -84,7 +85,14 @@
 			}
 	}
 	
+	var close_ = '${param.close_}';
+	
 	$(function() {
+		// close_ 값이 있으면 창 종료
+		if(close_ == 'true') {
+			winClose();	
+		}
+		
 		webSocket.init({url : '/pet/chat'});
 		window.resizeTo( 
 			400 + (window.outerWidth - window.innerWidth), 
