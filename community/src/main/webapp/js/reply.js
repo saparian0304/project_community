@@ -21,11 +21,11 @@ function getComment(page, board_no, member_no){
 }
  
 // 댓글 작성 
-function goSave(loginCon, loginMem, board_no, data_tit){
-	if(loginCon == null && loginCon == ''){
+function goSave(loginMem, board_no, data_tit){
+	if(loginMem == null && loginMem == ''){
 		 alert('로그인후 댓글작성해주세요');
 	}
-	if(loginCon != null && loginCon != ''){ 
+	if(loginMem != null && loginMem != ''){ 
 		if (confirm('댓글을 저장하시겠습니까?')){
 			$.ajax({			
 				url : "/pet/reply/insert.do",

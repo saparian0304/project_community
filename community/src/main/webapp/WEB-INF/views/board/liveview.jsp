@@ -264,7 +264,7 @@ $(document).ready(function(){
 				</c:if>		
 					<td>
 						<div class="btnSet">
-							<a href="javascript:goSave();"  style="  text-align: center;">저장</a>
+							<a href="javascript:goSave('${loginInfo.member_no}', '${data.board_no}', '${data.title}');"  style="  text-align: center;">저장</a>
 						</div>
 					</td>
 				</tr>
