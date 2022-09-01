@@ -261,25 +261,25 @@ $(document).ready(function(){
 	                               		</div>
 	                        <div class="content" style="text-align: center">
 								<c:if test="!empty ${data.filename_real }">
-								<img src="/pet/upload/${data.filename_real }"
+								<img style="height: 250px; width: 250px;" src="/pet/upload/${data.filename_real }"
 									onerror='this.onerror=null; this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
 								</c:if>
-	                        	<dl>
-	                        		<dt style="height: 200px">
-	                        		${data.content }
-	                        		</dt>
-	                        	</dl>
 	                        </div>
+	                        <div>
+                        		<div style="text-align: center">
+                        		${data.content }
+                        		</div>
+                        	</div>
 	                        
 	                        	<!-- 첨부파일 -->
-                        	<dl class="file" style="clear:both">
-	                           <%-- <dd>
+                        	<%-- <dl class="file" style="clear:both">
+	                           <dd>
 	                           <c:forEach var="fo" items="${fdata }">
 	                           <a href="/pet/common/download.jsp?oName=${URLEncoder.encode(fo.filename_org,'UTF-8')}&sName=${fo.filename_real}"  
 	                           target="_blank">${fo.filename_org}</a>
 	                           </c:forEach>
-	                           </dd> --%>
-                        	</dl>			
+	                           </dd>
+                        	</dl> --%>			
 	                        
 	                        <div class="btnSet clear" style="clear:both">
 	                            <div class="fl_l">
@@ -287,6 +287,8 @@ $(document).ready(function(){
 		                            <c:if test="${data.member_no == loginInfo.member_no}">
 		                            <a href="/pet/board/freeedit.do?board_no=${data.board_no }" class="btn">수정</a>
 		                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
+		                            </c:if>
+		                            <c:if test="${data.member_no == loginInfo.member_no }">
 		                            </c:if>
 	                            </div>
 	                        </div>

@@ -103,7 +103,7 @@
 				</div>
 				
 				<div class="maindiv" style=" float: left;">
-				<h2>< 여행후기 ></h2>
+				<h2>< 잡담 ></h2>
 					<table class="maintb">
 					<colgroup>
 						<col width="60%"/>
@@ -142,7 +142,7 @@
 				</div>
 				
 				<div class="maindiv" style="float: left;">
-				<h2>< 잡담 ></h2>
+				<h2>< 여행후기 ></h2>
 					<table class="maintb">
 					<colgroup>
 						<col width="60%"/>

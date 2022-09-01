@@ -48,7 +48,7 @@ public class apiMapperTest {
 	@Test
 	public void apiTest2() throws IOException{
 		for(int num = 0; num < 600; num++) {
-			URL url1 = new URL("https://www.pettravel.kr/api/detailSeqArea.do?areaCode=AC19&contentNum="+ num);
+			URL url1 = new URL("https://www.pettravel.kr/api/detailSeqArea.do?areaCode=AC01&contentNum="+ num);
 	//		URL url1 = new URL("https://www.pettravel.kr/api/listArea.do?areaCode=AC01&page=1&pageBlock=100");
 			BufferedReader bf;
 			
@@ -90,7 +90,7 @@ public class apiMapperTest {
 				}else {
 					vo.setHorse_hair("2");
 				}
-				vo.setMember_no(1);
+				vo.setMember_no(0);
 				lvo.setAddr(row1.get("address").getAsString().split("\\s")[0]);
 				vo.setTitle(row1.get("title").getAsString());
 				lvo.setAddr2(row1.get("address").getAsString());
