@@ -159,7 +159,7 @@
 		        <img src="/pet/img/btn_firstpage.png" alt="제일 페이지로">
 		    </a>
 			<c:if test="${pageMaker.prev == true}">
-				<a class="prevpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&rec_count=${param.rec_count}&reply_count=${param.reply_count}">
+				<a class="prevpage pbtn" href="freeindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&&sort=${param.sort}&order=${param.order}">
 				<img src="/pet/img/btn_prevpage.png" alt="앞 페이지로 이동">
 				</a>
 			</c:if>
