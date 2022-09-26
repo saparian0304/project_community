@@ -141,12 +141,11 @@ $(document).ready(function(){
 	                        
 	                        <div class="btnSet clear" style="clear:both">
 	                            <div class="fl_l">
+	                            	
 		                            <a href="freeindex.do" class="btn">목록으로</a>
-		                            <c:if test="${data.member_no == loginInfo.member_no}">
+		                            <c:if test="${data.member_no == loginInfo.member_no || loginInfo.member_no == 0}">
 		                            <a href="/pet/board/freeedit.do?board_no=${data.board_no }" class="btn">수정</a>
 		                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
-		                            </c:if>
-		                            <c:if test="${data.member_no == loginInfo.member_no }">
 		                            </c:if>
 	                            </div>
 	                        </div>
