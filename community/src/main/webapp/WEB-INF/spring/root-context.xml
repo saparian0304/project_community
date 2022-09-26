@@ -15,7 +15,7 @@
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://3.39.57.179:3306/community"></property><!-- 포트/스키마명 -->
 		<property name="username" value="root"></property>
-		<property name="password" value="root1234"></property>
+		<property name="password" value="helppet1234"></property>
 	</bean>
 	
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
