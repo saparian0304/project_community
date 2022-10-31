@@ -95,16 +95,16 @@ $(document).ready(function(){
 			                        <div id="map" style="width:500px;height:400px;"></div>
 									<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d27f0849a07d99e4a90f3bcd6edd63d&libraries=services"></script>
 									<script>
-										var container = document.getElementById('map');
-										var options = {
+										var mapContainer = document.getElementById('map');
+										var mapOptions = {
 											center: new kakao.maps.LatLng(33.450701, 126.570667),
 											level: 3
 										};
-										var map = new kakao.maps.Map(container, options);
+										var map = new kakao.maps.Map(mapContainer, mapOptions);
 										
 										// 주소-좌표 변환 객체를 생성합니다
 										var geocoder = new kakao.maps.services.Geocoder();
-	
+
 										var addr = '${ldata.addr2}';
 										// 주소로 좌표를 검색합니다
 										geocoder.addressSearch(addr, function(result, status) {
