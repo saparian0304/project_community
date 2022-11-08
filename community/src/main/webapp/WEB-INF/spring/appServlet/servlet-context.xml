@@ -24,6 +24,7 @@
 	
 	<context:component-scan base-package="kr.co.pet" />
 	
+	  
 	<!-- MultipartResolver Bean 등록 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="defaultEncoding" value="utf-8"></beans:property>
@@ -40,5 +41,5 @@
 			<beans:bean class="interceptor.AdminInterceptor"/>
 		</interceptor>
 	</interceptors>
-	
+
 </beans:beans>

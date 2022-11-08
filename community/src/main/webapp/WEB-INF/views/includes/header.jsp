@@ -140,34 +140,22 @@
 					<ul class="gnb clear">
 						<li><a href="/pet/liveindex.do">생활게시판</a>
 							<div class="gnb_depth gnb_depth_2_1">
-								<ul class="submenu_list">
-									<li><a href="#">국내</a></li>
-									<li><a href="#">해외</a></li>
-								</ul>
+		
 							</div></li>
 						<li><a href="/pet/centerindex.do">유기견관련</a>
 							<div class="gnb_depth gnb_depth_2_2">
-								<ul class="submenu_list">
-									<li><a href="#">공지사항</a></li>
-									<li><a href="#">문의하기</a></li>
-								</ul>
+							
 							</div></li>
 						<li><a href="/pet/freeindex.do">자유게시판</a>
 							<div class="gnb_depth gnb_depth_2_3">
-								<ul class="submenu_list">
-									<li><a href="#">프로그램 소개</a></li>
-									<li><a href="#">여행자료</a></li>
-								</ul>
+							
 							</div>
 						</li>
 					<c:if test="${!empty loginInfo }">
 					<li><a
 						href="/pet/mypage/index.do?member_no=${loginInfo.member_no }">마이페이지</a>
 						<div class="gnb_depth gnb_depth_2_4">
-							<ul class="submenu_list">
-								<li><a href="#">항공</a></li>
-								<li><a href="#">호텔</a></li>
-							</ul>
+							
 						</div>
 					</li>
 					</c:if>

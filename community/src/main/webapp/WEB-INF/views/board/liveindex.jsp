@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <script>
 	var loc = "${param.sido1}";  //지역 selectbox에서 선택값 유지
 	var loc_gugun ="${param.gugun1}";  //지역 selectbox에서 선택값 유지
@@ -191,7 +192,7 @@
 							<div style="width: 49%; float: right; text-align: right;">
 								<i class='fas fa-eye'> ${vo.viewcount }</i>
 								<img style="width: 15px; height: 15px;" src="https://previews.123rf.com/images/captainvector/captainvector1512/captainvector151209976/81535071-%EB%8C%93%EA%B8%80-%EC%95%84%EC%9D%B4%EC%BD%98.jpg">${vo.reply_count }
-								<img style="width: 15px; height: 15px;" src="/pet/img/icon_like_black.png">${vo.rec_count }
+								<img style="width: 15px; height: 15px;" src="/pet/img/icon_like_black.png">${vo.reply_count }
 								
 							</div>
 						</figure>
@@ -204,23 +205,23 @@
             
           <div class="pagenation" style="clear: left;">
           <c:if test ="${!empty data.list }">
-          	 <a style="cursor:pointer" href="liveindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.startPage}&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}" class="firstpage pbtn">
+          	 <a style="cursor:pointer" href="liveindex.do?horse_hair=${param.horse_hair }&page=1&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}" class="firstpage pbtn">
           	 	<img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 ">
           	 </a>
 			 <c:if test="${pageMaker.prev == true }">
-				<a class="prevpage pbtn" href="liveindex.do?horse_hair=${param.horse_hair}&page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}"></a>
-				<img src="/pet/img/btn_prevpage.png" alt="이전 페이지로 이동">
+				<a class="prevpage pbtn" href="liveindex.do?horse_hair=${param.horse_hair}&page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}">
+				<img src="/pet/img/btn_prevpage.png" alt="이전 페이지로 이동"></a>
 			</c:if>
 			<c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage}">
 				<a href='liveindex.do?horse_hair=${param.horse_hair}&page=${p }&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}'
 					class='pagenum <c:if test="${boardVO.page ==p }">currentpage</c:if>'>${p }</a>
 			</c:forEach>
 			<c:if test="${pageMaker.next == true }">
-				<a class="nextpage pbtn" href="liveindex.do?horse_hair=${param.horse_hair}&page=${pageMaker.endPage}&sort=${param.sort}&order=${param.order}">
+				<a class="nextpage pbtn" href="liveindex.do?horse_hair=${param.horse_hair}&page=${pageMaker.endPage+1}&stype=${param.stype}&sword=${param.sword}&sort=${param.sort}&order=${param.order}">
 				<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
 				</a>
 			</c:if>
-			<a style="cursor: pointer" onclick='javascript: total_search(${pageMaker.endPage+1 });' class="lastpage pbtn">
+			<a style="cursor: pointer" class="lastpage pbtn" href="liveindex.do?horse_hair=${param.horse_hair }&page=${pageMaker.totalPage}&stype=${param.stype}&sword=${param.sword}">
 			    <img src="/pet/img/btn_lastpage.png" alt="마지막 페이지로 ">
 	  		</a>
 	  	   </c:if>
