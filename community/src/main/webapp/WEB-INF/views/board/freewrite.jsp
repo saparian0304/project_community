@@ -75,8 +75,6 @@
                     </table>
 	                    <div class="btnSet"  style="text-align:right;">
 	                        <a class="btn" href="javascript:goSave();">저장 </a>
-	                    </div>
-	                    <div class="btnSet"  style="text-align:right;">
 	                        <a class="btn" href="javascript:goBack();">뒤로가기 </a>
 	                    </div>
                     </form>
