@@ -110,7 +110,7 @@
 		<div class="header_area box_inner clear">
 			<!-- 로고 -->
 			<h1>
-				<a href="/pet/board/main.do">Help!</a>
+				<a href="/pet/main.do">Help!</a>
 			</h1>
 			<!-- 네비 로그인 -->
 			<div class="header_cont">
@@ -138,21 +138,21 @@
 				<!-- 네비 -->
 				<nav>
 					<ul class="gnb clear">
-						<li><a href="/pet/board/liveindex.do">생활게시판</a>
+						<li><a href="/pet/liveindex.do">생활게시판</a>
 							<div class="gnb_depth gnb_depth_2_1">
 								<ul class="submenu_list">
 									<li><a href="#">국내</a></li>
 									<li><a href="#">해외</a></li>
 								</ul>
 							</div></li>
-						<li><a href="/pet/board/centerindex.do">유기견관련</a>
+						<li><a href="/pet/centerindex.do">유기견관련</a>
 							<div class="gnb_depth gnb_depth_2_2">
 								<ul class="submenu_list">
 									<li><a href="#">공지사항</a></li>
 									<li><a href="#">문의하기</a></li>
 								</ul>
 							</div></li>
-						<li><a href="/pet/board/freeindex.do">자유게시판</a>
+						<li><a href="/pet/freeindex.do">자유게시판</a>
 							<div class="gnb_depth gnb_depth_2_3">
 								<ul class="submenu_list">
 									<li><a href="#">프로그램 소개</a></li>

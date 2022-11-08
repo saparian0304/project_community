@@ -96,8 +96,8 @@ function dis(){
 		<!-- 공지사항 목록영역 -->
 		<div class="bodytext_area box_inner" style="width: 100%">
 			<div class="btnSet"  style="float:left;">
-           		<a class="btn" href="livewrite.do">생활게시판 글작성 </a>
-           		<a class="btn" href="centerwrite.do">보호소게시판 글작성 </a>
+           		<a class="btn" href="/pet/admin/livewrite.do">생활게시판 글작성 </a>
+           		<a class="btn" href="/pet/admin/centerwrite.do">보호소게시판 글작성 </a>
             </div>
 			<form action="/pet/admin/board/board_list.do" method="post"  id="boardSearch" class="minisrch_form">
 				<input type="hidden" id="sort" name="sort" value="${param.sort }">
@@ -202,7 +202,7 @@ function dis(){
 									<c:when test="${vo.horse_hair == '7' }">보호센터</c:when>
 								</c:choose>
 							</td>
-							<td class="txt_l"><a href="javascript: window.open('/pet/board/${vo.board_name }view.do?board_no=${vo.board_no }', '상세내용', 'width = 800, height = 600, top = 100, left = 100')">${vo.title}
+							<td class="txt_l"><a href="javascript: window.open('/pet/${vo.board_name }view.do?board_no=${vo.board_no }', '상세내용', 'width = 800, height = 600, top = 100, left = 100')">${vo.title}
 									[${ vo.reply_count}]</a></td>
 							<td>${vo.viewcount }</td>
 							<td>${vo.reply_count }</td>

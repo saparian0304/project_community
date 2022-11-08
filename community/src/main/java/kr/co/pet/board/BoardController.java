@@ -65,7 +65,7 @@ public class BoardController {
 	@Autowired
 	MemberService mService;
 	
-	@GetMapping("/board/main.do")
+	@GetMapping("/main.do")
 	public String index(Model model, BoardVO vo, HttpSession sess) {
 		// main.do 방문수 count 
 		if(sess.getAttribute("Nonmembers") == null && sess.getAttribute("loginInfo") == null) {
@@ -103,7 +103,7 @@ public class BoardController {
 		return "board/main";
 	}
 	
-	@GetMapping("/board/freeindex.do")
+	@GetMapping("/freeindex.do")
 	public String freeindex(Model model, BoardVO vo, HttpSession sess) {
 		// 차단한 사람 글 안보이게 로그인했을때! 로그인 멤버no 파라미터  
 		MemberVO loginInfo = (MemberVO)sess.getAttribute("loginInfo");		
@@ -126,7 +126,7 @@ public class BoardController {
 		return "board/freeindex";
 	}
 	
-	@GetMapping("/board/liveindex.do")
+	@GetMapping("/liveindex.do")
 	public String liveindex(Model model, BoardVO vo, HttpSession sess) {
 		// 차단한 사람 글 안보이게 로그인했을때! 로그인 멤버no 파라미터  
 		MemberVO loginInfo = (MemberVO)sess.getAttribute("loginInfo");		
@@ -153,7 +153,7 @@ public class BoardController {
 		return "board/liveindex";
 	}
 
-	@GetMapping("/board/centerindex.do")
+	@GetMapping("/centerindex.do")
 	public String centerindex(Model model, BoardVO vo, HttpSession sess) {
 		// 차단한 사람 글 안보이게 로그인했을때! 로그인 멤버no 파라미터  
 		MemberVO loginInfo = (MemberVO)sess.getAttribute("loginInfo");		
@@ -178,7 +178,7 @@ public class BoardController {
 		return "board/centerindex";
 	}
 	
-	@GetMapping("/admin/board/livewrite.do")
+	@GetMapping("/admin/livewrite.do")
 	public String livewrite(BoardVO vo, MemberVO mvo) {
 		vo.setMember_no(mvo.getMember_no());
 		if(vo.getMember_no() == 0) {
@@ -187,17 +187,17 @@ public class BoardController {
 		return "board/livewrite";
 	}
 	
-	@GetMapping("/board/freewrite.do")
+	@GetMapping("/freewrite.do")
 	public String freewrite() {
 		return "board/freewrite";
 	}
 	
-	@GetMapping("/admin/board/centerwrite.do")
+	@GetMapping("/admin/centerwrite.do")
 	public String centerwrite() {
 		return "board/centerwrite";
 	}
 	
-	@GetMapping("/board/freeview.do")
+	@GetMapping("/freeview.do")
 	public String freeview(BoardVO vo, Model model, HttpSession sess) {
 		BoardVO data = service.view(vo.getBoard_no());
 		model.addAttribute("data", data);
@@ -208,7 +208,7 @@ public class BoardController {
 		model.addAttribute("bookdata", bService.bookmarked(vo, sess));
 		return "board/freeview";
 	}
-	@GetMapping("/board/liveview.do")
+	@GetMapping("/liveview.do")
 	public String liveview(BoardVO vo, Model model, HttpSession sess) {
 		BoardVO data = service.view(vo.getBoard_no());
 		model.addAttribute("data", data);
@@ -222,7 +222,7 @@ public class BoardController {
 		return "board/liveview";
 	}
 	
-	@GetMapping("/board/centerview.do")
+	@GetMapping("/centerview.do")
 	public String centerview(BoardVO vo, Model model, HttpSession sess) {
 		BoardVO data = service.view(vo.getBoard_no());
 		model.addAttribute("data", data);
@@ -234,7 +234,7 @@ public class BoardController {
 		return "board/centerview";
 	}
 	
-	@PostMapping(value = "/admin/board/liveinsert.do", consumes = "multipart/form-data")
+	@PostMapping(value = "/admin/liveinsert.do", consumes = "multipart/form-data")
 	public String liveinsert(BoardVO vo, FileVO fvo, LocVO lvo, Model model, @RequestParam MultipartFile filename,
 			HttpServletRequest req, HttpSession sess) {
 		//게시글 저장 board테이블
@@ -272,7 +272,7 @@ public class BoardController {
 			fvo.setFilename_real(real);
 			if(fservice.insert(fvo)){
 				model.addAttribute("msg", "정상적으로 저장되었습니다.");
-				model.addAttribute("url", "/pet/board/liveview.do?board_no="+vo.getBoard_no());
+				model.addAttribute("url", "/pet/liveview.do?board_no="+vo.getBoard_no());
 				
 				return "common/alert";
 				
@@ -285,7 +285,7 @@ public class BoardController {
 	
 		if(in) {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
-			model.addAttribute("url", "/pet/board/liveindex.do");
+			model.addAttribute("url", "/pet/liveindex.do");
 			
 			return "common/alert";
 		}  else {
@@ -293,7 +293,7 @@ public class BoardController {
 			return "common/alert";
 		}
 	}
-	@PostMapping(value = "/board/freeinsert.do", consumes = "multipart/form-data")
+	@PostMapping(value = "/freeinsert.do", consumes = "multipart/form-data")
 	public String freeinsert(BoardVO vo, FileVO fvo, LocVO lvo, Model model, @RequestParam MultipartFile filename,
 			HttpServletRequest req, HttpSession sess) {
 		//게시글 저장 board테이블
@@ -352,7 +352,7 @@ public class BoardController {
 		}
 	}
 
-	@PostMapping(value = "/admin/board/centerinsert.do", consumes = "multipart/form-data")
+	@PostMapping(value = "/admin/centerinsert.do", consumes = "multipart/form-data")
 	public String centerinsert(BoardVO vo, FileVO fvo, LocVO lvo, CenterVO cvo,Model model, @RequestParam MultipartFile filename,
 			HttpServletRequest req, HttpSession sess, HttpServlet hs) {
 		//게시글 저장 board테이블
@@ -409,7 +409,7 @@ public class BoardController {
 		
 		if(in) {
 			model.addAttribute("msg", "정상적으로 저장되었습니다.");
-			model.addAttribute("url", "/pet/board/centerindex.do");
+			model.addAttribute("url", "/pet/centerindex.do");
 			
 			return "common/alert";
 		}  else {
@@ -418,7 +418,7 @@ public class BoardController {
 		}
 	}
 	
-	@GetMapping("/admin/board/liveedit.do")
+	@GetMapping("/admin/liveedit.do")
 	public String liveedit(BoardVO vo, FileVO fvo, LocVO lvo, Model model) {
 		BoardVO data = service.edit(vo.getBoard_no());
 		model.addAttribute("data", data);
@@ -431,7 +431,7 @@ public class BoardController {
 		return "board/liveedit";
 	}
 	
-	@GetMapping("/board/freeedit.do")
+	@GetMapping("/freeedit.do")
 	public String freeedit(BoardVO vo, FileVO fvo, LocVO lvo, Model model) {
 		BoardVO data = service.edit(vo.getBoard_no());
 		model.addAttribute("data", data);
@@ -444,7 +444,7 @@ public class BoardController {
 		return "board/freeedit";
 	}
 	
-	@GetMapping("/admin/board/centeredit.do")
+	@GetMapping("/admin/centeredit.do")
 	public String centeredit(BoardVO vo, FileVO fvo, LocVO lvo, Model model) {
 		BoardVO data = service.edit(vo.getBoard_no());
 		model.addAttribute("data", data);
@@ -457,11 +457,11 @@ public class BoardController {
 		return "board/centeredit";
 	}
 	
-	@PostMapping("/admin/board/liveupdate.do")
+	@PostMapping("/admin/liveupdate.do")
 	public String liveupdate(BoardVO vo, Model model) {
 		if(service.update(vo)) {
 			model.addAttribute("msg", "정상적으로 수정되었습니다.");
-			model.addAttribute("url", "/pet/board/liveview.do?board_no="+vo.getBoard_no());
+			model.addAttribute("url", "/pet/liveview.do?board_no="+vo.getBoard_no());
 			return "common/alert";
 		}else {
 			model.addAttribute("msg", "수정실패");
@@ -469,7 +469,7 @@ public class BoardController {
 		}
 	}
 	
-	@PostMapping("/board/freeupdate.do")
+	@PostMapping("/freeupdate.do")
 	public String freeupdate(BoardVO vo, Model model) {
 		if(service.update(vo)) {
 			model.addAttribute("msg", "정상적으로 수정되었습니다.");
@@ -481,11 +481,11 @@ public class BoardController {
 		}
 	}
 	
-	@PostMapping("/admin/board/centerupdate.do")
+	@PostMapping("/admin/centerupdate.do")
 	public String update(BoardVO vo, Model model) {
 		if(service.update(vo)) {
 			model.addAttribute("msg", "정상적으로 수정되었습니다.");
-			model.addAttribute("url", "/pet/board/centerview.do?board_no="+vo.getBoard_no());
+			model.addAttribute("url", "/pet/centerview.do?board_no="+vo.getBoard_no());
 			return "common/alert";
 		}else {
 			model.addAttribute("msg", "수정실패");
@@ -493,7 +493,7 @@ public class BoardController {
 		}
 	}
 	
-	@GetMapping("/admin/board/livedelete.do")
+	@GetMapping("/admin/livedelete.do")
 	public String livedelete(BoardVO vo, Model model) {
 		if(service.delete(vo.getBoard_no())) {
 			model.addAttribute("msg", "정상적으로 삭제되었습니다.");
@@ -504,7 +504,7 @@ public class BoardController {
 			return "common/alert";
 		}
 	}
-	@GetMapping("/board/freedelete.do")
+	@GetMapping("/freedelete.do")
 	public String freedelete(BoardVO vo, Model model) {
 		if(service.delete(vo.getBoard_no())) {
 			model.addAttribute("msg", "정상적으로 삭제되었습니다.");
@@ -515,7 +515,7 @@ public class BoardController {
 			return "common/alert";
 		}
 	}
-	@GetMapping("/board/centerdelete.do")
+	@GetMapping("/centerdelete.do")
 	public String delete(BoardVO vo, Model model) {
 		if(service.delete(vo.getBoard_no())) {
 			model.addAttribute("msg", "정상적으로 삭제되었습니다.");
