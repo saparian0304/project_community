@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="/pet/css/contents.css"/> 
     <link rel="shortcut icon" href="/pet/img/favi/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/pet/img/favi/favicon.ico" type="image/x-icon">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script type="text/javascript" src="/pet/js/location.js"></script>
 	<style>
