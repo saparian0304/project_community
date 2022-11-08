@@ -36,8 +36,6 @@ $(function () {
 	
 	
 	// 초기 셋팅
-	change_hair('${param.board_name}')
-	$('#horse_hair').val('${param.horse_hair}').prop("selected", true);
 	
 	var arrColName = [ 'horse_hair', 'board_name', 'title', 'viewcount', 'reply_count', 'rec_count', 'book_count', 'report_count', 'member_no', 'regdate'];
 	var arrHeadName = ['말머리', '게시판', '제목', '조회수', '댓글 수', '좋아요 횟수', '북마크 횟수', '신고 횟수', '작성자', '작성일'];
@@ -66,7 +64,7 @@ $(function () {
 function dis(){
     if($('.detail').css('display') == 'none'){
         $('.detail').show();
-    }else{
+    }else{ 
         $('.detail').hide();
     }
 }

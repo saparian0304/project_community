@@ -65,7 +65,7 @@ public class BoardController {
 	@Autowired
 	MemberService mService;
 	
-	@GetMapping("/board/main.do")
+	@GetMapping("/main.do")
 	public String index(Model model, BoardVO vo, HttpSession sess) {
 		// main.do 방문수 count 
 		if(sess.getAttribute("Nonmembers") == null && sess.getAttribute("loginInfo") == null) {
