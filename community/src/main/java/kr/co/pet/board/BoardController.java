@@ -119,10 +119,11 @@ public class BoardController {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(vo);
 		pageMaker.setTotalCount(service.indexTotal(vo));
+		
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("stype", vo.getStype());
 		model.addAttribute("sword", vo.getSword());
-		
+		System.out.println("////free" + pageMaker.getStartPage() );
 		return "board/freeindex";
 	}
 	
@@ -150,6 +151,7 @@ public class BoardController {
 		model.addAttribute("stype", vo.getStype());
 		model.addAttribute("sword", vo.getSword());
 		
+		System.out.println("////" + pageMaker.getStartPage());
 		return "board/liveindex";
 	}
 

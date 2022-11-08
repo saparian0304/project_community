@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/pet/css/contents.css"/>
     <script src="/pet/smarteditor/js/HuskyEZCreator.js"></script>
     <script src="/pet/js/function.js"></script>
+    <script type="text/javascript" src="/pet/js/message.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  
 <%@ include file="/WEB-INF/views/includes/alram.jsp" %>    
 <script>
@@ -28,65 +29,13 @@ function soSend(){
 	}
 }
 <% session.setAttribute("plus", "message"); %>
+
+// message.js 변수
+var loginCon = "${loginInfo}";
+var loginMem = "${loginInfo.member_no}";
+
 </script>
-    <script>
-    
-    	function seachNick(){
-    		<c:if test="${empty loginInfo}">
-    			alert('로그인후 작성해주세요');
-       		</c:if>       	
-       		if($("#read").val()==''){
-       			alert('닉네임을 입력해주세요.');
-       			$("#read").focus();
-       			return;
-       		}
-    		$.ajax({
-    			url : "/pet/message/search.do",
-    			data : {
-    				
-    				searchNick : $("#read").val()
-    				 			
-    			}, 
-    			
-    			success : function(res) {
-    				var loginSend = '${loginInfo.member_no}';
-    				
-    				if(res == loginSend ) {
-    					alert($("#read").val()+" 나에게 보내시겠습니까?");
-    					$("#content").focus();
-    					$("#read_member").val(res);
-    				}
-    				else if(res == 0){
-    					alert($("#read").val()+" 찾으시는 닉네임이 없습니다.");
-    					$("#read").focus();
-    				} 
-    				
-    				else{
-    					alert($("#read").val()+" 닉네임을 찾았습니다. 메세지를 입력해주세요");
-    					$("#content").focus();
-    					$("#read_member").val(res);
-    				}   				 
-    				   			
-    			}	
-    		});     		
-    	} 
-    	
-    	// 내용없이 보낼때
-    	 function messageWrite() {
-    		 if(!content.value){
-    	     alert("내용을 입력하세요");  
-    	     	content.focus();   
-    	     return false;     
-    	   } 
-    		  if($("#read_member").val() == ''){
-        			alert('닉네임 찾기를 해주세요');
-        			$("#read").focus();
-        			return false;
-        		} 
-      		}
-    	
-    	
-    </script>
+
 <body>
 <div style="width:500px;margin:40px auto;">
 	<form method="post" name="frm" id="frm" action="insert.do" onsubmit="return messageWrite()"> <!-- onsubmit="return messageWrite()" -->
@@ -95,7 +44,7 @@ function soSend(){
 				<td>받는사람</td>				
 				<td>
 					<input type="hidden" name="read_member" id="read_member">
-					<input type="search" name="read" id="read"> 			
+					<input type="search" name="read" id="read" onkeypress="if (event.keyCode==13) seachNick();"> 			
 					<button type="button" onclick="seachNick();" style="width : 100px; height : 25px; margin-left: 5px;" class="reqbtn mymess">닉네임 찾기</button>
 				<td>
 			</tr>			

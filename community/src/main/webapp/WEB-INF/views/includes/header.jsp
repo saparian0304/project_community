@@ -16,13 +16,18 @@
 	<link rel="stylesheet" href="/pet/css/common.css">
     <link rel="stylesheet" href="/pet/css/reset.css"/>
     <link rel="stylesheet" href="/pet/css/contents.css"/> 
+    <link rel="shortcut icon" href="/pet/img/favi/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/pet/img/favi/favicon.ico" type="image/x-icon">
+	
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script type="text/javascript" src="/pet/js/location.js"></script>
 	<style>
 	@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 	</style>
 </head>
-	<%@ include file="/WEB-INF/views/includes/alram.jsp" %>   
+	<%@ include file="/WEB-INF/views/includes/alram.jsp" %>  
 <script>
 	function popup() {
 		var url = '/pet/chat/index.do';

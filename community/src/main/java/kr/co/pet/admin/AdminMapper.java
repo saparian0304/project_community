@@ -34,4 +34,6 @@ public interface AdminMapper {
 	Integer boardToday(AdminBoardVO vo);
 	Integer replyToday(AdminBoardVO vo);
 	
+	AdminBoardVO current(AdminBoardVO vo);
+	
 }

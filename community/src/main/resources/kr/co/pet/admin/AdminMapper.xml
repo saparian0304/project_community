@@ -123,15 +123,20 @@
 			(SELECT COUNT(*) FROM reply WHERE reply.member_no = member.member_no AND isdelete = 0) AS reply_count
 		FROM member
 		<include refid="memberWhere"/>
-		<if test="sort == 'board_count'">
-		ORDER BY (SELECT COUNT(*) FROM board WHERE board.member_no = member.member_no AND isdelete = 0) ${order}
-		</if>
-		<if test="sort == 'reply_count'">
-		ORDER BY (SELECT COUNT(*) FROM reply WHERE reply.member_no = member.member_no AND isdelete = 0) ${order}
-		</if>
-		<if test="sort != 'board_count' and sort != 'reply_count'">
-		ORDER BY ${sort} ${order}
-		</if>
+		<choose>
+			<when test="sort == 'board_count'">
+			ORDER BY (SELECT COUNT(*) FROM board WHERE board.member_no = member.member_no AND isdelete = 0) ${order}
+			</when>
+			<when test="sort == 'reply_count'">
+			ORDER BY (SELECT COUNT(*) FROM reply WHERE reply.member_no = member.member_no AND isdelete = 0) ${order}
+			</when>
+			<when test="sort == 'out'">
+			ORDER BY member.out ${order}
+			</when>
+			<otherwise>
+			ORDER BY ${sort} ${order}
+			</otherwise>
+		</choose>
 		LIMIT #{startIdx},${pageRow}
 	</select>
 	
@@ -155,13 +160,13 @@
 		<where>
 			<if test="sword != null and sword != ''">
 				<if test="stype == 'all'">
-					 title LIKE '%${sword}%' OR board.content LIKE '%${sword}%'
+					 board.title LIKE '%${sword}%' OR r.content LIKE '%${sword}%'
 				</if>
 				<if test="stype == 'title'">
-					 title LIKE '%${sword}%'
+					 board.title LIKE '%${sword}%'
 				</if>
 				<if test="stype == 'content'">
-					 board.content LIKE '%${sword}%'
+					 r.content LIKE '%${sword}%'
 				</if>
 			</if>
 			<if test="nickname != null and nickname != ''">
@@ -175,10 +180,7 @@
 			</if>
 			<if test="fromDate != null and fromDate != '' 
 					and toDate != null and toDate != ''">
-				 AND board.regdate between #{fromDate} AND #{toDate}
-			</if>
-			<if test="content != null and content != ''">
-			    AND r.content LIKE '%${content}%'
+				 AND date_format(r.regdate,'%Y-%m-%d') between #{fromDate} AND #{toDate}
 			</if>
 		</where>
 		ORDER BY ${sort} ${order}
@@ -193,17 +195,17 @@
 		<where>
 			<if test="sword != null and sword != ''">
 				<if test="stype == 'all'">
-					 title LIKE '%${sword}%' OR board.content LIKE '%${sword}%'
+					 board.title LIKE '%${sword}%' OR r.content LIKE '%${sword}%'
 				</if>
 				<if test="stype == 'title'">
-					 title LIKE '%${sword}%'
+					 board.title LIKE '%${sword}%'
 				</if>
 				<if test="stype == 'content'">
-					 board.content LIKE '%${sword}%'
+					 r.content LIKE '%${sword}%'
 				</if>
 			</if>
 			<if test="nickname != null and nickname != ''">
-				AND nickname = #{nickname}
+				 AND nickname = #{nickname}
 			</if>
 			<if test="board_name != null and board_name != ''">
 				AND board_name = #{board_name}
@@ -213,10 +215,7 @@
 			</if>
 			<if test="fromDate != null and fromDate != '' 
 					and toDate != null and toDate != ''">
-				AND board.regdate between #{fromDate} and #{toDate}
-			</if>
-			<if test="content != null and content != ''">
-				   AND r.content LIKE '%${content}%'
+				 AND date_format(r.regdate,'%Y-%m-%d') between #{fromDate} AND #{toDate}
 			</if>
 		</where>
 	</select>
@@ -231,6 +230,14 @@
 		FROM visit 
 		WHERE visit_date = curdate()
 	</select>
+	
+	<!-- 가입수, 멤버 방문 -->
+	<select id="current" parameterType="kr.co.pet.admin.AdminBoardVO" resultType="kr.co.pet.admin.AdminBoardVO">
+		SELECT 
+			COUNT(CASE WHEN ( DATE_FORMAT(regdate, "%Y-%m-%d") = curdate() ) THEN 1 END) rdate,
+			COUNT(CASE WHEN (DATE_FORMAT(curr_login, "%Y-%m-%d") = curdate() ) THEN 1 END) clogin
+		FROM member
+	</select>	
 	
 	<!-- today 게시글  -->
 	<select id= "boardToday" parameterType="kr.co.pet.admin.AdminBoardVO" resultType="Integer">

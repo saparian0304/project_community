@@ -144,4 +144,27 @@
 			) tmp
 		)
 	</update>
+	
+	<select id="getMemberCnt" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM chat_member cm
+		WHERE cm.exitdate is null
+        and channel_no = #{channel_no};
+	</select>
+	
+	<update id="masterUpdate" parameterType="int">
+		UPDATE chat_channel 
+		SET master_no = (
+			SELECT member_no 
+			FROM chat_member 
+			WHERE channel_no = #{channel_no}
+			ORDER BY joindate 
+			LIMIT 1) 
+		WHERE channel_no = #{channel_no}
+	</update>
+	
+	<update id="closeChannel" parameterType="map">
+		UPDATE chat_channel
+		SET closedate = now()
+		WHERE channel_no = #{channel_no}
+	</update>
 </mapper>
