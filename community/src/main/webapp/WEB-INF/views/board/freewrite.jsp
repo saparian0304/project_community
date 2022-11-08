@@ -22,6 +22,9 @@
     		editor.getById['content'].exec('UPDATE_CONTENTS_FIELD',[]);
     		frm.submit();
 		};
+		function goBack() {
+			window.history.back();
+		}
 		
     	var editor;//전역변수로 다른 곳에도 쓰려고
     	$(function() {
@@ -72,6 +75,9 @@
                     </table>
 	                    <div class="btnSet"  style="text-align:right;">
 	                        <a class="btn" href="javascript:goSave();">저장 </a>
+	                    </div>
+	                    <div class="btnSet"  style="text-align:right;">
+	                        <a class="btn" href="javascript:goBack();">뒤로가기 </a>
 	                    </div>
                     </form>
                 </div>
