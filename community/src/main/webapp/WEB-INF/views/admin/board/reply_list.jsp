@@ -196,7 +196,7 @@ function dis(){
 									<c:when test="${vo.horse_hair == '9' }">보호센터</c:when>
 								</c:choose>
 							</td>
-							<td class="txt_l"><a href="javascript: window.open('/pet/board/${vo.board_name }view.do?board_no=${vo.board_no }', '상세내용', 'width = 800, height = 600, top = 100, left = 100')">${vo.title}
+							<td class="txt_l"><a href="javascript: window.open('/pet/${vo.board_name }view.do?board_no=${vo.board_no }', '상세내용', 'width = 800, height = 600, top = 100, left = 100')">${vo.title}
 									[${ vo.reply_count}]</a></td>
 							<td>${vo.content }</td>
 							<td>${vo.reply_count }</td>

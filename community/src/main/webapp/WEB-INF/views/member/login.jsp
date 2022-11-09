@@ -19,7 +19,6 @@
 			 if ($("#member_id1").val().trim() ==''){
 				 console.log("member_id : "+member_id);
 				 alert('아이디를 입력해주세요');
-				 $("#member_id1").focus();
 				 return false;
 			 }
 			 if ($("#pwd1").val().trim() ==''){

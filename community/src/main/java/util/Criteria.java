@@ -6,7 +6,7 @@ import lombok.Data;
 public class Criteria {
 
 	// 페이징
-	private int page;
+	private int page; 
 	private int pageRow;
 	private int startIdx;
 

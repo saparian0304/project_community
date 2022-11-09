@@ -37,7 +37,7 @@
                 <h3 class="sub_title">게시판</h3>
     
                 <div class="bbs">
-                <form method="post" name="frm" id="frm" action="/pet/admin/board/liveinsert.do" enctype="multipart/form-data">
+                <form method="post" name="frm" id="frm" action="/pet/admin/liveinsert.do" enctype="multipart/form-data">
                     <table class="board_write">
                         <tbody>
                         <tr>

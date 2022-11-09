@@ -36,8 +36,6 @@ $(function () {
 	
 	
 	// 초기 셋팅
-	change_hair('${param.board_name}')
-	$('#horse_hair').val('${param.horse_hair}').prop("selected", true);
 	
 	var arrColName = [ 'horse_hair', 'board_name', 'title', 'viewcount', 'reply_count', 'rec_count', 'book_count', 'report_count', 'member_no', 'regdate'];
 	var arrHeadName = ['말머리', '게시판', '제목', '조회수', '댓글 수', '좋아요 횟수', '북마크 횟수', '신고 횟수', '작성자', '작성일'];
@@ -66,7 +64,7 @@ $(function () {
 function dis(){
     if($('.detail').css('display') == 'none'){
         $('.detail').show();
-    }else{
+    }else{ 
         $('.detail').hide();
     }
 }
@@ -96,8 +94,8 @@ function dis(){
 		<!-- 공지사항 목록영역 -->
 		<div class="bodytext_area box_inner" style="width: 100%">
 			<div class="btnSet"  style="float:left;">
-           		<a class="btn" href="livewrite.do">생활게시판 글작성 </a>
-           		<a class="btn" href="centerwrite.do">보호소게시판 글작성 </a>
+           		<a class="btn" href="/pet/admin/livewrite.do">생활게시판 글작성 </a>
+           		<a class="btn" href="/pet/admin/centerwrite.do">보호소게시판 글작성 </a>
             </div>
 			<form action="/pet/admin/board/board_list.do" method="post"  id="boardSearch" class="minisrch_form">
 				<input type="hidden" id="sort" name="sort" value="${param.sort }">
@@ -202,7 +200,7 @@ function dis(){
 									<c:when test="${vo.horse_hair == '7' }">보호센터</c:when>
 								</c:choose>
 							</td>
-							<td class="txt_l"><a href="javascript: window.open('/pet/board/${vo.board_name }view.do?board_no=${vo.board_no }', '상세내용', 'width = 800, height = 600, top = 100, left = 100')">${vo.title}
+							<td class="txt_l"><a href="javascript: window.open('/pet/${vo.board_name }view.do?board_no=${vo.board_no }', '상세내용', 'width = 800, height = 600, top = 100, left = 100')">${vo.title}
 									[${ vo.reply_count}]</a></td>
 							<td>${vo.viewcount }</td>
 							<td>${vo.reply_count }</td>
