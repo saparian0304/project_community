@@ -108,12 +108,6 @@ public class ChatController {
 	}
 	
 	
-	@RequestMapping("/join.do")
-	public String join() {
-		return "chat/login";
-	}
-	
-	
 	// 오픈채팅방 생성 폼 
 	@GetMapping("/chat/create.do")
 	public String create() {
