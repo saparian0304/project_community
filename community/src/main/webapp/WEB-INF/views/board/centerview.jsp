@@ -262,9 +262,10 @@ $(document).ready(function(){
 							</a>
 							</span>
 						</div>
+						&emsp;&emsp;
 						<div class="content" style="text-align: center">
 							<dl>
-								<dt style="height: 200px">${data.content }</dt>
+								<dt style="height: 200px">&emsp;&emsp;${data.content }</dt>
 							</dl>
 						</div>
 
@@ -280,8 +281,7 @@ $(document).ready(function(){
 
 							</c:forEach>
 						</dl>
-
-
+						&emsp;&emsp;
 						<div class="btnSet clear" style="clear: both">
 							<div class="fl_l">
 								<a href="centerindex.do" class="btn">목록으로</a>
