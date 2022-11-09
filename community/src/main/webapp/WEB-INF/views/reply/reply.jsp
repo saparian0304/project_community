@@ -71,7 +71,7 @@ var login_no = "";
 			<c:when test="${loginInfo.member_no == vo.member_no }">       
              <c:if test="${param.member_no == vo.member_no}">                                            
                  <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
-                	<a href="javascript:info2('${vo.ono}', '${loginInfo}')">${vo.member_nickname}</a>
+                	<a href="javascript:info2('${vo.ono}', '${loginInfo}')">[나]&nbsp;&nbsp;[글쓴이]</a>
                 	<div class="activityForm2${vo.ono} activityForm2" style="display:none;">	                     
 	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList'";>나의 활동내역</button></p>	                     
                     </div>
@@ -79,7 +79,7 @@ var login_no = "";
          	</c:if> 
             <c:if test="${param.member_no != vo.member_no}">                                                 
                 <td class="writer${vo.gno}" style="cursor:pointer;">
-                     <a href="javascript:info2('${vo.ono}', '${loginInfo}')"> ${vo.member_nickname} </a>
+                     <a href="javascript:info2('${vo.ono}', '${loginInfo}')" style="font-weight:bold;"> [나]&nbsp;&nbsp;${vo.member_nickname} </a>
                      <div class="activityForm2${vo.ono} activityForm2" style="display:none;">	                    
 	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList'";>나의 활동내역</button></p>
                      </div>
@@ -90,7 +90,7 @@ var login_no = "";
             <c:otherwise>                                                 
              <c:if test="${param.member_no == vo.member_no}">                                            
                  <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
-                	<a href="javascript:info2('${vo.ono}', '${loginInfo}')">${vo.member_nickname}</a>
+                	<a href="javascript:info2('${vo.ono}', '${loginInfo}')">[글쓴이]&nbsp;&nbsp;${vo.member_nickname}</a>
                 	<!-- 실시간 알람 -->
                 	<input type="hidden" value="${vo.member_no}" id="no${vo.reply_no }">
                 	<input type="hidden" value="${vo.content}" id="content${vo.reply_no }">
