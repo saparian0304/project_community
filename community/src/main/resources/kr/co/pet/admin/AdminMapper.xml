@@ -145,7 +145,7 @@
 		<include refid="memberWhere"/>
 	</select>
 	
-	<select id="reply_List" parameterType="kr.co.pet.admin.AdminReplyVO" resultType="kr.co.pet.admin.AdminReplyVO">
+	<select id="replyList" parameterType="kr.co.pet.admin.AdminReplyVO" resultType="kr.co.pet.admin.AdminReplyVO">
 		SELECT
 			r.content, r.member_no, r.regdate, r.gno, r.reply_no,
 			board.horse_hair, board.board_name, board.title, board.board_no,
