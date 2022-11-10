@@ -237,7 +237,7 @@ function dis(){
 										<c:otherwise>기타</c:otherwise>
 									</c:choose></td>
 								<td class="txt_l"><a
-									href="javascript: window.open('/pet/board/${vo.board_name }view.do?board_no=${vo.board_no }', '상세내용', 'width = 800, height = 600, top = 100, left = 100')">${vo.target_title}</a></td>
+									href="javascript: window.open('/pet/${vo.board_name }view.do?board_no=${vo.board_no }', '상세내용', 'width = 800, height = 600, top = 100, left = 100')">${vo.target_title}</a></td>
 								<td class="txt_l">${vo.you_nickname}</td>
 								<td class="date"><fmt:formatDate value="${vo.report_date }"
 										pattern="yy-MM-dd HH:mm" /></td>
