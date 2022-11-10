@@ -60,19 +60,19 @@
 	                    		<td></td>
 	                    		<td class="tit_notice" style="text-align : center;">
 	                    		<c:if test="${list.board_name == 'free' }">
-	                    			<a href="/pet/board/freeview.do?board_no=${list.board_no }">
+	                    			<a href="/pet/freeview.do?board_no=${list.board_no }">
 	                    				<c:if test="${ mypageVO.table_name == 'board'}">${list.title }</c:if>
 	                    				<c:if test="${ mypageVO.table_name == 'reply'}">${list.content }</c:if>
 	                    			</a>
 	                    		</c:if>	
 	                    		<c:if test="${list.board_name == 'live' }">
-	                    			<a href="/pet/board/liveview.do?board_no=${list.board_no }">
+	                    			<a href="/pet/liveview.do?board_no=${list.board_no }">
 	                    				<c:if test="${ mypageVO.table_name == 'board'}">${list.title }</c:if>
 	                    				<c:if test="${ mypageVO.table_name == 'reply'}">${list.content }</c:if>
 	                    			</a>
 	                    		</c:if>	
 	                    		<c:if test="${list.board_name == 'center' }">
-	                    			<a href="/pet/board/centerview.do?board_no=${list.board_no }">
+	                    			<a href="/pet/centerview.do?board_no=${list.board_no }">
 	                    				<c:if test="${ mypageVO.table_name == 'board'}">${list.title }</c:if>
 	                    				<c:if test="${ mypageVO.table_name == 'reply'}">${list.content }</c:if>
 	                    			</a>
