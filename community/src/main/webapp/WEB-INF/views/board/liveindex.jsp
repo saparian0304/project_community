@@ -175,10 +175,14 @@
 								<img src="${vo.filename_real}" 
 									onerror='this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
 							</c:if> 
-						    <c:if test="${empty vo.filename_real}">
+							<c:if test="${empty vo.filename_real}">
+								<img  
+									src="/pet/img/manggo1.jpg">
+							</c:if>
+						    <%-- <c:if test="${empty vo.filename_real}">
 								<img src="/pet/upload/${vo.filename_real }"
 									onerror='this.onerror=null; this.src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg"'>
-							</c:if>
+							</c:if> --%>
 	
 							<div class="s21_tour_list_tbox" style="width: 50%; float: left;">
 								<p class="list_content"><c:if test="${vo.horse_hair eq '1'}">[음식점]</c:if>
