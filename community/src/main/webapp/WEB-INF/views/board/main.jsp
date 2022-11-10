@@ -8,13 +8,15 @@
 	  h2 {
 	  	font-size: 20px;
 	  	font-weight: bold;
+	  	text-align: center;
+	  	background-color: #a9cac1;
 	  }
 
       .swiper { 
         width: 100%;
         height:100%;
         border-radius: 10px;
-      	border: 3px solid #b6c3fd;
+      	border: 3px solid #a9cac1;
       }
 
       .swiper-slide {
@@ -47,20 +49,21 @@
       
       .maindiv {
       	border-radius: 10px;
-      	border: 3px solid #b6c3fd;
+      	border: 3px solid #a9cac1;
       	width: 49%;
       	margin-bottom: 20px;
       }
       .maintb{
-      	border: 1px solid #727a9e;
+      	border: 1px solid #a9cac1;
       	border-collapse: collapse;
       	height: 300px;
       	margin-bottom: 10px;
       }
 	  .maintb th,td{
-	  	border: 1px solid #727a9e;
+	  	border: 1px solid #a9cac1;
 	  	font-size: 16px;
 	  }
+
 </style>
 
 	<ul class="skipnavi">
@@ -101,9 +104,9 @@
 					<div class="swiper-button-prev"></div>
 					<div class="swiper-scrollbar"></div>
 				</div>
-				
+				<div class="line">
 				<div class="maindiv" style=" float: left;">
-				<h2>< 잡담 ></h2>
+				<h2> < 잡담 ></h2>
 					<table class="maintb">
 					<colgroup>
 						<col width="60%"/>
@@ -180,7 +183,7 @@
 						</c:forEach>
 					</table>
 				</div>
-
+			</div>
 
 
 				<!-- Swiper JS -->

@@ -84,7 +84,7 @@ $(function(){
 			<c:when test="${loginInfo.member_no == vo.member_no }">
 				<c:if test="${param.member_no == vo.member_no}">                                            
                 <td class="writer${vo.gno}" style="color:blue; font-weight:bold;">
-                	<a href="javascript:info('${vo.gno}', '${loginInfo}')"> [글쓴이]&nbsp;&nbsp;</a>
+                	<a href="javascript:info('${vo.gno}', '${loginInfo}')">[나]&nbsp;&nbsp;[글쓴이]</a>
                 	<div class="activityForm${vo.gno} activityForm" style="display:none;">                		                     
 	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList';">나의 활동내역</button></p>
                     </div>
@@ -92,7 +92,7 @@ $(function(){
          	</c:if> 
             <c:if test="${param.member_no != vo.member_no}">                                                
                 <td class="writer${vo.gno}" style="cursor:pointer;">
-                     <a href="javascript:info('${vo.gno}', '${loginInfo}')"> ${vo.member_nickname} </a>
+                     <a href="javascript:info('${vo.gno}', '${loginInfo}')" style="font-weight:bold;"> [나]&nbsp;&nbsp;${vo.member_nickname} </a>
                      <div class="activityForm${vo.gno} activityForm" style="display:none;">                                         
 	                     <p><button onclick="location.href='/pet/mypage/index.do?member_no=${loginInfo.member_no}&add=getActList';">나의 활동내역</button></p>           
                      </div>

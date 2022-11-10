@@ -117,6 +117,7 @@ $(document).ready(function(){
 		                               		</a>
                                			</span>
 	                               		</div>
+	                               		&emsp;
 	                        <div class="content" style="text-align: center">
 								<c:if test="!empty ${data.filename_real }">
 								<img style="height: 250px; width: 250px;" src="/pet/upload/${data.filename_real }"
@@ -125,7 +126,7 @@ $(document).ready(function(){
 	                        </div>
 	                        <div>
                         		<div style="text-align: center">
-                        		${data.content }
+                        		&emsp;&emsp;${data.content }
                         		</div>
                         	</div>
 	                        
@@ -138,7 +139,7 @@ $(document).ready(function(){
 	                           </c:forEach>
 	                           </dd>
                         	</dl> --%>			
-	                        
+	                        &emsp;&emsp;&emsp;&emsp;
 	                        <div class="btnSet clear" style="clear:both">
 	                            <div class="fl_l">
 	                            	

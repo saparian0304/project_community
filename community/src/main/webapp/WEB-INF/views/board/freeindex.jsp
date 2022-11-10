@@ -112,7 +112,7 @@
 		
 					<c:if test="${!empty loginInfo }">
 						<div class="btnSet" style="float:right;">
-							<a class="btn" href="/pet/board/freewrite.do">글작성 </a>
+							<a class="btn" href="/pet/freewrite.do">글작성 </a>
 						</div>
 					</c:if>
 				</div>
