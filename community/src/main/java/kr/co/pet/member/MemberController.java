@@ -35,9 +35,7 @@ public class MemberController {
 	}
 	@PostMapping("/member/join.do")
 	public String join(MemberVO vo, Model model) {
-//		System.out.println("##############");
-//		System.out.println(vo.getEmail());
-//		System.out.println(vo.getMember_id());
+
 		if (service.insert(vo) > 0) {
 			model.addAttribute("msg", "정상적으로 회원가입되었습니다.");
 			model.addAttribute("url", "login.do");
