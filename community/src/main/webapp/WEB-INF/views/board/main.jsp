@@ -11,7 +11,10 @@
 	  	text-align: center;
 	  	background-color: #a9cac1;
 	  }
-
+	.tit_page{
+		background-color: transparent;
+		text-align: left;
+	}
       .swiper { 
         width: 100%;
         height:100%;
