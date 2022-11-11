@@ -50,15 +50,6 @@
                 <button style="width : 100px; height : 30px;" class="reqbtn mymess" onclick="javascript:getMessReadList(1, ${loginInfo.member_no});">내가 받은 쪽지</button>
                 <button style="width : 100px; height : 30px;" class="reqbtn mymess" onclick="javascript:getMessSendList(1, ${loginInfo.member_no});">내가 보낸 쪽지</button>
                 <button style="width : 100px; height : 30px;" class="reqbtn mymess" onclick="popmessage();">쪽지 보내기</button>
-                  <form action="#" method="post" class="minisrch_form">
-                    <fieldset>
-                        <legend>
-                            검색
-                        </legend>
-                        <input type="text" class="tbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name="">
-                        <a href="#" class="btn_srch">검색</a>
-                    </fieldset>
-                </form>
                   <table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
                   <h3 class="sub_title">내가 받은 쪽지</h3>
                     <p><span><strong>총 ${data.totalCount }개</strong>  |  ${data.page}  / ${pageMaker.totalPage }페이지</span></p>

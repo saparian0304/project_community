@@ -6,15 +6,6 @@
                 <button style="width : 100px; height : 30px;" class="reqbtn friend" onclick="javascript:getFriList(1,${loginInfo.member_no});">친구목록</button>
 				<button style="width : 100px; height : 30px;" class="reqbtn friend" onclick="javascript:getFollList(1,${loginInfo.member_no});">팔로우목록</button>
 				<button style="width : 100px; height : 30px;" class="reqbtn friend" onclick="javascript:getBlockList(1,${loginInfo.member_no});">차단목록</button>
-				<form action="#" method="post" class="minisrch_form">
-                    <fieldset>
-                        <legend>
-                            검색
-                        </legend>
-                        <input type="text" class="tbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name="">
-                        <a href="#" class="btn_srch">검색</a>
-                    </fieldset>
-                </form>
                 
 				<table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
                 <h3 class="sub_title">차단 목록</h3>

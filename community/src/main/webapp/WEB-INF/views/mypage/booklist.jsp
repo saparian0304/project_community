@@ -3,15 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
                 
-                  <form action="#" method="post" class="minisrch_form">
-                    <fieldset>
-                        <legend>
-                            검색
-                        </legend>
-                        <input type="text" class="tbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name="">
-                        <a href="#" class="btn_srch">검색</a>
-                    </fieldset>
-                </form>
                   <table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
                   <h3 class="sub_title">북마크 목록</h3>
                     <p><span><strong>총 ${data.totalCount }개</strong>  |  ${data.page}  / ${pageMaker.totalPage }페이지</span></p>
