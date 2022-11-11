@@ -135,7 +135,7 @@
 							</c:if>
 							<c:if test="${empty vo.filename_real}">
 								<img  
-									src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">
+									src="/pet/img/manggo.jpg">
 							</c:if>
 							<div class="s21_tour_list_tbox" style="width: 50%; float: left;">
 								<p class="list_content"><c:if test="${vo.horse_hair eq '4'}">[잡담]</c:if>

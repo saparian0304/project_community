@@ -5,15 +5,6 @@
                 <button style="width : 100px; height : 30px;" class="reqbtn myact" onclick="javascript:getActList(1,${loginInfo.member_no}, 'board');">내가 쓴 글</button>
                 <button style="width : 100px; height : 30px;" class="reqbtn myact" onclick="javascript:getActList(1,${loginInfo.member_no}, 'reply');">내가 쓴 댓글</button>
                 
-                  <form action="#" method="post" class="minisrch_form">
-                    <fieldset>
-                        <legend>
-                            검색
-                        </legend>
-                        <input type="text" class="tbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name="">
-                        <a href="#" class="btn_srch">검색</a>
-                    </fieldset>
-                </form>
                   <table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
                   <h3 class="sub_title">
                  	 <c:if test="${ mypageVO.table_name == 'board'}">내 글 목록</c:if>

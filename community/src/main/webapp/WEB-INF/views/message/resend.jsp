@@ -11,7 +11,7 @@
     <meta name="format-detection" content="telephone=no, address=no, email=no">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <title>쪽지보내기</title>
+    <title>답장보내기</title>
     <link rel="stylesheet" href="/pet/css/common.css"/>
     <link rel="stylesheet" href="/pet/css/reset.css"/>
     <link rel="stylesheet" href="/pet/css/contents.css"/>
