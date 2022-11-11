@@ -35,9 +35,7 @@ public class MemberController {
 	}
 	@PostMapping("/member/join.do")
 	public String join(MemberVO vo, Model model) {
-//		System.out.println("##############");
-//		System.out.println(vo.getEmail());
-//		System.out.println(vo.getMember_id());
+
 		if (service.insert(vo) > 0) {
 			model.addAttribute("msg", "정상적으로 회원가입되었습니다.");
 			model.addAttribute("url", "login.do");
@@ -68,7 +66,6 @@ public class MemberController {
 	//로그아웃
 	@GetMapping("/member/logout.do")
 	public String logout(HttpServletRequest req, Model model ) throws IOException{
-		
 		
 		HttpSession sess = req.getSession();
 		
@@ -146,16 +143,8 @@ public class MemberController {
 		if (cnt > 0) r = true;
 		PrintWriter out = res.getWriter();
 		out.print(r);
-		//out.flush();
+		
 	}
-	
-//	//이메일에 인증번호 보내기 => 이메일 중복체크와 합쳤음.
-//	@GetMapping("/member/sendCertification.do")
-//	@ResponseBody
-//	public void Certification(CertificationVO param, HttpSession sess) {
-//		service.certification(param, sess);
-//		return;
-//	}
 	
 	//보낸 인증번호 브라우저에서 확인
 	@GetMapping("/member/Certification.do")
@@ -168,10 +157,7 @@ public class MemberController {
 		if ( certi_num.equals(certi)) {
 		System.out.println("certi_num : "+ certi_num + "certi: "+certi);
 		model.addAttribute("result", "true");
-//		model.addAttribute("result", "인증확인되었습니다.");
 		}
-//		PrintWriter out = res.getWriter(); => httpservletresponse가 있으면 printwriter사용 가능.
-//		out.print(certi_num);
 		return "common/result";
 	}
 	
@@ -199,10 +185,10 @@ public class MemberController {
 	public String findPwd(MemberVO param) {
 		MemberVO vo = service.findPwd(param);
 		if(vo != null) 
-//		{
+
 //			model.addAttribute("result", vo.getPwd()); //responseBody 있으면 안써줘도됨.
+			
 			return "here";
-//		}
 		else { 
 			return null;
 		}	
