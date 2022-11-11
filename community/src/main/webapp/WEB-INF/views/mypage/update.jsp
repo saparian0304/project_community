@@ -11,7 +11,7 @@
 	content="telephone=no, address=no, email=no">
 <meta name="keywords" content="">
 <meta name="description" content="">
-<title>회원가입</title>
+<title>닉네임 수정</title>
 <link rel="stylesheet" href="/pet/css/reset.css" />
 <link rel="stylesheet" href="/pet/css/contents.css" />
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
