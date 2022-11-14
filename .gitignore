@@ -79,6 +79,8 @@ local.properties
 # Compiled class file
 *.class
 
+.SendMail.java
+
 # Log file
 *.log
 
