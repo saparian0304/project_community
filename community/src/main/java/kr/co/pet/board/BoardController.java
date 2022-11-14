@@ -108,7 +108,7 @@ public class BoardController {
 		// 차단한 사람 글 안보이게 로그인했을때! 로그인 멤버no 파라미터  
 		MemberVO loginInfo = (MemberVO)sess.getAttribute("loginInfo");		
 		if(loginInfo !=null) {
-			vo.setLoginNO(loginInfo.getMember_no());
+			vo.setLoginNO(loginInfo.getMember_no()); // 현재 로그인한 멤버
 		}
 		if (vo.getSort() == null || "".equals(vo.getSort())) {
 			vo.setSort("regdate");
