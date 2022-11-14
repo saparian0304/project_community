@@ -26,7 +26,7 @@ public class SendMail {
 		Session session = Session.getDefaultInstance(prop, new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("a_jin0609","V942HG8QJKWB"); //2단계인증 걸어놨으면 보안설정에서 확인한 비번으로 입력해야됨.
+				return new PasswordAuthentication("a_jin0609","EV2FRXK4WTF1"); //2단계인증 걸어놨으면 보안설정에서 확인한 비번으로 입력해야됨.
 			}
 		});
 		session.setDebug(true);
