@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.co.pet.member.MemberVO;
 import util.PageMaker;
@@ -149,5 +150,27 @@ public class MypageController {
 			model.addAttribute("result", 0);
 			return "common/result";
 		}
+	}
+	
+	@GetMapping("/mypage/memberUpdate.do")
+	public String memberUpdate(MemberVO vo, Model model) {
+		model.addAttribute("data",  service.memberSelect(vo.getMember_no()));
+		return "mypage/update";
+	}
+	
+	@PostMapping("/mypage/memberUpdate.do")
+	public String memberUpdate(HttpSession sess, MemberVO vo, Model model){
+		if(service.memberUpdate(vo) >0) {
+			sess.setAttribute("loginInfo",service.memberSelect(vo.getMember_no()));
+			model.addAttribute("msg", "닉네임 변경 완료했습니다.");
+			model.addAttribute("url", "index.do");
+			
+			return "common/alert";
+		} else {
+			model.addAttribute("msg", "닉네임 변경실패했습니다");
+			
+			return "common/alert";
+		}
+	
 	}
 }

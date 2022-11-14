@@ -23,6 +23,8 @@ public interface MypageService {
 	// 내 정보 테이블
 	MemberVO memberSelect(int member_no);
 	
+	int memberUpdate(MemberVO vo);
+	
 	// 내 활동 내역
 	Map myActList(MypageVO vo);
 	int actTotal(MypageVO vo);
