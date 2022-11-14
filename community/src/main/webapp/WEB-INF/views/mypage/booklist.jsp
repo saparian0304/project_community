@@ -18,7 +18,7 @@
                         <thead>
                             <tr>
                                 <th><label><input type="checkbox" name="allChk" onclick="selectAll(this)" ></label></th>
-                                <th style="text-align: left;">선택 <button class="reqbtn danger" onclick="javascript:delMulti('${mypageVO.table_name }');">삭제</button>
+                                <th style="text-align: left;">선택 <button class="reqbtn danger" onclick="javascript:delMulti('bookmark',1);">삭제</button>
 		                    	</th>
                                 <th>카테고리</th>
                                 <th>제목</th>
@@ -40,7 +40,16 @@
 	                    			<input type="checkbox" name="select_no" value="${list.book_no }">
 	                    		</td>
 	                    		<td></td>
-	                    		<td class="tit_notice" style="text-align : center;">${list.horse_hair }</td>
+	                    		<td class="tit_notice" style="text-align : center;">
+									<c:if test="${list.horse_hair == 1 }"> 음식점</c:if>
+									<c:if test="${list.horse_hair == 2 }"> 관광지</c:if>
+									<c:if test="${list.horse_hair == 3 }"> 동물병원</c:if>
+									<c:if test="${list.horse_hair == 4 }"> 잡담</c:if>
+									<c:if test="${list.horse_hair == 5 }"> 정보공유</c:if>
+									<c:if test="${list.horse_hair == 6 }"> 여행후기</c:if>
+									<c:if test="${list.horse_hair == 7 }"> 고민상담</c:if>
+	                    		
+	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
 	                    		<c:if test="${list.board_name == 'free' }">
 	                    			<a href="/pet/freeview.do?board_no=${list.board_no }">
@@ -62,7 +71,7 @@
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.regdate }"/>
 	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
-			                    		<button class="reqbtn danger" onclick="javascript:delSingle(${list.board_no}, 'bookmark');">삭제</button>
+			                    		<button class="reqbtn danger" onclick="javascript:delSingle(${list.book_no}, 'bookmark', 1);">삭제</button>
 		                    	</td>
 	                    	</tr>
 	                    	</c:forEach>                    
