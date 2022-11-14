@@ -84,7 +84,7 @@
 		ON board.board_no = location.board_no
 		where board_name = #{board_name}
 		AND isdelete = 0 <!-- 박 한줄 추가 -->
-		<if test="loginNO != null and loginNO !=''"> <!-- 차단 사람 글 안보이게 WHERE추가 -->
+		<if test="loginNO != null and loginNO !=''"> <!-- 로그인했을때만!!!  차단 사람 글 안보이게 WHERE추가 -->
 			AND board.member_no not in (SELECT you_no FROM follow WHERE i_no = #{loginNO} AND relation = 1)
 		</if>
 		
