@@ -180,6 +180,11 @@ public class MypageServiceimpl implements MypageService {
 			return 0;
 		}
 	}
+	
+	@Override
+	public int memberUpdate(MemberVO vo) {
+		return mapper.memberUpdate(vo);
+	}
 
 
 }
