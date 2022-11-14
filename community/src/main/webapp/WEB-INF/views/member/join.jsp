@@ -140,10 +140,12 @@
 	function checkemail(){
 		var regExp = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
 		var email = $('#email').val();
+		/*
 		if (!regExp.test(email)) {
 			alert("이메일 형식이 아닙니다.");
 			return;
 		}
+		*/
 		console.log("email : "+ email);
 		
 		$.ajax({
@@ -151,6 +153,7 @@
 			type : 'get',
 			data : {"email" : email}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
 			success : function(cnt) {
+				console.log(cnt)
 				if ($("#email").val().trim() == '') {
 					alert('이메일을 입력 해 주세요.');
 					$("#email").focus();
@@ -163,11 +166,13 @@
 						
 					}else{
 						alert('인증번호발송되었습니다');
+						
 					
 					}	
 				}
 			}
 		})
+				console.log("###email")
 	}
 	window.history.forward();
 	

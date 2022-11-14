@@ -83,6 +83,7 @@ public class MemberController {
 	//간편로그인
 	@GetMapping("/member/loginBySns.do")
 		public String loginBySns(@RequestParam(value="code", required =false) String code, Model model)throws Exception {
+			
 			System.out.println("##########"+code);
 			String access_Token = service.getAccessToken(code);
 			
@@ -137,8 +138,9 @@ public class MemberController {
 	@GetMapping("/member/emailCheck.do")
 	public void emailCheck(@RequestParam String email, HttpSession sess, HttpServletResponse res ) throws IOException {
 		
+		System.out.println("/////email: "+email);
 		int cnt = service.emailCheck(email, sess);
-		System.out.println("cnt: "+cnt);
+		
 		boolean r = false;
 		if (cnt > 0) r = true;
 		PrintWriter out = res.getWriter();

@@ -448,6 +448,7 @@ public class BoardController {
 	
 	@GetMapping("/admin/centeredit.do")
 	public String centeredit(BoardVO vo, FileVO fvo, LocVO lvo, Model model) {
+		
 		BoardVO data = service.edit(vo.getBoard_no());
 		model.addAttribute("data", data);
 		

@@ -47,6 +47,7 @@ public class MemberServiceImpl implements MemberService {
 	public int emailCheck(String email, HttpSession sess) {
 		// 이메일 중복 확인
 		int cnt = mapper.emailCheck(email);
+		System.out.println("서비스임플cnt: "+ email);
 		if (cnt == 0) {
 			// 인증번호발송
 			// 영문3자리,숫자3자리
@@ -58,7 +59,8 @@ public class MemberServiceImpl implements MemberService {
 				temp += (int) (Math.random() * 9);
 			}
 			sess.setAttribute("certification", temp);
-
+			System.out.println("서비스임플 이멜인증번호: "+ temp );
+			
 			// email발송
 			SendMail.sendMail("a_jin0609@naver.com", email, "[pet_community]비번test", "인증번호: " + temp + "입니다.");
 		}
