@@ -215,11 +215,15 @@ function del(select_no, table_name, rere){
 			select_no : select_no,
 			table_name : table_name
 		},
-		success : function(res){
-			if (rere == 0){
-	    		getFriReq(1, mymember_no);
-			} else if (rere == 1){
-				getFriList(1, mymember_no);
+		success : function(){
+			if(table_name == 'bookmark'){
+				getBookList(1, mymember_no)
+			} else {
+				if (rere == 0){
+		    		getFriReq(1, mymember_no);
+				} else if (rere == 1){
+					getFriList(1, mymember_no);
+				}
 			}
 		}
 	})  
@@ -229,7 +233,11 @@ function del(select_no, table_name, rere){
 function delSingle(a, table_name, rere){
 	select_no = parseInt(a);
 	del(select_no, table_name, rere);	
-	alert('삭제했습니다.');
+	if(table_name == 'follow') {
+		alert('차단해제했습니다.')
+	} else {
+		alert('삭제했습니다.');
+	}
 }
 
 // 다중 삭제

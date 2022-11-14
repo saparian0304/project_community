@@ -3,15 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
                 
-                  <form action="#" method="post" class="minisrch_form">
-                    <fieldset>
-                        <legend>
-                            검색
-                        </legend>
-                        <input type="text" class="tbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요." name="">
-                        <a href="#" class="btn_srch">검색</a>
-                    </fieldset>
-                </form>
                   <table class="bbsListTbl" summary="번호,제목,조회수,작성일 등을 제공하는 표">
                   <h3 class="sub_title">북마크 목록</h3>
                     <p><span><strong>총 ${data.totalCount }개</strong>  |  ${data.page}  / ${pageMaker.totalPage }페이지</span></p>
@@ -27,7 +18,7 @@
                         <thead>
                             <tr>
                                 <th><label><input type="checkbox" name="allChk" onclick="selectAll(this)" ></label></th>
-                                <th style="text-align: left;">선택 <button class="reqbtn danger" onclick="javascript:delMulti('${mypageVO.table_name }');">삭제</button>
+                                <th style="text-align: left;">선택 <button class="reqbtn danger" onclick="javascript:delMulti('bookmark',1);">삭제</button>
 		                    	</th>
                                 <th>카테고리</th>
                                 <th>제목</th>
@@ -49,7 +40,16 @@
 	                    			<input type="checkbox" name="select_no" value="${list.book_no }">
 	                    		</td>
 	                    		<td></td>
-	                    		<td class="tit_notice" style="text-align : center;">${list.horse_hair }</td>
+	                    		<td class="tit_notice" style="text-align : center;">
+									<c:if test="${list.horse_hair == 1 }"> 음식점</c:if>
+									<c:if test="${list.horse_hair == 2 }"> 관광지</c:if>
+									<c:if test="${list.horse_hair == 3 }"> 동물병원</c:if>
+									<c:if test="${list.horse_hair == 4 }"> 잡담</c:if>
+									<c:if test="${list.horse_hair == 5 }"> 정보공유</c:if>
+									<c:if test="${list.horse_hair == 6 }"> 여행후기</c:if>
+									<c:if test="${list.horse_hair == 7 }"> 고민상담</c:if>
+	                    		
+	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
 	                    		<c:if test="${list.board_name == 'free' }">
 	                    			<a href="/pet/freeview.do?board_no=${list.board_no }">
@@ -71,7 +71,7 @@
 	                    			<fmt:formatDate pattern="yyyy-MM-dd" value="${list.regdate }"/>
 	                    		</td>
 	                    		<td class="tit_notice" style="text-align : center;">
-			                    		<button class="reqbtn danger" onclick="javascript:delSingle(${list.board_no}, 'bookmark');">삭제</button>
+			                    		<button class="reqbtn danger" onclick="javascript:delSingle(${list.book_no}, 'bookmark', 1);">삭제</button>
 		                    	</td>
 	                    	</tr>
 	                    	</c:forEach>                    

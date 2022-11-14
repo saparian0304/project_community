@@ -47,6 +47,7 @@ public class MemberServiceImpl implements MemberService {
 	public int emailCheck(String email, HttpSession sess) {
 		// 이메일 중복 확인
 		int cnt = mapper.emailCheck(email);
+		System.out.println("서비스임플cnt: "+ email);
 		if (cnt == 0) {
 			// 인증번호발송
 			// 영문3자리,숫자3자리
@@ -58,7 +59,8 @@ public class MemberServiceImpl implements MemberService {
 				temp += (int) (Math.random() * 9);
 			}
 			sess.setAttribute("certification", temp);
-
+			System.out.println("서비스임플 이멜인증번호: "+ temp );
+			
 			// email발송
 			SendMail.sendMail("a_jin0609@naver.com", email, "[pet_community]비번test", "인증번호: " + temp + "입니다.");
 		}
@@ -159,23 +161,6 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.loginBySns(vo);
 	}
 
-//	@Override
-//	public void certification(CertificationVO c_vo, HttpSession sess) {
-//		//인증번호생성
-//				//영문3자리,숫자3자리
-//				String temp = "";
-//				for (int i=0; i<3; i++) {
-//					temp += (char)(Math.random()*26+97);
-//				}
-//				for (int i=0; i<3; i++) {
-//					temp += (int)(Math.random()*9);
-//				}
-//				sess.setAttribute("certification", temp);
-//				
-//				//email발송
-//				SendMail.sendMail("a_jin0609@naver.com", c_vo.getEmail() , "[pet_community]비번test", "인증번호: "+temp+"입니다.");
-//		
-//	}
 	public String getAccessToken(String authorize_code) {
 		String access_Token = "";
 		String refresh_Token = "";
@@ -185,10 +170,11 @@ public class MemberServiceImpl implements MemberService {
 			URL url = new URL(reqURL);
 
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			
 			// POST 요청을 위해 기본값이 false인 setDoOutput을 true로
-
 			conn.setRequestMethod("POST");
 			conn.setDoOutput(true);
+			
 			// POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
 
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
@@ -216,7 +202,7 @@ public class MemberServiceImpl implements MemberService {
 			}
 			System.out.println("response body : " + result);
 
-			// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+			// Json 라이브러리에 포함된 클래스로 JSON파싱 객체 생성 
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(result);
 
@@ -280,7 +266,8 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return userInfo;
 	}
-
+	
+	//카톡 간편가입으로 회원가입했는지 확인
 	@Override
 	public MemberVO snsCheck(MemberVO vo, HttpSession sess) {
 
@@ -293,10 +280,7 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO result = mapper.snsCheck(user);
 		sess.setAttribute("result", user);
 		// 위 코드는 먼저 정보가 저장되있는지 확인하는 코드.
-		/*
-		 * System.out.println("######S:" + result.getEmail());
-		 * System.out.println("######SSS:"+ user.getMember_id());
-		 */
+	
 		if (result == null) {
 			return null;
 			
@@ -305,7 +289,7 @@ public class MemberServiceImpl implements MemberService {
 			// 정보가 이미 있기 때문에 result를 리턴함.
 		}
 	}
-
+	// 간편가입
 	@Override
 	public int insertSns(HttpSession sess, String nickname) {
 		MemberVO vo = (MemberVO)sess.getAttribute("result");

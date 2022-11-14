@@ -11,7 +11,7 @@
 	content="telephone=no, address=no, email=no">
 <meta name="keywords" content="">
 <meta name="description" content="">
-<title>회원가입</title>
+<title>닉네임 수정</title>
 <link rel="stylesheet" href="/pet/css/reset.css" />
 <link rel="stylesheet" href="/pet/css/contents.css" />
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -19,101 +19,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" /></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script type="text/javascript">
-	function goSave() {
-		
-		if ($("#member_id").val().trim() == ''){
-			   alert('아이디를 입력해주세요.');
-			   $("#member_id").focus();
-			   return; 
-		}
-		var member_id = $("#member_id").val();
-		var pattern = /\s/g;   // 공백 체크 정규표현식 - 탭, 스페이스
-
-    	// 공백없이 테스트
-    	if( member_id.match(pattern) )
-    	{ 
-    	    alert("아이디에 공백이 존재합니다.");
-    	    return;
-    	}
-		
-		if ($("#pwd").val().trim() == ''){
-			   alert('비번을 입력해주세요.');
-			   $("#pwd").focus();
-			   return;   
-	   	
-	   	}
-		var reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-		if( !reg.test($("#pwd").val())) {
-		       alert("비번조합 틀렸음여!!");
-		       return;
-		   }
-		  
-		if($("#pwd").val().trim() != $("#pwd_check").val()){
-   			alert('비밀번호를 확인 해 주세요');
-   			$("#pwd_check").focus();
-   			return;
-   		}
-		if ($("#email").val().trim() == '') {
-			alert('이메일을 입력 해 주세요.');
-			$("#email").focus();
-			
-			return;
-		}
-		var regExp = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-		if (!regExp.test($("#email").val())) {
-			alert("이메일 형식이 아닙니다.");
-			return;
-		}
-		
-		var certi = $('#certi_num').val();
-		if (certi.trim() == '' ){
-			alert('인증번호 확인해주세요!');
-			$("#certi_num").focus();
-			return;
-		}
-		
-		var flag = true;
-		$.ajax({
-			url : 'Certification.do',
-			method : 'get',
-			data : {"certi" : certi}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
-			dataType: "text",
-			async: false,
-			success : function(res) {
-				if(res.trim() == 'true' ){
-						//$("#e_certification").val('');
-						//$("#e_certification").focus();
-						//alert('인증완료');
-				}else{
-					alert('인증번호를 다시 확인해주세요');
-					$("#e_certification").val('');
-					$("#e_certification").focus();
-					console.log("###"+res+"###")
-					flag = false;
-				
-				}
-			},
-			error:function(){
-                alert("에러");
-			}
-		})
-		
-		 if (flag == false) return; 
-		
-		if ($("#name").val().trim() == ''){
-			   alert('이름을 입력해주세요.');
-			   $("#name").focus();
-			   return;   
-	   	}
-		var name = $("#name").val();
-		
-    	// 공백없이 테스트
-    	if( name.match(pattern) )
-    	{ 
-    	    alert("이름에 공백이 존재합니다.");
-    	    return;
-    	}
-		
+	function goUpdate() {
 		if ($("#nickname").val().trim() == ''){
 			   alert('닉네임을 입력해주세요.');
 			   $("#nickname").focus();
@@ -123,7 +29,7 @@
 		var nickname = $("#nickname").val();
 		
     	// 공백없이 테스트
-
+		var pattern = /\s/g;
     	if( nickname.match(pattern) )
     	{ 
     	    alert("닉네임에 공백이 존재합니다.");
@@ -140,12 +46,10 @@
 	function checkemail(){
 		var regExp = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
 		var email = $('#email').val();
-		/*
 		if (!regExp.test(email)) {
 			alert("이메일 형식이 아닙니다.");
 			return;
 		}
-		*/
 		console.log("email : "+ email);
 		
 		$.ajax({
@@ -153,7 +57,6 @@
 			type : 'get',
 			data : {"email" : email}, // data:{"email":$("#email).val()} 이렇게쓰거나.. email값을 받아오는 코드를 작성해줘야됨.
 			success : function(cnt) {
-				console.log(cnt)
 				if ($("#email").val().trim() == '') {
 					alert('이메일을 입력 해 주세요.');
 					$("#email").focus();
@@ -166,13 +69,11 @@
 						
 					}else{
 						alert('인증번호발송되었습니다');
-						
 					
 					}	
 				}
 			}
 		})
-				console.log("###email")
 	}
 	window.history.forward();
 	
@@ -244,6 +145,11 @@
     	    alert("닉네임에 공백이 존재합니다.");
     	    return;
     	} */
+    	if($("#nickname").val().trim()== "${data.nickname}"){
+    		$('.nick_ok').css("display","none"); 
+            $('.nick_already').css("display", "none");
+    		return
+    	}
     	 if ($("#nickname").val().trim() == ''){
     		$('.nick_ok').css("display","none"); 
             $('.nick_already').css("display", "none");
@@ -252,7 +158,7 @@
     	} 
         var nickname = $('#nickname').val(); //id값이 "id"인 입력란의 값을 저장
         $.ajax({
-            url:'nickname.do', //Controller에서 요청 받을 주소
+            url:'/pet/member/nickname.do', //Controller에서 요청 받을 주소
             method:'post', //POST 방식으로 전달
             data:{"nickname": nickname},
             success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
@@ -444,8 +350,8 @@
 
 	<div class="sub">
 		<div class="size">
-			<h3 class="sub_title">회원가입</h3>
-			<form name="frm" id="frm" action="join.do" method="post">
+			<h3 class="sub_title">닉네임수정</h3>
+			<form name="frm" id="frm" action="memberUpdate.do" method="post">
 				<!-- enctype="multipart/form-data" -->
 				<table class="board_write">
 					<caption>회원가입</caption>
@@ -456,81 +362,40 @@
 					<tbody>
 						<tr>
 							<th>*아이디</th>
-							<td><input type="text" name="member_id" id="member_id" onfocusout="checkId()" style="float: left;">
+							<td>${data.member_id }
 							<span class="id_ok">사용 가능한 아이디입니다.</span>
 							<span class="id_already">누군가 이 아이디를 사용하고 있어요.</span>
 							</td>
 						</tr>
-						<tr>
-							<th>*비밀번호</th>
-							<td><input type="password" name="pwd" id="pwd"  onfocusout="checkPwd()" style="float: left;"> 
-							<span class="ptxt">비밀번호는 숫자, 영문, 특수문자조합으로 8자 이상으로 입력해주세요.</span>
-							</td>
-						</tr>
-						<tr>
-							<th>*비밀번호<span>확인</span></th>
-							<td><input type="password" name="pwd_check" id="pwd_check" style="float: left;">
-							</td>
-						</tr>
-						<tr>
+						
 						<tr>
 							<th>*이메일</th>
-							<td><input type="text" name="email" id="email" class="inNextBtn" style="float: left;"> 
-								<span class="emailCheck"><a href="javascript: checkemail();" class="btn bgGray" style="float: left; width: auto; clear: none;">인증번호발송</a>	</span>
-							</td>
-						</tr>
-						<tr>
-							<th>*이메일인증번호</th>
-							<td><input type="text" name="certi_num" id="certi_num" class="inNextBtn" style="float: left;"> 
-								<span class="e_certification"><a href="javascript: certification();" class="btn bgGray" style="float: left; width: auto; clear: none;">확인</a></span>
+							<td>${data.email } 
 							</td>
 						</tr>
 
 						<tr>
 							<th>*이름</th>
-							<td><input type="text" name="name" id="name"
-								style="float: left;"></td>
+							<td>${data.name }</td>
 						</tr>
 						<tr>
 							<th>*닉네임</th>
-							<td><input type="text" name="nickname" id="nickname" onfocusout="checkNick()"style="float: left;">
+							<td><input type="text" name="nickname" id="nickname" onfocusout="checkNick()"style="float: left;" value="${data.nickname }">
 								<span class="nick_ok">사용가능한 닉네임입니다.</span>
 							 	<span class="nick_already">이미 사용중인 닉네임입니다.</span>
 							</td>
 						</tr>
-						<tr>
-							<th>성별</th>
-							<td><select name="gender" id="gender">
-									<option value="1">남성</option>
-									<option value="2">여성</option>
-							</select></td>
-						</tr>
-						<tr>
-							<th>생년월일</th>
-							<td><input type="text" name="birthday" id="birthday" style="float: left;" autocomplete="off"></td>
-						</tr>
-						<tr>
-							<th rowspan="3">주소</th>
-							<td>
-								<input type="text" name="zipcode" id="zipcode" class="inNextBtn" style="float: left;" readonly> 
-								<span class="email_check"><a href="javascript:zipcode();" class="btn bgGray"
-										style="float: left; width: auto; clear: none;">우편번호</a>
-								</span>
-							</td>
-						</tr>
-						<tr>
-							<td><input type="text" name="addr" id="addr"
-								style="width: 80%" readonly></td>
-						</tr>
+						
 					</tbody>
 				</table>
+				<input type="hidden" name="member_no" value="${data.member_no }"/>
 				<input type="hidden" name="cmd" value="write.do" /> 
 				<input type="hidden" name="checkEmail" id="checkEmail" value="0" />
 			</form>
 			<!-- //write--->
 			<div class="btnSet clear">
 				<div>
-					<a href="javascript:;" class="btn" onclick="goSave();">가입</a> 
+					<a href="javascript:;" class="btn" onclick="goUpdate();">수정</a> 
 					<a href="javascript:;" class="btn" onclick="history.back();">취소</a>
 				</div>
 			</div>

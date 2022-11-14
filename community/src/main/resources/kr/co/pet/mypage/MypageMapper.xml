@@ -16,12 +16,10 @@
 		AND pwd = #{pwd}
 	</select>
 	
-	<update id="memberUpdate" parameterType="kr.co.pet.mypage.MypageVO">
+	<update id="memberUpdate" parameterType="kr.co.pet.member.MemberVO">
 		UPDATE member
 		SET
-			nickname = #{nickname},
-			pwd = #{pwd},
-			addr = #{addr}
+			nickname = #{nickname}
 		WHERE member_no = #{member_no}
 	</update>
 	

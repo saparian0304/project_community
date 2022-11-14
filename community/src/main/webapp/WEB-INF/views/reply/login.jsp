@@ -48,7 +48,6 @@
                                 <ul>
                                     <li><input type="text" id="member_id1" name="member_id" placeholder="아이디"></li>
                                     <li><input type="password" id="pwd1" name="pwd" placeholder="비밀번호"></li>
-                                    <li><label><input type="checkbox" name="reg1" id="reg1"/> 아이디저장</label></li>
                                 </ul>
 								    <li>
 								      <a class="btn" id="snsCheck" href="https://kauth.kakao.com/oauth/authorize?client_id=559a5c15295281d3e0cf6c7390c0d790&redirect_uri=http://localhost:8080/pet/member/loginBySns.do&response_type=code">

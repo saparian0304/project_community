@@ -13,8 +13,8 @@ public interface MypageMapper {
 	MemberVO memberSelect(int member_no);
 	// 내 정보 수정 눌렀을 때 패스워드 확인
 	int pwdCheck(MypageVO vo);
-	// 회원정보수정(닉네임, 비밀번호, 주소)
-	int memberUpdate(MypageVO vo);
+	// 회원정보수정(닉네임)
+	int memberUpdate(MemberVO vo);
 
 	// 내 활동내역(게시글, 댓글, 북마크)
 	List memberAct(MypageVO vo);

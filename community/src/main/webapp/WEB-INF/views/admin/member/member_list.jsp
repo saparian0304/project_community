@@ -193,9 +193,6 @@ $(function () {
 				</div>
 			</form>
 			
-			<button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:;">활동중지</button>
-			<button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:;">쪽지</button>
-			<br>
 			<br>
 			<p>
 				<span><strong>총 ${data.totalCount }개</strong> |
