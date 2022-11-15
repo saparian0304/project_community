@@ -104,7 +104,7 @@ public class MemberController {
 			MemberVO snsCheckVo = (MemberVO)sess.getAttribute("loginInfo");
 	
 			MemberVO svo = service.snsCheck(snsCheckVo, sess);
-			
+		
 			if(svo==null) {
 				model.addAttribute("url", "/pet/member/easyJoin.do");
 				return "member/easyJoin";
@@ -188,7 +188,6 @@ public class MemberController {
 		MemberVO vo = service.findPwd(param);
 		if(vo != null) 
 
-//			model.addAttribute("result", vo.getPwd()); //responseBody 있으면 안써줘도됨.
 			
 			return "here";
 		else { 
