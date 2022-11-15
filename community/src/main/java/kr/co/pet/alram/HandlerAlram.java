@@ -96,11 +96,11 @@ public class HandlerAlram extends TextWebSocketHandler {
 					
 					if(!"message".equals(cmd)) {
 						if("free".equals(board_name)) {
-							tmpURL = "/pet/board/freeview.do?board_no=";
+							tmpURL = "/pet/freeview.do?board_no=";
 						} else if ("live".equals(board_name)) {
-							tmpURL = "/pet/board/liveview.do?board_no=";
+							tmpURL = "/pet/liveview.do?board_no=";
 						} else if ("center".equals(board_name)) {
-							tmpURL = "/pet/board/centerview.do?board_no=";
+							tmpURL = "/pet/centerview.do?board_no=";
 						}
 					}
 					String str = "";
