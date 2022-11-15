@@ -133,7 +133,10 @@
 		SELECT *,
 			(select nickname from member
 				 where board.member_no = member.member_no
-			) as nickname
+			) as nickname,
+			(select admin_no from admin
+				where admin_no != null
+			) as admin_no
 		from board WHERE board_no = #{board_no}
 	</select>
 	

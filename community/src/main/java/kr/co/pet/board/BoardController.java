@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import kr.co.pet.admin.AdminBoardVO;
 import kr.co.pet.board.api.ApiService;
 import kr.co.pet.bookmark.BookmarkService;
 import kr.co.pet.center.CenterService;
@@ -83,7 +84,7 @@ public class BoardController {
 		vo.setPageRow(5);
 		model.addAttribute("ldata", service.liveindex(vo));
 		
-		//좋아요순
+		//좋아요순, 조회수순
 		vo.setHorse_hair("4");//잡담
 		model.addAttribute("tdata", service.freeindex(vo));
 		vo.setHorse_hair("5");// 정보공유
@@ -212,6 +213,7 @@ public class BoardController {
 	}
 	@GetMapping("/liveview.do")
 	public String liveview(BoardVO vo, Model model, HttpSession sess) {
+	
 		BoardVO data = service.view(vo.getBoard_no());
 		model.addAttribute("data", data);
 		List fdata = fservice.find(vo.getBoard_no());

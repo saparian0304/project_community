@@ -230,6 +230,10 @@ $(document).ready(function(){
 	                        <div class="btnSet clear" style="clear:both">
 	                            <div class="fl_l">
 		                            <a href="liveindex.do" class="btn">목록으로</a>
+		                            <c:if test="${!empty data.admin_no or data.member_no == loginInfo.member_no}">
+			                            <a href="/pet/admin/board/liveedit.do?board_no=${data.board_no }" class="btn">수정</a>
+			                            <a href="javascript:del(${data.board_no})" class="btn">삭제</a>
+		                            </c:if>
 	                            </div>
 	                        </div>
 	                    </div><!-- view -->

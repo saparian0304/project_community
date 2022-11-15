@@ -31,5 +31,4 @@ public class AdminMemberVO extends SearchVO{
 	private String board_count2;
 	private String reply_count2;
 	
-
 }

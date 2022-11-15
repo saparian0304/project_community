@@ -74,7 +74,10 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/admin/member/member_list.do")
-	public String memberList(Model model, AdminMemberVO vo) {
+	public String memberList(Model model, AdminMemberVO vo,
+							@RequestParam(value="gender", defaultValue="0") int gender,
+							@RequestParam(value="level", defaultValue="0") int level,
+							@RequestParam(value="out", defaultValue="0") int out) {
 		if(vo.getSort() == null || "".equals(vo.getSort())) {
 			vo.setSort("member_no");
 			vo.setOrder("ASC");

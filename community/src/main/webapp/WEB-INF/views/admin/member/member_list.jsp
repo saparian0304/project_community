@@ -193,9 +193,6 @@ $(function () {
 				</div>
 			</form>
 			
-			<button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:;">활동중지</button>
-			<button style="width : 100px; height : 30px;" class="reqbtn default" onclick="javascript:;">쪽지</button>
-			<br>
 			<br>
 			<p>
 				<span><strong>총 ${data.totalCount }개</strong> |
@@ -274,26 +271,26 @@ $(function () {
 			<c:if test="${!empty data.list }">
 			<div class="pagenation" style="clear: left">
 				<a style="cursor: pointer" class="firstpage pbtn"
-				 href="/pet/admin/member/member_list.do?page=1&stype=${param.stype}&sword=${param.sword}&gender=${param.gender}&level=${param.level}&level_order=${param.level_order}&out=${param.out}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}">
+				 href="/pet/admin/member/member_list.do?page=1&stype=${param.stype}&sword=${param.sword}&level_order=${param.level_order}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}<c:if test="${param.gender !=null}">&gender=${param.gender}</c:if><c:if test="${param.level !=null}">&level=${param.level}</c:if><c:if test="${param.out !=null}">&out=${param.out}</c:if>">
 			        <img src="/pet/img/btn_firstpage.png" alt="첫 페이지로 이동">
 			    </a>
 				<c:if test="${pageMaker.prev == true }">
-					<a class="prevpage pbtn" href="/pet/admin/member/member_list.do?page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&gender=${param.gender}&level=${param.level}&level_order=${param.level_order}&out=${param.out}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}">
+					<a class="prevpage pbtn" href="/pet/admin/member/member_list.do?page=${pageMaker.startPage-1 }&stype=${param.stype}&sword=${param.sword}&level_order=${param.level_order}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}<c:if test="${param.gender !=null}">&gender=${param.gender}</c:if><c:if test="${param.level !=null}">&level=${param.level}</c:if><c:if test="${param.out !=null}">&out=${param.out}</c:if>">
 					<img src="/pet/img/btn_prevpage.png" alt="첫 페이지로 이동">
 					</a>
 				</c:if>
 				<c:forEach var="p" begin="${pageMaker.startPage }" end="${pageMaker.endPage}">
-					<a href='/pet/admin/member/member_list.do?page=${p }&stype=${param.stype}&sword=${param.sword}&gender=${param.gender}&level=${param.level}&level_order=${param.level_order}&out=${param.out}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}'
+					<a href='/pet/admin/member/member_list.do?page=${p }&stype=${param.stype}&sword=${param.sword}&level_order=${param.level_order}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}<c:if test="${param.gender !=null}">&gender=${param.gender}</c:if><c:if test="${param.level !=null}">&level=${param.level}</c:if><c:if test="${param.out !=null}">&out=${param.out}</c:if>'
 						class='pagenum <c:if test="${boardVO.page == p }"> currentpage</c:if>'>${p }</a>
 				</c:forEach>
 				<c:if test="${pageMaker.next == true }">
-					<a class="nextpage pbtn" href="/pet/admin/member/member_list.do?page=${pageMaker.endPage +1}&stype=${param.stype}&sword=${param.sword}&gender=${param.gender}&level=${param.level}&level_order=${param.level_order}&out=${param.out}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}">
+					<a class="nextpage pbtn" href="/pet/admin/member/member_list.do?page=${pageMaker.endPage +1}&stype=${param.stype}&sword=${param.sword}&level_order=${param.level_order}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}<c:if test="${param.gender !=null}">&gender=${param.gender}</c:if><c:if test="${param.level !=null}">&level=${param.level}</c:if><c:if test="${param.out !=null}">&out=${param.out}</c:if>">
 					<img src="/pet/img/btn_nextpage.png" alt="다음 페이지로 이동">
 					</a>
 				</c:if>
 				<a style="cursor: pointer"  
 			    	class="lastpage pbtn" 
-			    	 href="/pet/admin/member/member_list.do?page=${pageMaker.totalPage}&stype=${param.stype}&sword=${param.sword}&gender=${param.gender}&level=${param.level}&level_order=${param.level_order}&out=${param.out}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}">
+			    	 href="/pet/admin/member/member_list.do?page=${pageMaker.totalPage}&stype=${param.stype}&sword=${param.sword}&level_order=${param.level_order}&dateType=${param.dateType}&fromDate=${param.fromDate}&toDate=${param.toDate}&board_count=${param.board_count}&board_order=${param.board_order}&reply_count=${param.reply_count}&reply_order=${param.reply_order}<c:if test="${param.gender !=null}">&gender=${param.gender}</c:if><c:if test="${param.level !=null}">&level=${param.level}</c:if><c:if test="${param.out !=null}">&out=${param.out}</c:if>">
 			        <img src="/pet/img/btn_lastpage.png" alt="마지막 페이지 이동">
 			    </a>
 			</div>
