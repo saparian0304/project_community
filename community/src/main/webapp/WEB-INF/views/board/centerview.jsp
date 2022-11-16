@@ -263,9 +263,11 @@ $(document).ready(function(){
 							</span>
 						</div>
 						&emsp;&emsp;
-						<div class="content" style="text-align: center">
+						<div class="content" style="text-align: left">
 							<dl>
-								<dt style="height: 200px">&emsp;&emsp;${data.content }</dt>
+								<dt>이름 : &emsp;${data.title }</dt>
+								<dt>전화번호 : &emsp;${data.tel }</dt>
+								<dt> 주소 : &emsp;${data.addr2 }</dt>
 							</dl>
 						</div>
 

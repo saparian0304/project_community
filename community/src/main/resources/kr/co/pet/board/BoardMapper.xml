@@ -136,7 +136,10 @@
 			) as nickname,
 			(select admin_no from admin
 				where admin_no != null
-			) as admin_no
+			) as admin_no,
+			(select addr2 from location
+				where board.board_no = location.board_no
+			) as addr2
 		from board WHERE board_no = #{board_no}
 	</select>
 	
