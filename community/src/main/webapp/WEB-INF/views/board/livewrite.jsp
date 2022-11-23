@@ -57,8 +57,6 @@
                                 <%-- 주소1(구군), 주소2(입력한 상세주소), 위도, 경도 --%>
 						        주소 : <input type = "text" name = "addr" />
 						        상세주소 : <input type = "text" name = "addr2" /> 
-						        위도 : <input type = "text" name = "gps_x" />
-						        경도 : <input type = "text" name = "gps_y" /> 
                             </td>
                         </tr>
                         

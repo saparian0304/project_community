@@ -16,10 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-
 import kr.co.pet.admin.AdminBoardVO;
+import kr.co.pet.admin.AdminMemberVO;
+import kr.co.pet.admin.AdminService;
 import kr.co.pet.board.api.ApiService;
 import kr.co.pet.bookmark.BookmarkService;
 import kr.co.pet.center.CenterService;
@@ -65,6 +64,9 @@ public class BoardController {
 	
 	@Autowired
 	MemberService mService;
+	
+	@Autowired
+	AdminService adservice;
 	
 	@GetMapping("/main.do")
 	public String index(Model model, BoardVO vo, HttpSession sess) {
@@ -213,13 +215,19 @@ public class BoardController {
 	}
 	@GetMapping("/liveview.do")
 	public String liveview(BoardVO vo, Model model, HttpSession sess) {
-	
+		MemberVO loginInfo = (MemberVO)sess.getAttribute("loginInfo");
+		if(loginInfo ==null && vo.getAdmin_no() == 1) {
+			vo.setAdmin_no(1);
+		}
+		
 		BoardVO data = service.view(vo.getBoard_no());
 		model.addAttribute("data", data);
 		List fdata = fservice.find(vo.getBoard_no());
 		model.addAttribute("fdata", fdata);
 		LocVO ldata = lservice.view(vo.getBoard_no());
 		model.addAttribute("ldata", ldata);
+		
+		
 		
 		model.addAttribute("recdata", recService.recommend(vo.getBoard_no(), 0, sess));
 		model.addAttribute("bookdata", bService.bookmarked(vo, sess));
@@ -423,7 +431,16 @@ public class BoardController {
 	}
 	
 	@GetMapping("/admin/liveedit.do")
-	public String liveedit(BoardVO vo, FileVO fvo, LocVO lvo, Model model) {
+	public String liveedit(BoardVO vo, FileVO fvo, LocVO lvo, Model model, HttpSession sess, AdminBoardVO avo) {
+		MemberVO loginInfo = (MemberVO)sess.getAttribute("loginInfo");		
+		if(loginInfo !=null) {
+			vo.setLoginNO(loginInfo.getMember_no());
+		}
+		AdminBoardVO adminInfo = (AdminBoardVO)sess.getAttribute("loginInfo");		
+		if(adminInfo !=null) {
+			vo.setLoginNO(adminInfo.getMember_no());
+		}
+		
 		BoardVO data = service.edit(vo.getBoard_no());
 		model.addAttribute("data", data);
 		
