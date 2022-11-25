@@ -53,8 +53,6 @@
                             <td>
 						        주소1 : <input type = "text" name = "addr" value="${ldata.addr }"/>
 						        주소2 : <input type = "text" name = "addr2" value="${ldata.addr2 }"/> 
-						        위도 : <input type = "text" name = "gps_x" value="${ldata.gps_x }"/>
-						        경도 : <input type = "text" name = "gps_y" value="${ldata.gps_y }"/> 
                             </td>
                         </tr>
                         <tr>
