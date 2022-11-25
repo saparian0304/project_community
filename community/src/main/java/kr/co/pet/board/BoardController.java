@@ -215,10 +215,6 @@ public class BoardController {
 	}
 	@GetMapping("/liveview.do")
 	public String liveview(BoardVO vo, Model model, HttpSession sess) {
-		MemberVO loginInfo = (MemberVO)sess.getAttribute("loginInfo");
-		if(loginInfo ==null && vo.getAdmin_no() == 1) {
-			vo.setAdmin_no(1);
-		}
 		
 		BoardVO data = service.view(vo.getBoard_no());
 		model.addAttribute("data", data);

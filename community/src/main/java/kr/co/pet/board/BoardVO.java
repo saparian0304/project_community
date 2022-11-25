@@ -49,5 +49,5 @@ public class BoardVO extends Criteria {
 	
 	private String sort;
 	private String order;
-	private int admin_no;
+//	private int admin_no;
 }
