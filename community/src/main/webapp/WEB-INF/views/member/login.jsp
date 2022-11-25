@@ -50,7 +50,7 @@
                                     <li><input type="password" id="pwd1" name="pwd" placeholder="비밀번호"></li>
                                 </ul>
 								    <li>
-								      <a class="btn" id="snsCheck" href="https://kauth.kakao.com/oauth/authorize?client_id=559a5c15295281d3e0cf6c7390c0d790&redirect_uri=http://localhost:8080/pet/member/loginBySns.do&response_type=code">
+								      <a class="btn" id="snsCheck" href="https://kauth.kakao.com/oauth/authorize?client_id=559a5c15295281d3e0cf6c7390c0d790&redirect_uri=http://3.39.57.179:8080/pet/member/loginBySns.do&response_type=code">
 								          <span>카카오 로그인 / 간편가입</span>
 								      </a>
 									</li>
