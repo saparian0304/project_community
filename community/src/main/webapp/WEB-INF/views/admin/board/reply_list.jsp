@@ -100,7 +100,6 @@ function dis(){
 				<input type="hidden" id="order" name="order" value="${param.order }">
 				
 				<div>
-				
 				<input type="button" class="detailbtn" onclick="javascript:dis();" value="상세 조건">
 				&emsp;&emsp;
 				<select name="stype">

@@ -182,7 +182,7 @@ public class MemberServiceImpl implements MemberService {
 			sb.append("grant_type=authorization_code");
 
 			sb.append("&client_id=559a5c15295281d3e0cf6c7390c0d790"); // 본인이 발급받은 key
-			sb.append("&redirect_uri=http://localhost:8080/pet/member/loginBySns.do"); // 본인이 설정한 주소
+			sb.append("&redirect_uri=http://3.39.57.179:8080/pet/member/loginBySns.do"); // 본인이 설정한 주소
 
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
